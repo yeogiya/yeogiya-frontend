@@ -1,0 +1,12 @@
+name: "feat ✨"
+description: "new feature"
+labels: "feat ✨"
+body:
+  - type: textarea
+    attributes:
+      label: 구현 기능 ✅
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: 참고 🚨
