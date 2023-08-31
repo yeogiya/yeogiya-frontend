@@ -1,6 +1,6 @@
-name: "feat ✨"
+name: "chore 🛠️"
 description: "new feature"
-labels: "feat ✨"
+labels: "chore 🛠️"
 body:
   - type: textarea
     attributes:

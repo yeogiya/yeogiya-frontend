@@ -1,6 +1,6 @@
-name: "feat ✨"
+name: "refac ♻️"
 description: "new feature"
-labels: "feat ✨"
+labels: "refac ♻️"
 body:
   - type: textarea
     attributes:

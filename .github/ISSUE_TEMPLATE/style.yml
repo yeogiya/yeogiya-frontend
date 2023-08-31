@@ -1,6 +1,6 @@
-name: "feat ✨"
+name: "style 💄"
 description: "new feature"
-labels: "feat ✨"
+labels: "style 💄"
 body:
   - type: textarea
     attributes:
