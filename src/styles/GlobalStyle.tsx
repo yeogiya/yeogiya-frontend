@@ -1,6 +1,8 @@
-import { css } from "styled-components";
+import { Global, css } from "@emotion/react";
 
-const globalStyle = css`
+import theme from "./theme";
+
+const global = () => css`
   button {
     border: none;
     background-color: #888;
@@ -12,7 +14,7 @@ const globalStyle = css`
     box-sizing: border-box;
     padding: 0;
     margin: 0;
-    font-family: Noto Sans KR;
+    font-family: ${theme.font.body};
   }
 
   html {
@@ -27,4 +29,8 @@ const globalStyle = css`
   }
 `;
 
-export default globalStyle;
+const GlobalStyle = () => {
+  return <Global styles={global} />;
+};
+
+export default GlobalStyle;

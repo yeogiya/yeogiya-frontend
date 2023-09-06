@@ -1,5 +1,6 @@
 import React, { InputHTMLAttributes } from "react";
-import { css, styled } from "styled-components";
+
+import styled from "@emotion/styled";
 
 interface InputUserProps extends InputHTMLAttributes<HTMLElement> {
   placeholder: string;
