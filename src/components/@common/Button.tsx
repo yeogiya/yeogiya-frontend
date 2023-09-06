@@ -1,43 +1,44 @@
-import React from "react";
-import { styled } from "styled-components";
+import React, { ButtonHTMLAttributes } from "react";
 
-export interface ButtonProps {
-  type: string;
+import styled from "@emotion/styled";
+
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  type: "button" | "reset" | "submit" | undefined;
   text?: string;
-  $background: string;
+  background: string;
   color?: string;
-  $gridGap?: string;
+  gridGap?: string;
   icon?: React.ReactNode;
-  $border?: string;
+  border?: string;
   padding?: string;
   display?: string;
   alignItems?: string;
-  $justifyContent?: string;
+  justifyContent?: string;
 }
 
-const Button = ({ type, text, icon, ...props }: ButtonProps) => {
+const Button = ({ type, icon, text, ...props }: ButtonProps) => {
   return (
-    <ButtonWrapper type={type} {...props}>
+    <StyledButton type={type} {...props}>
       {icon}
       {text}
-    </ButtonWrapper>
+    </StyledButton>
   );
 };
 
-export default Button;
-
-const ButtonWrapper = styled.button<ButtonProps>`
+const StyledButton = styled.button<ButtonProps>`
   cursor: pointer;
   width: 100%;
   border-radius: 7px;
   font-weight: 400;
   font-size: 1rem;
-  background: ${(props) => props?.$background};
-  border: ${(props) => props?.$border};
-  grid-gap: ${(props) => props?.$gridGap || "62px"};
-  color: ${(props) => props?.color || "#fff"};
-  padding: ${(props) => props.padding || "12px 0px"};
-  display: ${(props) => props.display || "flex"};
-  align-items: ${(props) => props.alignItems || "center"};
-  justify-content: ${(props) => props.$justifyContent};
+  background: ${({ background }) => background && background};
+  border: ${({ border }) => border && border};
+  grid-gap: ${({ gridGap }) => gridGap || "62px"};
+  color: ${({ color }) => color || "#fff"};
+  padding: ${({ padding }) => padding || "12px 0px"};
+  display: ${({ display }) => display || "flex"};
+  align-items: ${({ alignItems }) => alignItems || "center"};
+  justify-content: ${({ justifyContent }) => justifyContent};
 `;
+
+export default Button;

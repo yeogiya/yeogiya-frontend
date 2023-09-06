@@ -5,16 +5,23 @@ const meta = {
   title: "@common/Button",
   component: Button,
   tags: ["autodocs"],
-  argTypes: {
-    text: { control: "text" },
-  },
+  decorators: [
+    (Story, { parameters }) => (
+      <div style={{ width: "328px", padding: "13px 80px" }}>
+        <Story />
+      </div>
+    ),
+  ],
 } satisfies Meta<typeof Button>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Primary: Story = {
+export const Default: Story = {
   args: {
-    text: "Primary",
+    type: "button",
+    text: "Default",
+    background: "black",
+    justifyContent: "center",
   },
 };

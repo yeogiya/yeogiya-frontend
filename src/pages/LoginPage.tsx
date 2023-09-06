@@ -1,12 +1,13 @@
-import GoogleLogo from "@/assets/GoogleLogo";
-import KakaoLogo from "@/assets/KakaoLogo";
 import Button, { ButtonProps } from "@/components/@common/Button";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
+
+import GoogleLogo from "@/assets/GoogleLogo";
 import HeadingText from "@/components/@common/HeadingText";
 import InputUser from "@/components/@common/InputUser";
+import KakaoLogo from "@/assets/KakaoLogo";
 import Layout from "@/components/@common/Layout";
 import LinkText from "@/components/@common/LinkText";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { styled } from "styled-components";
+import styled from "@emotion/styled";
 
 interface LoginProps {
   id: string;
@@ -69,8 +70,8 @@ const LoginPage = () => {
         <LoginButton
           type="submit"
           text="로그인"
-          $background="#614AD3"
-          $justifyContent="center"
+          background="#614AD3"
+          justifyContent="center"
         />
       </form>
 
@@ -84,18 +85,18 @@ const LoginPage = () => {
       <LoginButton
         type="submit"
         text="Google로 로그인"
-        $background="#fff"
-        $border="1px solid #CCC;"
-        $gridGap="80px"
+        background="#fff"
+        border="1px solid #CCC;"
+        gridGap="80px"
         color="#000000"
         icon={<GoogleLogo />}
       />
       <LoginButton
         type="submit"
         text="카카오로 로그인"
-        $background="#FEE500"
+        background="#FEE500"
         color="#000000"
-        $gridGap="82px"
+        gridGap="82px"
         icon={<KakaoLogo />}
       />
     </Layout>
