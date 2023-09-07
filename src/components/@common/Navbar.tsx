@@ -1,10 +1,12 @@
 import YeogiyaLogo from "@/assets/YeogiyaLogo";
 import styled from "@emotion/styled";
+import Menu from "./Menu";
 
 const Navbar = () => {
   return (
     <StyledNavbar>
       <YeogiyaLogo />
+      <Menu />
     </StyledNavbar>
   );
 };
