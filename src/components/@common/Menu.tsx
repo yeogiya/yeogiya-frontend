@@ -1,39 +1,54 @@
+import theme from "@/styles/theme";
 import LinkText from "./LinkText";
 import { MENU_ITEM } from "@/utils/menu";
+import { PATH } from "@/utils/routes";
 import styled from "@emotion/styled";
 
-interface MenuProps {
-  gridGap?: `${number}px`;
-}
+const Menu = () => {
+  const getLinkStyles = (menuPath: string) => {
+    const matchPath = menuPath === PATH.JOIN || menuPath === PATH.LOGIN;
+    return {
+      fontWeight: matchPath ? 700 : 400,
+      marginRight: matchPath ? "0" : "50px",
+    };
+  };
 
-const Menu = ({ ...props }: MenuProps) => {
   return (
     <MenuItem>
-      {MENU_ITEM.map((menu) => {
-        return (
+      {MENU_ITEM.map((menu, index) => (
+        <>
           <LinkText
             key={`${menu} + ${menu.path}`}
             to={`${menu.path}`}
-            {...props}
+            css={getLinkStyles(menu.path)}
           >
             {menu.title}
           </LinkText>
-        );
-      })}
+          {index < MENU_ITEM.length - 1 &&
+            (menu.path === PATH.JOIN || menu.path === PATH.LOGIN) && (
+              <span>/</span>
+            )}
+        </>
+      ))}
     </MenuItem>
   );
 };
 
-const MenuItem = styled.ul<MenuProps>`
+const MenuItem = styled.ul`
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
   display: flex;
-  grid-gap: ${({ gridGap }) => gridGap || "50px"};
+  align-items: center;
 
   a {
-    color: #111;
+    color: ${theme.color.black90};
+  }
+
+  span {
+    font-weight: 400;
+    margin: 0 3px;
   }
 `;
 export default Menu;
