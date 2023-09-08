@@ -5,7 +5,7 @@ import styled from "@emotion/styled";
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   type: "button" | "reset" | "submit" | undefined;
   text?: string;
-  background: string;
+  background?: string;
   color?: string;
   gridGap?: string;
   icon?: React.ReactNode;
@@ -31,7 +31,7 @@ const StyledButton = styled.button<ButtonProps>`
   border-radius: 7px;
   font-weight: 400;
   font-size: 1rem;
-  background: ${({ background }) => background && background};
+  background: ${({ background }) => (background && background) || "inherit"};
   border: ${({ border }) => border && border};
   grid-gap: ${({ gridGap }) => gridGap || "62px"};
   color: ${({ color }) => color || "#fff"};
