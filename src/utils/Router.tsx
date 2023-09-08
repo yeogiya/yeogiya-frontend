@@ -7,6 +7,7 @@ import LoginPage from "@/pages/LoginPage";
 import GlobalStyle from "@/styles/GlobalStyle";
 import { ThemeProvider } from "@emotion/react";
 import theme from "@/styles/theme";
+import JoinPage from "@/pages/JoinPage";
 
 export const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ export const router = createBrowserRouter([
       {
         path: PATH.LOGIN,
         element: <LoginPage />,
+      },
+      {
+        path: PATH.JOIN,
+        element: <JoinPage />,
       },
     ],
   },
