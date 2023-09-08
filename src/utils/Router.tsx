@@ -1,12 +1,12 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { ThemeProvider } from "styled-components";
 import { PATH } from "./routes";
 import App from "@/App";
 import theme from "@/styles/theme";
 import ErrorPage from "@/pages/ErrorPage";
 import LandingPage from "@/pages/LandingPage";
 import LoginPage from "@/pages/LoginPage";
-import GlobalStyle from "@/components/@common/GlobalStyle";
+import { ThemeProvider } from "@emotion/react";
+import GlobalStyle from "@/styles/GlobalStyle";
 
 export const router = createBrowserRouter([
   {
