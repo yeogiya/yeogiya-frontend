@@ -1,12 +1,13 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { PATH } from "./routes";
 import App from "@/App";
-import theme from "@/styles/theme";
 import ErrorPage from "@/pages/ErrorPage";
 import LandingPage from "@/pages/LandingPage";
 import LoginPage from "@/pages/LoginPage";
-import { ThemeProvider } from "@emotion/react";
 import GlobalStyle from "@/styles/GlobalStyle";
+import { ThemeProvider } from "@emotion/react";
+import theme from "@/styles/theme";
+import JoinPage from "@/pages/JoinPage";
 
 export const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ export const router = createBrowserRouter([
       {
         path: PATH.LOGIN,
         element: <LoginPage />,
+      },
+      {
+        path: PATH.JOIN,
+        element: <JoinPage />,
       },
     ],
   },

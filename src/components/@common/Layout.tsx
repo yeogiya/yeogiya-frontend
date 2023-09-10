@@ -15,7 +15,7 @@ const Layout = ({ children }: LayoutProps) => {
 
 const LayoutContainer = styled.div`
   width: 100vw;
-  height: 100vh;
+  height: calc(100vh - 92px);
   display: flex;
   justify-content: center;
   align-items: center;

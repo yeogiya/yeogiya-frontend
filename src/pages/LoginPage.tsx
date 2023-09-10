@@ -1,13 +1,12 @@
 import Button, { ButtonProps } from "@/components/@common/Button";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-
 import GoogleLogo from "@/assets/GoogleLogo";
-import HeadingText from "@/components/@common/HeadingText";
 import InputUser from "@/components/@common/InputUser";
 import KakaoLogo from "@/assets/KakaoLogo";
 import Layout from "@/components/@common/Layout";
 import LinkText from "@/components/@common/LinkText";
 import styled from "@emotion/styled";
+import Title from "@/components/@common/Title";
 
 interface LoginProps {
   id: string;
@@ -104,12 +103,6 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
-
-const Title = styled(HeadingText)`
-  margin: 30px 0;
-  display: flex;
-  justify-content: center;
-`;
 
 const LoginButton = styled(Button)<ButtonProps>`
   margin-top: 20px;
