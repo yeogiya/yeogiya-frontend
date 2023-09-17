@@ -1,12 +1,7 @@
 import InputUser from "@/components/@common/InputUser";
 import Layout from "@/components/@common/Layout";
 import Title from "@/components/@common/Title";
-import {
-  Controller,
-  FieldErrors,
-  SubmitHandler,
-  useForm,
-} from "react-hook-form";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import styled from "@emotion/styled";
 import Button, { ButtonProps } from "@/components/@common/Button";
 import { Dispatch, SetStateAction, useState } from "react";
@@ -20,6 +15,8 @@ interface JoinProps {
   password: string;
   passwordType: string;
   confirmPassword: string;
+  confirmEmail: boolean;
+  confirmId: boolean;
   setPasswordType: Dispatch<SetStateAction<string>>;
   setConfirmPassword: Dispatch<SetStateAction<string>>;
 }
@@ -29,11 +26,14 @@ const JoinPage = () => {
   const [confirmPassword, setConfirmPassword] = useState<string>("password");
   const [emailVerification, setEmailVerification] = useState(false);
   const [idVerification, setIdVerification] = useState(false);
+  const [activeColor, setActiveColor] = useState("#d7d7d7");
+  const [idActiveColor, setIdActiveColor] = useState("#d7d7d7");
+
   const {
     control,
     handleSubmit,
     getValues,
-    formState: { errors, isValid },
+    formState: { errors },
     watch,
     setError,
     clearErrors,
@@ -44,8 +44,6 @@ const JoinPage = () => {
   const onSubmit: SubmitHandler<JoinProps> = (data) => {
     console.log(data);
   };
-
-  // console.log(Object.keys(errors), "errors");
 
   const handleDuplicateCheck = (type: "email" | "id") => {
     const email = watch("email");
@@ -103,12 +101,12 @@ const JoinPage = () => {
               value: /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i,
               message: "이메일 형식이 잘못 되었습니다.",
             },
-            // validate: () => {
-            //   return !emailVerification && "이메일 중복 확인을 해주세요";
-            // },
+            validate: () => {
+              if (!emailVerification) return "이메일 중복 확인을 해주세요";
+              return true;
+            },
           }}
           render={({ field: { onChange, value } }) => {
-            const [activeColor, setActiveColor] = useState(value && "#000");
             return (
               <>
                 <InputUser
@@ -124,8 +122,25 @@ const JoinPage = () => {
                   activeColor={activeColor}
                   // value={value || ""}
                 />
+              </>
+            );
+          }}
+        />
+        <Controller
+          control={control}
+          name="confirmEmail"
+          rules={{
+            required: "이메일 중복 확인을 해주세요",
+          }}
+          render={({ field: { onChange } }) => {
+            return (
+              <>
                 <CheckButton
-                  onClick={() => handleDuplicateCheck("email")}
+                  onClick={() => {
+                    onChange(true);
+                    handleDuplicateCheck("email");
+                    setEmailVerification(true);
+                  }}
                   type="button"
                   text="중복확인"
                   activeColor={activeColor}
@@ -134,17 +149,15 @@ const JoinPage = () => {
             );
           }}
         />
-        {errors?.email?.message && (
+        {
           <ValditateMessage
-            color={
-              errors.email.message !== "사용 가능한 이메일입니다"
-                ? "error"
-                : "success"
-            }
+            color={errors.email || errors.confirmEmail ? "error" : "success"}
           >
-            {errors?.email?.message}
+            {errors?.email?.message ||
+              errors?.confirmEmail?.message ||
+              (emailVerification && "사용 가능한 이메일입니다")}
           </ValditateMessage>
-        )}
+        }
         <Controller
           control={control}
           name="id"
@@ -156,7 +169,6 @@ const JoinPage = () => {
             },
           }}
           render={({ field: { onChange, value } }) => {
-            const [activeColor, setActiveColor] = useState(value && "#000");
             return (
               <>
                 <InputUser
@@ -167,28 +179,46 @@ const JoinPage = () => {
                       getValues("email") !== watch("email") && false
                     );
                     onChange(e.target.value);
-                    setActiveColor(e.target.value && "#000");
+                    setIdActiveColor(e.target.value && "#000");
                   }}
                   value={value || ""}
-                  onFocus={() => setActiveColor("#000")}
-                  onBlur={() => !value && setActiveColor("#D9D9D9")}
-                  activeColor={activeColor}
+                  onFocus={() => setIdActiveColor("#000")}
+                  onBlur={() => !value && setIdActiveColor("#D9D9D9")}
+                  activeColor={idActiveColor}
                 />
+              </>
+            );
+          }}
+        />
+        <Controller
+          control={control}
+          name="confirmId"
+          rules={{
+            required: "아이디 중복 확인을 해주세요",
+          }}
+          render={({ field: { onChange } }) => {
+            return (
+              <>
                 <CheckButton
-                  onClick={() => handleDuplicateCheck("id")}
+                  onClick={() => {
+                    onChange(true);
+                    handleDuplicateCheck("id");
+                    setIdVerification(true);
+                  }}
                   type="button"
                   text="중복확인"
-                  activeColor={activeColor}
+                  activeColor={idActiveColor}
                 />
               </>
             );
           }}
         />
         <ValditateMessage
-          color={errors.id && idVerification ? "success" : "error"}
+          color={errors.id || errors.confirmId ? "error" : "success"}
         >
-          {/* <ValditateMessage color={errors.id && idVerification}> */}
-          {errors?.id?.message}
+          {errors?.id?.message ||
+            errors?.confirmId?.message ||
+            (idVerification && "사용 가능한 아이디입니다")}
         </ValditateMessage>
         <Controller
           control={control}
@@ -272,7 +302,6 @@ const JoinPage = () => {
             </ValditateMessage>
           )
         )}
-
         <Controller
           control={control}
           name="confirmPassword"
