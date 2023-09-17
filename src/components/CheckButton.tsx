@@ -1,10 +1,12 @@
 import styled from "@emotion/styled";
 import Button from "./@common/Button";
 
-const CheckButton = styled(Button)`
-  color: #d9d9d9;
+const CheckButton = styled(Button)<{ activeColor: string }>`
+  border: 1px solid ${({ activeColor }) => activeColor || "#D9D9D9"};
+  color: ${({ activeColor }) => activeColor || "#D9D9D9"};
+  /* color: #d9d9d9; */
+  /* border: 1px solid #d9d9d9; */
   border-radius: 16px;
-  border: 1px solid #d9d9d9;
   width: 69px;
   height: 28px;
   font-size: 0.75rem;

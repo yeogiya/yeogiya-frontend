@@ -1,7 +1,5 @@
 import React, { InputHTMLAttributes } from "react";
-
 import styled from "@emotion/styled";
-import Button from "./Button";
 
 interface InputUserProps extends InputHTMLAttributes<HTMLElement> {
   placeholder?: string;
@@ -9,6 +7,8 @@ interface InputUserProps extends InputHTMLAttributes<HTMLElement> {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   name?: string;
   icon?: React.ReactNode;
+  activeColor?: string;
+  type: string;
 }
 const InputUser = ({
   placeholder,
@@ -16,6 +16,8 @@ const InputUser = ({
   labelText,
   name,
   icon,
+  activeColor,
+  type,
   ...props
 }: InputUserProps) => {
   return (
@@ -24,7 +26,13 @@ const InputUser = ({
         <Label htmlFor={name}>{labelText}</Label>
       </LabelWrapper>
       <InputContainer>
-        <Input placeholder={placeholder} onChange={onChange} {...props} />
+        <Input
+          activeColor={activeColor}
+          placeholder={placeholder}
+          onChange={onChange}
+          type={type}
+          {...props}
+        />
         {icon && <button type="button">{icon}</button>}
       </InputContainer>
     </InputWrapper>
@@ -63,13 +71,13 @@ const Label = styled.label`
   color: #111111;
 `;
 
-const Input = styled.input`
+const Input = styled.input<{ activeColor?: string }>`
   width: 328px;
   height: 48px;
   margin-top: 5px;
   border-radius: 7px;
-  border: 1px solid #d9d9d9;
+  border: 1px solid ${({ activeColor }) => activeColor || "#D9D9D9"};
   padding: 13px 12px;
-  color: #747474;
+  color: #111111;
   font-size: 0.9375rem;
 `;
