@@ -2,9 +2,8 @@ const STATIC = {
   HOME: "/",
   LOGIN: "/login",
   JOIN: "/join",
-  CATEGORY_1: "/category1",
-  CATEGORY_2: "/category2",
-  CATEGORY_3: "/category3",
+  DIARY_WRITING: "/diary/writing",
+  DIARY_READING: "/diary/reading",
 };
 
 const DYNAMIC = {};

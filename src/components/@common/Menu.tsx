@@ -1,12 +1,12 @@
 import theme from "@/styles/theme";
 import LinkText from "./LinkText";
-import { MENU_ITEM } from "@/utils/menu";
+import { MENU_ITEM } from "@/utils/menus";
 import { PATH } from "@/utils/routes";
 import styled from "@emotion/styled";
 
 const Menu = () => {
-  const getLinkStyles = (menuPath: string) => {
-    const matchPath = menuPath === PATH.JOIN || menuPath === PATH.LOGIN;
+  const getLinkStyles = (type: string) => {
+    const matchPath = type === "member";
     return {
       fontWeight: matchPath ? 700 : 400,
       marginRight: matchPath ? "0" : "50px",
@@ -15,20 +15,11 @@ const Menu = () => {
 
   return (
     <MenuItem>
-      {MENU_ITEM.map((menu, index) => (
-        <>
-          <LinkText
-            key={`${menu} + ${menu.path}`}
-            to={`${menu.path}`}
-            css={getLinkStyles(menu.path)}
-          >
-            {menu.title}
-          </LinkText>
-          {index < MENU_ITEM.length - 1 &&
-            (menu.path === PATH.JOIN || menu.path === PATH.LOGIN) && (
-              <span>/</span>
-            )}
-        </>
+      {MENU_ITEM.map((menu) => (
+        <li key={`${menu.type}_${menu.title}`} css={getLinkStyles(menu.type)}>
+          <LinkText to={`${menu.path}`}>{menu.title}</LinkText>
+          {menu.path === PATH.JOIN && <span>/</span>}
+        </li>
       ))}
     </MenuItem>
   );
@@ -41,6 +32,15 @@ const MenuItem = styled.ul`
   line-height: normal;
   display: flex;
   align-items: center;
+
+  li {
+    display: flex;
+    list-style: none;
+    align-items: center;
+    font-size: 16px;
+    font-style: normal;
+    line-height: normal;
+  }
 
   a {
     color: ${theme.color.black90};
