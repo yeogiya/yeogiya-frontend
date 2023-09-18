@@ -2,7 +2,7 @@ import Button from "@/components/@common/Button";
 import type { Meta, StoryObj } from "@storybook/react";
 
 const meta = {
-  title: "@common/Button",
+  title: "components/@common/Button",
   component: Button,
   tags: ["autodocs"],
   decorators: [
@@ -18,10 +18,20 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
+  render: (args) => {
+    return <Button {...args} />;
+  },
   args: {
     type: "button",
     text: "Default",
     background: "black",
     justifyContent: "center",
+  },
+  argTypes: {
+    type: {
+      control: {
+        type: "button",
+      },
+    },
   },
 };
