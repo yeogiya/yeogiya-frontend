@@ -1,14 +1,27 @@
 import YeogiyaLogo from "@/assets/YeogiyaLogo";
 import styled from "@emotion/styled";
 import Menu from "@/components/@common/Menu";
-import Search from "@/components/Search";
+import SearchBar from "@/components/SearchBar";
+import { useState } from "react";
 
 const Navbar = () => {
+  const [searchValue, setSearchValue] = useState("");
+
+  const handleSearch = () => {
+    if (searchValue === "") return;
+
+    // API
+  };
+
   return (
     <StyledNavbar>
       <StyledWrapper>
         <YeogiyaLogo />
-        <Search />
+        <SearchBar
+          value={searchValue}
+          setValue={setSearchValue}
+          onClick={handleSearch}
+        />
       </StyledWrapper>
       <Menu />
     </StyledNavbar>

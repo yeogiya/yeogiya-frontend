@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import React, { CSSProperties } from "react";
+import { CSSProperties } from "react";
 import styled from "@emotion/styled";
 
 interface LinkTextProps {
