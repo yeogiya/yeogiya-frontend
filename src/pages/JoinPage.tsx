@@ -33,9 +33,10 @@ const JoinPage = () => {
     control,
     handleSubmit,
     getValues,
-    formState: { errors },
+    formState: { errors, isDirty, isValid },
     watch,
     setError,
+    setValue,
     clearErrors,
   } = useForm<JoinProps>({
     mode: "onChange",
@@ -44,6 +45,7 @@ const JoinPage = () => {
   const onSubmit: SubmitHandler<JoinProps> = (data) => {
     console.log(data);
   };
+
 
   const handleDuplicateCheck = (type: "email" | "id") => {
     const email = watch("email");
@@ -106,21 +108,22 @@ const JoinPage = () => {
               return true;
             },
           }}
-          render={({ field: { onChange, value } }) => {
+          render={({ field: { onChange, value,  } }) => {
             return (
               <>
                 <InputUser
                   type="text"
                   labelText="이메일"
                   onChange={(e) => {
-                    setEmailVerification(false);
+                    setValue('confirmEmail', false, {
+                      shouldValidate: true
+                    })
                     onChange(e.target.value);
                     setActiveColor(e.target.value && "#000");
                   }}
                   onFocus={() => setActiveColor("#000")}
                   onBlur={() => !value && setActiveColor("#D9D9D9")}
                   activeColor={activeColor}
-                  // value={value || ""}
                 />
               </>
             );
@@ -137,10 +140,10 @@ const JoinPage = () => {
               <>
                 <CheckButton
                   onClick={() => {
-                    onChange(true);
-                    handleDuplicateCheck("email");
-                    setEmailVerification(true);
-                  }}
+                    handleDuplicateCheck("email")
+                    setEmailVerification(true)
+                    onChange(true)}
+                  }
                   type="button"
                   text="중복확인"
                   activeColor={activeColor}
@@ -175,9 +178,9 @@ const JoinPage = () => {
                   type="text"
                   labelText="아이디"
                   onChange={(e) => {
-                    setIdVerification(
-                      getValues("email") !== watch("email") && false
-                    );
+                    setValue('confirmId', false, {
+                      shouldValidate: true
+                    })
                     onChange(e.target.value);
                     setIdActiveColor(e.target.value && "#000");
                   }}
@@ -358,7 +361,7 @@ const JoinPage = () => {
           type="submit"
           text="회원가입 완료"
           gridGap="80px"
-          background={Object.keys(errors).length === 0 ? "#614AD3" : "#d7d7d7"}
+          background={!isDirty || !isValid ?  "#d7d7d7" : "#614AD3"}
           justifyContent="center"
         />
       </Layout>
