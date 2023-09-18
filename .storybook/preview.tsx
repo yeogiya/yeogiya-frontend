@@ -1,8 +1,9 @@
+/** @jsxImportSource @emotion/react */
 import theme from "../src/styles/theme";
-import { ThemeProvider } from "styled-components";
+import { ThemeProvider } from "@emotion/react";
 import type { Preview } from "@storybook/react";
 import React from "react";
-import GlobalStyle from "../src/components/@common/GlobalStyle";
+import GlobalStyle from "../src/styles/GlobalStyle";
 
 export const preview: Preview = {
   parameters: {
@@ -25,6 +26,10 @@ export const preview: Preview = {
     },
     parameters: {
       controls: { expanded: true },
+      design: {
+        type: "figma",
+        url: "https://www.figma.com/file/PQ1U2oWvoMpTTX1oosDut0/%5B%EA%B8%B0%ED%9A%8D%5D-%EC%97%AC%EA%B8%B0%EC%95%BC?type=design&node-id=295%3A3391&mode=design&t=L9HCvoYCH0snfjh3-1",
+      },
     },
   },
 };
