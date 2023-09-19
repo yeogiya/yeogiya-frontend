@@ -4,6 +4,7 @@ const STATIC = {
   JOIN: "/join",
   DIARY_WRITING: "/diary/writing",
   DIARY_READING: "/diary/reading",
+  FIND_ID: '/findId'
 };
 
 const DYNAMIC = {};
