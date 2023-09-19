@@ -72,7 +72,8 @@ const Label = styled.label`
 `;
 
 const Input = styled.input<{ activeColor?: string }>`
-  width: 328px;
+  width: 100%;
+  min-width: 328px;
   height: 48px;
   margin-top: 5px;
   border-radius: 7px;
