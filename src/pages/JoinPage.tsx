@@ -3,10 +3,10 @@ import Layout from "@/components/@common/Layout";
 import Title from "@/components/@common/Title";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import styled from "@emotion/styled";
-import Button, { ButtonProps } from "@/components/@common/Button";
 import { Dispatch, SetStateAction, useState } from "react";
 import ConcealIcon from "@/assets/ConcealIcon";
 import CheckButton from "@/components/CheckButton";
+import BasicButton from "@/components/BasicButton";
 
 interface JoinProps {
   email: string;
@@ -45,7 +45,6 @@ const JoinPage = () => {
   const onSubmit: SubmitHandler<JoinProps> = (data) => {
     console.log(data);
   };
-
 
   const handleDuplicateCheck = (type: "email" | "id") => {
     const email = watch("email");
@@ -108,16 +107,16 @@ const JoinPage = () => {
               return true;
             },
           }}
-          render={({ field: { onChange, value,  } }) => {
+          render={({ field: { onChange, value } }) => {
             return (
               <>
                 <InputUser
                   type="text"
                   labelText="이메일"
                   onChange={(e) => {
-                    setValue('confirmEmail', false, {
-                      shouldValidate: true
-                    })
+                    setValue("confirmEmail", false, {
+                      shouldValidate: true,
+                    });
                     onChange(e.target.value);
                     setActiveColor(e.target.value && "#000");
                   }}
@@ -140,10 +139,10 @@ const JoinPage = () => {
               <>
                 <CheckButton
                   onClick={() => {
-                    handleDuplicateCheck("email")
-                    setEmailVerification(true)
-                    onChange(true)}
-                  }
+                    handleDuplicateCheck("email");
+                    setEmailVerification(true);
+                    onChange(true);
+                  }}
                   type="button"
                   text="중복확인"
                   activeColor={activeColor}
@@ -153,13 +152,13 @@ const JoinPage = () => {
           }}
         />
         {
-          <ValditateMessage
+          <ValidateMessage
             color={errors.email || errors.confirmEmail ? "error" : "success"}
           >
             {errors?.email?.message ||
               errors?.confirmEmail?.message ||
               (emailVerification && "사용 가능한 이메일입니다")}
-          </ValditateMessage>
+          </ValidateMessage>
         }
         <Controller
           control={control}
@@ -178,9 +177,9 @@ const JoinPage = () => {
                   type="text"
                   labelText="아이디"
                   onChange={(e) => {
-                    setValue('confirmId', false, {
-                      shouldValidate: true
-                    })
+                    setValue("confirmId", false, {
+                      shouldValidate: true,
+                    });
                     onChange(e.target.value);
                     setIdActiveColor(e.target.value && "#000");
                   }}
@@ -216,13 +215,13 @@ const JoinPage = () => {
             );
           }}
         />
-        <ValditateMessage
+        <ValidateMessage
           color={errors.id || errors.confirmId ? "error" : "success"}
         >
           {errors?.id?.message ||
             errors?.confirmId?.message ||
             (idVerification && "사용 가능한 아이디입니다")}
-        </ValditateMessage>
+        </ValidateMessage>
         <Controller
           control={control}
           name="nickname"
@@ -242,9 +241,9 @@ const JoinPage = () => {
             );
           }}
         />
-        <ValditateMessage color={!errors.nickname ? "success" : "error"}>
+        <ValidateMessage color={!errors.nickname ? "success" : "error"}>
           {errors?.nickname?.message}
-        </ValditateMessage>
+        </ValidateMessage>
         <Controller
           control={control}
           name="password"
@@ -288,7 +287,7 @@ const JoinPage = () => {
           }}
         />
         {errors?.password?.message ? (
-          <ValditateMessage
+          <ValidateMessage
             color={
               errors.password.message ===
               "영문+숫자+특수문자 조합 8~20자로 입력해주세요."
@@ -297,12 +296,12 @@ const JoinPage = () => {
             }
           >
             {errors?.password?.message}
-          </ValditateMessage>
+          </ValidateMessage>
         ) : (
           watch("password") && (
-            <ValditateMessage color="success">
+            <ValidateMessage color="success">
               사용 가능한 비밀번호입니다.
-            </ValditateMessage>
+            </ValidateMessage>
           )
         )}
         <Controller
@@ -340,7 +339,7 @@ const JoinPage = () => {
           }}
         />
         {errors?.confirmPassword?.message ? (
-          <ValditateMessage
+          <ValidateMessage
             color={
               errors.confirmPassword.message ===
               "비밀 번호가 일치하지 않습니다."
@@ -349,19 +348,19 @@ const JoinPage = () => {
             }
           >
             {errors?.confirmPassword?.message}
-          </ValditateMessage>
+          </ValidateMessage>
         ) : (
           watch("confirmPassword") && (
-            <ValditateMessage color="success">
+            <ValidateMessage color="success">
               비밀 번호가 일치합니다.
-            </ValditateMessage>
+            </ValidateMessage>
           )
         )}
-        <LoginButton
+        <BasicButton
           type="submit"
           text="회원가입 완료"
           gridGap="80px"
-          background={!isDirty || !isValid ?  "#d7d7d7" : "#614AD3"}
+          background={!isDirty || !isValid ? "#d7d7d7" : "#614AD3"}
           justifyContent="center"
         />
       </Layout>
@@ -371,12 +370,7 @@ const JoinPage = () => {
 
 export default JoinPage;
 
-const LoginButton = styled(Button)<ButtonProps>`
-  margin-top: 20px;
-  padding: 13px 18px;
-`;
-
-const ValditateMessage = styled.p<{ color: "default" | "success" | "error" }>`
+const ValidateMessage = styled.p<{ color: "default" | "success" | "error" }>`
   margin-top: 10px;
   font-size: 0.75rem;
   color: ${({ color }) =>

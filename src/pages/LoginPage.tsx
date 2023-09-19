@@ -75,9 +75,9 @@ const LoginPage = () => {
       </form>
 
       <ButtonContainer>
-        <LinkText to="">회원가입</LinkText>
+        <LinkText to="/join">회원가입</LinkText>
         <ButtonWrapper>
-          <LinkText to="">아이디 찾기 / </LinkText>
+          <LinkText to="/findId">아이디 찾기 / </LinkText>
           <LinkText to="">비밀번호 찾기</LinkText>
         </ButtonWrapper>
       </ButtonContainer>
