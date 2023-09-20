@@ -6,7 +6,8 @@ import styled from "@emotion/styled";
 import { Dispatch, SetStateAction, useState } from "react";
 import ConcealIcon from "@/assets/ConcealIcon";
 import CheckButton from "@/components/CheckButton";
-import BasicButton from "@/components/BasicButton";
+import DefaultButton from "@/components/DefaultButton";
+import theme from "@/styles/theme";
 
 interface JoinProps {
   email: string;
@@ -26,8 +27,8 @@ const JoinPage = () => {
   const [confirmPassword, setConfirmPassword] = useState<string>("password");
   const [emailVerification, setEmailVerification] = useState(false);
   const [idVerification, setIdVerification] = useState(false);
-  const [activeColor, setActiveColor] = useState("#d7d7d7");
-  const [idActiveColor, setIdActiveColor] = useState("#d7d7d7");
+  const [activeColor, setActiveColor] = useState(`${theme.color.black30}`);
+  const [idActiveColor, setIdActiveColor] = useState(`${theme.color.black30}`);
 
   const {
     control,
@@ -118,10 +119,12 @@ const JoinPage = () => {
                       shouldValidate: true,
                     });
                     onChange(e.target.value);
-                    setActiveColor(e.target.value && "#000");
+                    setActiveColor(e.target.value && `${theme.color.black}`);
                   }}
-                  onFocus={() => setActiveColor("#000")}
-                  onBlur={() => !value && setActiveColor("#D9D9D9")}
+                  onFocus={() => setActiveColor(`${theme.color.black}`)}
+                  onBlur={() =>
+                    !value && setActiveColor(`${theme.color.black30}`)
+                  }
                   activeColor={activeColor}
                 />
               </>
@@ -181,11 +184,13 @@ const JoinPage = () => {
                       shouldValidate: true,
                     });
                     onChange(e.target.value);
-                    setIdActiveColor(e.target.value && "#000");
+                    setIdActiveColor(e.target.value && `${theme.color.black}`);
                   }}
                   value={value || ""}
-                  onFocus={() => setIdActiveColor("#000")}
-                  onBlur={() => !value && setIdActiveColor("#D9D9D9")}
+                  onFocus={() => setIdActiveColor(`${theme.color.black}`)}
+                  onBlur={() =>
+                    !value && setIdActiveColor(`${theme.color.black30}`)
+                  }
                   activeColor={idActiveColor}
                 />
               </>
@@ -227,15 +232,19 @@ const JoinPage = () => {
           name="nickname"
           rules={{ required: "닉네임을 입력해주세요." }}
           render={({ field: { onChange, value } }) => {
-            const [activeColor, setActiveColor] = useState(value && "#000");
+            const [activeColor, setActiveColor] = useState(
+              value && `${theme.color.black}`
+            );
             return (
               <InputUser
                 type="text"
                 labelText="닉네임"
                 onChange={(e) => onChange(e.target.value)}
                 value={value || ""}
-                onFocus={() => setActiveColor("#000")}
-                onBlur={() => !value && setActiveColor("#D9D9D9")}
+                onFocus={() => setActiveColor(`${theme.color.black}`)}
+                onBlur={() =>
+                  !value && setActiveColor(`${theme.color.black30}`)
+                }
                 activeColor={activeColor}
               />
             );
@@ -264,7 +273,9 @@ const JoinPage = () => {
             },
           }}
           render={({ field: { onChange, value } }) => {
-            const [activeColor, setActiveColor] = useState(value && "#000");
+            const [activeColor, setActiveColor] = useState(
+              value && `${theme.color.black}`
+            );
             return (
               <InputUser
                 type={passwordType}
@@ -276,11 +287,17 @@ const JoinPage = () => {
                   <ConcealIcon
                     passwordType={passwordType}
                     setPasswordType={setPasswordType}
-                    activeColor={activeColor === "#000" ? "#747474" : "#d9d9d9"}
+                    activeColor={
+                      activeColor === `${theme.color.black}`
+                        ? `${theme.color.black50}`
+                        : `${theme.color.black30}`
+                    }
                   />
                 }
-                onFocus={() => setActiveColor("#000")}
-                onBlur={() => !value && setActiveColor("#D9D9D9")}
+                onFocus={() => setActiveColor(`${theme.color.black}`)}
+                onBlur={() =>
+                  !value && setActiveColor(`${theme.color.black30}`)
+                }
                 activeColor={activeColor}
               />
             );
@@ -308,7 +325,9 @@ const JoinPage = () => {
           control={control}
           name="confirmPassword"
           render={({ field: { onChange, value } }) => {
-            const [activeColor, setActiveColor] = useState(value && "#000");
+            const [activeColor, setActiveColor] = useState(
+              value && `${theme.color.black}`
+            );
             return (
               <InputUser
                 type={confirmPassword}
@@ -319,11 +338,17 @@ const JoinPage = () => {
                   <ConcealIcon
                     confirmPassword={confirmPassword}
                     setConfirmPassword={setConfirmPassword}
-                    activeColor={activeColor === "#000" ? "#747474" : "#d9d9d9"}
+                    activeColor={
+                      activeColor === `${theme.color.black}`
+                        ? `${theme.color.black50}`
+                        : `${theme.color.black30}`
+                    }
                   />
                 }
-                onFocus={() => setActiveColor("#000")}
-                onBlur={() => !value && setActiveColor("#D9D9D9")}
+                onFocus={() => setActiveColor(`${theme.color.black}`)}
+                onBlur={() =>
+                  !value && setActiveColor(`${theme.color.black30}`)
+                }
                 activeColor={activeColor}
               />
             );
@@ -356,11 +381,15 @@ const JoinPage = () => {
             </ValidateMessage>
           )
         )}
-        <BasicButton
+        <DefaultButton
           type="submit"
           text="회원가입 완료"
           gridGap="80px"
-          background={!isDirty || !isValid ? "#d7d7d7" : "#614AD3"}
+          background={
+            !isDirty || !isValid
+              ? `${theme.color.black30}`
+              : `${theme.color.purple}`
+          }
           justifyContent="center"
         />
       </Layout>
@@ -375,8 +404,8 @@ const ValidateMessage = styled.p<{ color: "default" | "success" | "error" }>`
   font-size: 0.75rem;
   color: ${({ color }) =>
     color === "error"
-      ? "#D93F2E"
+      ? `${theme.color.red}`
       : color === "success"
-      ? "#1736D9"
-      : "#868686"};
+      ? `${theme.color.blue}`
+      : `${theme.color.black70}`};
 `;
