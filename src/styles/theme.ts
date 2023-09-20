@@ -6,7 +6,7 @@ const color = {
   black70: "#868686",
   black90: "#111111",
   black: "#000000",
-  blue: "##1736D9",
+  blue: "#1736D9",
   red: "#D93F2E",
   purple: "#614AD3",
 };
