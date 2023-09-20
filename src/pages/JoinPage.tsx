@@ -6,8 +6,8 @@ import styled from "@emotion/styled";
 import { Dispatch, SetStateAction, useState } from "react";
 import ConcealIcon from "@/assets/ConcealIcon";
 import CheckButton from "@/components/CheckButton";
-import DefaultButton from "@/components/DefaultButton";
 import theme from "@/styles/theme";
+import SubmitButton from "@/components/SubmitButton";
 
 interface JoinProps {
   email: string;
@@ -381,16 +381,10 @@ const JoinPage = () => {
             </ValidateMessage>
           )
         )}
-        <DefaultButton
+        <SubmitButton
           type="submit"
           text="회원가입 완료"
-          gridGap="80px"
-          background={
-            !isDirty || !isValid
-              ? `${theme.color.black30}`
-              : `${theme.color.purple}`
-          }
-          justifyContent="center"
+          isValid={isDirty && isValid}
         />
       </Layout>
     </form>

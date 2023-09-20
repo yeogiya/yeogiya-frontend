@@ -1,11 +1,15 @@
 import styled from "@emotion/styled";
 import Button from "./@common/Button";
+import theme from "@/styles/theme";
 
-const CheckButton = styled(Button)<{ activeColor: string }>`
-  border: 1px solid ${({ activeColor }) => activeColor || "#D9D9D9"};
-  color: ${({ activeColor }) => activeColor || "#D9D9D9"};
-  /* color: #d9d9d9; */
-  /* border: 1px solid #d9d9d9; */
+interface CheckButtonProps {
+  activeColor: string;
+}
+
+const CheckButton = styled(Button)<CheckButtonProps>`
+  border: 1px solid
+    ${({ activeColor }) => activeColor || `${theme.color.black30}`};
+  color: ${({ activeColor }) => activeColor || `${theme.color.black30}`};
   border-radius: 16px;
   width: 69px;
   height: 28px;
