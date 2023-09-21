@@ -69,7 +69,7 @@ const FindIdPage = () => {
                     setId("");
                   }}
                   onFocus={() => setActiveColor(`${theme.color.black90}`)}
-                  activeColor={activeColor}
+                  isActive={activeColor}
                   onBlur={() =>
                     !value && setActiveColor(`${theme.color.black30}`)
                   }
