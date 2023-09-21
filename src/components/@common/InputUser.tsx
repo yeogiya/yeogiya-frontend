@@ -1,5 +1,6 @@
-import React, { InputHTMLAttributes } from "react";
+import { InputHTMLAttributes } from "react";
 import styled from "@emotion/styled";
+import theme from "@/styles/theme";
 
 interface InputUserProps extends InputHTMLAttributes<HTMLElement> {
   placeholder?: string;
@@ -7,7 +8,7 @@ interface InputUserProps extends InputHTMLAttributes<HTMLElement> {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   name?: string;
   icon?: React.ReactNode;
-  activeColor?: string;
+  isActive?: boolean;
   type: string;
 }
 const InputUser = ({
@@ -16,7 +17,7 @@ const InputUser = ({
   labelText,
   name,
   icon,
-  activeColor,
+  isActive,
   type,
   ...props
 }: InputUserProps) => {
@@ -27,7 +28,7 @@ const InputUser = ({
       </LabelWrapper>
       <InputContainer>
         <Input
-          activeColor={activeColor}
+          isActive={isActive}
           placeholder={placeholder}
           onChange={onChange}
           type={type}
@@ -50,7 +51,7 @@ const InputContainer = styled.div`
   align-items: center;
 
   button {
-    color: "#D9D9D9";
+    color: ${theme.color.black30};
     margin: -40px;
     border: none;
     background: transparent;
@@ -68,16 +69,18 @@ const LabelWrapper = styled.div``;
 const Label = styled.label`
   width: 10px;
   font-size: 0.9375rem;
-  color: #111111;
+  color: ${theme.color.black};
 `;
 
-const Input = styled.input<{ activeColor?: string }>`
+const Input = styled.input<Pick<InputUserProps, "isActive">>`
   width: 100%;
   min-width: 328px;
   height: 48px;
   margin-top: 5px;
   border-radius: 7px;
-  border: 1px solid ${({ activeColor }) => activeColor || "#D9D9D9"};
+  border: 1px solid
+    ${({ isActive }) =>
+      isActive ? `${theme.color.black}` : `${theme.color.black30}`};
   padding: 13px 12px;
   color: #111111;
   font-size: 0.9375rem;

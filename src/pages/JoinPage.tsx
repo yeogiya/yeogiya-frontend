@@ -25,11 +25,10 @@ interface JoinProps {
 const JoinPage = () => {
   const [passwordType, setPasswordType] = useState<string>("password");
   const [confirmPassword, setConfirmPassword] = useState<string>("password");
-  const [emailVerification, setEmailVerification] = useState(false);
-  const [idVerification, setIdVerification] = useState(false);
-  const [activeColor, setActiveColor] = useState(`${theme.color.black30}`);
-  const [idActiveColor, setIdActiveColor] = useState(`${theme.color.black30}`);
-
+  const [emailVerification, setEmailVerification] = useState<boolean>(false);
+  const [idVerification, setIdVerification] = useState<boolean>(false);
+  const [isEmailActive, setIsEmailActive] = useState<boolean>(false);
+  const [idActive, setIdActive] = useState<boolean>(false);
   const {
     control,
     handleSubmit,
@@ -119,13 +118,11 @@ const JoinPage = () => {
                       shouldValidate: true,
                     });
                     onChange(e.target.value);
-                    setActiveColor(e.target.value && `${theme.color.black}`);
+                    e.target.value && setIsEmailActive(true);
                   }}
-                  onFocus={() => setActiveColor(`${theme.color.black}`)}
-                  onBlur={() =>
-                    !value && setActiveColor(`${theme.color.black30}`)
-                  }
-                  activeColor={activeColor}
+                  onFocus={() => setIsEmailActive(true)}
+                  onBlur={() => !value && setIsEmailActive(false)}
+                  isActive={isEmailActive}
                 />
               </>
             );
@@ -148,7 +145,7 @@ const JoinPage = () => {
                   }}
                   type="button"
                   text="중복확인"
-                  activeColor={activeColor}
+                  isActive={isEmailActive}
                 />
               </>
             );
@@ -184,14 +181,12 @@ const JoinPage = () => {
                       shouldValidate: true,
                     });
                     onChange(e.target.value);
-                    setIdActiveColor(e.target.value && `${theme.color.black}`);
+                    e.target.value && setIdActive(true);
                   }}
                   value={value || ""}
-                  onFocus={() => setIdActiveColor(`${theme.color.black}`)}
-                  onBlur={() =>
-                    !value && setIdActiveColor(`${theme.color.black30}`)
-                  }
-                  activeColor={idActiveColor}
+                  onFocus={() => setIdActive(true)}
+                  onBlur={() => !value && setIdActive(false)}
+                  isActive={idActive}
                 />
               </>
             );
@@ -214,7 +209,7 @@ const JoinPage = () => {
                   }}
                   type="button"
                   text="중복확인"
-                  activeColor={idActiveColor}
+                  isActive={idActive}
                 />
               </>
             );
@@ -232,20 +227,16 @@ const JoinPage = () => {
           name="nickname"
           rules={{ required: "닉네임을 입력해주세요." }}
           render={({ field: { onChange, value } }) => {
-            const [activeColor, setActiveColor] = useState(
-              value && `${theme.color.black}`
-            );
+            const [isNickName, setIsNickName] = useState(false);
             return (
               <InputUser
                 type="text"
                 labelText="닉네임"
                 onChange={(e) => onChange(e.target.value)}
                 value={value || ""}
-                onFocus={() => setActiveColor(`${theme.color.black}`)}
-                onBlur={() =>
-                  !value && setActiveColor(`${theme.color.black30}`)
-                }
-                activeColor={activeColor}
+                onFocus={() => setIsNickName(true)}
+                onBlur={() => !value && setIsNickName(false)}
+                isActive={isNickName}
               />
             );
           }}
@@ -273,9 +264,7 @@ const JoinPage = () => {
             },
           }}
           render={({ field: { onChange, value } }) => {
-            const [activeColor, setActiveColor] = useState(
-              value && `${theme.color.black}`
-            );
+            const [isPassword, setIsPassword] = useState(false);
             return (
               <InputUser
                 type={passwordType}
@@ -287,18 +276,12 @@ const JoinPage = () => {
                   <ConcealIcon
                     passwordType={passwordType}
                     setPasswordType={setPasswordType}
-                    activeColor={
-                      activeColor === `${theme.color.black}`
-                        ? `${theme.color.black50}`
-                        : `${theme.color.black30}`
-                    }
+                    isActive={isPassword}
                   />
                 }
-                onFocus={() => setActiveColor(`${theme.color.black}`)}
-                onBlur={() =>
-                  !value && setActiveColor(`${theme.color.black30}`)
-                }
-                activeColor={activeColor}
+                onFocus={() => setIsPassword(true)}
+                onBlur={() => !value && setIsPassword(false)}
+                isActive={isPassword}
               />
             );
           }}
@@ -325,9 +308,7 @@ const JoinPage = () => {
           control={control}
           name="confirmPassword"
           render={({ field: { onChange, value } }) => {
-            const [activeColor, setActiveColor] = useState(
-              value && `${theme.color.black}`
-            );
+            const [isPassWordConfirm, setIsPassWordConfirm] = useState(false);
             return (
               <InputUser
                 type={confirmPassword}
@@ -338,18 +319,12 @@ const JoinPage = () => {
                   <ConcealIcon
                     confirmPassword={confirmPassword}
                     setConfirmPassword={setConfirmPassword}
-                    activeColor={
-                      activeColor === `${theme.color.black}`
-                        ? `${theme.color.black50}`
-                        : `${theme.color.black30}`
-                    }
+                    isActive={isPassWordConfirm}
                   />
                 }
-                onFocus={() => setActiveColor(`${theme.color.black}`)}
-                onBlur={() =>
-                  !value && setActiveColor(`${theme.color.black30}`)
-                }
-                activeColor={activeColor}
+                onFocus={() => setIsPassWordConfirm(true)}
+                onBlur={() => !value && setIsPassWordConfirm(false)}
+                isActive={isPassWordConfirm}
               />
             );
           }}
