@@ -1,7 +1,6 @@
 // import Button from "@/components/@common/Button";
 import { ButtonProps } from "@/components/@common/Button";
 import { default as Button } from "@/components/@common/DefaultButton";
-import { SubmitButtonProps } from "@/components/SubmitButton";
 import theme from "@/styles/theme";
 import type { Meta, StoryObj } from "@storybook/react";
 
@@ -33,27 +32,3 @@ export const DefaultButton: Story = {
   },
   argTypes: {},
 };
-
-export const SubmitButton: Story = {
-  render: () => {
-    return <Button />;
-  },
-  args: {
-    type: "submit",
-    text: "Default",
-    background: `${theme.color.black30}`,
-  },
-  argTypes: {},
-};
-
-// export const Active: Story = {
-//   render: (args) => {
-//     return <DefaultButton {...args} />;
-//   },
-//   args: {
-//     type: "button",
-//     text: "Default",
-//     background: `${theme.color.purple}`,
-//   },
-//   argTypes: {},
-// };
