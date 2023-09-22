@@ -3,7 +3,7 @@ import { ButtonHTMLAttributes } from "react";
 import styled from "@emotion/styled";
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  type: "button" | "reset" | "submit" | undefined;
+  type?: "button" | "reset" | "submit";
   text?: string;
   background?: string;
   color?: string;
@@ -18,7 +18,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const Button = ({ type, icon, text, ...props }: ButtonProps) => {
   return (
-    <StyledButton type={type} {...props}>
+    <StyledButton type={type || "button"} {...props}>
       {icon}
       {text}
     </StyledButton>

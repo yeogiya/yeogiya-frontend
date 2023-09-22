@@ -1,19 +1,18 @@
 import InputUser from "@/components/@common/InputUser";
 import Layout from "@/components/@common/Layout";
 import Title from "@/components/@common/Title";
-import BasicButton from "@/components/BasicButton";
+import DefaultButton from "@/components/@common/DefaultButton";
+import theme from "@/styles/theme";
 import styled from "@emotion/styled";
-import { useState } from "react";
+import { KeyboardEvent, useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import SubmitButton from "@/components/SubmitButton";
 
 interface FindIdProps {
   email: string;
-  findWithEmail: boolean;
 }
 
 const FindIdPage = () => {
-  const navigate = useNavigate();
   const [id, setId] = useState<string>("");
   const {
     control,
@@ -26,11 +25,15 @@ const FindIdPage = () => {
     mode: "onChange",
   });
 
-  const onSubmit: SubmitHandler<FindIdProps> = (data) => {
+  const onSubmit: SubmitHandler<FindIdProps> = (data: FindIdProps) => {
     console.log(data);
   };
 
-  const maskingId = (id) => {
+  const checkKeyDown = (e: KeyboardEvent<HTMLFormElement>) => {
+    if (e.key === "Enter") e.preventDefault();
+  };
+
+  const maskingId = (id: string) => {
     if (id.length <= 2) return id.replace(id.substring(0, 1), "*");
 
     return (
@@ -41,7 +44,10 @@ const FindIdPage = () => {
   return (
     <Layout>
       <Title as="h1">아이디 찾기</Title>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        onKeyDown={(e) => checkKeyDown(e)}
+      >
         <Controller
           control={control}
           name="email"
@@ -50,7 +56,7 @@ const FindIdPage = () => {
             pattern: /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i,
           }}
           render={({ field: { onChange, value } }) => {
-            const [activeColor, setActiveColor] = useState(value && "#000");
+            const [isActive, setIsActive] = useState(false);
             return (
               <>
                 <InputUser
@@ -58,23 +64,20 @@ const FindIdPage = () => {
                   labelText="이메일"
                   onChange={(e) => {
                     onChange(e.target.value);
+                    setId("");
                   }}
-                  onFocus={() => setActiveColor("#000")}
-                  activeColor={activeColor}
-                  onBlur={() => !value && setActiveColor("#D9D9D9")}
+                  onFocus={() => setIsActive(true)}
+                  isActive={isActive}
+                  onBlur={() => !value && setIsActive(false)}
                 />
                 <ValidateMessage color="error">
                   {errors?.email?.message}
                 </ValidateMessage>
-                {value && id === value && (
-                  <MaskingId>{maskingId(id)}</MaskingId>
-                )}
-                <BasicButton
+                {isValid && id && <MaskingId>{maskingId(id)}</MaskingId>}
+                <SubmitButton
                   type="button"
                   text="이메일로 찾기"
-                  gridGap="80px"
-                  background={!isValid ? "#d7d7d7" : "#614AD3"}
-                  justifyContent="center"
+                  isValid={isValid}
                   onClick={() => {
                     const uncheckedEmail = getValues("email");
                     if (uncheckedEmail === "aaa@aaa.aaa") {
@@ -83,19 +86,16 @@ const FindIdPage = () => {
                       });
                     }
                     setValue("email", value, { shouldDirty: true });
-                    setId(uncheckedEmail);
+                    setId(value);
                   }}
                 />
               </>
             );
           }}
         />
-        <BasicButton
-          type="button"
+        <DefaultButton
           text="비밀번호 찾으러 가기"
-          gridGap="80px"
-          color="#747474"
-          justifyContent="center"
+          color={`${theme.color.black50}`}
           onClick={() => {}}
         />
       </form>
@@ -108,12 +108,13 @@ export default FindIdPage;
 const MaskingId = styled.p`
   margin: 27px 0;
   border-radius: 7px;
-  background: #d9d9d9;
+  background: ${theme.color.black30};
   padding: 28px 128px;
 `;
 
 const ValidateMessage = styled.p<{ color: "error" }>`
   margin-top: 10px;
   font-size: 0.75rem;
-  color: ${({ color }) => (color === "error" ? "#D93F2E" : "#868686")};
+  color: ${({ color }) =>
+    color === "error" ? `${theme.color.red}` : `${theme.color.black70}`};
 `;

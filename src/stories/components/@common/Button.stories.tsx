@@ -1,4 +1,7 @@
-import Button from "@/components/@common/Button";
+// import Button from "@/components/@common/Button";
+import { ButtonProps } from "@/components/@common/Button";
+import { default as Button } from "@/components/@common/DefaultButton";
+import theme from "@/styles/theme";
 import type { Meta, StoryObj } from "@storybook/react";
 
 const meta = {
@@ -7,7 +10,7 @@ const meta = {
   tags: ["autodocs"],
   decorators: [
     (Story, { parameters }) => (
-      <div style={{ width: "328px", padding: "13px 80px" }}>
+      <div style={{ maxWidth: "200px" }}>
         <Story />
       </div>
     ),
@@ -17,21 +20,15 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
-  render: (args) => {
+export const DefaultButton: Story = {
+  render: (args: ButtonProps) => {
     return <Button {...args} />;
   },
   args: {
     type: "button",
-    text: "Default",
-    background: "black",
-    justifyContent: "center",
+    text: "Default Button",
+    background: `${theme.color.white}`,
+    color: `${theme.color.black50}`,
   },
-  argTypes: {
-    type: {
-      control: {
-        type: "button",
-      },
-    },
-  },
+  argTypes: {},
 };

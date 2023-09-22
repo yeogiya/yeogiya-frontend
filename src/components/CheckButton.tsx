@@ -1,11 +1,29 @@
 import styled from "@emotion/styled";
-import Button from "./@common/Button";
+import theme from "@/styles/theme";
 
-const CheckButton = styled(Button)<{ activeColor: string }>`
-  border: 1px solid ${({ activeColor }) => activeColor || "#D9D9D9"};
-  color: ${({ activeColor }) => activeColor || "#D9D9D9"};
-  /* color: #d9d9d9; */
-  /* border: 1px solid #d9d9d9; */
+export interface CheckButtonProps {
+  isActive: boolean;
+  type: "button" | "submit" | "reset";
+  text: string;
+  onClick: () => void;
+}
+
+const CheckButton = ({ isActive, text, ...props }: CheckButtonProps) => {
+  return (
+    <CheckButtonStyle isActive={isActive} {...props}>
+      {text}
+    </CheckButtonStyle>
+  );
+};
+
+const CheckButtonStyle = styled.button<Pick<CheckButtonProps, "isActive">>`
+  cursor: pointer;
+  border: 1px solid
+    ${({ isActive }) =>
+      isActive ? `${theme.color.black}` : `${theme.color.black30}`};
+  color: ${({ isActive }) =>
+    isActive ? `${theme.color.black}` : `${theme.color.black30}`};
+  background: #fff;
   border-radius: 16px;
   width: 69px;
   height: 28px;

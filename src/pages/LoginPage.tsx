@@ -7,6 +7,7 @@ import Layout from "@/components/@common/Layout";
 import LinkText from "@/components/@common/LinkText";
 import styled from "@emotion/styled";
 import Title from "@/components/@common/Title";
+import IconButton from "@/components/IconButton";
 
 interface LoginProps {
   id: string;
@@ -81,21 +82,17 @@ const LoginPage = () => {
           <LinkText to="">비밀번호 찾기</LinkText>
         </ButtonWrapper>
       </ButtonContainer>
-      <LoginButton
+      <IconButton
         type="submit"
         text="Google로 로그인"
         background="#fff"
         border="1px solid #CCC;"
-        gridGap="80px"
-        color="#000000"
         icon={<GoogleLogo />}
       />
-      <LoginButton
+      <IconButton
         type="submit"
         text="카카오로 로그인"
         background="#FEE500"
-        color="#000000"
-        gridGap="82px"
         icon={<KakaoLogo />}
       />
     </Layout>
