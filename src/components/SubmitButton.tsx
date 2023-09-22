@@ -1,20 +1,20 @@
 import theme from "@/styles/theme";
 import styled from "@emotion/styled";
+import { ButtonHTMLAttributes } from "react";
 
-export interface SubmitButtonProps {
+export interface SubmitButtonProps
+  extends ButtonHTMLAttributes<HTMLButtonElement> {
   type?: "button" | "submit" | "reset";
   isValid: boolean;
   text: string;
-  onClick: any;
+  onClick?: () => void;
 }
 
-const SubmitButton = ({ isValid, text, onClick }: SubmitButtonProps) => {
+const SubmitButton = ({ isValid, text, ...props }: SubmitButtonProps) => {
   return (
-    <>
-      <SubmitButtonStyle isValid={isValid} onClick={onClick}>
-        {text}
-      </SubmitButtonStyle>
-    </>
+    <SubmitButtonStyle isValid={isValid} {...props}>
+      {text}
+    </SubmitButtonStyle>
   );
 };
 

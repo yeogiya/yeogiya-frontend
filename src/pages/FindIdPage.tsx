@@ -45,7 +45,7 @@ const FindIdPage = () => {
     <Layout>
       <Title as="h1">아이디 찾기</Title>
       <form
-        onSubmit={() => handleSubmit(onSubmit)}
+        onSubmit={handleSubmit(onSubmit)}
         onKeyDown={(e) => checkKeyDown(e)}
       >
         <Controller
@@ -56,9 +56,7 @@ const FindIdPage = () => {
             pattern: /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i,
           }}
           render={({ field: { onChange, value } }) => {
-            const [activeColor, setActiveColor] = useState(
-              value && `${theme.color.black}`
-            );
+            const [isActive, setIsActive] = useState(false);
             return (
               <>
                 <InputUser
@@ -68,17 +66,16 @@ const FindIdPage = () => {
                     onChange(e.target.value);
                     setId("");
                   }}
-                  onFocus={() => setActiveColor(`${theme.color.black90}`)}
-                  isActive={activeColor}
-                  onBlur={() =>
-                    !value && setActiveColor(`${theme.color.black30}`)
-                  }
+                  onFocus={() => setIsActive(true)}
+                  isActive={isActive}
+                  onBlur={() => !value && setIsActive(false)}
                 />
                 <ValidateMessage color="error">
                   {errors?.email?.message}
                 </ValidateMessage>
                 {isValid && id && <MaskingId>{maskingId(id)}</MaskingId>}
                 <SubmitButton
+                  type="button"
                   text="이메일로 찾기"
                   isValid={isValid}
                   onClick={() => {
