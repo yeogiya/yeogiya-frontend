@@ -8,7 +8,8 @@ import GlobalStyle from "@/styles/GlobalStyle";
 import { ThemeProvider } from "@emotion/react";
 import theme from "@/styles/theme";
 import JoinPage from "@/pages/JoinPage";
-import FindIdPage from '@/pages/FindIdPage'
+import FindIdPage from "@/pages/FindIdPage";
+import ResetPwPage from "@/pages/ResetPwPage";
 
 export const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ export const router = createBrowserRouter([
       {
         path: PATH.FIND_ID,
         element: <FindIdPage />,
+      },
+      {
+        path: PATH.RESET_PASSWORD,
+        element: <ResetPwPage />,
       },
     ],
   },
