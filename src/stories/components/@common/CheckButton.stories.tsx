@@ -2,7 +2,6 @@ import {
   default as CheckBtn,
   CheckButtonProps,
 } from "@/components/CheckButton";
-import theme from "@/styles/theme";
 import type { Meta, StoryObj } from "@storybook/react";
 
 const meta = {

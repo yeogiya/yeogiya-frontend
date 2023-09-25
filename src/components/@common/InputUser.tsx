@@ -2,7 +2,7 @@ import { InputHTMLAttributes } from "react";
 import styled from "@emotion/styled";
 import theme from "@/styles/theme";
 
-interface InputUserProps extends InputHTMLAttributes<HTMLElement> {
+export interface InputUserProps extends InputHTMLAttributes<HTMLElement> {
   placeholder?: string;
   labelText: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -32,6 +32,7 @@ const InputUser = ({
           placeholder={placeholder}
           onChange={onChange}
           type={type}
+          name={name}
           {...props}
         />
         {icon && <button type="button">{icon}</button>}
@@ -82,6 +83,6 @@ const Input = styled.input<Pick<InputUserProps, "isActive">>`
     ${({ isActive }) =>
       isActive ? `${theme.color.black}` : `${theme.color.black30}`};
   padding: 13px 12px;
-  color: #111111;
+  color: ${theme.color.black};
   font-size: 0.9375rem;
 `;
