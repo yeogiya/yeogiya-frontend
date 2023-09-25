@@ -1,6 +1,5 @@
 import SearchBar, { SearchBarProps } from "@/components/SearchBar";
 import { Meta, StoryObj } from "@storybook/react";
-import { useState } from "react";
 
 const meta = {
   title: "components/SearchBar",
