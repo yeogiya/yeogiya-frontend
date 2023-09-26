@@ -1,4 +1,3 @@
-// import Button from "@/components/@common/Button";
 import { ButtonProps } from "@/components/@common/Button";
 import { default as Button } from "@/components/@common/DefaultButton";
 import theme from "@/styles/theme";
