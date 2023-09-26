@@ -6,8 +6,8 @@ import styled from "@emotion/styled";
 import { Dispatch, SetStateAction, useState } from "react";
 import ConcealIcon from "@/assets/ConcealIcon";
 import CheckButton from "@/components/CheckButton";
-import theme from "@/styles/theme";
 import SubmitButton from "@/components/SubmitButton";
+import ValidateMessage from "@/components/ValidateMessage";
 
 interface JoinProps {
   email: string;
@@ -367,14 +367,3 @@ const JoinPage = () => {
 };
 
 export default JoinPage;
-
-const ValidateMessage = styled.p<{ color: "default" | "success" | "error" }>`
-  margin-top: 10px;
-  font-size: 0.75rem;
-  color: ${({ color }) =>
-    color === "error"
-      ? `${theme.color.red}`
-      : color === "success"
-      ? `${theme.color.blue}`
-      : `${theme.color.black70}`};
-`;
