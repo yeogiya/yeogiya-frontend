@@ -1,15 +1,17 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { PATH } from "./routes";
+
 import App from "@/App";
 import ErrorPage from "@/pages/ErrorPage";
+import FindIdPage from "@/pages/FindIdPage";
+import FindPwPage from "@/pages/FindPwPage";
+import GlobalStyle from "@/styles/GlobalStyle";
+import JoinPage from "@/pages/JoinPage";
 import LandingPage from "@/pages/LandingPage";
 import LoginPage from "@/pages/LoginPage";
-import GlobalStyle from "@/styles/GlobalStyle";
+import { PATH } from "./routes";
+import ResetPwPage from "@/pages/ResetPwPage";
 import { ThemeProvider } from "@emotion/react";
 import theme from "@/styles/theme";
-import JoinPage from "@/pages/JoinPage";
-import FindIdPage from "@/pages/FindIdPage";
-import ResetPwPage from "@/pages/ResetPwPage";
 
 export const router = createBrowserRouter([
   {
@@ -32,6 +34,14 @@ export const router = createBrowserRouter([
       {
         path: PATH.FIND_ID,
         element: <FindIdPage />,
+      },
+      {
+        path: PATH.FIND_ID,
+        element: <FindIdPage />,
+      },
+      {
+        path: PATH.FIND_PW,
+        element: <FindPwPage />,
       },
       {
         path: PATH.RESET_PASSWORD,
