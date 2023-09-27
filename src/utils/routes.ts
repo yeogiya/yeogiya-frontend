@@ -4,7 +4,8 @@ const STATIC = {
   JOIN: "/join",
   DIARY_WRITING: "/diary/writing",
   DIARY_READING: "/diary/reading",
-  FIND_ID: "/findId",
+  FIND_ID: "/find/id",
+  FIND_PW: "/find/pw",
   RESET_PASSWORD: "/reset",
 };
 
