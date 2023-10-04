@@ -1,9 +1,11 @@
 import ConcealIcon from "@/assets/ConcealIcon";
 import InputUser from "@/components/@common/InputUser";
 import Layout from "@/components/@common/Layout";
+import Modal from "@/components/@common/Modal";
 import Title from "@/components/@common/Title";
 import SubmitButton from "@/components/SubmitButton";
 import ValidateMessage from "@/components/ValidateMessage";
+import { useModal } from "@/features/hooks/useModal";
 import { useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 
@@ -26,6 +28,8 @@ const ResetPwPage = () => {
   const onSubmit: SubmitHandler<ResetPwProps> = (data) => {
     console.log(data);
   };
+
+  const { isOpen, openModal, closeModal } = useModal();
 
   return (
     <Layout>
@@ -143,10 +147,16 @@ const ResetPwPage = () => {
             </ValidateMessage>
           )
         )}
+        <Modal
+          isOpen={isOpen}
+          close={closeModal}
+          text="비밀번호가 변경되었습니다."
+        />
         <SubmitButton
           type="submit"
           text="비밀번호 변경하기"
           isValid={isDirty && isValid}
+          onClick={() => openModal()}
         />
       </form>
     </Layout>
