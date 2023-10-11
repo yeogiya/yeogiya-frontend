@@ -12,6 +12,7 @@ import { PATH } from "./routes";
 import ResetPwPage from "@/pages/ResetPwPage";
 import { ThemeProvider } from "@emotion/react";
 import theme from "@/styles/theme";
+import DiaryListPage from "@/pages/DiaryListPage";
 
 export const router = createBrowserRouter([
   {
@@ -46,6 +47,10 @@ export const router = createBrowserRouter([
       {
         path: PATH.RESET_PASSWORD,
         element: <ResetPwPage />,
+      },
+      {
+        path: PATH.DIARY_LIST,
+        element: <DiaryListPage />,
       },
     ],
   },

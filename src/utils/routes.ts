@@ -3,7 +3,7 @@ const STATIC = {
   LOGIN: "/login",
   JOIN: "/join",
   DIARY_WRITING: "/diary/writing",
-  DIARY_READING: "/diary/reading",
+  DIARY_LIST: "/diary/list",
   FIND_ID: "/find/id",
   FIND_PW: "/find/pw",
   RESET_PASSWORD: "/reset",
