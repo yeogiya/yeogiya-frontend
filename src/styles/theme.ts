@@ -2,6 +2,7 @@ const color = {
   white: "#FFFFFF",
   white10: "#f1f2f3",
   black30: "#D9D9D9",
+  black40: "#B8B5C9",
   black50: "#747474",
   black70: "#868686",
   black90: "#111111",
