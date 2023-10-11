@@ -1,7 +1,7 @@
 import theme from "@/styles/theme";
 import { Dispatch, SetStateAction } from "react";
 
-interface IconProps {
+interface IconPropsType {
   confirmPassword?: string;
   passwordType?: string;
   isActive?: boolean;
@@ -15,15 +15,7 @@ const ConcealIcon = ({
   setConfirmPassword,
   setPasswordType,
   isActive,
-}: IconProps) => {
-  const handleShowPassword = () => {
-    setPasswordType?.(() =>
-      passwordType === "password" ? "text" : "password"
-    );
-    setConfirmPassword?.(() =>
-      confirmPassword === "password" ? "text" : "password"
-    );
-  };
+}: IconPropsType) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -31,7 +23,14 @@ const ConcealIcon = ({
       height="20"
       viewBox="0 0 20 20"
       fill="none"
-      onClick={handleShowPassword}
+      onClick={() => {
+        setPasswordType?.(() =>
+          passwordType === "password" ? "text" : "password"
+        );
+        setConfirmPassword?.(() =>
+          confirmPassword === "password" ? "text" : "password"
+        );
+      }}
     >
       <g opacity="0.8">
         <path
