@@ -1,0 +1,94 @@
+import styled from "@emotion/styled";
+import theme from "./theme";
+
+const DiaryStyle = styled.div`
+  max-width: 880px;
+  margin: 40px auto;
+
+  .react-calendar {
+    width: 100%;
+    border: none;
+  }
+  .react-calendar__navigation__label > span {
+    font-size: 16px;
+    color: ${theme.color.black};
+  }
+
+  .react-calendar__navigation button:disabled {
+    background: none;
+  }
+
+  .react-calendar__month-view__weekdays {
+    abbr {
+      font-size: 18px;
+      font-weight: 500;
+      text-decoration: none;
+    }
+    div:first-of-type {
+      color: ${theme.color.red10};
+    }
+  }
+
+  .react-calendar__tile {
+    color: ${theme.color.black50};
+  }
+
+  .react-calendar__tile--active,
+  .react-calendar__tile:enabled:hover,
+  .react-calendar__tile:enabled:focus {
+    background: none;
+  }
+
+  .react-calendar__tile--now {
+    background: none;
+  }
+
+  .react-calendar__month-view__days button {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+
+  .react-calendar__navigation__label > span > button {
+    font-size: 18px;
+    display: flex;
+  }
+
+  .react-calendar__navigation button:enabled {
+    border: 1px solid #b8b5c9;
+    border-radius: 100px;
+    font-size: 18px;
+    background: none;
+  }
+
+  .react-calendar__navigation {
+    justify-content: center;
+  }
+  .react-calendar__navigation__label {
+    flex-grow: 0 !important;
+    margin: 0 34px;
+  }
+`;
+
+const IconLayout = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+`;
+
+const DiaryLayout = styled.div`
+  max-width: 100px;
+  max-height: 100px;
+  min-height: 100px;
+  border: 1px solid ${theme.color.black40};
+  border-radius: 100px;
+  display: flex;
+  margin-bottom: 12px;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+`;
+
+export { DiaryStyle, IconLayout, DiaryLayout };
