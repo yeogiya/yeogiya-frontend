@@ -9,6 +9,7 @@ const color = {
   black: "#000000",
   blue: "#1736D9",
   red: "#D93F2E",
+  red10: "#B80808",
   purple: "#614AD3",
 };
 
