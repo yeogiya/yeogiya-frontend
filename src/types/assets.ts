@@ -1,7 +1,7 @@
-import React from "react";
+import { CSSObject } from "@emotion/react";
 
 interface SVGProps {
-  css?: React.CSSProperties;
+  css?: CSSObject;
 }
 
 export type { SVGProps };

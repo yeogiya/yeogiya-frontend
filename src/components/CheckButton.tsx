@@ -28,11 +28,9 @@ const CheckButtonStyle = styled.button<Pick<CheckButtonProps, "isActive">>`
   width: 69px;
   height: 28px;
   font-size: 0.75rem;
+  display: flex;
   justify-content: center;
-  position: relative;
-  left: 350px;
-  bottom: 40px;
-  margin-bottom: -28px;
+  align-items: center;
 `;
 
 export default CheckButton;

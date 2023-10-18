@@ -1,6 +1,6 @@
-import { ButtonHTMLAttributes } from "react";
+import styled, { CSSObject } from "@emotion/styled";
 
-import styled from "@emotion/styled";
+import { ButtonHTMLAttributes } from "react";
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   type?: "button" | "reset" | "submit";
@@ -14,6 +14,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   display?: string;
   alignItems?: string;
   justifyContent?: string;
+  css?: CSSObject;
 }
 
 const Button = ({ type, icon, text, ...props }: ButtonProps) => {
@@ -39,6 +40,8 @@ const StyledButton = styled.button<ButtonProps>`
   display: ${({ display }) => display || "flex"};
   align-items: ${({ alignItems }) => alignItems || "center"};
   justify-content: ${({ justifyContent }) => justifyContent};
+
+  ${({ css }) => css}
 `;
 
 export default Button;

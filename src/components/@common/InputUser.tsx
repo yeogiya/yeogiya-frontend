@@ -1,5 +1,6 @@
+import styled, { CSSObject } from "@emotion/styled";
+
 import { InputHTMLAttributes } from "react";
-import styled from "@emotion/styled";
 import theme from "@/styles/theme";
 
 export interface InputUserProps extends InputHTMLAttributes<HTMLElement> {
@@ -10,6 +11,8 @@ export interface InputUserProps extends InputHTMLAttributes<HTMLElement> {
   icon?: React.ReactNode;
   isActive?: boolean;
   type: string;
+  maxWidth?: number;
+  css?: CSSObject;
 }
 const InputUser = ({
   placeholder,
@@ -43,8 +46,14 @@ const InputUser = ({
 
 export default InputUser;
 
-const InputWrapper = styled.div`
+const InputWrapper = styled.div<Partial<InputUserProps>>`
   margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  max-width: ${({ maxWidth }) => (maxWidth && maxWidth) || "328px"};
+  width: 100%;
+
+  ${({ css }) => css}
 `;
 
 const InputContainer = styled.div`
@@ -53,7 +62,6 @@ const InputContainer = styled.div`
 
   button {
     color: ${theme.color.black30};
-    margin: -40px;
     border: none;
     background: transparent;
     cursor: pointer;
@@ -61,6 +69,7 @@ const InputContainer = styled.div`
 
     svg {
       margin-top: 8px;
+      margin-left: -40px;
     }
   }
 `;

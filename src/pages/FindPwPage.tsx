@@ -37,7 +37,7 @@ const FindPwPage = () => {
   const { isOpen, openModal, closeModal } = useModal();
 
   return (
-    <Layout>
+    <Layout css={{ rowGap: "14px" }}>
       <Title as="h1">비밀번호 찾기</Title>
       <Form onSubmit={handleSubmit(submitHandler)}>
         <Controller
@@ -138,7 +138,7 @@ const FindPwPage = () => {
         close={closeModal}
         text="이메일로 비밀번호 변경 링크를 전송하였습니다."
       />
-      <LinkButton to={PATH.FIND_ID}>아이디 찾으러 가기</LinkButton>
+      <LinkText to={PATH.FIND_ID} text="아이디 찾으러 가기" />
     </Layout>
   );
 };
@@ -148,32 +148,25 @@ export default FindPwPage;
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  grid-gap: 8px;
+  row-gap: 36px;
 
   p {
-    + button {
-      margin-top: 3px;
-    }
+    margin-top: -26px;
 
     + div {
-      margin-top: -11px;
+      margin-top: -9px;
     }
-  }
 
-  button {
-    margin-top: 27px;
+    + button {
+      margin-top: -5px;
+    }
   }
 `;
 
 const Message = styled.p`
-  font-size: 0.75rem;
+  font-size: 12px;
   color: ${({ color }) =>
     color === "error" ? `${theme.color.red}` : `${theme.color.black70}`};
-`;
-
-const LinkButton = styled(LinkText)`
-  display: flex;
-  justify-content: center;
-  margin-top: 32px;
-  color: ${theme.color.black50};
+  margin-top: 10px;
+  font-style: normal;
 `;

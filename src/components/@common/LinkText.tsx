@@ -1,29 +1,36 @@
+import styled, { CSSObject } from "@emotion/styled";
+
 import { Link } from "react-router-dom";
-import { CSSProperties } from "react";
-import styled from "@emotion/styled";
+import { PATH } from "@/utils/routes";
+import theme from "@/styles/theme";
 
 interface LinkTextProps {
-  to: string;
-  children?: React.ReactNode;
-  css?: CSSProperties;
+  to: (typeof PATH)[keyof typeof PATH];
+  text: string;
+  css?: CSSObject;
+  color?: (typeof theme.color)[keyof typeof theme.color];
+  fontSize?: number;
+  marginTop?: number;
 }
 
-const LinkText = ({ to, children, css, ...props }: LinkTextProps) => {
+const LinkText = ({ to, text, css, ...props }: LinkTextProps) => {
   return (
-    <Text to={to} {...props} style={css}>
-      {children}
-    </Text>
+    <StyledLinkButton to={to} {...props}>
+      {text}
+    </StyledLinkButton>
   );
 };
 
 export default LinkText;
 
-const Text = styled(Link)<{
-  color?: string;
-  fontSize?: string;
-}>`
+const StyledLinkButton = styled(Link)<Omit<LinkTextProps, "to" | "text">>`
   cursor: pointer;
-  color: ${(props) => props.color || "#747474"};
-  font-size: ${(props) => props.color || "14px"};
   text-decoration-line: none;
+  display: flex;
+  justify-content: center;
+  color: ${({ color }) => (color && color) || theme.color.black50};
+  margin-top: ${({ marginTop }) => (marginTop && `${marginTop}px`) || "18px"};
+  font-size: ${({ fontSize }) => (fontSize && `${fontSize}px`) || "14px"};
+
+  ${({ css }) => css && css}
 `;

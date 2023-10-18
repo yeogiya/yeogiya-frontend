@@ -11,7 +11,7 @@ const color = {
   red: "#D93F2E",
   red10: "#B80808",
   purple: "#614AD3",
-};
+} as const;
 
 const font = {
   body: '"Noto Sans KR", system-ui, -apple-system, BlinkMacSystemFont, "Open Sans", "Helvetica Neue", sans-serif',

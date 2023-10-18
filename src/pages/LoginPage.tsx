@@ -1,13 +1,15 @@
 import Button, { ButtonProps } from "@/components/@common/Button";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
+
 import GoogleLogo from "@/assets/GoogleLogo";
+import IconButton from "@/components/IconButton";
 import InputUser from "@/components/@common/InputUser";
 import KakaoLogo from "@/assets/KakaoLogo";
 import Layout from "@/components/@common/Layout";
 import LinkText from "@/components/@common/LinkText";
-import styled from "@emotion/styled";
 import Title from "@/components/@common/Title";
-import IconButton from "@/components/IconButton";
+import styled from "@emotion/styled";
+import theme from "@/styles/theme";
 
 interface LoginProps {
   id: string;
@@ -76,10 +78,11 @@ const LoginPage = () => {
       </form>
 
       <ButtonContainer>
-        <LinkText to="/join">회원가입</LinkText>
+        <LinkText to="/join" text="회원가입" />
         <ButtonWrapper>
-          <LinkText to="/findId">아이디 찾기 / </LinkText>
-          <LinkText to="">비밀번호 찾기</LinkText>
+          <LinkText to="/find/id" text="아이디 찾기" />
+          <span>/</span>
+          <LinkText to="/find/pw" text="비밀번호 찾기" />
         </ButtonWrapper>
       </ButtonContainer>
       <IconButton
@@ -113,4 +116,13 @@ const ButtonContainer = styled.div`
   margin-bottom: 32px;
 `;
 
-const ButtonWrapper = styled.div``;
+const ButtonWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  grid-gap: 3px;
+
+  span {
+    color: ${theme.color.black50};
+    font-size: 14px;
+  }
+`;
