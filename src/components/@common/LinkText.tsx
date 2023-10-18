@@ -1,5 +1,6 @@
-import { Link } from "react-router-dom";
 import styled, { CSSObject } from "@emotion/styled";
+
+import { Link } from "react-router-dom";
 import { PATH } from "@/utils/routes";
 import theme from "@/styles/theme";
 

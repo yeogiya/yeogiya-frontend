@@ -1,8 +1,8 @@
-import theme from "@/styles/theme";
 import LinkText from "./LinkText";
 import { MENU_ITEM } from "@/utils/menus";
 import { PATH } from "@/utils/routes";
 import styled from "@emotion/styled";
+import theme from "@/styles/theme";
 
 const Menu = () => {
   const getLinkStyles = (type: string) => {
@@ -17,7 +17,7 @@ const Menu = () => {
     <MenuItem>
       {MENU_ITEM.map((menu) => (
         <li key={`${menu.type}_${menu.title}`} css={getLinkStyles(menu.type)}>
-          <LinkText to={`${menu.path}`}>{menu.title}</LinkText>
+          <LinkText to={`${menu.path}`} text={menu.title} />
           {menu.path === PATH.JOIN && <span>/</span>}
         </li>
       ))}
