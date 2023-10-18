@@ -1,7 +1,6 @@
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { KeyboardEvent, useState } from "react";
 
-import DefaultButton from "@/components/@common/DefaultButton";
 import InputUser from "@/components/@common/InputUser";
 import Layout from "@/components/@common/Layout";
 import LinkText from "@/components/@common/LinkText";
