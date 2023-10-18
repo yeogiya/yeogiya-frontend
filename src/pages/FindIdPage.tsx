@@ -1,12 +1,15 @@
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { KeyboardEvent, useState } from "react";
+
+import DefaultButton from "@/components/@common/DefaultButton";
 import InputUser from "@/components/@common/InputUser";
 import Layout from "@/components/@common/Layout";
-import Title from "@/components/@common/Title";
-import DefaultButton from "@/components/@common/DefaultButton";
-import theme from "@/styles/theme";
-import styled from "@emotion/styled";
-import { KeyboardEvent, useState } from "react";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import LinkText from "@/components/@common/LinkText";
+import { PATH } from "@/utils/routes";
 import SubmitButton from "@/components/SubmitButton";
+import Title from "@/components/@common/Title";
+import styled from "@emotion/styled";
+import theme from "@/styles/theme";
 
 interface FindIdProps {
   email: string;
@@ -42,9 +45,9 @@ const FindIdPage = () => {
   };
 
   return (
-    <Layout>
+    <Layout css={{ rowGap: "14px" }}>
       <Title as="h1">아이디 찾기</Title>
-      <form
+      <Form
         onSubmit={handleSubmit(onSubmit)}
         onKeyDown={(e) => checkKeyDown(e)}
       >
@@ -70,9 +73,11 @@ const FindIdPage = () => {
                   isActive={isActive}
                   onBlur={() => !value && setIsActive(false)}
                 />
-                <ValidateMessage color="error">
-                  {errors?.email?.message}
-                </ValidateMessage>
+                {errors?.email?.message && (
+                  <ValidateMessage color="error">
+                    {errors?.email?.message}
+                  </ValidateMessage>
+                )}
                 {isValid && id && <MaskingId>{maskingId(id)}</MaskingId>}
                 <SubmitButton
                   type="button"
@@ -88,22 +93,40 @@ const FindIdPage = () => {
                     setValue("email", value, { shouldDirty: true });
                     setId(value);
                   }}
+                  css={{ marginTop: "45px" }}
                 />
               </>
             );
           }}
         />
-        <DefaultButton
+        <LinkText
+          to={PATH.FIND_PW}
           text="비밀번호 찾으러 가기"
-          color={`${theme.color.black50}`}
-          onClick={() => {}}
+          color={theme.color.black50}
         />
-      </form>
+      </Form>
     </Layout>
   );
 };
 
 export default FindIdPage;
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+
+  div {
+    + button {
+      margin-top: 55px;
+    }
+  }
+
+  p {
+    + button {
+      margin-top: 30px;
+    }
+  }
+`;
 
 const MaskingId = styled.p`
   margin: 27px 0;
