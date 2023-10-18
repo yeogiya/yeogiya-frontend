@@ -1,6 +1,7 @@
-import theme from "@/styles/theme";
-import styled from "@emotion/styled";
+import styled, { CSSObject } from "@emotion/styled";
+
 import { ButtonHTMLAttributes } from "react";
+import theme from "@/styles/theme";
 
 export interface SubmitButtonProps
   extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -8,6 +9,7 @@ export interface SubmitButtonProps
   isValid: boolean;
   text: string;
   onClick?: () => void;
+  css?: CSSObject;
 }
 
 const SubmitButton = ({ isValid, text, ...props }: SubmitButtonProps) => {
@@ -28,6 +30,8 @@ const SubmitButtonStyle = styled.button<Partial<SubmitButtonProps>>`
   justify-content: center;
   background-color: ${({ isValid }) =>
     isValid ? `${theme.color.purple}` : `${theme.color.black30}`};
+
+  ${({ css }) => css}
 `;
 
 export default SubmitButton;
