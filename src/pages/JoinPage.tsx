@@ -1,5 +1,5 @@
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 import CheckButton from "@/components/CheckButton";
 import ConcealIcon from "@/assets/ConcealIcon";
@@ -9,8 +9,10 @@ import SubmitButton from "@/components/SubmitButton";
 import Title from "@/components/@common/Title";
 import ValidateMessage from "@/components/ValidateMessage";
 import styled from "@emotion/styled";
+import { useQuery } from "@tanstack/react-query";
+import { joinApi } from "@/apis/fetchApi";
 
-interface JoinProps {
+export interface JoinProps {
   email: string;
   id: string;
   nickname: string;
@@ -40,27 +42,34 @@ const JoinPage = () => {
     setValue,
     clearErrors,
   } = useForm<JoinProps>({
-    mode: "onChange",
+    mode: "onBlur",
   });
 
   const onSubmit: SubmitHandler<JoinProps> = (data) => {
     console.log(data);
   };
 
+  const id = getValues("id");
+  // const email = getValues("email");
+  const email = "ccc@gmail.com";
+
+  const result = joinApi("aaa@gmail.com");
+  console.log(result, "result>>");
+
   const handleDuplicateCheck = (type: "email" | "id") => {
-    const email = watch("email");
-    const id = watch("id");
+    // const id = watch("id");
+    // const email = watch("email");
 
     if (type === "email") {
       if (!email)
         return setError("email", {
           message: `이메일을 입력해주세요`,
         });
-      if (email === "test@aa.aa") {
-        return setError("email", {
-          message: `이미 가입된 이메일입니다`,
-        });
-      }
+      // if (email === "test@aa.aa") {
+      //   return setError("email", {
+      //     message: `이미 가입된 이메일입니다`,
+      //   });
+      // }
       if (email && emailVerification) {
         setEmailVerification(true);
         setError("email", {
@@ -93,7 +102,7 @@ const JoinPage = () => {
     // <form>
     <Layout css={{ rowGap: "14px" }}>
       <Title as="h1">회원가입</Title>
-      <Form onSubmit={handleSubmit(onSubmit)}>
+      <Form onBlur={handleSubmit(onSubmit)}>
         <InputContainer>
           <InputWrapper>
             <Controller
