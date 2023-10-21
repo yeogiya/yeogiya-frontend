@@ -1,7 +1,8 @@
-import SearchIcon from "@/assets/SearchIcon";
-import theme from "@/styles/theme";
-import styled from "@emotion/styled";
 import { ChangeEvent, FormEvent, InputHTMLAttributes } from "react";
+
+import SearchIcon from "@/assets/SearchIcon";
+import styled from "@emotion/styled";
+import theme from "@/styles/theme";
 
 export interface SearchBarProps extends InputHTMLAttributes<HTMLInputElement> {
   value: string;
@@ -10,24 +11,33 @@ export interface SearchBarProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 const SearchBar = ({ value, setValue, onClick, ...props }: SearchBarProps) => {
+  const getSearchApi = async (query: string) => {
+    const res = await fetch(`mock/search?query=${query}`);
+
+    if (!res.ok) throw new Error("network error");
+    return res.json();
+  };
+
   const handleValue = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
+  };
+
+  const handleSearch = async () => {
+    try {
+      await getSearchApi(value);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleForm = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
 
-  const handleSearch = () => {};
-
   return (
-    <SearchWrapper>
-      <SearchInput
-        placeholder="장소 검색"
-        value={value}
-        onChange={handleValue}
-      />
-      <SearchButton type="submit" onClick={onClick}>
+    <SearchWrapper onSubmit={handleForm}>
+      <SearchInput role="input" value={value} onChange={handleValue} />
+      <SearchButton type="submit" onClick={handleSearch}>
         <SearchIcon />
       </SearchButton>
     </SearchWrapper>

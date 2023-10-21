@@ -8,7 +8,7 @@ const SearchIcon = ({ css }: SVGProps) => {
       viewBox="0 0 37 37"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      style={css}
+      css={css}
     >
       <rect width="37" height="37" rx="18.5" fill="#614AD3" />
       <rect
