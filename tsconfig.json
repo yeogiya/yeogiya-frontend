@@ -14,8 +14,10 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]
-    }
+    },
+    "types": ["jest", "@testing-library/jest-dom"]
   },
-  "include": ["src"],
+  "include": ["src", "jest.setup.ts", "test"],
+  "exclude": ["node_modules"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

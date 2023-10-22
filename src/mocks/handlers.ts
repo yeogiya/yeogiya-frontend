@@ -37,4 +37,11 @@ export const handlers = [
       })
     );
   }),
+
+  rest.get("/mock/search", async (req, res, ctx) => {
+    const query = req.url.searchParams.get("query");
+
+    const results = { data: [`Result for ${query}`] };
+    return res(ctx.status(200), ctx.json(results));
+  }),
 ];
