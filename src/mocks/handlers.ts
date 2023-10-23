@@ -9,18 +9,34 @@ interface JoinReqBody {
 }
 
 export const handlers = [
-  rest.get("/mock/members/email-exists", async (req, res, ctx) => {
+  rest.get("/mock/check-email", async (req, res, ctx) => {
     const data = await ctx.fetch(req);
+    const email = req.url.searchParams.get("email");
 
-    return res(
-      ctx.json({
-        ...data,
-        status: "OK",
-        body: {
-          duplicated: true,
-        },
-      })
-    );
+    if (email === "aaa@gmail.com") {
+      return res(
+        ctx.json({
+          ...data,
+          msw: true,
+          status: "OK",
+          body: {
+            duplicated: true,
+          },
+        })
+      );
+    }
+    {
+      return res(
+        ctx.json({
+          ...data,
+          msw: true,
+          status: "OK",
+          body: {
+            duplicated: false,
+          },
+        })
+      );
+    }
   }),
 
   rest.post<JoinReqBody>("/mock/members/sign-up", async (req, res, ctx) => {
@@ -29,6 +45,7 @@ export const handlers = [
     return res(
       ctx.status(200),
       ctx.json({
+        msw: true,
         id: id,
         password: password,
         nickname: nickname,
