@@ -1,6 +1,5 @@
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
-
+import { Dispatch, SetStateAction, useState } from "react";
 import CheckButton from "@/components/CheckButton";
 import ConcealIcon from "@/assets/ConcealIcon";
 import InputUser from "@/components/@common/InputUser";
@@ -9,8 +8,7 @@ import SubmitButton from "@/components/SubmitButton";
 import Title from "@/components/@common/Title";
 import ValidateMessage from "@/components/ValidateMessage";
 import styled from "@emotion/styled";
-import { useQuery } from "@tanstack/react-query";
-import { joinApi } from "@/apis/fetchApi";
+import { checkEmailApi } from "@/apis/user";
 
 export interface JoinProps {
   email: string;
@@ -32,6 +30,7 @@ const JoinPage = () => {
   const [idVerification, setIdVerification] = useState<boolean>(false);
   const [isEmailActive, setIsEmailActive] = useState<boolean>(false);
   const [idActive, setIdActive] = useState<boolean>(false);
+  const [uncheckedEmail, setUncheckedEmail] = useState<string>(null);
   const {
     control,
     handleSubmit,
@@ -49,33 +48,31 @@ const JoinPage = () => {
     console.log(data);
   };
 
-  const id = getValues("id");
-  // const email = getValues("email");
-  const email = "ccc@gmail.com";
-
-  const result = joinApi("aaa@gmail.com");
-  console.log(result, "result>>");
+  const checkEmail = checkEmailApi(uncheckedEmail);
 
   const handleDuplicateCheck = (type: "email" | "id") => {
-    // const id = watch("id");
-    // const email = watch("email");
+    const id = getValues("id");
+    const email = getValues("email");
+
+    setUncheckedEmail(email);
+    console.log(checkEmail, "checkEmail>>");
 
     if (type === "email") {
       if (!email)
         return setError("email", {
           message: `이메일을 입력해주세요`,
         });
-      // if (email === "test@aa.aa") {
+      // if (checkEmail.body.duplicated) {
       //   return setError("email", {
       //     message: `이미 가입된 이메일입니다`,
       //   });
       // }
-      if (email && emailVerification) {
-        setEmailVerification(true);
-        setError("email", {
-          message: `사용 가능한 이메일입니다`,
-        });
-      }
+      // if (!checkEmail.body.duplicated && emailVerification) {
+      //   setEmailVerification(true);
+      //   setError("email", {
+      //     message: `사용 가능한 이메일입니다`,
+      //   });
+      // }
       return clearErrors("email");
     }
 
