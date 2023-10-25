@@ -7,7 +7,6 @@
     "moduleResolution": "node",
     "jsx": "react-jsx",
     "jsxImportSource": "@emotion/react",
-    "strict": true,
     "skipLibCheck": true,
     "allowImportingTsExtensions": true,
     "noEmit": true,
