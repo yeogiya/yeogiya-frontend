@@ -1,5 +1,12 @@
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { Dispatch, SetStateAction, useState } from "react";
+import {
+  Controller,
+  SubmitHandler,
+  useController,
+  useForm,
+  useFormContext,
+} from "react-hook-form";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
+
 import CheckButton from "@/components/CheckButton";
 import ConcealIcon from "@/assets/ConcealIcon";
 import InputUser from "@/components/@common/InputUser";
@@ -9,6 +16,7 @@ import Title from "@/components/@common/Title";
 import ValidateMessage from "@/components/ValidateMessage";
 import styled from "@emotion/styled";
 import { checkEmailApi } from "@/apis/user";
+import useJoinForm from "@/features/hooks/useJoinForm";
 
 export interface JoinProps {
   email: string;
@@ -22,7 +30,6 @@ export interface JoinProps {
   setPasswordType: Dispatch<SetStateAction<string>>;
   setConfirmPassword: Dispatch<SetStateAction<string>>;
 }
-
 const JoinPage = () => {
   const [passwordType, setPasswordType] = useState<string>("password");
   const [confirmPassword, setConfirmPassword] = useState<string>("password");
@@ -30,50 +37,93 @@ const JoinPage = () => {
   const [idVerification, setIdVerification] = useState<boolean>(false);
   const [isEmailActive, setIsEmailActive] = useState<boolean>(false);
   const [idActive, setIdActive] = useState<boolean>(false);
-  const [uncheckedEmail, setUncheckedEmail] = useState<string>(null);
+  const [uncheckedEmail, setUncheckedEmail] = useState<string | null>(null);
   const {
-    control,
     handleSubmit,
     getValues,
     formState: { errors, isDirty, isValid },
     watch,
     setError,
     setValue,
+    trigger,
     clearErrors,
+    control,
+    register,
   } = useForm<JoinProps>({
-    mode: "onBlur",
+    mode: "onChange",
+    defaultValues: {
+      email: "",
+      confirmEmail: false,
+      id: "",
+      confirmId: false,
+      nickname: "",
+      password: "",
+      confirmPassword: "",
+    },
   });
+
+  const { email, emailState } = useJoinForm(control);
+
+  // const confirmEmail = register("confirmEmail", {
+  //   required: "이메일 중복 확인을 해주세요.",
+  // });
+
+  // const email = register("email", {
+  //   required: "이메일을 입력해주세요.",
+  //   pattern: {
+  //     value: /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i,
+  //     message: "이메일 형식이 잘못 되었습니다.",
+  //   },
+  //   validate: (value) => {
+  //     if (value !== watch("email")) return "이메일 중복 확인을 해주세요.";
+  //     if (value && !emailVerification) return "이메일 중복 확인을 해주세요.";
+  //   },
+  // });
 
   const onSubmit: SubmitHandler<JoinProps> = (data) => {
     console.log(data);
   };
 
-  const checkEmail = checkEmailApi(uncheckedEmail);
+  const checkDuplicateEmail = checkEmailApi(uncheckedEmail);
 
-  const handleDuplicateCheck = (type: "email" | "id") => {
+  const handleVerifyEmail = () => {
+    const data = checkDuplicateEmail?.data;
+
+    setEmailVerification(true);
+    setUncheckedEmail(getValues("email"));
+
+    if (uncheckedEmail && data.body.duplicated) {
+      setError("email", { message: "이미 있음" });
+      console.log(errors.email?.message, "errors>>");
+    }
+  };
+
+  const handleCheckEmail = (type: "email" | "id") => {
     const id = getValues("id");
-    const email = getValues("email");
-
-    setUncheckedEmail(email);
-    console.log(checkEmail, "checkEmail>>");
+    const {
+      body: { duplicated },
+    } = checkDuplicateEmail?.data;
+    console.log(111);
 
     if (type === "email") {
-      if (!email)
+      if (!uncheckedEmail)
         return setError("email", {
           message: `이메일을 입력해주세요`,
         });
-      // if (checkEmail.body.duplicated) {
-      //   return setError("email", {
-      //     message: `이미 가입된 이메일입니다`,
-      //   });
-      // }
-      // if (!checkEmail.body.duplicated && emailVerification) {
-      //   setEmailVerification(true);
-      //   setError("email", {
-      //     message: `사용 가능한 이메일입니다`,
-      //   });
-      // }
-      return clearErrors("email");
+
+      if (uncheckedEmail) {
+        if (duplicated) {
+          confirmEmail.onChange(false);
+          return setError("confirmEmail", {
+            message: `이미 가입된 이메일입니다`,
+          });
+        }
+        if (!duplicated) {
+          console.log(222);
+
+          confirmEmail.onChange(true);
+        }
+      }
     }
 
     if (type === "id") {
@@ -96,73 +146,41 @@ const JoinPage = () => {
   };
 
   return (
-    // <form>
     <Layout css={{ rowGap: "14px" }}>
       <Title as="h1">회원가입</Title>
-      <Form onBlur={handleSubmit(onSubmit)}>
+      <Form onClick={handleSubmit(onSubmit)}>
         <InputContainer>
           <InputWrapper>
-            <Controller
-              control={control}
-              name="email"
-              rules={{
-                required: "이메일을 입력해주세요.",
-                pattern: {
-                  value: /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i,
-                  message: "이메일 형식이 잘못 되었습니다.",
-                },
-                validate: () => {
-                  if (!emailVerification) return "이메일 중복 확인을 해주세요";
-                  return true;
-                },
-              }}
-              render={({ field: { onChange, value } }) => {
-                return (
-                  <InputUser
-                    type="text"
-                    labelText="이메일"
-                    onChange={(e) => {
-                      setValue("confirmEmail", false, {
-                        shouldValidate: true,
-                      });
-                      onChange(e.target.value);
-                      e.target.value && setIsEmailActive(true);
-                    }}
-                    onFocus={() => setIsEmailActive(true)}
-                    onBlur={() => !value && setIsEmailActive(false)}
-                    isActive={isEmailActive}
-                  />
-                );
+            <InputUser
+              // {...register("email")}
+              {...email}
+              type="text"
+              labelText="이메일"
+              onFocus={() => setIsEmailActive(true)}
+              isActive={isEmailActive}
+              // checkDuplicateEmail={checkDuplicateEmail}
+              // setError={setError}
+              // onChange={(e) => email.onChange(e)}
+              // inputRef={email.ref}
+              onChange={(e) => {
+                email.onChange(e);
+                setEmailVerification(false);
               }}
             />
-            <Controller
-              control={control}
-              name="confirmEmail"
-              rules={{
-                required: "이메일 중복 확인을 해주세요",
-              }}
-              render={({ field: { onChange } }) => {
-                return (
-                  <CheckButton
-                    onClick={() => {
-                      handleDuplicateCheck("email");
-                      setEmailVerification(true);
-                      onChange(true);
-                    }}
-                    type="button"
-                    text="중복확인"
-                    isActive={isEmailActive}
-                  />
-                );
-              }}
+            <CheckButton
+              // {...confirmEmail}
+              onClick={handleVerifyEmail}
+              type="text"
+              text="중복확인"
+              isActive={isEmailActive}
             />
           </InputWrapper>
           {
             <ValidateMessage
               color={errors.email || errors.confirmEmail ? "error" : "success"}
             >
-              {errors?.email?.message ||
-                errors?.confirmEmail?.message ||
+              {emailState?.error?.message ||
+                confirmEmailState?.error?.message ||
                 (emailVerification && "사용 가능한 이메일입니다")}
             </ValidateMessage>
           }
@@ -180,6 +198,7 @@ const JoinPage = () => {
               render={({ field: { onChange, value } }) => {
                 return (
                   <InputUser
+                    control={control}
                     type="text"
                     labelText="아이디"
                     onChange={(e) => {
@@ -208,7 +227,7 @@ const JoinPage = () => {
                   <CheckButton
                     onClick={() => {
                       onChange(true);
-                      handleDuplicateCheck("id");
+                      // handleDuplicateCheck("id");
                       setIdVerification(true);
                     }}
                     type="button"
@@ -234,6 +253,7 @@ const JoinPage = () => {
               const [isNickName, setIsNickName] = useState(false);
               return (
                 <InputUser
+                  control={control}
                   type="text"
                   labelText="닉네임"
                   onChange={(e) => onChange(e.target.value)}
@@ -271,6 +291,7 @@ const JoinPage = () => {
               const [isPassword, setIsPassword] = useState(false);
               return (
                 <InputUser
+                  control={control}
                   type={passwordType}
                   labelText="비밀번호"
                   onChange={(e) => {
@@ -315,6 +336,7 @@ const JoinPage = () => {
               const [isPassWordConfirm, setIsPassWordConfirm] = useState(false);
               return (
                 <InputUser
+                  control={control}
                   type={confirmPassword}
                   labelText="비밀번호 확인"
                   onChange={(e) => onChange(e.target.value)}
