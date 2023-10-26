@@ -1,21 +1,24 @@
 import styled from "@emotion/styled";
 import theme from "@/styles/theme";
+import * as React from "react";
 
 export interface CheckButtonProps {
   isActive: boolean;
-  type: "button" | "submit" | "reset";
+  type: "button" | "submit" | "reset" | "text";
   text: string;
-  onClick: () => void;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  onChange?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-const CheckButton = ({ isActive, text, ...props }: CheckButtonProps) => {
-  return (
-    <CheckButtonStyle isActive={isActive} {...props}>
-      {text}
-    </CheckButtonStyle>
-  );
-};
-
+const CheckButton = React.forwardRef(
+  ({ isActive, text, ...props }: CheckButtonProps, ref) => {
+    return (
+      <CheckButtonStyle isActive={isActive} {...props} ref={ref}>
+        {text}
+      </CheckButtonStyle>
+    );
+  }
+);
 const CheckButtonStyle = styled.button<Pick<CheckButtonProps, "isActive">>`
   cursor: pointer;
   border: 1px solid
