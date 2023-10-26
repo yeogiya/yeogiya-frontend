@@ -10,13 +10,11 @@ interface JoinReqBody {
 
 export const handlers = [
   rest.get("/mock/check-email", async (req, res, ctx) => {
-    const data = await ctx.fetch(req);
-    const email = req.url.searchParams.get("email");
+    const email = new URL(req.url).searchParams.get("email");
 
     if (email === "aaa@gmail.com") {
       return res(
         ctx.json({
-          ...data,
           msw: true,
           status: "OK",
           body: {
@@ -25,18 +23,16 @@ export const handlers = [
         })
       );
     }
-    {
-      return res(
-        ctx.json({
-          ...data,
-          msw: true,
-          status: "OK",
-          body: {
-            duplicated: false,
-          },
-        })
-      );
-    }
+
+    return res(
+      ctx.json({
+        msw: true,
+        status: "OK",
+        body: {
+          duplicated: false,
+        },
+      })
+    );
   }),
 
   rest.post<JoinReqBody>("/mock/members/sign-up", async (req, res, ctx) => {
@@ -61,6 +57,7 @@ export const handlers = [
     return res(
       ctx.status(200),
       ctx.json({
+        msw: true,
         id: id,
         password: password,
         nickname: nickname,
