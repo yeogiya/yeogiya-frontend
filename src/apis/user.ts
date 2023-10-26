@@ -1,14 +1,18 @@
+import { JoinProps } from "./../pages/JoinPage";
 import { useQuery } from "@tanstack/react-query";
-
+import axios from "axios";
 const BASE_URL = "http://13.209.150.130:8080/api/public/v1.0.0";
 
-export const checkEmailApi = (uncheckedEmail: string) => {
+export const checkEmailApi = (uncheckedEmail: string | null) => {
   const { error, isLoading, data, refetch } = useQuery({
     queryKey: ["join", "email", uncheckedEmail],
-    queryFn: async (uncheckedEmail) => {
-      return await fetch(`/mock/check-email?email=${uncheckedEmail}`).then(
-        (res) => res.json()
-      );
+    queryFn: async () => {
+      const res = axios.get("/mock/check-email", {
+        params: {
+          email: uncheckedEmail,
+        },
+      });
+      return res;
     },
     enabled: !!uncheckedEmail,
   });
