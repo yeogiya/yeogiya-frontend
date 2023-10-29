@@ -2,6 +2,7 @@ import styled, { CSSObject } from "@emotion/styled";
 
 import { InputHTMLAttributes } from "react";
 import theme from "@/styles/theme";
+import * as React from "react";
 
 export interface InputUserProps extends InputHTMLAttributes<HTMLElement> {
   placeholder?: string;
@@ -10,20 +11,23 @@ export interface InputUserProps extends InputHTMLAttributes<HTMLElement> {
   name?: string;
   icon?: React.ReactNode;
   isActive?: boolean;
-  type: string;
+  // type: string;
   maxWidth?: number;
   css?: CSSObject;
 }
-const InputUser = ({
-  placeholder,
-  onChange,
-  labelText,
-  name,
-  icon,
-  isActive,
-  type,
-  ...props
-}: InputUserProps) => {
+const InputUser = (
+  {
+    placeholder,
+    onChange,
+    labelText,
+    name,
+    icon,
+    isActive,
+    type,
+    ...props
+  }: InputUserProps
+  // ref: any
+) => {
   return (
     <InputWrapper>
       <LabelWrapper>
@@ -37,6 +41,7 @@ const InputUser = ({
           type={type}
           name={name}
           {...props}
+          // ref={ref}
         />
         {icon && <button type="button">{icon}</button>}
       </InputContainer>

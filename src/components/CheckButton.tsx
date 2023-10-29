@@ -4,7 +4,7 @@ import * as React from "react";
 
 export interface CheckButtonProps {
   isActive: boolean;
-  type: "button" | "submit" | "reset" | "text";
+  type: "button" | "submit" | "reset" | "text" | "checkbox";
   text: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   onChange?: React.MouseEventHandler<HTMLButtonElement>;
@@ -19,6 +19,7 @@ const CheckButton = React.forwardRef(
     );
   }
 );
+
 const CheckButtonStyle = styled.button<Pick<CheckButtonProps, "isActive">>`
   cursor: pointer;
   border: 1px solid
