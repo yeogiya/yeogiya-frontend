@@ -1,5 +1,4 @@
 import styled, { CSSObject } from "@emotion/styled";
-
 import { InputHTMLAttributes } from "react";
 import theme from "@/styles/theme";
 import * as React from "react";
@@ -11,12 +10,12 @@ export interface InputUserProps extends InputHTMLAttributes<HTMLElement> {
   name?: string;
   icon?: React.ReactNode;
   isActive?: boolean;
-  // type: string;
   maxWidth?: number;
   css?: CSSObject;
+  ref: React.Ref<any>;
 }
-const InputUser = (
-  {
+const InputUser = React.forwardRef(
+  ({
     placeholder,
     onChange,
     labelText,
@@ -24,30 +23,30 @@ const InputUser = (
     icon,
     isActive,
     type,
+    ref,
     ...props
-  }: InputUserProps
-  // ref: any
-) => {
-  return (
-    <InputWrapper>
-      <LabelWrapper>
-        <Label htmlFor={name}>{labelText}</Label>
-      </LabelWrapper>
-      <InputContainer>
-        <Input
-          isActive={isActive}
-          placeholder={placeholder}
-          onChange={onChange}
-          type={type}
-          name={name}
-          {...props}
-          // ref={ref}
-        />
-        {icon && <button type="button">{icon}</button>}
-      </InputContainer>
-    </InputWrapper>
-  );
-};
+  }: InputUserProps) => {
+    return (
+      <InputWrapper>
+        <LabelWrapper>
+          <Label htmlFor={name}>{labelText}</Label>
+        </LabelWrapper>
+        <InputContainer>
+          <Input
+            isActive={isActive}
+            placeholder={placeholder}
+            onChange={onChange}
+            type={type}
+            name={name}
+            {...props}
+            ref={ref}
+          />
+          {icon && <button type="button">{icon}</button>}
+        </InputContainer>
+      </InputWrapper>
+    );
+  }
+);
 
 export default InputUser;
 
