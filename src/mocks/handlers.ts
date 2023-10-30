@@ -35,18 +35,29 @@ export const handlers = [
     );
   }),
 
-  rest.post<JoinReqBody>("/mock/members/sign-up", async (req, res, ctx) => {
-    const { id, password, nickname, email, loginType } = req.body;
+  rest.get<JoinReqBody>("/mock/check-id", async (req, res, ctx) => {
+    const id = new URL(req.url).searchParams.get("id");
+
+    if (id === "aaa") {
+      return res(
+        ctx.status(200),
+        ctx.json({
+          msw: true,
+          status: "OK",
+          body: {
+            duplicated: true,
+          },
+        })
+      );
+    }
 
     return res(
-      ctx.status(200),
       ctx.json({
         msw: true,
-        id: id,
-        password: password,
-        nickname: nickname,
-        email: email,
-        loginType: loginType,
+        status: "OK",
+        body: {
+          duplicated: false,
+        },
       })
     );
   }),
