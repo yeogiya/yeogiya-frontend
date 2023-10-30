@@ -1,25 +1,17 @@
-import {
-  Controller,
-  SubmitHandler,
-  useController,
-  useForm,
-  useFormContext,
-} from "react-hook-form";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
-
+import { SubmitHandler, useForm } from "react-hook-form";
+import { Dispatch, SetStateAction, useState } from "react";
 import CheckButton from "@/components/CheckButton";
 import ConcealIcon from "@/assets/ConcealIcon";
-import InputUser, { InputUserProps } from "@/components/@common/InputUser";
+import InputUser from "@/components/@common/InputUser";
 import Layout from "@/components/@common/Layout";
 import SubmitButton from "@/components/SubmitButton";
 import Title from "@/components/@common/Title";
 import ValidateMessage from "@/components/ValidateMessage";
 import styled from "@emotion/styled";
-import { checkEmailApi } from "@/apis/user";
+import { BASE_URL } from "@/apis/user";
 import useJoinForm from "@/features/hooks/useJoinForm";
 import { DevTool } from "@hookform/devtools";
 import axios from "axios";
-import theme from "@/styles/theme";
 
 export interface JoinProps {
   email: string;
@@ -28,7 +20,7 @@ export interface JoinProps {
   password: string;
   passwordType: string;
   confirmPassword: string;
-  confirmEmail: boolean;
+  confirmEmail: string;
   confirmId: boolean;
   setPasswordType: Dispatch<SetStateAction<string>>;
   setConfirmPassword: Dispatch<SetStateAction<string>>;
@@ -41,8 +33,10 @@ const JoinPage = () => {
   const [emailVerification, setEmailVerification] = useState<boolean>(false);
   const [idVerification, setIdVerification] = useState<boolean>(false);
   const [isEmailActive, setIsEmailActive] = useState<boolean>(false);
+  const [isNickName, setIsNickName] = useState<boolean>(false);
   const [idActive, setIdActive] = useState<boolean>(false);
-  const [uncheckedEmail, setUncheckedEmail] = useState<string | null>(null);
+  const [isPassword, setIsPassword] = useState<boolean>(false);
+  const [isPassWordConfirm, setIsPassWordConfirm] = useState<boolean>(false);
   const {
     handleSubmit,
     formState: { errors, isDirty, isValid },
@@ -50,11 +44,12 @@ const JoinPage = () => {
     setError,
     trigger,
     control,
-    register,
+    clearErrors,
   } = useForm<JoinProps>({
     mode: "onBlur",
     defaultValues: {
       email: "",
+      confirmEmail: "",
       id: "",
       nickname: "",
       password: "",
@@ -65,118 +60,92 @@ const JoinPage = () => {
   const {
     email,
     emailState,
-    // id,
-    // idState,
-    // nickname,
+    confirmEmail,
+    confirmEmailState,
+    id,
+    idState,
+    confirmId,
+    confirmIdState,
+    nickname,
     // nicknameState,
-    // password,
-    // passwordState,
-    // confirmPassword,
-    // confirmPasswordState,
+    password,
+    passwordState,
+    confirmPassword,
+    confirmPasswordState,
   } = useJoinForm(control);
 
-  const onSubmit: SubmitHandler<JoinProps> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<JoinProps> = async (data) => {
+    const res = await axios.post(`${BASE_URL}/members/sign-up`, {
+      email: data.email,
+      id: data.id,
+      nickname: data.nickname,
+      password: data.password,
+      loginType: "EMAIL",
+    });
+    console.log(res.data);
   };
 
-  const watchEmail = watch("email");
-
-  // const checkDuplicateEmail = checkEmailApi(uncheckedEmail);
-
-  // const handleVerifyEmail = async () => {
-  //   try {
-  //     const res = await axios.get("/mock/check-email", {
-  //       params: {
-  //         email: email.value,
-  //       },
-  //     });
-  //     if (res.data.body.duplicated) {
-  //       return setError("email", {
-  //         type: "required",
-  //         message: "이미 가입된 이메일입니다.",
-  //       });
-  //     }
-  //     return setEmailVerification(true);
-  //   } catch (err) {}
-  // };
   const handleVerifyEmail = async () => {
-    const checkBefore = await trigger("email");
-    if (!checkBefore) return;
+    const checkBeforeEmail = await trigger("email");
+    if (!checkBeforeEmail) return;
 
-    try {
-      const res = await axios.get("/mock/check-email", {
-        params: {
-          email: email.value,
-        },
-      });
-      if (res.data.body.duplicated) {
-        return setError("email", { message: "중복입니다" });
-      } else {
-        setEmailVerification(true);
+    if (checkBeforeEmail) {
+      try {
+        const res = await axios.get(`${BASE_URL}/members/email-exists`, {
+          params: {
+            email: email.value,
+          },
+        });
+
+        if (res.data.body.duplicated) {
+          confirmEmail.onChange(false);
+          return setError("email", {
+            type: "duplicate",
+            message: "이미 가입된 이메일입니다.",
+          });
+        } else {
+          confirmEmail.onChange(true);
+          clearErrors("confirmEmail");
+          setEmailVerification(true);
+        }
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      console.error(error);
     }
   };
+  const handleVerifyId = async () => {
+    const checkBeforeId = await trigger("id");
+    if (!checkBeforeId) return;
 
-  // useEffect(() => {
-  //   if (!!email.value && !emailVerification)
-  //     return setError("email", { message: "중복확인꼬" });
-  // }, [email.value, emailVerification, setError]);
+    if (checkBeforeId) {
+      try {
+        const res = await axios.get(`${BASE_URL}/members/id-exists`, {
+          params: {
+            id: id.value,
+          },
+        });
 
-  // const handleCheckEmail = (type: "email" | "id") => {
-  //   const id = getValues("id");
-  //   const {
-  //     body: { duplicated },
-  //   } = checkDuplicateEmail?.data;
-  //   console.log(111);
-
-  //   if (type === "email") {
-  //     if (!uncheckedEmail)
-  //       return setError("email", {
-  //         message: `이메일을 입력해주세요`,
-  //       });
-
-  //     if (uncheckedEmail) {
-  //       if (duplicated) {
-  //         return setError("confirmEmail", {
-  //           message: `이미 가입된 이메일입니다`,
-  //         });
-  //       }
-  //       if (!duplicated) {
-  //         console.log(222);
-  //       }
-  //     }
-  //   }
-
-  //   if (type === "id") {
-  //     if (!id)
-  //       return setError("id", {
-  //         message: "아이디를 입력해주세요.",
-  //       });
-  //     if (id === "aa")
-  //       return setError("id", {
-  //         message: "이미 사용 중인 아이디입니다",
-  //       });
-  //     if (id !== "aa") {
-  //       setError("id", {
-  //         message: `사용 가능한 아이디입니다`,
-  //       });
-  //       setIdVerification(true);
-  //     }
-  //     return clearErrors("id");
-  //   }
-  // };
-
-  useEffect(() => {
-    if (!emailVerification)
-      return setError("email", { message: "중복 확인을 해주세요." });
-  }, [setError, emailVerification, watchEmail]);
+        if (res.data.body.duplicated) {
+          confirmId.onChange(false);
+          return setError("id", {
+            type: "duplicate",
+            message: "이미 사용 중인 아이디입니다.",
+          });
+        } else {
+          confirmId.onChange(true);
+          clearErrors("confirmId");
+          setIdVerification(true);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
 
   return (
     <Layout css={{ rowGap: "14px" }}>
       <Title as="h1">회원가입</Title>
-      <Form onClick={handleSubmit(onSubmit)}>
+      <Form onSubmit={handleSubmit(onSubmit)}>
         <InputContainer>
           <InputWrapper>
             <InputUser
@@ -186,14 +155,18 @@ const JoinPage = () => {
               onFocus={() => setIsEmailActive(true)}
               isActive={isEmailActive}
               onChange={(e) => {
-                setEmailVerification(false);
                 email.onChange(e);
+                trigger("confirmEmail");
+                setEmailVerification(false);
+                confirmEmail.onChange(false);
               }}
+              onBlur={() => trigger(["email", "confirmEmail"])}
             />
             <CheckButton
+              {...confirmEmail}
               onClick={handleVerifyEmail}
               type="button"
-              text="중복체크"
+              text="중복 확인"
               isActive={isEmailActive}
             />
           </InputWrapper>
@@ -201,36 +174,31 @@ const JoinPage = () => {
             <ValidateMessage
               color={errors.email || errors.confirmEmail ? "error" : "success"}
             >
-              {
-                emailState?.error?.message
-                // ||(email.value && emailVerification && "사용 가능")
-              }
+              {emailState?.error?.message ||
+                confirmEmailState?.error?.message ||
+                (email.value &&
+                  emailVerification &&
+                  "사용 가능한 이메일입니다.")}
             </ValidateMessage>
           }
-          {/* <InputWrapper>
+          <InputWrapper>
             <InputUser
               {...id}
               type="text"
               labelText="아이디"
               onChange={(e) => {
-                setValue("confirmId", false, {
-                  shouldValidate: true,
-                });
-                e.target.value && setIdActive(true);
                 id.onChange(e);
+                trigger("confirmId");
+                setIdVerification(false);
+                confirmId.onChange(false);
               }}
               onFocus={() => setIdActive(true)}
+              onBlur={() => trigger(["id", "confirmId"])}
               isActive={idActive}
-              // value={value || ""}
-              // onBlur={() => !value && setIdActive(false)}
             />
 
             <CheckButton
-              onClick={() => {
-                // onChange(true);
-                // handleDuplicateCheck("id");
-                setIdVerification(true);
-              }}
+              onClick={handleVerifyId}
               type="button"
               text="중복확인"
               isActive={idActive}
@@ -239,19 +207,17 @@ const JoinPage = () => {
           <ValidateMessage
             color={errors.id || errors.confirmId ? "error" : "success"}
           >
-            {errors?.id?.message ||
-              errors?.confirmId?.message ||
-              (idVerification && "사용 가능한 아이디입니다")}
+            {idState?.error?.message ||
+              confirmIdState?.error?.message ||
+              (id.value && idVerification && "사용 가능한 아이디입니다.")}
           </ValidateMessage>
           <InputUser
             {...nickname}
             type="text"
             labelText="닉네임"
-            // onChange={(e) => onChange(e.target.value)}
-            // value={value || ""}
-            // onFocus={() => setIsNickName(true)}
-            // onBlur={() => !value && setIsNickName(false)}
-            // isActive={isNickName}
+            onChange={(e) => nickname.onChange(e)}
+            onFocus={() => setIsNickName(true)}
+            isActive={isNickName}
           />
           <ValidateMessage color={!errors.nickname ? "success" : "error"}>
             {errors?.nickname?.message}
@@ -260,24 +226,23 @@ const JoinPage = () => {
             {...password}
             type={passwordType}
             labelText="비밀번호"
-            // onChange={(e) => {
-            //   onChange(e.target.value);
-            // }}
+            onChange={(e) => {
+              password.onChange(e);
+            }}
             icon={
               <ConcealIcon
                 passwordType={passwordType}
                 setPasswordType={setPasswordType}
-                // isActive={isPassword}
+                isActive={isPassword}
               />
             }
-            // onFocus={() => setIsPassword(true)}
-            // onBlur={() => !value && setIsPassword(false)}
-            // isActive={isPassword}
+            onFocus={() => setIsPassword(true)}
+            isActive={isPassword}
           />
           {errors?.password?.message ? (
             <ValidateMessage
               color={
-                errors.password.message ===
+                passwordState.error?.message ===
                 "영문+숫자+특수문자 조합 8~20자로 입력해주세요."
                   ? "error"
                   : "default"
@@ -286,6 +251,7 @@ const JoinPage = () => {
               {errors?.password?.message}
             </ValidateMessage>
           ) : (
+            !passwordState.error?.message &&
             watch("password") && (
               <ValidateMessage color="success">
                 사용 가능한 비밀번호입니다.
@@ -297,22 +263,21 @@ const JoinPage = () => {
             labelText="비밀번호 확인"
             onChange={(e) => confirmPassword.onChange(e.target.value)}
             type=""
-            // value={value || ""}
             icon={
               <ConcealIcon
                 confirmPassword={confirmPasswordType}
                 setConfirmPassword={setConfirmPasswordType}
-                // isActive={isPassWordConfirm}
+                isActive={isPassWordConfirm}
               />
             }
-            // onFocus={() => setIsPassWordConfirm(true)}
-            // onBlur={() => !value && setIsPassWordConfirm(false)}
-            // isActive={isPassWordConfirm}
+            onFocus={() => setIsPassWordConfirm(true)}
+            onBlur={() => trigger("confirmPassword")}
+            isActive={isPassWordConfirm}
           />
           {errors?.confirmPassword?.message ? (
             <ValidateMessage
               color={
-                errors.confirmPassword.message ===
+                confirmPasswordState.error?.message ===
                 "비밀 번호가 일치하지 않습니다."
                   ? "error"
                   : "default"
@@ -321,17 +286,18 @@ const JoinPage = () => {
               {errors?.confirmPassword?.message}
             </ValidateMessage>
           ) : (
+            !confirmPasswordState.error?.message &&
             watch("confirmPassword") && (
               <ValidateMessage color="success">
                 비밀 번호가 일치합니다.
               </ValidateMessage>
             )
-          )}*/}
+          )}
         </InputContainer>
         <SubmitButton
           type="submit"
           text="회원가입 완료"
-          isValid={isDirty && isValid}
+          isValid={isDirty && isValid && emailVerification}
           css={{ maxWidth: "328px", marginTop: "0" }}
         />
       </Form>
