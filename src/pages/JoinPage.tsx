@@ -17,6 +17,7 @@ export interface JoinProps {
   email: string;
   id: string;
   nickname: string;
+  confirmNickname: string;
   password: string;
   passwordType: string;
   confirmPassword: string;
@@ -33,7 +34,7 @@ const JoinPage = () => {
   const [emailVerification, setEmailVerification] = useState<boolean>(false);
   const [idVerification, setIdVerification] = useState<boolean>(false);
   const [isEmailActive, setIsEmailActive] = useState<boolean>(false);
-  const [isNickName, setIsNickName] = useState<boolean>(false);
+  const [isNickname, setIsNickname] = useState<boolean>(false);
   const [idActive, setIdActive] = useState<boolean>(false);
   const [isPassword, setIsPassword] = useState<boolean>(false);
   const [isPassWordConfirm, setIsPassWordConfirm] = useState<boolean>(false);
@@ -52,6 +53,7 @@ const JoinPage = () => {
       confirmEmail: "",
       id: "",
       nickname: "",
+      confirmNickname: "",
       password: "",
       confirmPassword: "",
     },
@@ -67,7 +69,9 @@ const JoinPage = () => {
     confirmId,
     confirmIdState,
     nickname,
-    // nicknameState,
+    nicknameState,
+    confirmNickname,
+    confirmNicknameState,
     password,
     passwordState,
     confirmPassword,
@@ -142,6 +146,35 @@ const JoinPage = () => {
     }
   };
 
+  const handleVerifyNickName = async () => {
+    const checkBeforeNickName = await trigger("nickname");
+    if (!checkBeforeNickName) return;
+
+    if (checkBeforeNickName) {
+      try {
+        const res = await axios.get(`${BASE_URL}/members/nickname-exist`, {
+          params: {
+            nickname: nickname.value,
+          },
+        });
+
+        if (res.data.body.duplicated) {
+          confirmId.onChange(false);
+          return setError("nickname", {
+            type: "duplicate",
+            message: "이미 사용 중인 닉네임입니다.",
+          });
+        } else {
+          confirmId.onChange(true);
+          clearErrors("confirmNickname");
+          setIdVerification(true);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
   return (
     <Layout css={{ rowGap: "14px" }}>
       <Title as="h1">회원가입</Title>
@@ -196,8 +229,8 @@ const JoinPage = () => {
               onBlur={() => trigger(["id", "confirmId"])}
               isActive={idActive}
             />
-
             <CheckButton
+              {...confirmId}
               onClick={handleVerifyId}
               type="button"
               text="중복확인"
@@ -211,16 +244,30 @@ const JoinPage = () => {
               confirmIdState?.error?.message ||
               (id.value && idVerification && "사용 가능한 아이디입니다.")}
           </ValidateMessage>
-          <InputUser
-            {...nickname}
-            type="text"
-            labelText="닉네임"
-            onChange={(e) => nickname.onChange(e)}
-            onFocus={() => setIsNickName(true)}
-            isActive={isNickName}
-          />
-          <ValidateMessage color={!errors.nickname ? "success" : "error"}>
-            {errors?.nickname?.message}
+          <InputWrapper>
+            <InputUser
+              {...nickname}
+              type="text"
+              labelText="닉네임"
+              onChange={(e) => nickname.onChange(e)}
+              onFocus={() => setIsNickname(true)}
+              isActive={isNickname}
+              onBlur={() => trigger(["nickname", "confirmNickname"])}
+            />
+            <CheckButton
+              {...confirmNickname}
+              onClick={handleVerifyNickName}
+              type="button"
+              text="중복확인"
+              isActive={isNickname}
+            />
+          </InputWrapper>
+          <ValidateMessage
+            color={errors.nickname || errors.confirmEmail ? "error" : "success"}
+          >
+            {nicknameState?.error?.message ||
+              confirmNicknameState?.error?.message ||
+              (email.value && emailVerification && "사용 가능한 닉네임입니다.")}
           </ValidateMessage>
           <InputUser
             {...password}
