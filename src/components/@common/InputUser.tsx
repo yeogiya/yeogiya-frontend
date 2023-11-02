@@ -12,20 +12,21 @@ export interface InputUserProps extends InputHTMLAttributes<HTMLElement> {
   isActive?: boolean;
   maxWidth?: number;
   css?: CSSObject;
-  ref: React.Ref<any>;
 }
 const InputUser = React.forwardRef(
-  ({
-    placeholder,
-    onChange,
-    labelText,
-    name,
-    icon,
-    isActive,
-    type,
-    ref,
-    ...props
-  }: InputUserProps) => {
+  (
+    {
+      placeholder,
+      onChange,
+      labelText,
+      name,
+      icon,
+      isActive,
+      type,
+      ...props
+    }: InputUserProps,
+    ref: React.Ref<any>
+  ) => {
     return (
       <InputWrapper>
         <LabelWrapper>
