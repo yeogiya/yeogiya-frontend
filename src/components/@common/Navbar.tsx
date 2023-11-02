@@ -1,7 +1,7 @@
-import YeogiyaLogo from "@/assets/YeogiyaLogo";
-import styled from "@emotion/styled";
 import Menu from "@/components/@common/Menu";
 import SearchBar from "@/components/SearchBar";
+import YeogiyaLogo from "@/assets/YeogiyaLogo";
+import styled from "@emotion/styled";
 import { useState } from "react";
 
 const Navbar = () => {
@@ -30,16 +30,20 @@ const Navbar = () => {
 
 const StyledNavbar = styled.nav`
   width: 100%;
+  max-width: var(--max-width);
+  margin: auto;
+  padding: 1.43rem 0;
+  height: 4.37rem;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 46px 80px 46px 155px;
-  height: 37px;
 `;
 
 const StyledWrapper = styled.div`
   display: flex;
-  grid-gap: 20px;
+  flex-direction: row;
+  column-gap: 1.25rem;
   align-items: center;
 `;
 

@@ -17,7 +17,11 @@ const Menu = () => {
     <MenuItem>
       {MENU_ITEM.map((menu) => (
         <li key={`${menu.type}_${menu.title}`} css={getLinkStyles(menu.type)}>
-          <LinkText to={`${menu.path}`} text={menu.title} />
+          <LinkText
+            color={theme.color.black90}
+            to={`${menu.path}`}
+            text={menu.title}
+          />
           {menu.path === PATH.JOIN && <span>/</span>}
         </li>
       ))}
@@ -26,29 +30,27 @@ const Menu = () => {
 };
 
 const MenuItem = styled.ul`
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
   display: flex;
-  align-items: center;
 
   li {
     display: flex;
     list-style: none;
     align-items: center;
-    font-size: 16px;
+    font-size: 1rem;
     font-style: normal;
     line-height: normal;
-  }
 
-  a {
-    color: ${theme.color.black90};
+    a {
+      margin-top: 0;
+    }
   }
 
   span {
-    font-weight: 400;
     margin: 0 3px;
+    font-size: 1rem;
+    font-weight: 500;
+    font-style: normal;
+    line-height: normal;
   }
 `;
 export default Menu;
