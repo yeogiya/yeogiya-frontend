@@ -45,6 +45,14 @@ const useJoinForm = (control: Control<JoinProps>) => {
       required: "닉네임을 입력해주세요.",
     },
   });
+  const { field: confirmNickname, fieldState: confirmNicknameState } =
+    useController({
+      name: "confirmNickname",
+      control,
+      rules: {
+        required: "닉네임 중복 확인을 해주세요.",
+      },
+    });
 
   const { field: password, fieldState: passwordState } = useController({
     name: "password",
@@ -82,6 +90,8 @@ const useJoinForm = (control: Control<JoinProps>) => {
     confirmIdState,
     nickname,
     nicknameState,
+    confirmNickname,
+    confirmNicknameState,
     password,
     passwordState,
     confirmPassword,
