@@ -1,6 +1,7 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 import App from "@/App";
+import DiaryListPage from "@/pages/DiaryListPage";
 import ErrorPage from "@/pages/ErrorPage";
 import FindIdPage from "@/pages/FindIdPage";
 import FindPwPage from "@/pages/FindPwPage";
@@ -8,16 +9,16 @@ import GlobalStyle from "@/styles/GlobalStyle";
 import JoinPage from "@/pages/JoinPage";
 import LandingPage from "@/pages/LandingPage";
 import LoginPage from "@/pages/LoginPage";
+import MapPage from "@/pages/MapPage";
 import { PATH } from "./routes";
 import ResetPwPage from "@/pages/ResetPwPage";
 import { ThemeProvider } from "@emotion/react";
 import theme from "@/styles/theme";
-import DiaryListPage from "@/pages/DiaryListPage";
 
 export const router = createBrowserRouter([
   {
     path: PATH.HOME,
-    element: <App />,
+    element: <App layout="default" />,
     errorElement: <ErrorPage />,
     children: [
       {
@@ -51,6 +52,17 @@ export const router = createBrowserRouter([
       {
         path: PATH.DIARY_LIST,
         element: <DiaryListPage />,
+      },
+    ],
+  },
+  {
+    path: PATH.HOME,
+    element: <App layout="diaryHeader" />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: PATH.DIARY_MAP,
+        element: <MapPage />,
       },
     ],
   },

@@ -5,6 +5,7 @@ const color = {
   black40: "#B8B5C9",
   black50: "#747474",
   black70: "#868686",
+  black89: "#191919",
   black90: "#111111",
   black: "#000000",
   blue: "#1736D9",

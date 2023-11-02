@@ -9,7 +9,7 @@ const GoogleLogo = ({ css }: SVGProps) => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
-      style={css}
+      css={css}
     >
       <rect width="18" height="18" fill="url(#pattern0)" />
       <defs>
