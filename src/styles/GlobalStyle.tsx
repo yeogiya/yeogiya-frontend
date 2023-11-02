@@ -27,6 +27,10 @@ const global = () => css`
     appearance: none;
     outline: none;
   }
+
+  :root {
+    --max-width: 60rem;
+  }
 `;
 
 const GlobalStyle = () => {
