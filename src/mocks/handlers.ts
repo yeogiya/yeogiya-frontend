@@ -62,6 +62,33 @@ export const handlers = [
     );
   }),
 
+  rest.get<JoinReqBody>("/mock/nickname-exists", async (req, res, ctx) => {
+    const nickname = new URL(req.url).searchParams.get("nickname");
+
+    if (nickname === "닉네임") {
+      return res(
+        ctx.status(200),
+        ctx.json({
+          msw: true,
+          status: "OK",
+          body: {
+            duplicated: true,
+          },
+        })
+      );
+    }
+
+    return res(
+      ctx.json({
+        msw: true,
+        status: "OK",
+        body: {
+          duplicated: false,
+        },
+      })
+    );
+  }),
+
   rest.post<JoinReqBody>("/mock/members/sign-up", async (req, res, ctx) => {
     const { id, password, nickname, email, loginType } = req.body;
 
