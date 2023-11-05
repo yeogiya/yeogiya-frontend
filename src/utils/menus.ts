@@ -9,8 +9,8 @@ interface MenuItem {
 }
 
 export const MENU_ITEM: MenuItem[] = [
-  { type: "diary", title: "공간일기 쓰기", path: PATH.DIARY_WRITING },
-  { type: "diary", title: "공간일기 보기", path: PATH.DIARY_READING },
+  { type: "diary", title: "공간일기 쓰기", path: PATH.DIARY_CREATE },
+  { type: "diary", title: "공간일기 보기", path: PATH.DIARY_LIST },
   { type: "member", title: "회원가입", path: PATH.JOIN },
   { type: "member", title: "로그인", path: PATH.LOGIN },
 ];
