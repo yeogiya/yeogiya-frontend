@@ -1,4 +1,5 @@
-import { JoinProps } from "@/pages/JoinPage";
+import { checkEmailApi, checkIdApi, checkNicknameApi } from "@/apis/user";
+import { JoinProps } from "@/pages/join/JoinPage";
 import { Control, useController } from "react-hook-form";
 
 const useJoinForm = (control: Control<JoinProps>) => {
@@ -11,14 +12,10 @@ const useJoinForm = (control: Control<JoinProps>) => {
         value: /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i,
         message: "이메일 형식이 잘못 되었습니다.",
       },
-    },
-  });
-
-  const { field: confirmEmail, fieldState: confirmEmailState } = useController({
-    name: "confirmEmail",
-    control,
-    rules: {
-      required: "이메일 중복 확인을 해주세요.",
+      validate: async (value) => {
+        const { duplicated } = await checkEmailApi(value);
+        if (duplicated) return "이미 가입된 이메일입니다.";
+      },
     },
   });
 
@@ -27,14 +24,10 @@ const useJoinForm = (control: Control<JoinProps>) => {
     control,
     rules: {
       required: "아이디를 입력해주세요.",
-    },
-  });
-
-  const { field: confirmId, fieldState: confirmIdState } = useController({
-    name: "confirmId",
-    control,
-    rules: {
-      required: "아이디 중복 확인을 해주세요.",
+      validate: async (value) => {
+        const { duplicated } = await checkIdApi(value);
+        if (duplicated) return "이미 사용 중인 아이디입니다.";
+      },
     },
   });
 
@@ -43,16 +36,12 @@ const useJoinForm = (control: Control<JoinProps>) => {
     control,
     rules: {
       required: "닉네임을 입력해주세요.",
+      validate: async (value) => {
+        const { duplicated } = await checkNicknameApi(value);
+        if (duplicated) return "이미 사용 중인 닉네임입니다.";
+      },
     },
   });
-  const { field: confirmNickname, fieldState: confirmNicknameState } =
-    useController({
-      name: "confirmNickname",
-      control,
-      rules: {
-        required: "닉네임 중복 확인을 해주세요.",
-      },
-    });
 
   const { field: password, fieldState: passwordState } = useController({
     name: "password",
@@ -82,16 +71,10 @@ const useJoinForm = (control: Control<JoinProps>) => {
   return {
     email,
     emailState,
-    confirmEmail,
-    confirmEmailState,
     id,
     idState,
-    confirmId,
-    confirmIdState,
     nickname,
     nicknameState,
-    confirmNickname,
-    confirmNicknameState,
     password,
     passwordState,
     confirmPassword,
