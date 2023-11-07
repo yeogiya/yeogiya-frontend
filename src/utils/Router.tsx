@@ -1,17 +1,17 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 import App from "@/App";
-import DiaryListPage from "@/pages/DiaryListPage";
+import DiaryListPage from "@/pages/diary/list/DiaryListPage";
 import ErrorPage from "@/pages/ErrorPage";
-import FindIdPage from "@/pages/FindIdPage";
-import FindPwPage from "@/pages/FindPwPage";
+import FindIdPage from "@/pages/find/id/FindIdPage";
+import FindPwPage from "@/pages/find/pw/FindPwPage";
 import GlobalStyle from "@/styles/GlobalStyle";
-import JoinPage from "@/pages/JoinPage";
+import JoinPage from "@/pages/join/JoinPage";
 import LandingPage from "@/pages/LandingPage";
-import LoginPage from "@/pages/LoginPage";
-import MapPage from "@/pages/MapPage";
+import LoginPage from "@/pages/login/LoginPage";
+import MapPage from "@/pages/diary/map/MapPage";
 import { PATH } from "./routes";
-import ResetPwPage from "@/pages/ResetPwPage";
+import ResetPwPage from "@/pages/reset/ResetPwPage";
 import { ThemeProvider } from "@emotion/react";
 import theme from "@/styles/theme";
 

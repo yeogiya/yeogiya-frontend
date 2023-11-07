@@ -19,6 +19,7 @@ const Layout = ({ children, ...props }: LayoutProps) => {
 
 const LayoutContainer = styled.div`
   max-width: 100%;
+  width: 100%;
   height: calc(100vh - 92px);
   display: flex;
   justify-content: center;

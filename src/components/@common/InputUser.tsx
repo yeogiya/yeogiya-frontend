@@ -1,7 +1,7 @@
 import styled, { CSSObject } from "@emotion/styled";
-
 import { InputHTMLAttributes } from "react";
 import theme from "@/styles/theme";
+import * as React from "react";
 
 export interface InputUserProps extends InputHTMLAttributes<HTMLElement> {
   placeholder?: string;
@@ -10,39 +10,44 @@ export interface InputUserProps extends InputHTMLAttributes<HTMLElement> {
   name?: string;
   icon?: React.ReactNode;
   isActive?: boolean;
-  type: string;
   maxWidth?: number;
   css?: CSSObject;
 }
-const InputUser = ({
-  placeholder,
-  onChange,
-  labelText,
-  name,
-  icon,
-  isActive,
-  type,
-  ...props
-}: InputUserProps) => {
-  return (
-    <InputWrapper>
-      <LabelWrapper>
-        <Label htmlFor={name}>{labelText}</Label>
-      </LabelWrapper>
-      <InputContainer>
-        <Input
-          isActive={isActive}
-          placeholder={placeholder}
-          onChange={onChange}
-          type={type}
-          name={name}
-          {...props}
-        />
-        {icon && <button type="button">{icon}</button>}
-      </InputContainer>
-    </InputWrapper>
-  );
-};
+const InputUser = React.forwardRef(
+  (
+    {
+      placeholder,
+      onChange,
+      labelText,
+      name,
+      icon,
+      isActive,
+      type,
+      ...props
+    }: InputUserProps,
+    ref: React.Ref<any>
+  ) => {
+    return (
+      <InputWrapper>
+        <LabelWrapper>
+          <Label htmlFor={name}>{labelText}</Label>
+        </LabelWrapper>
+        <InputContainer>
+          <Input
+            isActive={isActive}
+            placeholder={placeholder}
+            onChange={onChange}
+            type={type}
+            name={name}
+            {...props}
+            ref={ref}
+          />
+          {icon && <button type="button">{icon}</button>}
+        </InputContainer>
+      </InputWrapper>
+    );
+  }
+);
 
 export default InputUser;
 
