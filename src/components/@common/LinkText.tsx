@@ -28,9 +28,9 @@ const StyledLinkButton = styled(Link)<Omit<LinkTextProps, "to" | "text">>`
   text-decoration-line: none;
   display: flex;
   justify-content: center;
-  color: ${({ color }) => (color && color) || theme.color.black50};
-  margin-top: ${({ marginTop }) => (marginTop && `${marginTop}px`) || "18px"};
-  font-size: ${({ fontSize }) => (fontSize && `${fontSize}px`) || "14px"};
+  color: ${({ color }) => color ?? theme.color.black50};
+  margin-top: ${({ marginTop }) => `${marginTop ?? 18}px`};
+  font-size: ${({ fontSize }) => `${fontSize ?? 14}px`};
 
   ${({ css }) => css && css}
 `;
