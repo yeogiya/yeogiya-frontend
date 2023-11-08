@@ -1,4 +1,4 @@
-import ConcealIcon from "@/assets/ConcealIcon";
+import { ConcealIcon } from "@/assets";
 import InputUser, { InputUserProps } from "@/components/@common/InputUser";
 import { useArgs } from "@storybook/client-api";
 import type { Meta, StoryObj } from "@storybook/react";

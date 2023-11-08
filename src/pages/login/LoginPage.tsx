@@ -1,12 +1,12 @@
 import Button, { ButtonProps } from "@/components/@common/Button";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { GoogleLogo, KakaoLogo } from "@/assets";
 
-import GoogleLogo from "@/assets/GoogleLogo";
 import IconButton from "@/components/IconButton";
 import InputUser from "@/components/@common/InputUser";
-import KakaoLogo from "@/assets/KakaoLogo";
 import Layout from "@/components/@common/Layout";
 import LinkText from "@/components/@common/LinkText";
+import { PATH } from "@/utils/routes";
 import Title from "@/components/@common/Title";
 import styled from "@emotion/styled";
 import theme from "@/styles/theme";
@@ -72,30 +72,30 @@ const LoginPage = () => {
         <LoginButton
           type="submit"
           text="로그인"
-          background="#614AD3"
+          background={theme.color.purple}
           justifyContent="center"
         />
       </form>
 
       <ButtonContainer>
-        <LinkText to="/join" text="회원가입" />
+        <LinkText to={PATH.JOIN} text="회원가입" marginTop={0} />
         <ButtonWrapper>
-          <LinkText to="/find/id" text="아이디 찾기" />
+          <LinkText to={PATH.FIND_ID} text="아이디 찾기" marginTop={0} />
           <span>/</span>
-          <LinkText to="/find/pw" text="비밀번호 찾기" />
+          <LinkText to={PATH.FIND_PW} text="비밀번호 찾기" marginTop={0} />
         </ButtonWrapper>
       </ButtonContainer>
       <IconButton
         type="submit"
         text="Google로 로그인"
-        background="#fff"
-        border="1px solid #CCC;"
+        background={theme.color.white}
+        border={`1px solid ${theme.color.black35}`}
         icon={<GoogleLogo />}
       />
       <IconButton
         type="submit"
         text="카카오로 로그인"
-        background="#FEE500"
+        background={theme.color.yellow}
         icon={<KakaoLogo />}
       />
     </Layout>

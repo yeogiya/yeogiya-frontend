@@ -17,7 +17,7 @@ const Layout = ({ children, ...props }: LayoutProps) => {
   );
 };
 
-const LayoutContainer = styled.div`
+const LayoutContainer = styled.main`
   max-width: 100%;
   width: 100%;
   height: calc(100vh - 92px);

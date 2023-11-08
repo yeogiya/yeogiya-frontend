@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, InputHTMLAttributes } from "react";
 
-import SearchIcon from "@/assets/SearchIcon";
+import { SearchIcon } from "@/assets";
 import styled from "@emotion/styled";
 import theme from "@/styles/theme";
 

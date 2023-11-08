@@ -1,4 +1,4 @@
-import ConcealIcon from "@/assets/ConcealIcon";
+import { ConcealIcon } from "@/assets";
 import InputUser from "@/components/@common/InputUser";
 import ValidateMessage from "@/components/ValidateMessage";
 import useJoinForm from "@/features/hooks/useJoinForm";

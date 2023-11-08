@@ -1,4 +1,4 @@
-import KakaoLogo from "@/assets/KakaoLogo";
+import { KakaoLogo } from "@/assets";
 import {
   IconButtonProps,
   default as WithIconButton,

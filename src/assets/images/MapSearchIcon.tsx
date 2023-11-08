@@ -17,7 +17,7 @@ const MapSearchIcon = ({ css }: SVGProps) => {
         r="8.25"
         fill="white"
         stroke={theme.color.black89}
-        stroke-width="1.5"
+        strokeWidth="1.5"
       />
       <line
         x1="15.0607"
@@ -25,7 +25,7 @@ const MapSearchIcon = ({ css }: SVGProps) => {
         x2="18"
         y2="18.9393"
         stroke={theme.color.black89}
-        stroke-width="1.5"
+        strokeWidth="1.5"
         stroke-linecap="round"
       />
     </svg>
