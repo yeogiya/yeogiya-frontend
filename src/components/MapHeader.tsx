@@ -1,6 +1,5 @@
-import CloseIcon from "@/assets/CloseIcon";
-import LocationIcon from "@/assets/LocationIcon";
-import MapSearchIcon from "@/assets/MapSearchIcon";
+import { CloseIcon, LocationIcon, MapSearchIcon } from "@/assets";
+
 import Title from "./@common/Title";
 import styled from "@emotion/styled";
 import theme from "@/styles/theme";

@@ -7,7 +7,7 @@ import FindIdPage from "@/pages/find/id/FindIdPage";
 import FindPwPage from "@/pages/find/pw/FindPwPage";
 import GlobalStyle from "@/styles/GlobalStyle";
 import JoinPage from "@/pages/join/JoinPage";
-import LandingPage from "@/pages/LandingPage";
+import LandingPage from "@/pages/home/LandingPage";
 import LoginPage from "@/pages/login/LoginPage";
 import MapPage from "@/pages/diary/map/MapPage";
 import { PATH } from "./routes";
