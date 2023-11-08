@@ -1,7 +1,9 @@
-import theme from "@/styles/theme";
 import { Dispatch, SetStateAction } from "react";
 
-interface IconPropsType {
+import { SVGProps } from "@/types/assets";
+import theme from "@/styles/theme";
+
+interface IconPropsType extends SVGProps {
   confirmPassword?: string;
   passwordType?: string;
   isActive?: boolean;
@@ -15,6 +17,7 @@ const ConcealIcon = ({
   setConfirmPassword,
   setPasswordType,
   isActive,
+  css,
 }: IconPropsType) => {
   return (
     <svg
@@ -31,6 +34,7 @@ const ConcealIcon = ({
           confirmPassword === "password" ? "text" : "password"
         );
       }}
+      css={css}
     >
       <g opacity="0.8">
         <path
