@@ -1,14 +1,16 @@
-import { useState } from "react";
 import "react-calendar/dist/Calendar.css";
-import Calendar from "react-calendar";
+
 import * as dayjs from "dayjs";
-import CheckIcon from "@/assets/CheckIcon";
-import PlusIcon from "@/assets/PlusIcon";
+
+import { CheckIcon, PlusIcon } from "@/assets";
 import {
   DiaryLayout,
   DiaryStyle,
   IconLayout,
 } from "@/styles/DiaryListPage.styles";
+
+import Calendar from "react-calendar";
+import { useState } from "react";
 
 interface DairyListProps {
   date: Date;

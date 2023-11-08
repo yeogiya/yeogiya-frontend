@@ -1,6 +1,8 @@
+import { Link } from "react-router-dom";
 import Menu from "@/components/@common/Menu";
+import { PATH } from "@/utils/routes";
 import SearchBar from "@/components/SearchBar";
-import YeogiyaLogo from "@/assets/YeogiyaLogo";
+import { YeogiyaLogo } from "@/assets";
 import styled from "@emotion/styled";
 import { useState } from "react";
 
@@ -16,7 +18,9 @@ const Navbar = () => {
   return (
     <StyledNavbar>
       <StyledWrapper>
-        <YeogiyaLogo />
+        <Link to={PATH.HOME}>
+          <YeogiyaLogo />
+        </Link>
         <SearchBar
           value={searchValue}
           setValue={setSearchValue}
