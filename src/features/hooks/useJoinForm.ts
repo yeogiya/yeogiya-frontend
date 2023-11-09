@@ -24,6 +24,18 @@ const useJoinForm = (control: Control<JoinProps>) => {
     control,
     rules: {
       required: "아이디를 입력해주세요.",
+      minLength: {
+        value: 5,
+        message: "최소 5자 이상 입력해주세요.",
+      },
+      maxLength: {
+        value: 20,
+        message: "최대 20자 이하 입력해주세요.",
+      },
+      pattern: {
+        value: /^[a-z0-9_-]{5,20}$/,
+        message: "영어 소문자, 숫자, 특수문자(_,-)만 사용 가능합니다.",
+      },
       validate: async (value) => {
         const { duplicated } = await checkIdApi(value);
         if (duplicated) return "이미 사용 중인 아이디입니다.";
