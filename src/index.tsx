@@ -1,5 +1,4 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-
 import Router from "./utils/Router.tsx";
 import { createRoot } from "react-dom/client";
 import { worker } from "./mocks/browser.ts";
