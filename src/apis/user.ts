@@ -52,3 +52,16 @@ export const checkNicknameApi = async (nickname: string) => {
     console.log(e);
   }
 };
+
+export const findIdApi = async (email: string) => {
+  try {
+    const { data } = await axios.get(`${BASE_URL}/members/find-id`, {
+      params: {
+        email,
+      },
+    });
+    return data.body;
+  } catch (e) {
+    console.log(e);
+  }
+};
