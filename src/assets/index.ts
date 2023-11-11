@@ -6,7 +6,6 @@ export { default as KakaoLogo } from "@/assets/images/KakaoLogo";
 export { default as LocationIcon } from "@/assets/images/LocationIcon";
 export { default as MapSearchIcon } from "@/assets/images/MapSearchIcon";
 export { default as PlusIcon } from "@/assets/images/PlusIcon";
-export { default as SearchIcon } from "@/assets/images/SearchIcon";
 export { default as YeogiyaLogo } from "@/assets/images/YeogiyaLogo";
 
 // home
@@ -16,3 +15,5 @@ export { default as KoFirstIcon } from "@/assets/images/KoFirstIcon";
 export { default as DiaryImage } from "@/assets/images/DiaryImage";
 export { default as KoSecondIcon } from "@/assets/images/KoSecondIcon";
 export { default as SearchImage } from "@/assets/images/SearchImage";
+// navbar
+export { default as SearchIcon } from "@/assets/images/SearchIcon";

@@ -9,7 +9,7 @@ const Menu = () => {
     const matchPath = type === "member";
     return {
       fontWeight: matchPath ? 700 : 400,
-      marginRight: matchPath ? "0" : "50px",
+      marginRight: matchPath ? "0" : "1.25rem",
     };
   };
 
@@ -36,17 +36,17 @@ const MenuItem = styled.ul`
     display: flex;
     list-style: none;
     align-items: center;
-    font-size: 1rem;
-    font-style: normal;
-    line-height: normal;
 
     a {
+      font-size: 1rem;
+      font-style: normal;
+      line-height: normal;
       margin-top: 0;
     }
   }
 
   span {
-    margin: 0 3px;
+    margin: 0 0.1875rem;
     font-size: 1rem;
     font-weight: 500;
     font-style: normal;
