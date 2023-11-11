@@ -1,5 +1,6 @@
 const STATIC = {
   HOME: "/",
+  SEARCH: "/search",
   LOGIN: "/login",
   JOIN: "/join",
   DIARY_CREATE: "/diary/create",

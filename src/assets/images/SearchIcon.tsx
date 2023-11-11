@@ -4,33 +4,24 @@ import theme from "@/styles/theme";
 const SearchIcon = ({ css }: SVGProps) => {
   return (
     <svg
-      width="37"
-      height="37"
-      viewBox="0 0 37 37"
-      fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
       css={css}
     >
-      <rect width="37" height="37" rx="18.5" fill={theme.color.purple} />
-      <rect
-        width="18.5"
-        height="18.5"
-        transform="translate(9 10)"
-        fill={theme.color.purple}
-      />
       <path
-        d="M16.7083 23.1042C19.6884 23.1042 22.1042 20.6884 22.1042 17.7083C22.1042 14.7283 19.6884 12.3125 16.7083 12.3125C13.7283 12.3125 11.3125 14.7283 11.3125 17.7083C11.3125 20.6884 13.7283 23.1042 16.7083 23.1042Z"
+        d="M13.3334 13.334L16 16.0007"
         stroke={theme.color.white}
-        strokeWidth="1.66667"
+        strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
-        d="M20.5625 21.5625L25.1875 26.1875"
+        d="M14.6667 9.33333C14.6667 12.2789 12.2789 14.6667 9.33333 14.6667C6.38781 14.6667 4 12.2789 4 9.33333C4 6.38781 6.38781 4 9.33333 4C12.2789 4 14.6667 6.38781 14.6667 9.33333Z"
         stroke={theme.color.white}
-        strokeWidth="1.66667"
-        strokeLinecap="round"
-        strokeLinejoin="round"
+        strokeWidth="1.5"
       />
     </svg>
   );
