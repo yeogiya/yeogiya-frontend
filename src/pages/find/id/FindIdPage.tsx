@@ -40,7 +40,7 @@ const FindIdPage = () => {
   };
 
   return (
-    <Layout css={{ rowGap: "14px" }}>
+    <Layout css={{ rowGap: "14px" }} maxWidth="328px">
       <Title as="h1">아이디 찾기</Title>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <InputEmail

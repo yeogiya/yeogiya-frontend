@@ -34,7 +34,7 @@ const LoginPage = () => {
   };
 
   return (
-    <Layout>
+    <Layout maxWidth="328px">
       <Title as="h1">로그인</Title>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Controller

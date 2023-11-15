@@ -37,7 +37,7 @@ const FindPwPage = () => {
   const { isOpen, openModal, closeModal } = useModal();
 
   return (
-    <Layout css={{ rowGap: "14px" }}>
+    <Layout css={{ rowGap: "14px" }} maxWidth="328px">
       <Title as="h1">비밀번호 찾기</Title>
       <Form onSubmit={handleSubmit(submitHandler)}>
         <Controller
