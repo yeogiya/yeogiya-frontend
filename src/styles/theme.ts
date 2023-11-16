@@ -19,6 +19,7 @@ const color = {
 
 const font = {
   body: '"Noto Sans KR", system-ui, -apple-system, BlinkMacSystemFont, "Open Sans", "Helvetica Neue", sans-serif',
+  number: "'Inter', sans-serif",
 } as const;
 
 const theme = { color, font };
