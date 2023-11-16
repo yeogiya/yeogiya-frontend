@@ -7,8 +7,16 @@ import InputTag from "./components/InputTag";
 import UploadImage from "./components/UploadImage";
 import Button from "@/components/@common/Button";
 import SubmitButton from "@/components/SubmitButton";
+import { useState } from "react";
 
 const DiaryCreatePage = () => {
+  const [textCount, setTextCount] = useState<number>();
+
+  const onTextCount = (e) => {
+    const count = e.target.value?.length;
+
+    setTextCount(count);
+  };
   return (
     <Layout maxWidth="800px" css={{ height: "100%" }} paddingTop="30px">
       <TextGuide>
@@ -17,8 +25,13 @@ const DiaryCreatePage = () => {
       </TextGuide>
       <ContentsStyle>
         <Rating />
-        <TextArea name="contents" placeholder="20자 이상 적어주세요." />
+        <TextArea
+          name="contents"
+          placeholder="20자 이상 적어주세요."
+          onChange={onTextCount}
+        />
       </ContentsStyle>
+      <TextCount>{textCount ?? 0} / 1,000</TextCount>
       <InputTag />
       <UploadImage />
       <ButtonLayout>
@@ -40,7 +53,17 @@ const ContentsStyle = styled.div`
   border: 1px solid ${theme.color.black35};
   border-radius: 20px;
   padding: 20px;
-  margin-bottom: 58px;
+  margin-bottom: 10px;
+`;
+
+const TextCount = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  color: ${theme.color.black50};
+  font-size: 0.875rem;
+  margin-bottom: 32px;
+  font-family: ${theme.font.number};
+  font-weight: 600;
 `;
 
 const Location = styled.span`
