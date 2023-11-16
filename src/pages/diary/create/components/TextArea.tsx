@@ -4,8 +4,15 @@ interface TextAreaProps {
   name: string;
   label?: string;
   placeholder?: string;
+  onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
-const TextArea = ({ name, label, placeholder, ...props }: TextAreaProps) => {
+const TextArea = ({
+  name,
+  label,
+  placeholder,
+  onChange,
+  ...props
+}: TextAreaProps) => {
   return (
     <>
       <label htmlFor={name}>{label}</label>
@@ -13,6 +20,7 @@ const TextArea = ({ name, label, placeholder, ...props }: TextAreaProps) => {
         maxLength={1000}
         name={name}
         placeholder={placeholder}
+        onChange={onChange}
         {...props}
       ></TextAreaStyle>
     </>
