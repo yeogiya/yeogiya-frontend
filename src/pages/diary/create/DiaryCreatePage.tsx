@@ -18,27 +18,29 @@ const DiaryCreatePage = () => {
     setTextCount(count);
   };
   return (
-    <Layout maxWidth="800px" css={{ height: "100%" }} paddingTop="30px">
-      <TextGuide>
-        <Location>{"마일드스톤커피"}</Location>에 대한 솔직한 일기 혹은 리뷰를
-        적어주세요.
-      </TextGuide>
-      <ContentsStyle>
-        <Rating />
-        <TextArea
-          name="contents"
-          placeholder="20자 이상 적어주세요."
-          onChange={onTextCount}
-        />
-      </ContentsStyle>
-      <TextCount>{textCount ?? 0} / 1,000</TextCount>
-      <InputTag />
-      <UploadImage />
-      <ButtonLayout>
-        <CancelButton text="취소" />
-        <SuccessButton text="완료" />
-      </ButtonLayout>
-    </Layout>
+    <form>
+      <Layout maxWidth="800px" css={{ height: "100%" }} paddingTop="30px">
+        <TextGuide>
+          <Location>{"마일드스톤커피"}</Location>에 대한 솔직한 일기 혹은 리뷰를
+          적어주세요.
+        </TextGuide>
+        <ContentsStyle>
+          <Rating />
+          <TextArea
+            name="contents"
+            placeholder="20자 이상 적어주세요."
+            // onChange={onTextCount}
+          />
+        </ContentsStyle>
+        <TextCount>{textCount ?? 0} / 1,000</TextCount>
+        <InputTag />
+        <UploadImage />
+        <ButtonLayout>
+          <CancelButton text="취소" />
+          <SuccessButton text="완료" />
+        </ButtonLayout>
+      </Layout>
+    </form>
   );
 };
 
