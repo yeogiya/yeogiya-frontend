@@ -8,9 +8,12 @@ import UploadImage from "./components/UploadImage";
 import Button from "@/components/@common/Button";
 import SubmitButton from "@/components/SubmitButton";
 import { useState } from "react";
+import DatePicker from "./components/DatePicker";
 
 const DiaryCreatePage = () => {
   const [textCount, setTextCount] = useState<number>();
+  const [isValid, setIsValid] = useState<boolean>(false);
+  const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
 
   const onTextCount = (e) => {
     const count = e.target.value?.length;
@@ -19,11 +22,15 @@ const DiaryCreatePage = () => {
   };
   return (
     <form>
-      <Layout maxWidth="800px" css={{ height: "100%" }} paddingTop="30px">
+      <Layout maxWidth="800px" css={{ height: "100vh" }} paddingTop="30px">
         <TextGuide>
           <Location>{"마일드스톤커피"}</Location>에 대한 솔직한 일기 혹은 리뷰를
           적어주세요.
         </TextGuide>
+        <div onClick={() => setShowDatePicker(!showDatePicker)}>
+          2023년 11월 20일
+        </div>
+        {showDatePicker && <DatePicker />}
         <ContentsStyle>
           <Rating />
           <TextArea
@@ -37,7 +44,7 @@ const DiaryCreatePage = () => {
         <UploadImage />
         <ButtonLayout>
           <CancelButton text="취소" />
-          <SuccessButton text="완료" />
+          <SuccessButton isValid={isValid} text="완료" />
         </ButtonLayout>
       </Layout>
     </form>
