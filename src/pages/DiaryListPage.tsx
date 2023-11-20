@@ -1,17 +1,18 @@
 import { useState } from "react";
 import "react-calendar/dist/Calendar.css";
 import Calendar from "react-calendar";
+import CheckIcon from "../assets/CheckIcon";
+import PlusIcon from "../assets/PlusIcon";
 import * as dayjs from "dayjs";
-import CheckIcon from "@/assets/CheckIcon";
-import PlusIcon from "@/assets/PlusIcon";
 import {
   DiaryLayout,
   DiaryStyle,
   IconLayout,
-} from "@/styles/DiaryListPage.styles";
+} from "../styles/DiaryListPage.styles";
+dayjs().format();
 
 interface DairyListProps {
-  date: Date;
+  date: dayjs.ConfigType;
 }
 
 const DiaryListPage = () => {
@@ -56,8 +57,8 @@ const DiaryListPage = () => {
     <DiaryStyle>
       <Calendar
         calendarType="gregory"
-        formatDay={(locale: string, date: Date) => dayjs(date).format("D")}
-        onChange={setDate}
+        formatDay={(date: string) => dayjs(date).format("D")}
+        onChange={() => setDate}
         value={date}
         // showNeighboringMonth={false}
         locale="ko"
