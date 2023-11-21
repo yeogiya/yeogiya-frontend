@@ -36,7 +36,7 @@ const InputTagStyle = styled.input`
   border: 1px solid ${theme.color.black35};
   padding: 9px 20px;
   color: ${theme.color.purple};
-  margin-bottom: 58px;
+  margin-bottom: 10px;
 
   ::placeholder {
     color: ${theme.color.black35};
