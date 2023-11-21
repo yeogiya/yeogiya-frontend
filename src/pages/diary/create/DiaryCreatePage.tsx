@@ -9,6 +9,7 @@ import Button from "@/components/@common/Button";
 import SubmitButton from "@/components/SubmitButton";
 import { useState } from "react";
 import DatePicker from "./components/DatePicker";
+import ToggleButton from "./components/ToggleButton";
 
 const DiaryCreatePage = () => {
   const [textCount, setTextCount] = useState<number>();
@@ -17,9 +18,10 @@ const DiaryCreatePage = () => {
 
   const onTextCount = (e) => {
     const count = e.target.value?.length;
-
-    setTextCount(count);
+    const regexp = /\B(?=(\d{3})+(?!\d))/g;
+    setTextCount(count.toString().replace(regexp, ","));
   };
+
   return (
     <form>
       <Layout maxWidth="800px" css={{ height: "100vh" }} paddingTop="30px">
@@ -27,21 +29,37 @@ const DiaryCreatePage = () => {
           <Location>{"마일드스톤커피"}</Location>에 대한 솔직한 일기 혹은 리뷰를
           적어주세요.
         </TextGuide>
-        <div onClick={() => setShowDatePicker(!showDatePicker)}>
-          2023년 11월 20일
+        <div
+          style={{
+            position: "relative",
+            display: "flex",
+            flexDirection: "row-reverse",
+            marginBottom: "20px",
+          }}
+        >
+          <DatePickerDate onClick={() => setShowDatePicker(!showDatePicker)}>
+            2023년 11월 20일
+          </DatePickerDate>
+          {showDatePicker && (
+            <DatePicker handleDatePicker={setShowDatePicker} />
+          )}
         </div>
-        {showDatePicker && <DatePicker />}
         <ContentsStyle>
           <Rating />
           <TextArea
             name="contents"
             placeholder="20자 이상 적어주세요."
-            // onChange={onTextCount}
+            onChange={onTextCount}
           />
         </ContentsStyle>
         <TextCount>{textCount ?? 0} / 1,000</TextCount>
         <InputTag />
+        <TextCount>{textCount ?? 0} / 5</TextCount>
         <UploadImage />
+        <ShareStyle>
+          <p>공개 여부</p>
+          <ToggleButton />
+        </ShareStyle>
         <ButtonLayout>
           <CancelButton text="취소" />
           <SuccessButton isValid={isValid} text="완료" />
@@ -75,6 +93,17 @@ const TextCount = styled.div`
   font-weight: 600;
 `;
 
+const ShareStyle = styled.div`
+  color: ${theme.color.black89};
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 30px;
+
+  p {
+    margin-right: 24px;
+  }
+`;
+
 const Location = styled.span`
   display: flex;
   color: ${theme.color.purple};
@@ -87,6 +116,17 @@ const TextGuide = styled.div`
   font-size: 1rem;
   align-items: baseline;
   margin-bottom: 1.25rem;
+`;
+
+const DatePickerDate = styled.div`
+  display: flex;
+  padding: 9px 20px;
+  border: 1px solid ${theme.color.black10};
+  border-radius: 8px;
+  width: 100%;
+  max-width: 150px;
+  font-size: 14px;
+  cursor: pointer;
 `;
 
 const CancelButton = styled(Button)`
