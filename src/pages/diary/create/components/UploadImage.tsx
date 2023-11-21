@@ -1,4 +1,5 @@
 import { PlusIcon } from "@/assets";
+import DeleteIcon from "@/assets/images/DeleteIcon";
 import theme from "@/styles/theme";
 import styled from "@emotion/styled";
 import { useRef, useState } from "react";
@@ -26,11 +27,26 @@ const UploadImage = () => {
 
     setShowImages(imageUrlLists);
   };
+
+  const handleDeleteImage = (deleteImage) => {
+    setShowImages(showImages.filter((item) => item !== deleteImage));
+  };
+
   return (
     <>
       <UploadImageLayout>
         {showImages?.map((image, id) => (
-          <Image src={image} key={`${image}-${id}`} alt={`${image}-${id}`} />
+          <ImageStyle>
+            <img
+              key={`${id}`}
+              src={image}
+              alt={`${image}-${id}`}
+              onClick={() => handleDeleteImage(image)}
+            />
+            <div className="hover_image">
+              <DeleteIcon />
+            </div>
+          </ImageStyle>
         ))}
         <UploadImageWrapper>
           {showImages.length < 5 && (
@@ -47,8 +63,8 @@ const UploadImage = () => {
               </UploadImageStyle>
             </>
           )}
-          <Text>{showImages.length} / 5</Text>
         </UploadImageWrapper>
+        <Text>{showImages.length} / 5</Text>
       </UploadImageLayout>
     </>
   );
@@ -59,7 +75,7 @@ const UploadImageLayout = styled.div`
   display: flex;
   width: 100%;
   gap: 10px;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
 `;
 
 const UploadImageWrapper = styled.div`
@@ -69,19 +85,47 @@ const UploadImageWrapper = styled.div`
 `;
 
 const Text = styled.div`
-  margin-left: 50px;
-  margin-top: 10px;
+  display: flex;
+  align-items: flex-end;
+  max-width: fit-content;
+  width: 100%;
   color: ${theme.color.black50};
   font-weight: 600;
+  font-size: 14px;
+  font-family: ${theme.font.number};
 `;
 
-const Image = styled.img`
-  object-fit: cover;
-  width: 100%;
-  height: calc(100% - 78px);
+const ImageStyle = styled.div`
   max-width: 89px;
-  min-height: 89px;
-  border-radius: 8px;
+  width: 100%;
+  position: relative;
+
+  img {
+    object-fit: cover;
+    width: 100%;
+    height: calc(100% - 78px);
+    min-height: 89px;
+    border-radius: 8px;
+  }
+
+  :hover {
+    width: 100%;
+    height: calc(100% - 78px);
+    min-height: 89px;
+    border-radius: 8px;
+    background-color: ${theme.color.black};
+    cursor: pointer;
+    opacity: 0.5;
+  }
+  :hover > .hover_image {
+    display: inline-block;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+  }
+  div.hover_image {
+    display: none;
+  }
 `;
 
 const UploadImageStyle = styled.div`
