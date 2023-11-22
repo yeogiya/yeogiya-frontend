@@ -35,17 +35,17 @@ const UploadImage = () => {
   return (
     <>
       <UploadImageLayout>
-        {showImages?.map((image, id) => (
+        {showImages?.map((image, idx) => (
           <ImageStyle>
-            <img
-              key={`${id}`}
-              src={image}
-              alt={`${image}-${id}`}
-              onClick={() => handleDeleteImage(image)}
-            />
-            <div className="hover_image">
-              <DeleteIcon />
-            </div>
+            <Image>
+              <img key={idx} src={image} alt={`${image}-${idx}`} />
+              <div
+                className="hover_image"
+                onClick={() => handleDeleteImage(image)}
+              >
+                <DeleteIcon />
+              </div>
+            </Image>
           </ImageStyle>
         ))}
         <UploadImageWrapper>
@@ -95,10 +95,34 @@ const Text = styled.div`
   font-family: ${theme.font.number};
 `;
 
-const ImageStyle = styled.div`
-  max-width: 89px;
+const ImageStyle = styled.ul`
   width: 100%;
+  max-width: 89px;
+  height: calc(100% - 78px);
   position: relative;
+  border-radius: 8px;
+
+  :hover {
+    width: 100%;
+    min-height: 89px;
+    cursor: pointer;
+    display: block;
+  }
+
+  :hover > li {
+    background-color: ${theme.color.black50};
+  }
+
+  :hover > li > img {
+    opacity: 0.8;
+  }
+`;
+
+const Image = styled.li`
+  list-style: none;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
 
   img {
     object-fit: cover;
@@ -108,23 +132,15 @@ const ImageStyle = styled.div`
     border-radius: 8px;
   }
 
-  :hover {
-    width: 100%;
-    height: calc(100% - 78px);
-    min-height: 89px;
-    border-radius: 8px;
-    background-color: ${theme.color.black};
-    cursor: pointer;
-    opacity: 0.5;
+  div.hover_image {
+    display: none;
   }
+
   :hover > .hover_image {
     display: inline-block;
     position: absolute;
     top: 8px;
     right: 8px;
-  }
-  div.hover_image {
-    display: none;
   }
 `;
 
