@@ -26,7 +26,7 @@ const MapSearchIcon = ({ css }: SVGProps) => {
         y2="18.9393"
         stroke={theme.color.black89}
         strokeWidth="1.5"
-        stroke-linecap="round"
+        strokeLinecap="round"
       />
     </svg>
   );
