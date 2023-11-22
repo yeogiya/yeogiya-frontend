@@ -29,7 +29,7 @@ export default ContentDiary;
 
 const ContentWrapper = styled.div`
   section {
-    width: 100vw;
+    width: 99vw;
     background: ${theme.color.white5};
 
     > svg {
