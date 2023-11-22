@@ -1,8 +1,11 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+import { Provider } from "react-redux";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import Router from "./utils/Router.tsx";
 import { createRoot } from "react-dom/client";
+import { store } from "./store/store.ts";
 import { worker } from "./mocks/browser.ts";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const queryClient = new QueryClient();
 
@@ -15,8 +18,10 @@ const domNode = document.getElementById("root");
 const root = createRoot(domNode);
 
 root.render(
-  <QueryClientProvider client={queryClient}>
-    <Router />
-    <ReactQueryDevtools initialIsOpen={false} />
-  </QueryClientProvider>
+  <Provider store={store}>
+    <QueryClientProvider client={queryClient}>
+      <Router />
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
+  </Provider>
 );
