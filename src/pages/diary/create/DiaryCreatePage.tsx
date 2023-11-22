@@ -22,8 +22,10 @@ const DiaryCreatePage = () => {
     setTextCount(count.toString().replace(regexp, ","));
   };
 
+  const handleSubmit = () => {};
+
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <Layout maxWidth="800px" css={{ height: "100vh" }} paddingTop="30px">
         <TextGuide>
           <Location>{"마일드스톤커피"}</Location>에 대한 솔직한 일기 혹은 리뷰를
@@ -54,7 +56,6 @@ const DiaryCreatePage = () => {
         </ContentsStyle>
         <TextCount>{textCount ?? 0} / 1,000</TextCount>
         <InputTag />
-        <TextCount>{textCount ?? 0} / 5</TextCount>
         <UploadImage />
         <ShareStyle>
           <p>공개 여부</p>
@@ -83,7 +84,7 @@ const ContentsStyle = styled.div`
   margin-bottom: 10px;
 `;
 
-const TextCount = styled.div`
+export const TextCount = styled.div`
   display: flex;
   justify-content: flex-end;
   color: ${theme.color.black50};
