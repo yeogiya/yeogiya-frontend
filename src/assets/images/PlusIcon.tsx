@@ -1,9 +1,7 @@
 import { SVGProps } from "@/types/assets";
 import theme from "@/styles/theme";
-import { CSSObject } from "@emotion/react";
 
 interface PlusIconProps extends SVGProps {
-  css?: CSSObject;
   fill?: string;
 }
 
