@@ -31,21 +31,14 @@ const DiaryCreatePage = () => {
           <Location>{"마일드스톤커피"}</Location>에 대한 솔직한 일기 혹은 리뷰를
           적어주세요.
         </TextGuide>
-        <div
-          style={{
-            position: "relative",
-            display: "flex",
-            flexDirection: "row-reverse",
-            marginBottom: "20px",
-          }}
-        >
+        <TextDate>
           <DatePickerDate onClick={() => setShowDatePicker(!showDatePicker)}>
             2023년 11월 20일
           </DatePickerDate>
           {showDatePicker && (
             <DatePicker handleDatePicker={setShowDatePicker} />
           )}
-        </div>
+        </TextDate>
         <ContentsStyle>
           <Rating />
           <TextArea
@@ -117,6 +110,13 @@ const TextGuide = styled.div`
   font-size: 1rem;
   align-items: baseline;
   margin-bottom: 1.25rem;
+`;
+
+const TextDate = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: row-reverse;
+  margin-bottom: 20px;
 `;
 
 const DatePickerDate = styled.div`
