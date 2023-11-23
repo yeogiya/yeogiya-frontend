@@ -8,12 +8,12 @@ const UploadImage = () => {
   const fileInput = useRef(null);
   const [showImages, setShowImages] = useState([]);
 
-  const handleButtonClick = (e) => {
+  const handleButtonClick = () => {
     fileInput.current.click();
   };
 
-  const saveImgFile = (event) => {
-    const imageLists = event.target.files;
+  const saveImgFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const imageLists = e.target.files;
     let imageUrlLists = [...showImages];
 
     for (let i = 0; i < imageLists.length; i++) {
@@ -28,7 +28,7 @@ const UploadImage = () => {
     setShowImages(imageUrlLists);
   };
 
-  const handleDeleteImage = (deleteImage) => {
+  const handleDeleteImage = (deleteImage: URL) => {
     setShowImages(showImages.filter((item) => item !== deleteImage));
   };
 
