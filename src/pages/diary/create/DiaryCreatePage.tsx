@@ -16,10 +16,10 @@ const DiaryCreatePage = () => {
   const [isValid, setIsValid] = useState<boolean>(false);
   const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
 
-  const onTextCount = (e) => {
+  const onTextCount = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const count = e.target.value?.length;
     const regexp = /\B(?=(\d{3})+(?!\d))/g;
-    setTextCount(count.toString().replace(regexp, ","));
+    setTextCount(Number(count.toString().replace(regexp, ",")));
   };
 
   const handleSubmit = () => {};
