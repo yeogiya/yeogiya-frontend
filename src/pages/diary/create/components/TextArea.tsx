@@ -22,7 +22,7 @@ const TextArea = ({
         placeholder={placeholder}
         onChange={onChange}
         {...props}
-      ></TextAreaStyle>
+      />
     </>
   );
 };
