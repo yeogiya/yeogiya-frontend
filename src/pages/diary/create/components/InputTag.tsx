@@ -1,6 +1,6 @@
 import theme from "@/styles/theme";
 import styled from "@emotion/styled";
-import { useState } from "react";
+import { KeyboardEventHandler, useState } from "react";
 import { TextCount } from "../DiaryCreatePage";
 import DeleteIcon from "@/assets/images/DeleteIcon";
 
@@ -8,24 +8,25 @@ const InputTag = () => {
   const [inputTagValue, setInputTagValue] = useState<string>("");
   const [tagValue, setTagValue] = useState<string[]>([]);
 
-  const checkEmptyValue = (value) => {
+  const checkEmptyValue = (value: string) => {
     if (!value.length) return true;
     return false;
   };
 
-  const changeTag = (e) => {
+  const changeTag = (e: React.ChangeEvent<HTMLInputElement>) => {
     let value: string = e.target.value;
     setInputTagValue(value);
   };
 
-  const handleTagInput = (e) => {
+  const handleTagInput = (e: React.KeyboardEvent<HTMLInputElement>) => {
     const allowedCmd = ["Comma", "Enter", "Space"];
 
     if (!allowedCmd.includes(e.code)) return;
 
-    if (checkEmptyValue(e.target.value.trim())) return setInputTagValue("");
+    if (checkEmptyValue(e.currentTarget.value.trim()))
+      return setInputTagValue("");
 
-    let newInputTag = e.target.value.trim();
+    let newInputTag = e.currentTarget.value.trim();
 
     const regExp = /[\{\}\[\]\/?.;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/g;
     if (regExp.test(newInputTag)) {
@@ -40,13 +41,13 @@ const InputTag = () => {
     setInputTagValue("");
   };
 
-  const handleDeleteTag = (tagNum) => {
+  const handleDeleteTag = (tagNum: number) => {
     const newTagArr = tagValue.filter((_, idx) => idx !== tagNum);
     setTagValue(newTagArr);
   };
 
-  const handleKeydown = (e) => {
-    const value = e.target.value;
+  const handleKeydown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const value = e.currentTarget.value;
     if (e.code !== "Enter") return;
     e.preventDefault();
 
