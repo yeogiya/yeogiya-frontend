@@ -2,11 +2,14 @@ const color = {
   white: "#FFFFFF",
   white5: "#F9F9F9",
   white10: "#f1f2f3",
+  black10: "#DBDBDB",
+  black20: "#DDD",
   black30: "#D9D9D9",
   black35: "#cccccc",
   black40: "#B8B5C9",
   black50: "#747474",
   black70: "#868686",
+  black80: "#999999",
   black89: "#191919",
   black90: "#111111",
   black: "#000000",
@@ -19,6 +22,7 @@ const color = {
 
 const font = {
   body: '"Noto Sans KR", system-ui, -apple-system, BlinkMacSystemFont, "Open Sans", "Helvetica Neue", sans-serif',
+  number: "'Inter', sans-serif",
 } as const;
 
 const theme = { color, font };

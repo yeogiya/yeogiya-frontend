@@ -53,7 +53,7 @@ const JoinPage = () => {
   };
 
   return (
-    <Layout css={{ rowGap: "14px" }}>
+    <Layout css={{ rowGap: "14px" }} maxWidth="328px" paddingBottom="120px">
       <Title as="h1">회원가입</Title>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <InputContainer>

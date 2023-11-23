@@ -6,7 +6,7 @@ import theme from "@/styles/theme";
 
 const MapPage = () => {
   return (
-    <Layout paddingTop="0" paddingBottom="0">
+    <Layout paddingTop="0" paddingBottom="0" maxWidth="960px">
       <Map width="60rem" height="51.87rem" />
       <ButtonWrapper>
         <DefaultButton

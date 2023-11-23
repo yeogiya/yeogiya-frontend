@@ -7,6 +7,7 @@ interface LayoutProps {
   css?: CSSObject;
   paddingTop?: string;
   paddingBottom?: string;
+  maxWidth: string;
 }
 
 const Layout = ({ children, ...props }: LayoutProps) => {
@@ -27,7 +28,9 @@ const LayoutContainer = styled.main`
 `;
 
 const LayoutWrapper = styled.div<LayoutProps>`
-  max-width: 100%;
+  max-width: ${({ maxWidth }) => maxWidth};
+  width: 100%;
+  min-height: 100%;
   display: flex;
   flex-direction: column;
   padding-top: ${({ paddingTop }) => (paddingTop && paddingTop) || "120px"};

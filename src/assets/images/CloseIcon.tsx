@@ -15,13 +15,13 @@ const CloseIcon = ({ css }: SVGProps) => {
         d="M1 1L15 15"
         stroke={theme.color.black89}
         strokeWidth="1.5"
-        stroke-linecap="round"
+        strokeLinecap="round"
       />
       <path
         d="M15 1L1 15"
         stroke={theme.color.black89}
         strokeWidth="1.5"
-        stroke-linecap="round"
+        strokeLinecap="round"
       />
     </svg>
   );
