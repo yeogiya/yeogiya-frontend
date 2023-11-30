@@ -8,46 +8,48 @@ import {
 } from "@/styles/DiaryListPage.styles";
 import Calendar from "react-calendar";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface DairyListProps {
   date: Date;
 }
 
 const DiaryListPage = () => {
+  const navigation = useNavigate();
   const [date, setDate] = useState(new Date());
 
   const dayData = [
     {
-      date: "2023-10-01",
+      date: "2023-11-01",
       url: "https://source.unsplash.com/random/100×100/?spain",
     },
     {
-      date: "2023-10-03",
+      date: "2023-11-03",
     },
     {
-      date: "2023-10-07",
+      date: "2023-11-07",
       url: "https://source.unsplash.com/random/100×100/?grass",
     },
     {
-      date: "2023-10-04",
+      date: "2023-11-04",
       url: "https://source.unsplash.com/random/100×100/?sky",
     },
     {
-      date: "2023-10-05",
+      date: "2023-11-05",
       url: "https://source.unsplash.com/random/100×100/?europe",
     },
     {
-      date: "2023-10-08",
+      date: "2023-11-08",
     },
     {
-      date: "2023-10-09",
+      date: "2023-11-19",
     },
     {
-      date: "2023-10-10",
+      date: "2023-11-20",
       url: "https://source.unsplash.com/random/100×100/?paris",
     },
     {
-      date: "2023-10-11",
+      date: "2023-11-21",
       url: "https://source.unsplash.com/random/100x100/?newyork",
     },
   ];
@@ -80,7 +82,7 @@ const DiaryListPage = () => {
                 </IconLayout>
               ) : (
                 today && (
-                  <IconLayout>
+                  <IconLayout onClick={() => navigation("/diary/create")}>
                     <PlusIcon />
                   </IconLayout>
                 )
