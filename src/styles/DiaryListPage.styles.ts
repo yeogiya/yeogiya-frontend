@@ -55,7 +55,7 @@ const DiaryStyle = styled.div`
   }
 
   .react-calendar__navigation button:enabled {
-    border: 1px solid #b8b5c9;
+    border: 1px solid ${theme.color.black40};
     border-radius: 100px;
     font-size: 18px;
     background: none;
@@ -78,7 +78,7 @@ const IconLayout = styled.div`
   height: 100%;
 `;
 
-const DiaryLayout = styled.div`
+const DiaryLayout = styled.div<{ svg: string }>`
   max-width: 100px;
   max-height: 100px;
   min-height: 100px;
@@ -89,6 +89,19 @@ const DiaryLayout = styled.div`
   overflow: hidden;
   width: 100%;
   height: 100%;
+  justify-content: center;
+  align-items: center;
+
+  :hover {
+    background: linear-gradient(
+      90deg,
+      ${theme.color.purple10} 0%,
+      ${theme.color.navy} 100%
+    );
+    ::before {
+      content: url(${({ svg }) => svg});
+    }
+  }
 `;
 
 export { DiaryStyle, IconLayout, DiaryLayout };

@@ -8,20 +8,19 @@ import {
 } from "@/styles/DiaryListPage.styles";
 import Calendar from "react-calendar";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import WhitePlusIcon from "@/assets/images/WhitePlusIcon.svg";
 
 interface DairyListProps {
   date: Date;
 }
 
 const DiaryListPage = () => {
-  const navigation = useNavigate();
   const [date, setDate] = useState(new Date());
 
   const dayData = [
     {
       date: "2023-11-01",
-      url: "https://source.unsplash.com/random/100×100/?spain",
+      url: "https://source.unsplash.com/random/10×10/?spain",
     },
     {
       date: "2023-11-03",
@@ -42,14 +41,14 @@ const DiaryListPage = () => {
       date: "2023-11-08",
     },
     {
-      date: "2023-11-19",
+      date: "2023-10-09",
     },
     {
-      date: "2023-11-20",
+      date: "2023-10-10",
       url: "https://source.unsplash.com/random/100×100/?paris",
     },
     {
-      date: "2023-11-21",
+      date: "2023-10-11",
       url: "https://source.unsplash.com/random/100x100/?newyork",
     },
   ];
@@ -73,16 +72,16 @@ const DiaryListPage = () => {
           const dayDataItem = dayData.find((day) => day.date === dateStr);
 
           return (
-            <DiaryLayout key={dateStr}>
+            <DiaryLayout key={dateStr} svg={WhitePlusIcon}>
               {dayDataItem && dayDataItem.url ? (
                 <img src={dayDataItem.url} alt="diary image" />
               ) : dayDataItem ? (
-                <IconLayout>
+                <IconLayout className="check">
                   <CheckIcon />
                 </IconLayout>
               ) : (
                 today && (
-                  <IconLayout onClick={() => navigation("/diary/create")}>
+                  <IconLayout className="today">
                     <PlusIcon />
                   </IconLayout>
                 )
