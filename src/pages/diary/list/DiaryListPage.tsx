@@ -5,9 +5,11 @@ import {
   DiaryLayout,
   DiaryStyle,
   IconLayout,
+  TodayIconLayout,
 } from "@/styles/DiaryListPage.styles";
 import Calendar from "react-calendar";
 import { useState } from "react";
+import WhitePlusIcon from "@/assets/images/WhitePlusIcon.svg";
 
 interface DairyListProps {
   date: Date;
@@ -18,37 +20,25 @@ const DiaryListPage = () => {
 
   const dayData = [
     {
-      date: "2023-10-01",
-      url: "https://source.unsplash.com/random/100×100/?spain",
+      date: "2023-11-26",
+      url: "https://source.unsplash.com/random/10×10/?tree",
     },
     {
-      date: "2023-10-03",
+      date: "2023-11-27",
     },
     {
-      date: "2023-10-07",
-      url: "https://source.unsplash.com/random/100×100/?grass",
+      date: "2023-11-28",
+      url: "https://source.unsplash.com/random/100×100/?snow",
     },
     {
-      date: "2023-10-04",
+      date: "2023-11-29",
       url: "https://source.unsplash.com/random/100×100/?sky",
     },
     {
-      date: "2023-10-05",
-      url: "https://source.unsplash.com/random/100×100/?europe",
+      date: "2023-11-30",
     },
     {
-      date: "2023-10-08",
-    },
-    {
-      date: "2023-10-09",
-    },
-    {
-      date: "2023-10-10",
-      url: "https://source.unsplash.com/random/100×100/?paris",
-    },
-    {
-      date: "2023-10-11",
-      url: "https://source.unsplash.com/random/100x100/?newyork",
+      date: "2024-01-01",
     },
   ];
   return (
@@ -71,7 +61,7 @@ const DiaryListPage = () => {
           const dayDataItem = dayData.find((day) => day.date === dateStr);
 
           return (
-            <DiaryLayout key={dateStr}>
+            <DiaryLayout key={dateStr} svg={WhitePlusIcon}>
               {dayDataItem && dayDataItem.url ? (
                 <img src={dayDataItem.url} alt="diary image" />
               ) : dayDataItem ? (
@@ -80,9 +70,9 @@ const DiaryListPage = () => {
                 </IconLayout>
               ) : (
                 today && (
-                  <IconLayout>
+                  <TodayIconLayout>
                     <PlusIcon />
-                  </IconLayout>
+                  </TodayIconLayout>
                 )
               )}
             </DiaryLayout>
