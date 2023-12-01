@@ -1,14 +1,21 @@
 import { CloseIcon, LocationIcon, MapSearchIcon } from "@/assets";
 
 import Title from "./@common/Title";
+import { createDiary } from "@/store/diarySlice";
 import styled from "@emotion/styled";
 import theme from "@/styles/theme";
-import { useMap } from "@/features/hooks/useMap";
+import { useAppDispatch } from "@/features/hooks/useAppDispatch";
 
 const MapHeader = () => {
-  const { handleClick, isClick } = useMap();
+  const dispatch = useAppDispatch();
 
-  console.log("click", isClick);
+  const handleClick = () => {
+    dispatch(
+      createDiary({
+        isClickPos: true,
+      })
+    );
+  };
 
   return (
     <StyledMapHeader>
