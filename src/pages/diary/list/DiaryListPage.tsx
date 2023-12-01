@@ -5,6 +5,7 @@ import {
   DiaryLayout,
   DiaryStyle,
   IconLayout,
+  TodayIconLayout,
 } from "@/styles/DiaryListPage.styles";
 import Calendar from "react-calendar";
 import { useState } from "react";
@@ -19,37 +20,25 @@ const DiaryListPage = () => {
 
   const dayData = [
     {
-      date: "2023-11-01",
-      url: "https://source.unsplash.com/random/10×10/?spain",
+      date: "2023-11-26",
+      url: "https://source.unsplash.com/random/10×10/?tree",
     },
     {
-      date: "2023-11-03",
+      date: "2023-11-27",
     },
     {
-      date: "2023-11-07",
-      url: "https://source.unsplash.com/random/100×100/?grass",
+      date: "2023-11-28",
+      url: "https://source.unsplash.com/random/100×100/?snow",
     },
     {
-      date: "2023-11-04",
+      date: "2023-11-29",
       url: "https://source.unsplash.com/random/100×100/?sky",
     },
     {
-      date: "2023-11-05",
-      url: "https://source.unsplash.com/random/100×100/?europe",
+      date: "2023-11-30",
     },
     {
-      date: "2023-11-08",
-    },
-    {
-      date: "2023-10-09",
-    },
-    {
-      date: "2023-10-10",
-      url: "https://source.unsplash.com/random/100×100/?paris",
-    },
-    {
-      date: "2023-10-11",
-      url: "https://source.unsplash.com/random/100x100/?newyork",
+      date: "2024-01-01",
     },
   ];
   return (
@@ -76,14 +65,14 @@ const DiaryListPage = () => {
               {dayDataItem && dayDataItem.url ? (
                 <img src={dayDataItem.url} alt="diary image" />
               ) : dayDataItem ? (
-                <IconLayout className="check">
+                <IconLayout>
                   <CheckIcon />
                 </IconLayout>
               ) : (
                 today && (
-                  <IconLayout className="today">
+                  <TodayIconLayout>
                     <PlusIcon />
-                  </IconLayout>
+                  </TodayIconLayout>
                 )
               )}
             </DiaryLayout>

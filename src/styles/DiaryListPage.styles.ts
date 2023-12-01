@@ -68,6 +68,10 @@ const DiaryStyle = styled.div`
     flex-grow: 0 !important;
     margin: 0 34px;
   }
+
+  .react-calendar__month-view__days__day--neighboringMonth {
+    opacity: 0.5;
+  }
 `;
 
 const IconLayout = styled.div`
@@ -76,6 +80,26 @@ const IconLayout = styled.div`
   align-items: center;
   width: 100%;
   height: 100%;
+  position: absolute;
+
+  :hover {
+    background-color: ${theme.color.white};
+  }
+`;
+
+const TodayIconLayout = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+
+  :hover {
+    svg {
+      display: none;
+    }
+  }
 `;
 
 const DiaryLayout = styled.div<{ svg: string }>`
@@ -91,17 +115,21 @@ const DiaryLayout = styled.div<{ svg: string }>`
   height: 100%;
   justify-content: center;
   align-items: center;
+  position: relative;
 
   :hover {
+    img {
+      position: absolute;
+    }
     background: linear-gradient(
       90deg,
       ${theme.color.purple10} 0%,
       ${theme.color.navy} 100%
     );
-    ::before {
+    ::after {
       content: url(${({ svg }) => svg});
     }
   }
 `;
 
-export { DiaryStyle, IconLayout, DiaryLayout };
+export { DiaryStyle, IconLayout, TodayIconLayout, DiaryLayout };
