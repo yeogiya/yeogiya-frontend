@@ -1,16 +1,30 @@
 import { CloseIcon, LocationIcon, MapSearchIcon } from "@/assets";
 
 import Title from "./@common/Title";
+import { createDiary } from "@/store/diarySlice";
 import styled from "@emotion/styled";
 import theme from "@/styles/theme";
+import { useAppDispatch } from "@/features/hooks/useAppDispatch";
 
 const MapHeader = () => {
+  const dispatch = useAppDispatch();
+
+  const handleClick = () => {
+    dispatch(
+      createDiary({
+        isClickPos: true,
+      })
+    );
+  };
+
   return (
     <StyledMapHeader>
       <CloseIcon />
       <Title as="h1">지도</Title>
       <StyledIcon>
-        <LocationIcon />
+        <StyledButton onClick={handleClick}>
+          <LocationIcon />
+        </StyledButton>
         <MapSearchIcon />
       </StyledIcon>
     </StyledMapHeader>
@@ -26,19 +40,23 @@ const StyledMapHeader = styled.nav`
   align-items: center;
   justify-content: space-between;
   margin: auto;
-  padding: 13px 0;
+  padding: 0.8125rem 0;
 
   h3 {
     color: ${theme.color.black89};
-  }
-
-  svg {
-    height: 20px;
-    cursor: pointer;
   }
 `;
 
 const StyledIcon = styled.div`
   display: flex;
   column-gap: 1.56rem;
+`;
+
+const StyledButton = styled.button`
+  background-color: transparent;
+
+  svg {
+    height: 20px;
+    cursor: pointer;
+  }
 `;

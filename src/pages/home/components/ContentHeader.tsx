@@ -31,7 +31,7 @@ const Container = styled.section`
   border-radius: 0.75rem;
 
   svg {
-    min-width: 6.37rem;
+    min-width: 6.375rem;
   }
 `;
 

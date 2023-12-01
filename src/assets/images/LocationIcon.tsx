@@ -25,25 +25,25 @@ const LocationIcon = ({ css }: SVGProps) => {
         d="M1 11H3"
         stroke={theme.color.black89}
         strokeWidth="1.5"
-        stroke-linecap="round"
+        strokeLinecap="round"
       />
       <path
         d="M18.9996 11H20.9996"
         stroke={theme.color.black89}
         strokeWidth="1.5"
-        stroke-linecap="round"
+        strokeLinecap="round"
       />
       <path
         d="M11 3V1"
         stroke={theme.color.black89}
         strokeWidth="1.5"
-        stroke-linecap="round"
+        strokeLinecap="round"
       />
       <path
         d="M11 21V19"
         stroke={theme.color.black89}
         strokeWidth="1.5"
-        stroke-linecap="round"
+        strokeLinecap="round"
       />
     </svg>
   );
