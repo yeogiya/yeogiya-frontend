@@ -1,6 +1,6 @@
 import DefaultButton from "@/components/@common/DefaultButton";
 import Layout from "@/components/@common/Layout";
-import Map from "@/components/@common/Map";
+import Map from "@/pages/diary/map/components/Map";
 import { createDiary } from "@/store/diarySlice";
 import styled from "@emotion/styled";
 import theme from "@/styles/theme";

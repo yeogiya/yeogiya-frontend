@@ -3,13 +3,16 @@ import Header from "../../../../../components/@common/Header";
 import { LeftArrowIcon } from "@/assets";
 import Title from "@/components/@common/Title";
 import styled from "@emotion/styled";
+import theme from "@/styles/theme";
 
 const LocationSearchNavbar = () => {
   return (
     <Header css={{ justifyContent: "space-between" }}>
       <Nav>
         <LeftArrowIcon />
-        <Title as="h2">위치 검색</Title>
+        <Title as="h2" css={{ color: theme.color.black89 }}>
+          위치 검색
+        </Title>
       </Nav>
     </Header>
   );
