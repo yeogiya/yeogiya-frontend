@@ -18,3 +18,5 @@ export { default as SearchIcon } from "@/assets/images/SearchIcon";
 // map
 export { default as LocationIcon } from "@/assets/images/LocationIcon";
 export { default as MapSearchIcon } from "@/assets/images/MapSearchIcon";
+export { default as BgCloseIcon } from "@/assets/images/BgCloseIcon";
+export { default as LeftArrowIcon } from "@/assets/images/LeftArrowIcon";
