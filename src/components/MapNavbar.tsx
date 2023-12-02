@@ -1,12 +1,15 @@
 import { CloseIcon, LocationIcon, MapSearchIcon } from "@/assets";
 
+import Header from "./@common/Header";
+import { Link } from "react-router-dom";
+import { PATH } from "@/utils/routes";
 import Title from "./@common/Title";
 import { createDiary } from "@/store/diarySlice";
 import styled from "@emotion/styled";
 import theme from "@/styles/theme";
 import { useAppDispatch } from "@/features/hooks/useAppDispatch";
 
-const MapHeader = () => {
+const MapNavbar = () => {
   const dispatch = useAppDispatch();
 
   const handleClick = () => {
@@ -18,34 +21,22 @@ const MapHeader = () => {
   };
 
   return (
-    <StyledMapHeader>
+    <Header css={{ justifyContent: "space-between" }}>
       <CloseIcon />
-      <Title as="h1">지도</Title>
+      <Title as="h2">지도</Title>
       <StyledIcon>
         <StyledButton onClick={handleClick}>
           <LocationIcon />
         </StyledButton>
-        <MapSearchIcon />
+        <Link to={PATH.DIARY_MAP_SEARCH}>
+          <MapSearchIcon />
+        </Link>
       </StyledIcon>
-    </StyledMapHeader>
+    </Header>
   );
 };
 
-export default MapHeader;
-
-const StyledMapHeader = styled.nav`
-  width: 100%;
-  max-width: var(--max-width);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: auto;
-  padding: 0.8125rem 0;
-
-  h3 {
-    color: ${theme.color.black89};
-  }
-`;
+export default MapNavbar;
 
 const StyledIcon = styled.div`
   display: flex;
