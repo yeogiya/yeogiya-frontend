@@ -1,14 +1,18 @@
-import styled from "@emotion/styled";
 import Button from "./@common/Button";
-import theme from "@/styles/theme";
+import { CSSObject } from "@emotion/styled";
 import { EmotionJSX } from "@emotion/react/types/jsx-namespace";
+import { MouseEventHandler } from "react";
+import styled from "@emotion/styled";
+import theme from "@/styles/theme";
 
 export interface IconButtonProps {
   type: "submit" | "button" | "reset";
   icon: EmotionJSX.Element;
-  text: string;
-  background: string;
+  text?: string;
+  background?: string;
   border?: string;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
+  css?: CSSObject;
 }
 
 const IconButton = ({
@@ -17,6 +21,8 @@ const IconButton = ({
   icon,
   background,
   border,
+  onClick,
+  ...props
 }: IconButtonProps) => {
   return (
     <IconButtonStyle
@@ -25,6 +31,8 @@ const IconButton = ({
       icon={icon}
       background={background}
       border={border}
+      onClick={onClick}
+      {...props}
     />
   );
 };

@@ -9,6 +9,7 @@ const STATIC = {
   FIND_PW: "/find/pw",
   RESET_PASSWORD: "/reset",
   DIARY_MAP: "/diary/map",
+  DIARY_MAP_SEARCH: "/diary/map/search",
 };
 
 const DYNAMIC = {};
