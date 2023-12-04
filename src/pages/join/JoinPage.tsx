@@ -10,6 +10,8 @@ import InputEmail from "./components/InputEmail";
 import InputId from "./components/InputId";
 import InputPassword from "./components/InputPassword";
 import InputNickname from "./components/InputNickname";
+import InputConfirmPassword from "./components/InputConfirmPassword";
+import useJoinForm from "@/features/hooks/useJoinForm";
 
 export interface JoinProps {
   email: string;
@@ -52,15 +54,32 @@ const JoinPage = () => {
     });
   };
 
+  const {
+    id,
+    idState,
+    email,
+    emailState,
+    nickname,
+    nicknameState,
+    password,
+    passwordState,
+    confirmPassword,
+    confirmPasswordState,
+  } = useJoinForm(control);
+
   return (
     <Layout css={{ rowGap: "14px" }} maxWidth="328px" paddingBottom="120px">
       <Title as="h1">회원가입</Title>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <InputContainer>
-          <InputEmail control={control} />
-          <InputId control={control} />
-          <InputNickname control={control} />
-          <InputPassword control={control} />
+          <InputEmail email={email} emailState={emailState} />
+          <InputId id={id} idState={idState} />
+          <InputNickname nickname={nickname} nicknameState={nicknameState} />
+          <InputPassword password={password} passwordState={passwordState} />
+          <InputConfirmPassword
+            confirmPassword={confirmPassword}
+            confirmPasswordState={confirmPasswordState}
+          />
         </InputContainer>
         <SubmitButton
           type="submit"

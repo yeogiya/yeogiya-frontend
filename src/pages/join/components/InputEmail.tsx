@@ -1,12 +1,9 @@
 import InputUser from "@/components/@common/InputUser";
 import ValidateMessage from "@/components/ValidateMessage";
-import useJoinForm from "@/features/hooks/useJoinForm";
 import { useState } from "react";
 
-const InputEmail = ({ control }) => {
+const InputEmail = ({ email, emailState }) => {
   const [isEmailActive, setIsEmailActive] = useState<boolean>(false);
-
-  const { email, emailState } = useJoinForm(control);
 
   return (
     <>

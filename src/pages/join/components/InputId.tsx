@@ -1,12 +1,10 @@
 import InputUser from "@/components/@common/InputUser";
 import ValidateMessage from "@/components/ValidateMessage";
-import useJoinForm from "@/features/hooks/useJoinForm";
 import { useState } from "react";
 
-const InputId = ({ control }) => {
+const InputId = ({ id, idState }) => {
   const [idActive, setIdActive] = useState<boolean>(false);
 
-  const { id, idState } = useJoinForm(control);
   return (
     <>
       <InputUser
