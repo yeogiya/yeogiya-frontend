@@ -10,7 +10,7 @@ interface LinkTextProps {
   css?: CSSObject;
   color?: (typeof theme.color)[keyof typeof theme.color];
   fontSize?: number;
-  marginTop?: number;
+  top?: number;
 }
 
 const LinkText = ({ to, text, css, ...props }: LinkTextProps) => {
@@ -29,7 +29,7 @@ const StyledLinkButton = styled(Link)<Omit<LinkTextProps, "to" | "text">>`
   display: flex;
   justify-content: center;
   color: ${({ color }) => color ?? theme.color.black50};
-  margin-top: ${({ marginTop }) => `${marginTop ?? 1.125}rem`};
+  margin-top: ${({ top }) => `${top ?? 1.125}rem`};
   font-size: ${({ fontSize }) => `${fontSize ?? 0.875}rem`};
 
   ${({ css }) => css && css}
