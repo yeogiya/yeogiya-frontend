@@ -1,3 +1,4 @@
+import { LoginProps } from "@/pages/login/LoginPage";
 import { rest } from "msw";
 
 interface JoinReqBody {
@@ -112,3 +113,18 @@ export const handlers = [
     return res(ctx.status(200), ctx.json(results));
   }),
 ];
+
+rest.post<LoginProps>("/mock/members/login", async (req, res, ctx) => {
+  const { id, password } = req.body;
+
+  return res(
+    ctx.status(200),
+    ctx.json({
+      loginRequest: {
+        id: id,
+        password: password,
+      },
+      jwt: "confirm",
+    })
+  );
+});
