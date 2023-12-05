@@ -1,5 +1,5 @@
 import { JoinProps } from "@/pages/join/JoinPage";
-import { URL } from "@/utils/apis";
+import { URL } from "@/utils/routesPath";
 import axios from "axios";
 
 export const joinApi = async (
@@ -79,7 +79,7 @@ export const loginApi = async ({ id, password }) => {
     });
 
     const ACCESS_TOKEN = res.headers["authorization"];
-    let REFRESH_TOKEN = res.headers["refresh"]; // 응답헤더에서 토큰 받기
+    let REFRESH_TOKEN = res.headers["refresh"];
 
     if (res.status === 200) {
       localStorage.setItem("token", ACCESS_TOKEN);
