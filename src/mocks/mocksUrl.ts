@@ -1,4 +1,4 @@
-const MOCKS_PATH = {
+const MOCKS_URL = {
   SIGN_UP: `/mock/members/sign-up`,
   CHECK_EMAIL: `mock/email-exists`,
   CHECK_ID: `mock/id-exists`,
@@ -9,5 +9,5 @@ const MOCKS_PATH = {
 };
 
 export const MOCK = {
-  ...MOCKS_PATH,
+  ...MOCKS_URL,
 } as const;
