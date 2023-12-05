@@ -13,58 +13,18 @@ const Menu = () => {
     };
   };
 
-  const ACCESS_TOKEN = localStorage.getItem("token");
-
-  console.log(ACCESS_TOKEN, "ACCESS_TOKEN>>>");
-
   return (
     <MenuItem>
-      {ACCESS_TOKEN
-        ? MENU_ITEM.map(
-            (menu) =>
-              menu.type === "diary" && (
-                <li
-                  key={`${menu.type}_${menu.title}`}
-                  css={getLinkStyles(menu.type)}
-                >
-                  <LinkText
-                    color={theme.color.black90}
-                    to={`${menu.path}`}
-                    text={menu.title}
-                  />
-                  <LinkText
-                    color={theme.color.black90}
-                    to={`${menu.path}`}
-                    text={menu.title}
-                  />
-                </li>
-              )
-          )
-        : MENU_ITEM.map((menu) => (
-            <li
-              key={`${menu.type}_${menu.title}`}
-              css={getLinkStyles(menu.type)}
-            >
-              <LinkText
-                color={theme.color.black90}
-                to={`${menu.path}`}
-                text={menu.title}
-                // text={ACCESS_TOKEN ? "ABCDEFG님" : menu.title}
-              />
-              {menu.path === PATH.JOIN && <span>/</span>}
-            </li>
-          ))}
-      {/* {MENU_ITEM.map((menu) => (
+      {MENU_ITEM.map((menu) => (
         <li key={`${menu.type}_${menu.title}`} css={getLinkStyles(menu.type)}>
           <LinkText
             color={theme.color.black90}
             to={`${menu.path}`}
             text={menu.title}
-            // text={ACCESS_TOKEN ? "ABCDEFG님" : menu.title}
           />
           {menu.path === PATH.JOIN && <span>/</span>}
         </li>
-      ))} */}
+      ))}
     </MenuItem>
   );
 };
