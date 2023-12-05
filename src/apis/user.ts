@@ -1,5 +1,5 @@
 import { JoinProps } from "@/pages/join/JoinPage";
-import { URL } from "@/utils/routesPath";
+import { URL } from "@/apis/apiUrl";
 import axios from "axios";
 
 export const joinApi = async (

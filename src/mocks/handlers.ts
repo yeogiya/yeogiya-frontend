@@ -1,6 +1,6 @@
 import { LoginProps } from "@/pages/login/LoginPage";
 import { rest } from "msw";
-import { MOCK } from "./mocksPath";
+import { MOCK } from "./mocksUrl";
 import { SearchBarProps } from "@/components/SearchBar";
 
 interface JoinReqBody {
