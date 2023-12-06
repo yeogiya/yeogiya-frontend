@@ -14,6 +14,7 @@ import MapPage from "@/pages/diary/map/MapPage";
 import MapSearchPage from "@/pages/diary/map/search/MapSearchPage";
 import { PATH } from "./routes";
 import ResetPwPage from "@/pages/reset/ResetPwPage";
+import SearchPage from "@/pages/search/SearchPage";
 import { ThemeProvider } from "@emotion/react";
 import theme from "@/styles/theme";
 
@@ -27,7 +28,7 @@ export const router = createBrowserRouter([
         index: true,
         element: <LandingPage />,
       },
-      { path: PATH.SEARCH },
+      { path: PATH.SEARCH, element: <SearchPage /> },
       {
         path: PATH.LOGIN,
         element: <LoginPage />,
