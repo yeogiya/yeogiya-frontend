@@ -1,8 +1,15 @@
 import InputUser from "@/components/@common/InputUser";
 import ValidateMessage from "@/components/ValidateMessage";
 import { useState } from "react";
+import { ControllerFieldState, ControllerRenderProps } from "react-hook-form";
+import { JoinProps } from "../JoinPage";
 
-const InputNickname = ({ nickname, nicknameState }) => {
+interface InputNicknameProps {
+  nickname: ControllerRenderProps<JoinProps, "nickname">;
+  nicknameState: ControllerFieldState;
+}
+
+const InputNickname = ({ nickname, nicknameState }: InputNicknameProps) => {
   const [isNickname, setIsNickname] = useState<boolean>(false);
 
   return (

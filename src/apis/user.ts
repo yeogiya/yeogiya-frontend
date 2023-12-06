@@ -1,4 +1,5 @@
 import { JoinProps } from "@/pages/join/JoinPage";
+import { LoginProps } from "@/pages/login/LoginPage";
 import { URL } from "@/utils/apis";
 import axios from "axios";
 
@@ -65,7 +66,7 @@ export const findIdApi = async (email: string) => {
   }
 };
 
-export const loginApi = async ({ id, password }) => {
+export const loginApi = async ({ id, password }: LoginProps) => {
   try {
     const res = await axios({
       method: "POST",

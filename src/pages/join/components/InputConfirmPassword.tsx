@@ -2,8 +2,18 @@ import { ConcealIcon } from "@/assets";
 import InputUser from "@/components/@common/InputUser";
 import ValidateMessage from "@/components/ValidateMessage";
 import { useState } from "react";
+import { ControllerFieldState, ControllerRenderProps } from "react-hook-form";
+import { JoinProps } from "../JoinPage";
 
-const InputConfirmPassword = ({ confirmPassword, confirmPasswordState }) => {
+interface InputConfirmPasswordProps {
+  confirmPassword: ControllerRenderProps<JoinProps, "confirmPassword">;
+  confirmPasswordState: ControllerFieldState;
+}
+
+const InputConfirmPassword = ({
+  confirmPassword,
+  confirmPasswordState,
+}: InputConfirmPasswordProps) => {
   const [confirmPasswordType, setConfirmPasswordType] =
     useState<string>("password");
   const [isPassWordConfirm, setIsPassWordConfirm] = useState<boolean>(false);
