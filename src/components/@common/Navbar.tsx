@@ -1,23 +1,15 @@
 import { SearchIcon, YeogiyaLogo } from "@/assets";
 
+import Header from "./Header";
 import { Link } from "react-router-dom";
 import Menu from "@/components/@common/Menu";
 import { PATH } from "@/utils/routes";
 import styled from "@emotion/styled";
 import theme from "@/styles/theme";
-import { useState } from "react";
 
 const Navbar = () => {
-  const [searchValue, setSearchValue] = useState("");
-
-  const handleSearch = () => {
-    if (searchValue === "") return;
-
-    // API
-  };
-
   return (
-    <Container>
+    <Header css={{ justifyContent: "space-between" }}>
       <Wrapper>
         <Link to={PATH.HOME}>
           <YeogiyaLogo />
@@ -29,21 +21,9 @@ const Navbar = () => {
         </Link>
       </Wrapper>
       <Menu />
-    </Container>
+    </Header>
   );
 };
-
-const Container = styled.nav`
-  width: 100%;
-  max-width: var(--max-width);
-  margin: auto;
-  padding: 1.43rem 0;
-  height: 4.37rem;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
 
 const Wrapper = styled.div`
   display: flex;

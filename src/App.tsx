@@ -1,28 +1,37 @@
 import { Fragment } from "react";
-import MapHeader from "./components/MapHeader";
+import LocationSearchNavbar from "./pages/diary/map/search/components/LocationSearchNavbar";
+import MapNavbar from "./pages/diary/map/components/MapNavbar";
 import Navbar from "@/components/@common/Navbar";
 import { Outlet } from "react-router-dom";
 
 interface AppProps {
-  layout?: "default" | "diaryHeader";
+  layout?: "default" | "diaryMap" | "locationSearch";
 }
 
 const App = ({ layout = "default" }: AppProps) => {
-  if (layout === "diaryHeader") {
-    return (
-      <Fragment>
-        <MapHeader />
-        <Outlet />
-      </Fragment>
-    );
+  switch (layout) {
+    case "diaryMap":
+      return (
+        <Fragment>
+          <MapNavbar />
+          <Outlet />
+        </Fragment>
+      );
+    case "locationSearch":
+      return (
+        <Fragment>
+          <LocationSearchNavbar />
+          <Outlet />
+        </Fragment>
+      );
+    default:
+      return (
+        <Fragment>
+          <Navbar />
+          <Outlet />
+        </Fragment>
+      );
   }
-
-  return (
-    <Fragment>
-      <Navbar />
-      <Outlet />
-    </Fragment>
-  );
 };
 
 export default App;

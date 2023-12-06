@@ -66,6 +66,7 @@ export const findIdApi = async (email: string) => {
   }
 };
 
+
 export const loginApi = async ({ id, password }: LoginProps) => {
   try {
     const res = await axios({
@@ -85,6 +86,17 @@ export const loginApi = async ({ id, password }: LoginProps) => {
     if (res.status === 200) {
       localStorage.setItem("token", ACCESS_TOKEN);
     }
+
+    
+export const dairyListApi = async () => {
+  try {
+    const { data } = await axios.get(`${BASE_URL}/diaries`, {
+      params: {
+        year: 2023,
+        month: 10,
+      },
+    });
+    return data.body;
   } catch (e) {
     console.log(e);
   }

@@ -17,6 +17,8 @@ const color = {
   red: "#D93F2E",
   red10: "#B80808",
   purple: "#614AD3",
+  purple10: "#c56cd6",
+  navy: "#3425af",
   yellow: "#FEE500",
 } as const;
 

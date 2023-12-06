@@ -55,7 +55,7 @@ const DiaryStyle = styled.div`
   }
 
   .react-calendar__navigation button:enabled {
-    border: 1px solid #b8b5c9;
+    border: 1px solid ${theme.color.black40};
     border-radius: 100px;
     font-size: 18px;
     background: none;
@@ -68,6 +68,10 @@ const DiaryStyle = styled.div`
     flex-grow: 0 !important;
     margin: 0 34px;
   }
+
+  .react-calendar__month-view__days__day--neighboringMonth {
+    opacity: 0.5;
+  }
 `;
 
 const IconLayout = styled.div`
@@ -76,9 +80,29 @@ const IconLayout = styled.div`
   align-items: center;
   width: 100%;
   height: 100%;
+  position: absolute;
+
+  :hover {
+    background-color: ${theme.color.white};
+  }
 `;
 
-const DiaryLayout = styled.div`
+const TodayIconLayout = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+
+  :hover {
+    svg {
+      display: none;
+    }
+  }
+`;
+
+const DiaryLayout = styled.div<{ svg: string }>`
   max-width: 100px;
   max-height: 100px;
   min-height: 100px;
@@ -89,6 +113,23 @@ const DiaryLayout = styled.div`
   overflow: hidden;
   width: 100%;
   height: 100%;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+  :hover {
+    img {
+      position: absolute;
+    }
+    background: linear-gradient(
+      90deg,
+      ${theme.color.purple10} 0%,
+      ${theme.color.navy} 100%
+    );
+    ::after {
+      content: url(${({ svg }) => svg});
+    }
+  }
 `;
 
-export { DiaryStyle, IconLayout, DiaryLayout };
+export { DiaryStyle, IconLayout, TodayIconLayout, DiaryLayout };
