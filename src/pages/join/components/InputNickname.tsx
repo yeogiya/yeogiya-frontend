@@ -1,11 +1,17 @@
 import InputUser from "@/components/@common/InputUser";
 import ValidateMessage from "@/components/ValidateMessage";
-import useJoinForm from "@/features/hooks/useJoinForm";
 import { useState } from "react";
+import { ControllerFieldState, ControllerRenderProps } from "react-hook-form";
+import { JoinProps } from "../JoinPage";
 
-const InputNickname = ({ control }) => {
+interface InputNicknameProps {
+  nickname: ControllerRenderProps<JoinProps, "nickname">;
+  nicknameState: ControllerFieldState;
+}
+
+const InputNickname = ({ nickname, nicknameState }: InputNicknameProps) => {
   const [isNickname, setIsNickname] = useState<boolean>(false);
-  const { nickname, nicknameState } = useJoinForm(control);
+
   return (
     <>
       <InputUser

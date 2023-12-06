@@ -1,13 +1,13 @@
 import { JoinProps } from "@/pages/join/JoinPage";
+import { LoginProps } from "@/pages/login/LoginPage";
+import { URL } from "@/apis/apiUrl";
 import axios from "axios";
-
-export const BASE_URL = "http://13.209.150.130:8080/api/public/v1.0.0";
 
 export const joinApi = async (
   params: Partial<JoinProps> & { loginType: string }
 ) => {
   try {
-    const { data } = await axios.post(`${BASE_URL}/members/sign-up`, params);
+    const { data } = await axios.post(URL.SIGN_UP, params);
     return data;
   } catch (e) {
     console.log(e);
@@ -16,7 +16,7 @@ export const joinApi = async (
 
 export const checkEmailApi = async (email: string) => {
   try {
-    const { data } = await axios.get(`${BASE_URL}/members/email-exists`, {
+    const { data } = await axios.get(URL.CHECK_EMAIL, {
       params: {
         email,
       },
@@ -29,7 +29,7 @@ export const checkEmailApi = async (email: string) => {
 
 export const checkIdApi = async (id: string) => {
   try {
-    const { data } = await axios.get(`${BASE_URL}/members/id-exists`, {
+    const { data } = await axios.get(URL.CHECK_ID, {
       params: {
         id,
       },
@@ -42,7 +42,7 @@ export const checkIdApi = async (id: string) => {
 
 export const checkNicknameApi = async (nickname: string) => {
   try {
-    const { data } = await axios.get(`${BASE_URL}/members/nickname-exists`, {
+    const { data } = await axios.get(URL.CHECK_NICKNAME, {
       params: {
         nickname,
       },
@@ -55,7 +55,7 @@ export const checkNicknameApi = async (nickname: string) => {
 
 export const findIdApi = async (email: string) => {
   try {
-    const { data } = await axios.get(`${BASE_URL}/members/find-id`, {
+    const { data } = await axios.get(URL.FIND_ID, {
       params: {
         email,
       },
@@ -66,6 +66,28 @@ export const findIdApi = async (email: string) => {
   }
 };
 
+
+export const loginApi = async ({ id, password }: LoginProps) => {
+  try {
+    const res = await axios({
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      withCredentials: true,
+      url: URL.LOGIN,
+      data: {
+        id,
+        password,
+      },
+    });
+
+    const ACCESS_TOKEN = res.headers["authorization"];
+    let REFRESH_TOKEN = res.headers["refresh"];
+
+    if (res.status === 200) {
+      localStorage.setItem("token", ACCESS_TOKEN);
+    }
+
+    
 export const dairyListApi = async () => {
   try {
     const { data } = await axios.get(`${BASE_URL}/diaries`, {

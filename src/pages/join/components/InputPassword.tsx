@@ -1,18 +1,19 @@
 import { ConcealIcon } from "@/assets";
 import InputUser from "@/components/@common/InputUser";
 import ValidateMessage from "@/components/ValidateMessage";
-import useJoinForm from "@/features/hooks/useJoinForm";
 import { useState } from "react";
+import { JoinProps } from "../JoinPage";
+import { ControllerFieldState, ControllerRenderProps } from "react-hook-form";
 
-const InputPassword = ({ control }) => {
+interface InputPasswordProps {
+  password: ControllerRenderProps<JoinProps, "password">;
+  passwordState: ControllerFieldState;
+}
+
+const InputPassword = ({ password, passwordState }: InputPasswordProps) => {
   const [passwordType, setPasswordType] = useState<string>("password");
-  const [confirmPasswordType, setConfirmPasswordType] =
-    useState<string>("password");
   const [isPassword, setIsPassword] = useState<boolean>(false);
-  const [isPassWordConfirm, setIsPassWordConfirm] = useState<boolean>(false);
 
-  const { password, passwordState, confirmPassword, confirmPasswordState } =
-    useJoinForm(control);
   return (
     <>
       <InputUser
@@ -34,24 +35,6 @@ const InputPassword = ({ control }) => {
       />
       <ValidateMessage color="error">
         {passwordState?.error?.message}
-      </ValidateMessage>
-      <InputUser
-        {...confirmPassword}
-        labelText="비밀번호 확인"
-        onChange={(e) => confirmPassword.onChange(e.target.value)}
-        type={confirmPasswordType}
-        icon={
-          <ConcealIcon
-            confirmPassword={confirmPasswordType}
-            setConfirmPassword={setConfirmPasswordType}
-            isActive={isPassWordConfirm}
-          />
-        }
-        onFocus={() => setIsPassWordConfirm(true)}
-        isActive={isPassWordConfirm}
-      />
-      <ValidateMessage color="error">
-        {confirmPasswordState?.error?.message}
       </ValidateMessage>
     </>
   );

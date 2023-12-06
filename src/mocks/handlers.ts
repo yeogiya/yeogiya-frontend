@@ -1,4 +1,7 @@
+import { LoginProps } from "@/pages/login/LoginPage";
 import { rest } from "msw";
+import { MOCK } from "./mocksUrl";
+import { SearchBarProps } from "@/components/SearchBar";
 
 interface JoinReqBody {
   id: string;
@@ -9,87 +12,96 @@ interface JoinReqBody {
 }
 
 export const handlers = [
-  rest.get("/mock/check-email", async (req, res, ctx) => {
-    const email = new URL(req.url).searchParams.get("email");
+  rest.get<Pick<JoinReqBody, "email">>(
+    `${MOCK.CHECK_EMAIL}`,
+    async (req, res, ctx) => {
+      const email = new URL(req.url).searchParams.get("email");
 
-    if (email === "aaa@gmail.com") {
+      if (email === "aaa@gmail.com") {
+        return res(
+          ctx.json({
+            msw: true,
+            status: "OK",
+            body: {
+              duplicated: true,
+            },
+          })
+        );
+      }
+
       return res(
         ctx.json({
           msw: true,
           status: "OK",
           body: {
-            duplicated: true,
+            duplicated: false,
           },
         })
       );
     }
+  ),
 
-    return res(
-      ctx.json({
-        msw: true,
-        status: "OK",
-        body: {
-          duplicated: false,
-        },
-      })
-    );
-  }),
+  rest.get<Pick<JoinReqBody, "id">>(
+    `${MOCK.CHECK_ID}`,
+    async (req, res, ctx) => {
+      const id = new URL(req.url).searchParams.get("id");
 
-  rest.get<JoinReqBody>("/mock/check-id", async (req, res, ctx) => {
-    const id = new URL(req.url).searchParams.get("id");
+      if (id === "aaa") {
+        return res(
+          ctx.status(200),
+          ctx.json({
+            msw: true,
+            status: "OK",
+            body: {
+              duplicated: true,
+            },
+          })
+        );
+      }
 
-    if (id === "aaa") {
       return res(
-        ctx.status(200),
         ctx.json({
           msw: true,
           status: "OK",
           body: {
-            duplicated: true,
+            duplicated: false,
           },
         })
       );
     }
+  ),
 
-    return res(
-      ctx.json({
-        msw: true,
-        status: "OK",
-        body: {
-          duplicated: false,
-        },
-      })
-    );
-  }),
+  rest.get<Pick<JoinReqBody, "nickname">>(
+    `${MOCK.CHECK_NICKNAME}`,
+    async (req, res, ctx) => {
+      const nickname = new URL(req.url).searchParams.get("nickname");
 
-  rest.get<JoinReqBody>("/mock/nickname-exists", async (req, res, ctx) => {
-    const nickname = new URL(req.url).searchParams.get("nickname");
+      if (nickname === "닉네임") {
+        return res(
+          ctx.status(200),
+          ctx.json({
+            msw: true,
+            status: "OK",
+            body: {
+              duplicated: true,
+            },
+          })
+        );
+      }
 
-    if (nickname === "닉네임") {
       return res(
-        ctx.status(200),
         ctx.json({
           msw: true,
           status: "OK",
           body: {
-            duplicated: true,
+            duplicated: false,
           },
         })
       );
     }
+  ),
 
-    return res(
-      ctx.json({
-        msw: true,
-        status: "OK",
-        body: {
-          duplicated: false,
-        },
-      })
-    );
-  }),
-
-  rest.post<JoinReqBody>("/mock/members/sign-up", async (req, res, ctx) => {
+  rest.post<JoinReqBody>(`${MOCK.SIGN_UP}`, async (req, res, ctx) => {
     const { id, password, nickname, email, loginType } = req.body;
 
     return res(
@@ -105,10 +117,25 @@ export const handlers = [
     );
   }),
 
-  rest.get("/mock/search", async (req, res, ctx) => {
+  rest.get<SearchBarProps>(`${MOCK.SEARCH}`, async (req, res, ctx) => {
     const query = req.url.searchParams.get("query");
 
     const results = { data: [`Result for ${query}`] };
     return res(ctx.status(200), ctx.json(results));
   }),
 ];
+
+rest.post<LoginProps>(`${MOCK.LOGIN}`, async (req, res, ctx) => {
+  const { id, password } = await req.json();
+
+  return res(
+    ctx.status(200),
+    ctx.json({
+      loginRequest: {
+        id: id,
+        password: password,
+      },
+      jwt: "example_token",
+    })
+  );
+});

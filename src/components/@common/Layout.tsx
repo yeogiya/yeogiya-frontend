@@ -3,11 +3,11 @@ import styled, { CSSObject } from "@emotion/styled";
 import { ReactNode } from "react";
 
 interface LayoutProps {
-  children: ReactNode;
+  children?: ReactNode;
   css?: CSSObject;
   paddingTop?: string;
   paddingBottom?: string;
-  maxWidth: string;
+  maxWidth?: string;
 }
 
 const Layout = ({ children, ...props }: LayoutProps) => {
