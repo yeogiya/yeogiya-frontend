@@ -5,7 +5,7 @@ import { ControllerFieldState, ControllerRenderProps } from "react-hook-form";
 import { JoinProps } from "../JoinPage";
 
 interface InputNicknameProps {
-  nickname: ControllerRenderProps<JoinProps, "nickname">;
+  nickname: ControllerRenderProps<Pick<JoinProps, "nickname">>;
   nicknameState: ControllerFieldState;
 }
 
