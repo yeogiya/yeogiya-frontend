@@ -8,23 +8,26 @@ interface LayoutProps {
   paddingTop?: string;
   paddingBottom?: string;
   maxWidth?: string;
+  backgroundColor?: string;
 }
 
-const Layout = ({ children, ...props }: LayoutProps) => {
+const Layout = ({ children, backgroundColor, ...props }: LayoutProps) => {
   return (
-    <LayoutContainer>
+    <LayoutContainer backgroundColor={backgroundColor}>
       <LayoutWrapper {...props}>{children}</LayoutWrapper>
     </LayoutContainer>
   );
 };
 
-const LayoutContainer = styled.main`
+const LayoutContainer = styled.main<Pick<LayoutProps, "backgroundColor">>`
   max-width: 100%;
   width: 100%;
-  height: calc(100vh - 92px);
+  height: calc(100vh - 70px);
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  background-color: ${({ backgroundColor }) =>
+    backgroundColor && backgroundColor};
 `;
 
 const LayoutWrapper = styled.div<LayoutProps>`

@@ -2,6 +2,7 @@ const color = {
   white: "#FFFFFF",
   white5: "#F9F9F9",
   white10: "#f1f2f3",
+  white15: "#fafafa",
   black10: "#DBDBDB",
   black20: "#DDD",
   black30: "#D9D9D9",
