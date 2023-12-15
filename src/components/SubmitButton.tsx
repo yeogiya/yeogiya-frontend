@@ -26,6 +26,7 @@ const SubmitButtonStyle = styled.button<Partial<SubmitButtonProps>>`
   padding: 13px 80px;
   font-size: 16px;
   border-radius: 7px;
+  cursor: pointer;
   color: ${theme.color.white};
   justify-content: center;
   background-color: ${({ isValid }) =>
