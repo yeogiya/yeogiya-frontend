@@ -11,6 +11,8 @@ const STATIC = {
   DIARY_MAP: "/diary/map",
   DIARY_MAP_SEARCH: "/diary/map/search",
   MY: "/my",
+  MY_PASSWORD: "/my/pw",
+  MY_PASSWORD_UPDATE: "/my/pw/update",
 };
 
 const DYNAMIC = {};
