@@ -12,8 +12,10 @@ const ValidateMessage = ({ color, children }: ValidateMessageProps) => {
 };
 
 const ValidateMessageStyle = styled.p<ValidateMessageProps>`
-  margin-top: 10px;
+  margin-top: 5px;
+  margin-bottom: -7px;
   font-size: 0.75rem;
+
   color: ${({ color }) =>
     color === "error"
       ? `${theme.color.red}`
