@@ -1,5 +1,5 @@
 import Button, { ButtonProps } from "@/components/@common/Button";
-import { ControllerRenderProps, SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { GoogleLogo, KakaoLogo } from "@/assets";
 import IconButton from "@/components/IconButton";
 import Layout from "@/components/@common/Layout";
@@ -14,15 +14,11 @@ import InputPassword from "../join/components/InputPassword";
 import useLoginForm from "@/features/hooks/useLoginForm";
 import { loginApi } from "@/apis/user";
 import { useNavigate } from "react-router-dom";
-
-export interface LoginProps {
-  id: string;
-  password: string;
-}
+import { JoinProps } from "../join/JoinPage";
 
 const LoginPage = () => {
   const navigate = useNavigate();
-  const { handleSubmit, control } = useForm<LoginProps>({
+  const { handleSubmit, control } = useForm<Partial<JoinProps>>({
     mode: "onBlur",
     defaultValues: {
       id: "",
@@ -32,7 +28,7 @@ const LoginPage = () => {
 
   const { id, idState, password, passwordState } = useLoginForm(control);
 
-  const onSubmit: SubmitHandler<LoginProps> = async (data) => {
+  const onSubmit: SubmitHandler<Partial<JoinProps>> = async (data) => {
     const { id, password } = { ...data };
 
     await loginApi({ id, password });

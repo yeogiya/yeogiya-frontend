@@ -18,6 +18,8 @@ import SearchPage from "@/pages/search/SearchPage";
 import { ThemeProvider } from "@emotion/react";
 import theme from "@/styles/theme";
 import MyPage from "@/pages/my/MyPage";
+import MyPassword from "@/pages/my/password/MyPwPage";
+import UpdateMyPwPage from "@/pages/my/password/UpdateMyPwPage";
 
 export const router = createBrowserRouter([
   {
@@ -65,6 +67,14 @@ export const router = createBrowserRouter([
       {
         path: PATH.MY,
         element: <MyPage />,
+      },
+      {
+        path: PATH.MY_PASSWORD,
+        element: <MyPassword />,
+      },
+      {
+        path: PATH.MY_PASSWORD_UPDATE,
+        element: <UpdateMyPwPage />,
       },
     ],
   },

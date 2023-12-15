@@ -1,16 +1,20 @@
 import { ConcealIcon } from "@/assets";
 import InputUser from "@/components/@common/InputUser";
 import ValidateMessage from "@/components/ValidateMessage";
-import { useState } from "react";
-import { JoinProps } from "../JoinPage";
-import { ControllerFieldState, ControllerRenderProps } from "react-hook-form";
+import { InputHTMLAttributes, useState } from "react";
+import { ControllerFieldState } from "react-hook-form";
 
-interface InputPasswordProps {
-  password: ControllerRenderProps<JoinProps, "password">;
+export interface InputPasswordProps {
+  password: InputHTMLAttributes<HTMLInputElement>;
   passwordState: ControllerFieldState;
+  labelText?: string;
 }
 
-const InputPassword = ({ password, passwordState }: InputPasswordProps) => {
+const InputPassword = ({
+  password,
+  passwordState,
+  labelText,
+}: InputPasswordProps) => {
   const [passwordType, setPasswordType] = useState<string>("password");
   const [isPassword, setIsPassword] = useState<boolean>(false);
 
@@ -19,7 +23,7 @@ const InputPassword = ({ password, passwordState }: InputPasswordProps) => {
       <InputUser
         {...password}
         type={passwordType}
-        labelText="비밀번호"
+        labelText={labelText || "비밀번호"}
         onChange={(e) => {
           password.onChange(e);
         }}

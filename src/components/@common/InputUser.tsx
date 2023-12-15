@@ -28,7 +28,7 @@ const InputUser = React.forwardRef(
     ref: React.Ref<any>
   ) => {
     return (
-      <InputWrapper>
+      <InputWrapper {...props}>
         <LabelWrapper>
           <Label htmlFor={name}>{labelText}</Label>
         </LabelWrapper>
@@ -39,7 +39,6 @@ const InputUser = React.forwardRef(
             onChange={onChange}
             type={type}
             name={name}
-            {...props}
             ref={ref}
           />
           {icon && <button type="button">{icon}</button>}
@@ -58,7 +57,7 @@ const InputWrapper = styled.div<Partial<InputUserProps>>`
   max-width: ${({ maxWidth }) => (maxWidth && maxWidth) || "328px"};
   width: 100%;
 
-  ${({ css }) => css}
+  ${({ css }) => css && css}
 `;
 
 const InputContainer = styled.div`

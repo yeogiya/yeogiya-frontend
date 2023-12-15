@@ -6,9 +6,9 @@ import { useForm } from "react-hook-form";
 import InputUser from "@/components/@common/InputUser";
 import SubmitButton from "@/components/SubmitButton";
 import { JoinProps } from "../join/JoinPage";
-import styled from "@emotion/styled";
-import DefaultButton from "@/components/@common/DefaultButton";
 import InputProfile from "./components/InputProfile";
+import { PATH } from "@/utils/routes";
+import LinkText from "@/components/@common/LinkText";
 
 export interface MyProps {
   nickname: string;
@@ -16,7 +16,6 @@ export interface MyProps {
 
 const MyPage = () => {
   const {
-    handleSubmit,
     formState: { isDirty, isValid },
     control,
   } = useForm<Pick<JoinProps, "nickname">>({
@@ -35,31 +34,36 @@ const MyPage = () => {
       paddingTop="80px"
       backgroundColor={`${theme.color.white15}`}
     >
-      <InputProfile />
+      <InputProfile css={{ marginBottom: "8px" }} />
       <InputNickname nickname={nickname} nicknameState={nicknameState} />
       <InputUser labelText="이메일" value={"ABCDEFG2@gmail.com"} disabled />
-      <InputUser labelText="아이디" value={"ididid"} disabled />
+      <InputUser
+        labelText="아이디"
+        value={"ididid"}
+        css={{ marginTop: "24px" }}
+        disabled
+      />
       <SubmitButton
         type="submit"
         text="완료"
         isValid={isDirty && isValid}
-        css={{ marginTop: "28px" }}
+        css={{ marginTop: "24px" }}
       />
-      <Button text="비밀번호 변경" />
-      <Button text="회원탈퇴" />
+      <LinkText
+        to={PATH.MY_PASSWORD}
+        text="비밀번호 변경"
+        fontSize={1}
+        color={theme.color.black}
+        css={{ marginTop: "24px" }}
+      />
+      <LinkText
+        to={PATH.MY_PASSWORD}
+        text="회원탈퇴"
+        fontSize={1}
+        css={{ marginTop: "24px" }}
+      />
     </Layout>
   );
 };
 
 export default MyPage;
-
-const Button = styled(DefaultButton)`
-  color: ${theme.color.black};
-  font-weight: 400;
-  padding: 0;
-  margin-top: 24px;
-
-  :last-child {
-    color: ${theme.color.black50};
-  }
-`;

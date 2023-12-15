@@ -1,23 +1,19 @@
 import { JoinProps } from "@/pages/join/JoinPage";
 import { Control, useController } from "react-hook-form";
 
-const useLoginForm = (control: Control<Partial<JoinProps>>) => {
-  const { field: id, fieldState: idState } = useController({
-    name: "id",
-    control,
-  });
-
+const useMyPw = (control: Control<Partial<JoinProps>>) => {
   const { field: password, fieldState: passwordState } = useController({
     name: "password",
     control,
+    rules: {
+      required: "현재 사용하시는 비밀번호를 입력해주세요.",
+    },
   });
 
   return {
-    id,
-    idState,
     password,
     passwordState,
   };
 };
 
-export default useLoginForm;
+export default useMyPw;
