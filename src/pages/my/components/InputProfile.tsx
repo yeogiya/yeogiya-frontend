@@ -2,7 +2,7 @@ import ProfileIcon from "@/assets/images/ProfileIcon";
 import styled from "@emotion/styled";
 import React, { useRef, useState } from "react";
 
-const InputProfile = () => {
+const InputProfile = ({ ...props }) => {
   const profileInput = useRef(null);
   const [showProfileImg, setShowProfileImg] = useState<string>("");
 
@@ -18,7 +18,7 @@ const InputProfile = () => {
   };
 
   return (
-    <ProfileWrapper>
+    <ProfileWrapper {...props}>
       <ImgStyle>
         {showProfileImg ? (
           <img src={showProfileImg} alt={showProfileImg} />
@@ -53,14 +53,16 @@ const ProfileWrapper = styled.div`
   img {
     object-fit: cover;
     width: 100%;
+    height: 100%;
     border-radius: 50%;
   }
+
+  ${({ css }) => css && css}
 `;
 
 const ImgStyle = styled.div`
-  width: 100%;
-  max-width: 80px;
-  max-height: 80px;
+  width: 80px;
+  height: 80px;
 `;
 
 const Profile = styled.input`
