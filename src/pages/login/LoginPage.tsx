@@ -1,18 +1,19 @@
 import Button, { ButtonProps } from "@/components/@common/Button";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { GoogleLogo, KakaoLogo } from "@/assets";
+
+import { DevTool } from "@hookform/devtools";
 import IconButton from "@/components/IconButton";
+import InputId from "../join/components/InputId";
+import InputPassword from "../join/components/InputPassword";
 import Layout from "@/components/@common/Layout";
 import LinkText from "@/components/@common/LinkText";
 import { PATH } from "@/utils/routes";
 import Title from "@/components/@common/Title";
+import { loginApi } from "@/apis/user";
 import styled from "@emotion/styled";
 import theme from "@/styles/theme";
-import { DevTool } from "@hookform/devtools";
-import InputId from "../join/components/InputId";
-import InputPassword from "../join/components/InputPassword";
 import useLoginForm from "@/features/hooks/useLoginForm";
-import { loginApi } from "@/apis/user";
 import { useNavigate } from "react-router-dom";
 import { JoinProps } from "../join/JoinPage";
 
@@ -36,6 +37,14 @@ const LoginPage = () => {
     navigate("/");
   };
 
+  const handleLoginWithKakao = () => {
+    const { Kakao } = window;
+    Kakao.Auth.authorize({
+      redirectUri: `${import.meta.env.VITE_KAKAO_REDIRECT_URI}`,
+      scope: "profile_nickname",
+    });
+  };
+
   return (
     <Layout maxWidth="328px">
       <Title as="h1">로그인</Title>
@@ -56,20 +65,21 @@ const LoginPage = () => {
             <LinkText to={PATH.FIND_PW} text="비밀번호 찾기" top={0} />
           </ButtonWrapper>
         </ButtonContainer>
-        <IconButton
-          type="submit"
-          text="Google로 로그인"
-          background={theme.color.white}
-          border={`1px solid ${theme.color.black35}`}
-          icon={<GoogleLogo />}
-        />
-        <IconButton
-          type="submit"
-          text="카카오로 로그인"
-          background={theme.color.yellow}
-          icon={<KakaoLogo />}
-        />
       </form>
+      <IconButton
+        type="submit"
+        text="Google로 로그인"
+        background={theme.color.white}
+        border={`1px solid ${theme.color.black35}`}
+        icon={<GoogleLogo />}
+      />
+      <IconButton
+        type="submit"
+        text="카카오로 로그인"
+        background={theme.color.yellow}
+        icon={<KakaoLogo />}
+        onClick={handleLoginWithKakao}
+      />
       <DevTool control={control} />
     </Layout>
   );
