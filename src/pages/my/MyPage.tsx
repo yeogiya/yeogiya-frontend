@@ -6,10 +6,7 @@ import { useForm } from "react-hook-form";
 import InputUser from "@/components/@common/InputUser";
 import SubmitButton from "@/components/SubmitButton";
 import { JoinProps } from "../join/JoinPage";
-import styled from "@emotion/styled";
-import DefaultButton from "@/components/@common/DefaultButton";
 import InputProfile from "./components/InputProfile";
-import { Link } from "react-router-dom";
 import { PATH } from "@/utils/routes";
 import LinkText from "@/components/@common/LinkText";
 
@@ -19,7 +16,6 @@ export interface MyProps {
 
 const MyPage = () => {
   const {
-    handleSubmit,
     formState: { isDirty, isValid },
     control,
   } = useForm<Pick<JoinProps, "nickname">>({
