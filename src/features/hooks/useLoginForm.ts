@@ -1,7 +1,7 @@
-import { LoginProps } from "@/pages/login/LoginPage";
+import { JoinProps } from "@/pages/join/JoinPage";
 import { Control, useController } from "react-hook-form";
 
-const useLoginForm = (control: Control<LoginProps>) => {
+const useLoginForm = (control: Control<Partial<JoinProps>>) => {
   const { field: id, fieldState: idState } = useController({
     name: "id",
     control,
