@@ -1,11 +1,10 @@
 import InputUser from "@/components/@common/InputUser";
 import ValidateMessage from "@/components/ValidateMessage";
-import { useState } from "react";
-import { ControllerFieldState, ControllerRenderProps } from "react-hook-form";
-import { JoinProps } from "../JoinPage";
+import { InputHTMLAttributes, useState } from "react";
+import { ControllerFieldState } from "react-hook-form";
 
 interface InputNicknameProps {
-  nickname: ControllerRenderProps<JoinProps, "nickname">;
+  nickname: InputHTMLAttributes<HTMLInputElement>;
   nicknameState: ControllerFieldState;
 }
 
@@ -24,9 +23,13 @@ const InputNickname = ({ nickname, nicknameState }: InputNicknameProps) => {
         onFocus={() => setIsNickname(true)}
         isActive={isNickname}
       />
-      <ValidateMessage color="error">
-        {nicknameState?.error?.message}
-      </ValidateMessage>
+      {nicknameState?.error?.message ? (
+        <ValidateMessage color="error">
+          {nicknameState?.error?.message}
+        </ValidateMessage>
+      ) : (
+        <div style={{ marginTop: "16px" }}></div>
+      )}
     </>
   );
 };
