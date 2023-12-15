@@ -1,11 +1,10 @@
 import InputUser from "@/components/@common/InputUser";
 import ValidateMessage from "@/components/ValidateMessage";
-import { useState } from "react";
-import { ControllerFieldState, ControllerRenderProps } from "react-hook-form";
-import { JoinProps } from "../JoinPage";
+import { InputHTMLAttributes, useState } from "react";
+import { ControllerFieldState } from "react-hook-form";
 
-interface InputIdProps {
-  id: ControllerRenderProps<JoinProps, "id">;
+export interface InputIdProps {
+  id: InputHTMLAttributes<HTMLInputElement>;
   idState: ControllerFieldState;
 }
 
