@@ -1,21 +1,21 @@
 import Button, { ButtonProps } from "@/components/@common/Button";
-import { SubmitHandler, useForm } from "react-hook-form";
 import { GoogleLogo, KakaoLogo } from "@/assets";
+import { SubmitHandler, useForm } from "react-hook-form";
 
 import { DevTool } from "@hookform/devtools";
 import IconButton from "@/components/IconButton";
 import InputId from "../join/components/InputId";
 import InputPassword from "../join/components/InputPassword";
+import { JoinProps } from "../join/JoinPage";
 import Layout from "@/components/@common/Layout";
 import LinkText from "@/components/@common/LinkText";
 import { PATH } from "@/utils/routes";
 import Title from "@/components/@common/Title";
-import { loginApi } from "@/apis/user";
+import { loginAPI } from "@/apis/user";
 import styled from "@emotion/styled";
 import theme from "@/styles/theme";
 import useLoginForm from "@/features/hooks/useLoginForm";
 import { useNavigate } from "react-router-dom";
-import { JoinProps } from "../join/JoinPage";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -32,7 +32,7 @@ const LoginPage = () => {
   const onSubmit: SubmitHandler<Partial<JoinProps>> = async (data) => {
     const { id, password } = { ...data };
 
-    await loginApi({ id, password });
+    await loginAPI({ id, password });
 
     navigate("/");
   };
