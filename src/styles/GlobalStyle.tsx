@@ -5,7 +5,6 @@ import theme from "./theme";
 const global = () => css`
   button {
     border: none;
-    background-color: #888;
   }
 
   *,
