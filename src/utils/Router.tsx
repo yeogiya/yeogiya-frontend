@@ -50,10 +50,6 @@ export const router = createBrowserRouter([
         element: <FindIdPage />,
       },
       {
-        path: PATH.FIND_ID,
-        element: <FindIdPage />,
-      },
-      {
         path: PATH.FIND_PW,
         element: <FindPwPage />,
       },

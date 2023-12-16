@@ -1,8 +1,8 @@
 import axios from "axios";
+import { checkIdAPI } from "@/apis/user";
 import { useEffect } from "react";
 
 const KakaoLogin = () => {
-  const { Kakao } = window;
   const CLIENT_ID = import.meta.env.VITE_KAKAO_CLIENT_ID as string;
   const REDIRECT_URI = import.meta.env.VITE_KAKAO_REDIRECT_URI as string;
 
@@ -49,10 +49,13 @@ const KakaoLogin = () => {
       getKakaoOauthToken(code)
         .then(async (res) => {
           const { access_token } = res.data;
-          const userInfo = await getKakaoUserInfo(access_token);
-          console.log("userInfo", userInfo);
+          const { data } = await getKakaoUserInfo(access_token);
+          const { duplicated } = await checkIdAPI(data.id);
+          console.log("duplicated", duplicated);
+          /**
+           * 회원가입 api 작업중
+           */
         })
-        .then((res) => console.log(res))
         .catch((error) => console.error(error));
     } else {
       console.error("searchParams error");
