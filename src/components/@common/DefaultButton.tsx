@@ -13,7 +13,7 @@ const DefaultButton = styled(Button)<
   color: ${({ color }) => color || theme.color.white};
   justify-content: ${({ justifyContent }) => justifyContent || "center"};
 
-  ${({ css }) => css}
+  ${({ css }) => css && css}
 `;
 
 export default DefaultButton;
