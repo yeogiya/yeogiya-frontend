@@ -51,7 +51,6 @@ const KakaoLogin = () => {
           const { access_token } = res.data;
           const { data } = await getKakaoUserInfo(access_token);
           const { duplicated } = await checkIdAPI(data.id);
-          console.log("duplicated", duplicated);
           /**
            * 회원가입 api 작업중
            */
