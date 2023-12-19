@@ -41,7 +41,7 @@ const StyledButton = styled.button<ButtonProps>`
   align-items: ${({ alignItems }) => alignItems || "center"};
   justify-content: ${({ justifyContent }) => justifyContent};
 
-  ${({ css }) => css}
+  ${({ css }) => css && css}
 `;
 
 export default Button;

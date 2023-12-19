@@ -21,7 +21,7 @@ const Content = styled.section`
   margin: 2.5rem 7.1875rem 0;
   padding: 0.125rem 1.25rem 0.125rem 0;
   border-radius: 0.3125rem;
-  border-bottom: 1px solid ${theme.color.black35};
+  border: 1px solid ${theme.color.black35};
   display: flex;
   align-items: center;
 

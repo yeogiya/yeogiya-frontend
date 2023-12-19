@@ -1,16 +1,17 @@
-import { SubmitHandler, useForm } from "react-hook-form";
 import { Dispatch, SetStateAction } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
+
+import { DevTool } from "@hookform/devtools";
+import InputConfirmPassword from "./components/InputConfirmPassword";
+import InputEmail from "./components/InputEmail";
+import InputId from "./components/InputId";
+import InputNickname from "./components/InputNickname";
+import InputPassword from "./components/InputPassword";
 import Layout from "@/components/@common/Layout";
 import SubmitButton from "@/components/SubmitButton";
 import Title from "@/components/@common/Title";
+import { joinAPI } from "@/apis/user";
 import styled from "@emotion/styled";
-import { joinApi } from "@/apis/user";
-import { DevTool } from "@hookform/devtools";
-import InputEmail from "./components/InputEmail";
-import InputId from "./components/InputId";
-import InputPassword from "./components/InputPassword";
-import InputNickname from "./components/InputNickname";
-import InputConfirmPassword from "./components/InputConfirmPassword";
 import useJoinForm from "@/features/hooks/useJoinForm";
 
 export interface JoinProps {
@@ -45,7 +46,7 @@ const JoinPage = () => {
       loginType: string;
     }
   > = async (data) => {
-    await joinApi({
+    await joinAPI({
       email: data.email,
       id: data.id,
       nickname: data.nickname,

@@ -2,6 +2,7 @@ const STATIC = {
   HOME: "/",
   SEARCH: "/search",
   LOGIN: "/login",
+  KAKAO_LOGIN: "/login/kakao",
   JOIN: "/join",
   DIARY_CREATE: "/diary/create",
   DIARY_LIST: "/diary/list",

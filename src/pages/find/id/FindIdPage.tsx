@@ -1,15 +1,16 @@
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useState } from "react";
+
 import { DevTool } from "@hookform/devtools";
+import InputEmail from "./components/InputEmail";
 import Layout from "@/components/@common/Layout";
 import LinkText from "@/components/@common/LinkText";
 import { PATH } from "@/utils/routes";
 import SubmitButton from "@/components/SubmitButton";
 import Title from "@/components/@common/Title";
+import { findIdAPI } from "@/apis/user";
 import styled from "@emotion/styled";
 import theme from "@/styles/theme";
-import InputEmail from "./components/InputEmail";
-import { findIdApi } from "@/apis/user";
+import { useState } from "react";
 
 export interface FindIdProps {
   email: string;
@@ -30,7 +31,7 @@ const FindIdPage = () => {
   });
 
   const onSubmit: SubmitHandler<FindIdProps> = async (data) => {
-    const { id } = await findIdApi(data.email);
+    const { id } = await findIdAPI(data.email);
     setFindId(id);
 
     if (!id)
