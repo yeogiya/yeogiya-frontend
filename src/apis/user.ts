@@ -1,7 +1,7 @@
 import { JoinProps } from "@/pages/join/JoinPage";
-import { LoginProps } from "@/pages/login/LoginPage";
 import { URL } from "@/apis/apiUrl";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export const joinAPI = async (
   params: Partial<JoinProps> & { loginType: string }
@@ -66,7 +66,8 @@ export const findIdAPI = async (email: string) => {
   }
 };
 
-export const loginAPI = async ({ id, password }: LoginProps) => {
+export const loginAPI = async ({ id, password }: Partial<JoinProps>) => {
+  const navigate = useNavigate();
   try {
     const res = await axios({
       method: "POST",
@@ -84,6 +85,7 @@ export const loginAPI = async ({ id, password }: LoginProps) => {
 
     if (res.status === 200) {
       localStorage.setItem("token", ACCESS_TOKEN);
+      navigate("/");
     }
   } catch {}
 };
