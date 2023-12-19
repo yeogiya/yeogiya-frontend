@@ -6,6 +6,8 @@ import DefaultButton from "@/components/@common/DefaultButton";
 import Layout from "@/components/@common/Layout";
 import styled from "@emotion/styled";
 import theme from "@/styles/theme";
+import { PATH } from "@/utils/routes";
+import { Link } from "react-router-dom";
 
 const LandingPage = () => {
   return (
@@ -14,7 +16,9 @@ const LandingPage = () => {
       <ContentPlace />
       <ContentDiary />
       <ContentSearch />
-      <Button type="button" text="회원가입 하기" />
+      <Link to={PATH.JOIN}>
+        <Button type="button" text="회원가입 하기" />
+      </Link>
     </Layout>
   );
 };
