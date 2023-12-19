@@ -60,7 +60,7 @@ const Content = styled.div`
   flex-flow: column;
   align-items: center;
   justify-content: center;
-  grid-gap: 37px;
+  grid-gap: 17px;
   background: ${theme.color.white};
   transform: translateY(-10%);
   border-radius: 18px;
@@ -71,6 +71,7 @@ const Text = styled.p`
   font-size: 16px;
   font-weight: 500;
   text-align: center;
+  word-break: keep-all;
 `;
 
 const Button = styled(DefaultButton)`
