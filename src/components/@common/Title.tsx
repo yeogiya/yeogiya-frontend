@@ -5,7 +5,7 @@ const Title = styled(HeadingText)`
   display: flex;
   justify-content: center;
 
-  ${({ css }) => css}
+  ${({ css }) => css && css}
 `;
 
 export default Title;

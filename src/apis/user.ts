@@ -3,7 +3,7 @@ import { LoginProps } from "@/pages/login/LoginPage";
 import { URL } from "@/apis/apiUrl";
 import axios from "axios";
 
-export const joinApi = async (
+export const joinAPI = async (
   params: Partial<JoinProps> & { loginType: string }
 ) => {
   try {
@@ -14,7 +14,7 @@ export const joinApi = async (
   }
 };
 
-export const checkEmailApi = async (email: string) => {
+export const checkEmailAPI = async (email: string) => {
   try {
     const { data } = await axios.get(URL.CHECK_EMAIL, {
       params: {
@@ -27,7 +27,7 @@ export const checkEmailApi = async (email: string) => {
   }
 };
 
-export const checkIdApi = async (id: string) => {
+export const checkIdAPI = async (id: string) => {
   try {
     const { data } = await axios.get(URL.CHECK_ID, {
       params: {
@@ -40,7 +40,7 @@ export const checkIdApi = async (id: string) => {
   }
 };
 
-export const checkNicknameApi = async (nickname: string) => {
+export const checkNicknameAPI = async (nickname: string) => {
   try {
     const { data } = await axios.get(URL.CHECK_NICKNAME, {
       params: {
@@ -53,7 +53,7 @@ export const checkNicknameApi = async (nickname: string) => {
   }
 };
 
-export const findIdApi = async (email: string) => {
+export const findIdAPI = async (email: string) => {
   try {
     const { data } = await axios.get(URL.FIND_ID, {
       params: {
@@ -66,7 +66,7 @@ export const findIdApi = async (email: string) => {
   }
 };
 
-export const loginApi = async ({ id, password }: LoginProps) => {
+export const loginAPI = async ({ id, password }: LoginProps) => {
   try {
     const res = await axios({
       method: "POST",
@@ -88,7 +88,7 @@ export const loginApi = async ({ id, password }: LoginProps) => {
   } catch {}
 };
 
-export const dairyListApi = async () => {
+export const dairyListAPI = async () => {
   try {
     const { data } = await axios.get(URL.DIARY_LIST, {
       params: {

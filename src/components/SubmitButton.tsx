@@ -32,7 +32,7 @@ const SubmitButtonStyle = styled.button<Partial<SubmitButtonProps>>`
   background-color: ${({ isValid }) =>
     isValid ? `${theme.color.purple}` : `${theme.color.black30}`};
 
-  ${({ css }) => css}
+  ${({ css }) => css && css}
 `;
 
 export default SubmitButton;
