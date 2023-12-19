@@ -29,10 +29,7 @@ const FindPwPage = () => {
     mode: "onChange",
   });
 
-  const submitHandler: SubmitHandler<FindPwProps> = ({ email, id }) => {
-    console.log("email >>>>>>>", email);
-    console.log("id >>>>>>>", id);
-  };
+  const submitHandler: SubmitHandler<FindPwProps> = ({ email, id }) => {};
 
   const { isOpen, openModal, closeModal } = useModal();
 
