@@ -1,7 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-
-import { DevTool } from "@hookform/devtools";
 import InputConfirmPassword from "./components/InputConfirmPassword";
 import InputEmail from "./components/InputEmail";
 import InputId from "./components/InputId";
@@ -89,7 +87,6 @@ const JoinPage = () => {
           css={{ maxWidth: "328px", marginTop: "0" }}
         />
       </Form>
-      <DevTool control={control} />
     </Layout>
   );
 };

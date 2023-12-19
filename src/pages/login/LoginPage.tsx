@@ -1,8 +1,6 @@
 import Button, { ButtonProps } from "@/components/@common/Button";
 import { GoogleLogo, KakaoLogo } from "@/assets";
 import { SubmitHandler, useForm } from "react-hook-form";
-
-import { DevTool } from "@hookform/devtools";
 import IconButton from "@/components/IconButton";
 import InputId from "../join/components/InputId";
 import InputPassword from "../join/components/InputPassword";
@@ -32,9 +30,9 @@ const LoginPage = () => {
   const onSubmit: SubmitHandler<Partial<JoinProps>> = async (data) => {
     const { id, password } = { ...data };
 
-    await loginAPI({ id, password });
-
-    navigate("/");
+    try {
+      await loginAPI({ id, password });
+    } catch (e) {}
   };
 
   const handleLoginWithKakao = () => {
@@ -80,7 +78,6 @@ const LoginPage = () => {
         icon={<KakaoLogo />}
         onClick={handleLoginWithKakao}
       />
-      <DevTool control={control} />
     </Layout>
   );
 };
