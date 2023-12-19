@@ -20,6 +20,7 @@ import theme from "@/styles/theme";
 import MyPage from "@/pages/my/MyPage";
 import MyPassword from "@/pages/my/password/MyPwPage";
 import UpdateMyPwPage from "@/pages/my/password/UpdateMyPwPage";
+import WithdrawalPage from "@/pages/my/withdrawal/WithdrawalPage";
 
 export const router = createBrowserRouter([
   {
@@ -39,10 +40,6 @@ export const router = createBrowserRouter([
       {
         path: PATH.JOIN,
         element: <JoinPage />,
-      },
-      {
-        path: PATH.FIND_ID,
-        element: <FindIdPage />,
       },
       {
         path: PATH.FIND_ID,
@@ -75,6 +72,10 @@ export const router = createBrowserRouter([
       {
         path: PATH.MY_PASSWORD_UPDATE,
         element: <UpdateMyPwPage />,
+      },
+      {
+        path: PATH.MY_WITHDRAWAL,
+        element: <WithdrawalPage />,
       },
     ],
   },

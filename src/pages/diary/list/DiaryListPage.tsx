@@ -9,7 +9,7 @@ import {
 } from "@/styles/DiaryListPage.styles";
 import Calendar from "react-calendar";
 import { useState } from "react";
-import WhitePlusIcon from "@/assets/images/WhitePlusIcon.svg";
+import whitePlusIcon from "@/assets/images/svg/whitePlusIcon.svg";
 
 interface DairyListProps {
   date: Date;
@@ -61,7 +61,7 @@ const DiaryListPage = () => {
           const dayDataItem = dayData.find((day) => day.date === dateStr);
 
           return (
-            <DiaryLayout key={dateStr} svg={WhitePlusIcon}>
+            <DiaryLayout key={dateStr} svg={whitePlusIcon}>
               {dayDataItem && dayDataItem.url ? (
                 <img src={dayDataItem.url} alt="diary image" />
               ) : dayDataItem ? (
