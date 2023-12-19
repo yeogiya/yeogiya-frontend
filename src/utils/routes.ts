@@ -13,6 +13,7 @@ const STATIC = {
   MY: "/my",
   MY_PASSWORD: "/my/pw",
   MY_PASSWORD_UPDATE: "/my/pw/update",
+  MY_WITHDRAW: "/my/withdraw",
 };
 
 const DYNAMIC = {};
