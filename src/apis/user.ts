@@ -84,7 +84,6 @@ export const findPwAPI = async ({ email, id }: Partial<JoinProps>) => {
 };
 
 export const loginAPI = async ({ id, password }: Partial<JoinProps>) => {
-export const loginAPI = async ({ id, password }: Partial<JoinProps>) => {
   const navigate = useNavigate();
   try {
     const res = await axios({
@@ -105,7 +104,6 @@ export const loginAPI = async ({ id, password }: Partial<JoinProps>) => {
       axios.defaults.headers.common["Authorization"] = `Bearer ${ACCESS_TOKEN}`;
       localStorage.setItem("ACCESS_TOKEN", ACCESS_TOKEN);
       localStorage.setItem("REFRESH_TOKEN", REFRESH_TOKEN);
-      localStorage.setItem("token", ACCESS_TOKEN);
       navigate("/");
     }
   } catch (e) {
