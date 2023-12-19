@@ -3,7 +3,7 @@ import Title from "@/components/@common/Title";
 import SubmitButton from "@/components/SubmitButton";
 import useMyPassword from "@/features/hooks/useMyPw";
 import { JoinProps } from "@/pages/join/JoinPage";
-import InputPassword from "@/pages/join/components/InputPassword";
+import InputPassword from "@/components/InputPassword";
 import { PATH } from "@/utils/routes";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";

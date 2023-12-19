@@ -11,7 +11,8 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "preinstall": "npx only-allow pnpm",
-    "postinstall": "chmod +x .husky/commit-msg && husky install",
+    "prepare-husky": "chmod +x .husky/commit-msg && husky install",
+    "postinstall": "if [ -z \"$VERCEL\" ]; then pnpm run prepare-husky; else echo 'Skipping Husky setup on Vercel'; fi",
     "test": "jest src"
   },
   "dependencies": {

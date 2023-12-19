@@ -1,6 +1,4 @@
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
-
-import InputUser from "@/components/@common/InputUser";
+import { SubmitHandler, useForm } from "react-hook-form";
 import Layout from "@/components/@common/Layout";
 import LinkText from "@/components/@common/LinkText";
 import Modal from "@/components/@common/Modal";
@@ -10,9 +8,12 @@ import Title from "@/components/@common/Title";
 import styled from "@emotion/styled";
 import theme from "@/styles/theme";
 import { useModal } from "@/features/hooks/useModal";
-import { useState } from "react";
+import { findPwAPI } from "@/apis/user";
+import InputId from "@/components/InputId";
+import useFindPwForm from "@/features/hooks/useFindPwForm";
+import InputEmail from "@/components/InputEmail";
 
-interface FindPwProps {
+export interface FindPwProps {
   email: string;
   id: string;
 }
@@ -20,16 +21,22 @@ interface FindPwProps {
 const FindPwPage = () => {
   const {
     control,
-    formState: { errors, isValid },
+    formState: { isDirty, isValid },
     handleSubmit,
-    setError,
-    getValues,
-    setValue,
   } = useForm<FindPwProps>({
-    mode: "onChange",
+    mode: "onBlur",
   });
 
-  const submitHandler: SubmitHandler<FindPwProps> = ({ email, id }) => {};
+  const { email, emailState, id, idState } = useFindPwForm(control);
+
+  const submitHandler: SubmitHandler<FindPwProps> = async ({ email, id }) => {
+    try {
+      const res = await findPwAPI({ email, id });
+      if (res.status === "OK") openModal();
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   const { isOpen, openModal, closeModal } = useModal();
 
@@ -37,97 +44,12 @@ const FindPwPage = () => {
     <Layout css={{ rowGap: "14px" }} maxWidth="328px">
       <Title as="h1">비밀번호 찾기</Title>
       <Form onSubmit={handleSubmit(submitHandler)}>
-        <Controller
-          control={control}
-          name="email"
-          rules={{
-            required: true,
-            pattern: {
-              value:
-                /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/,
-              message: "이메일 형식이 잘못 되었습니다.",
-            },
-          }}
-          render={({ field: { onChange, value, onBlur } }) => {
-            const [isActive, setIsActive] = useState(false);
-            return (
-              <>
-                <InputUser
-                  type="email"
-                  labelText="이메일"
-                  onChange={(e) => {
-                    onChange(e.target.value);
-                  }}
-                  onFocus={() => setIsActive(true)}
-                  isActive={isActive}
-                  onBlur={() => {
-                    !value && setIsActive(false);
-                  }}
-                />
-                {errors.email?.message && (
-                  <Message color="error">{errors.email?.message}</Message>
-                )}
-              </>
-            );
-          }}
-        />
-        <Controller
-          control={control}
-          name="id"
-          rules={{
-            required: true,
-            pattern: {
-              value: /^[A-Za-z0-9]{4,10}$/,
-              message: "아이디 입력이 잘못 되었습니다.",
-            },
-          }}
-          render={({ field: { onChange, value } }) => {
-            const [isActive, setIsActive] = useState(false);
-            return (
-              <>
-                <InputUser
-                  type="text"
-                  labelText="아이디"
-                  onChange={(e) => {
-                    onChange(e.target.value);
-                  }}
-                  onFocus={() => setIsActive(true)}
-                  isActive={isActive}
-                  onBlur={() => !value && setIsActive(false)}
-                />
-                {errors.id?.message && (
-                  <Message color="error">{errors.id?.message}</Message>
-                )}
-              </>
-            );
-          }}
-        />
+        <InputEmail email={email} emailState={emailState} />
+        <InputId id={id} idState={idState} />
         <SubmitButton
-          type="button"
+          type="submit"
           text="비밀번호 찾기"
-          isValid={isValid}
-          onClick={() => {
-            const checkEmail = getValues("email");
-            const checkId = getValues("id");
-            if (checkEmail === "test@test.com") {
-              return setError("email", {
-                message: "해당 이메일로 가입된 계정이 없습니다.",
-              });
-            }
-            setValue("email", getValues("email"), { shouldDirty: true });
-
-            if (checkId === "test") {
-              return setError("id", {
-                message: "해당 아이디로 가입된 계정이 없습니다.",
-              });
-            }
-
-            setValue("email", "id", {
-              shouldDirty: true,
-            });
-
-            openModal();
-          }}
+          isValid={isDirty && isValid}
         />
       </Form>
       <Modal

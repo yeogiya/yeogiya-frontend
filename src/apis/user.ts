@@ -66,6 +66,24 @@ export const findIdAPI = async (email: string) => {
   }
 };
 
+export const findPwAPI = async ({ email, id }: Partial<JoinProps>) => {
+  try {
+    const res = await axios({
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      url: URL.FIND_PW,
+      data: {
+        email,
+        id,
+      },
+    });
+    return res.data;
+  } catch (e) {}
+};
+
+export const loginAPI = async ({ id, password }: Partial<JoinProps>) => {
 export const loginAPI = async ({ id, password }: Partial<JoinProps>) => {
   const navigate = useNavigate();
   try {
@@ -84,10 +102,15 @@ export const loginAPI = async ({ id, password }: Partial<JoinProps>) => {
     let REFRESH_TOKEN = res.headers["refresh"];
 
     if (res.status === 200) {
+      axios.defaults.headers.common["Authorization"] = `Bearer ${ACCESS_TOKEN}`;
+      localStorage.setItem("ACCESS_TOKEN", ACCESS_TOKEN);
+      localStorage.setItem("REFRESH_TOKEN", REFRESH_TOKEN);
       localStorage.setItem("token", ACCESS_TOKEN);
       navigate("/");
     }
-  } catch {}
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 export const dairyListAPI = async () => {
