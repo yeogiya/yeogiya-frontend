@@ -1,6 +1,4 @@
 import { SubmitHandler, useForm } from "react-hook-form";
-
-import { DevTool } from "@hookform/devtools";
 import InputEmail from "./components/InputEmail";
 import Layout from "@/components/@common/Layout";
 import LinkText from "@/components/@common/LinkText";
@@ -62,7 +60,6 @@ const FindIdPage = () => {
           color={theme.color.black50}
         />
       </Form>
-      <DevTool control={control} />
     </Layout>
   );
 };

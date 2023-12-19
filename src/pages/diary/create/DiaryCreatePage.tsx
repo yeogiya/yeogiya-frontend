@@ -10,11 +10,15 @@ import SubmitButton from "@/components/SubmitButton";
 import { useState } from "react";
 import DatePicker from "./components/DatePicker";
 import ToggleButton from "./components/ToggleButton";
+import dayjs from "dayjs";
 
 const DiaryCreatePage = () => {
   const [textCount, setTextCount] = useState<number>();
   const [isValid, setIsValid] = useState<boolean>(false);
   const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
+  const [selectedDate, setSelectedDate] = useState<string>(
+    dayjs(new Date()).format("YYYY-MM-DD")
+  );
 
   const onTextCount = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const count = e.target.value?.length;
@@ -26,17 +30,21 @@ const DiaryCreatePage = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Layout maxWidth="800px" css={{ height: "100vh" }} paddingTop="30px">
+      <Layout maxWidth="800px" paddingTop="30px" paddingBottom="30px">
         <TextGuide>
           <Location>{"마일드스톤커피"}</Location>에 대한 솔직한 일기 혹은 리뷰를
           적어주세요.
         </TextGuide>
         <TextDate>
           <DatePickerDate onClick={() => setShowDatePicker(!showDatePicker)}>
-            2023년 11월 20일
+            {dayjs(selectedDate).format("YYYY년 MM월 DD일")}
           </DatePickerDate>
           {showDatePicker && (
-            <DatePicker handleDatePicker={setShowDatePicker} />
+            <DatePicker
+              handleDatePicker={setShowDatePicker}
+              handleClickedDate={setSelectedDate}
+              selectedDate={selectedDate}
+            />
           )}
         </TextDate>
         <ContentsStyle>
@@ -124,8 +132,7 @@ const DatePickerDate = styled.div`
   padding: 9px 20px;
   border: 1px solid ${theme.color.black10};
   border-radius: 8px;
-  width: 100%;
-  max-width: 150px;
+  width: fit-content;
   font-size: 14px;
   cursor: pointer;
 `;

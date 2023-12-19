@@ -1,6 +1,7 @@
 import { JoinProps } from "@/pages/join/JoinPage";
 import { URL } from "@/apis/apiUrl";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export const joinAPI = async (
   params: Partial<JoinProps> & { loginType: string }
@@ -83,6 +84,7 @@ export const findPwAPI = async ({ email, id }: Partial<JoinProps>) => {
 };
 
 export const loginAPI = async ({ id, password }: Partial<JoinProps>) => {
+  const navigate = useNavigate();
   try {
     const res = await axios({
       method: "POST",
@@ -102,6 +104,7 @@ export const loginAPI = async ({ id, password }: Partial<JoinProps>) => {
       axios.defaults.headers.common["Authorization"] = `Bearer ${ACCESS_TOKEN}`;
       localStorage.setItem("ACCESS_TOKEN", ACCESS_TOKEN);
       localStorage.setItem("REFRESH_TOKEN", REFRESH_TOKEN);
+      navigate("/");
     }
   } catch (e) {
     console.log(e);

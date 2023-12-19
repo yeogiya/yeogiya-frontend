@@ -20,6 +20,7 @@ import ResetPwPage from "@/pages/reset/ResetPwPage";
 import SearchPage from "@/pages/search/SearchPage";
 import { ThemeProvider } from "@emotion/react";
 import UpdateMyPwPage from "@/pages/my/password/UpdateMyPwPage";
+import WithdrawalPage from "@/pages/my/withdrawal/WithdrawalPage";
 import theme from "@/styles/theme";
 
 export const router = createBrowserRouter([
@@ -44,10 +45,6 @@ export const router = createBrowserRouter([
       {
         path: PATH.JOIN,
         element: <JoinPage />,
-      },
-      {
-        path: PATH.FIND_ID,
-        element: <FindIdPage />,
       },
       {
         path: PATH.FIND_PW,
@@ -76,6 +73,10 @@ export const router = createBrowserRouter([
       {
         path: PATH.MY_PASSWORD_UPDATE,
         element: <UpdateMyPwPage />,
+      },
+      {
+        path: PATH.MY_WITHDRAWAL,
+        element: <WithdrawalPage />,
       },
     ],
   },
