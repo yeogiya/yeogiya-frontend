@@ -1,5 +1,4 @@
 import { JoinProps } from "@/pages/join/JoinPage";
-import { LoginProps } from "@/pages/login/LoginPage";
 import { URL } from "@/apis/apiUrl";
 import axios from "axios";
 
@@ -66,7 +65,24 @@ export const findIdAPI = async (email: string) => {
   }
 };
 
-export const loginAPI = async ({ id, password }: LoginProps) => {
+export const findPwAPI = async ({ email, id }: Partial<JoinProps>) => {
+  try {
+    const res = await axios({
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      url: URL.FIND_PW,
+      data: {
+        email,
+        id,
+      },
+    });
+    return res.data;
+  } catch (e) {}
+};
+
+export const loginAPI = async ({ id, password }: Partial<JoinProps>) => {
   try {
     const res = await axios({
       method: "POST",
@@ -83,9 +99,13 @@ export const loginAPI = async ({ id, password }: LoginProps) => {
     let REFRESH_TOKEN = res.headers["refresh"];
 
     if (res.status === 200) {
-      localStorage.setItem("token", ACCESS_TOKEN);
+      axios.defaults.headers.common["Authorization"] = `Bearer ${ACCESS_TOKEN}`;
+      localStorage.setItem("ACCESS_TOKEN", ACCESS_TOKEN);
+      localStorage.setItem("REFRESH_TOKEN", REFRESH_TOKEN);
     }
-  } catch {}
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 export const dairyListAPI = async () => {

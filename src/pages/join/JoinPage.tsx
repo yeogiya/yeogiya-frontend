@@ -1,18 +1,17 @@
 import { Dispatch, SetStateAction } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-
 import { DevTool } from "@hookform/devtools";
 import InputConfirmPassword from "./components/InputConfirmPassword";
-import InputEmail from "./components/InputEmail";
-import InputId from "./components/InputId";
+import InputId from "../../components/InputId";
 import InputNickname from "./components/InputNickname";
-import InputPassword from "./components/InputPassword";
+import InputPassword from "../../components/InputPassword";
 import Layout from "@/components/@common/Layout";
 import SubmitButton from "@/components/SubmitButton";
 import Title from "@/components/@common/Title";
 import { joinAPI } from "@/apis/user";
 import styled from "@emotion/styled";
 import useJoinForm from "@/features/hooks/useJoinForm";
+import InputEmail from "@/components/InputEmail";
 
 export interface JoinProps {
   email: string;
