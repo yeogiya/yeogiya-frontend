@@ -13,6 +13,7 @@ const URLS = {
   CHECK_NICKNAME: `${PUBLIC_URL}${CATEGORY.MEMBERS}/nickname-exists`, // 닉네임 중복 확인
   FIND_ID: `${PUBLIC_URL}${CATEGORY.MEMBERS}/find-id`, // 아이디 찾기
   LOGIN: `${PUBLIC_URL}${CATEGORY.MEMBERS}/login`, // 로그인
+  FIND_PW: `${PUBLIC_URL}${CATEGORY.MEMBERS}/send-password-reset-email`, // 비밀번호 재설정 이메일 발송
   DIARY_LIST: `${AUTH_URL}/diaries`,
 };
 
