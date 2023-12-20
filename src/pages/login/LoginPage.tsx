@@ -13,10 +13,8 @@ import { useLogin } from "@/apis/user";
 import styled from "@emotion/styled";
 import theme from "@/styles/theme";
 import useLoginForm from "@/features/hooks/useLoginForm";
-import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
-  const navigate = useNavigate();
   const { handleSubmit, control } = useForm<Partial<JoinProps>>({
     mode: "onBlur",
     defaultValues: {

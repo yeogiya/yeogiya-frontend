@@ -7,8 +7,9 @@ import {
   useQuery,
 } from "@tanstack/react-query";
 import { JoinProps } from "@/pages/join/JoinPage";
-import { useNavigate } from "react-router-dom";
+import usePageNavigation from "@/features/hooks/usePageNavigation";
 import { PATH } from "@/utils/routes";
+import { users } from "./queryKey";
 
 export const useJoin = (
   options?: UseMutationOptions<
@@ -27,6 +28,53 @@ export const useJoin = (
         },
         data: { ...data },
       });
+    },
+    ...options,
+  });
+};
+
+export const useLogin = (
+  options?: UseMutationOptions<unknown, unknown, Partial<JoinProps>, unknown>
+) => {
+  const { navigate } = usePageNavigation();
+
+  return useMutation({
+    mutationFn: async ({ id, password }: Partial<JoinProps>) => {
+      const res = await axios({
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+        url: URL.LOGIN,
+        data: {
+          id,
+          password,
+        },
+      });
+
+      const ACCESS_TOKEN = res.headers["authorization"];
+      localStorage.setItem("ACCESS_TOKEN", ACCESS_TOKEN);
+    },
+    onSuccess: () => {
+      navigate(PATH.HOME);
+    },
+    ...options,
+  });
+};
+
+export const useUserInfo = (options?: UseQueryOptions) => {
+  return useQuery({
+    queryKey: users.info,
+    queryFn: async () => {
+      const ACCESS_TOKEN = localStorage.getItem("ACCESS_TOKEN");
+      if (!ACCESS_TOKEN) return;
+
+      const { data } = await axios({
+        url: URL.USER_INFO,
+        headers: {
+          Authorization: `Bearer ${ACCESS_TOKEN}`,
+        },
+      });
+      return data.body;
     },
     ...options,
   });
@@ -112,76 +160,6 @@ export const userInfoAPI = (params, options: UseQueryOptions) => {
     ...options,
   });
 };
-
-export const useLogin = (
-  options?: UseMutationOptions<unknown, unknown, Partial<JoinProps>, unknown>
-) => {
-  return useMutation({
-    mutationFn: async ({ id, password }: Partial<JoinProps>) => {
-      const res = await axios({
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        withCredentials: true,
-        url: URL.LOGIN,
-        data: {
-          id,
-          password,
-        },
-      });
-
-      const ACCESS_TOKEN = res.headers["authorization"];
-      localStorage.setItem("ACCESS_TOKEN", ACCESS_TOKEN);
-    },
-    onSuccess: async () => {
-      const ACCESS_TOKEN = localStorage.getItem("ACCESS_TOKEN");
-      if (!ACCESS_TOKEN) return null;
-      const { email, id, nickname, profileImageUrl } =
-        await useUserInfo(ACCESS_TOKEN);
-
-      return { email, id, nickname, profileImageUrl };
-    },
-    ...options,
-  });
-};
-
-export const useUserInfo = async (ACCESS_TOKEN: string) => {
-  try {
-    const { data } = await axios.get(URL.USER_INFO, {
-      headers: {
-        Authorization: `Bearer ${ACCESS_TOKEN}`,
-      },
-    });
-    return data.body;
-  } catch (e) {
-    console.log(e);
-  }
-};
-
-// const navigate = useNavigate();
-// try {
-//   const res = await axios({
-//     method: "POST",
-//     headers: { "Content-Type": "application/json" },
-//     withCredentials: true,
-//     url: URL.LOGIN,
-//     data: {
-//       id,
-//       password,
-//     },
-//   });
-
-//   const ACCESS_TOKEN = res.headers["authorization"];
-//   let REFRESH_TOKEN = res.headers["refresh"];
-
-//   if (res.status === 200) {
-//     axios.defaults.headers.common["Authorization"] = `Bearer ${ACCESS_TOKEN}`;
-//     localStorage.setItem("ACCESS_TOKEN", ACCESS_TOKEN);
-//     localStorage.setItem("REFRESH_TOKEN", REFRESH_TOKEN);
-//     navigate("/");
-//   }
-// } catch (e) {
-//   console.log(e);
-// }
 
 export const dairyListAPI = async () => {
   try {

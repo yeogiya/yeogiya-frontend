@@ -1,13 +1,15 @@
 import { SearchIcon, YeogiyaLogo } from "@/assets";
-
 import Header from "./Header";
 import { Link } from "react-router-dom";
 import Menu from "@/components/@common/Menu";
 import { PATH } from "@/utils/routes";
 import styled from "@emotion/styled";
 import theme from "@/styles/theme";
+import { useUserInfo } from "@/apis/user";
 
 const Navbar = () => {
+  const { data: userInfo } = useUserInfo();
+
   return (
     <Header css={{ justifyContent: "space-between" }}>
       <Wrapper>
