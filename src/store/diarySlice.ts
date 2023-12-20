@@ -7,6 +7,7 @@ export interface DiaryState {
   longitude?: number;
   isClickPos?: boolean;
   isSubmitPos?: boolean;
+  address?: string;
 }
 
 export const initialState = {
@@ -14,6 +15,7 @@ export const initialState = {
   longitude: 126.9768,
   isClickPos: false,
   isSubmitPos: false,
+  address: "",
 } as DiaryState;
 
 export const dairySlice = createSlice({
@@ -25,6 +27,7 @@ export const dairySlice = createSlice({
       state.longitude = action.payload.longitude;
       state.isClickPos = action.payload.isClickPos;
       state.isSubmitPos = action.payload.isSubmitPos;
+      state.address = action.payload.address;
     },
   },
 });

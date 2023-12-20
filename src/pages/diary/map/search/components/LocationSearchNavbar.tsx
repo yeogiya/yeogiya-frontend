@@ -3,19 +3,15 @@ import { LeftArrowIcon } from "@/assets";
 import Title from "@/components/@common/Title";
 import styled from "@emotion/styled";
 import theme from "@/styles/theme";
-import { useNavigate } from "react-router-dom";
+import useBackNavigation from "@/features/hooks/usePageNavigation";
 
 const LocationSearchNavbar = () => {
-  const navigate = useNavigate();
-
-  const handleBackButton = () => {
-    navigate(-1);
-  };
+  const { handleBack } = useBackNavigation();
 
   return (
     <Header css={{ justifyContent: "space-between" }}>
       <Nav>
-        <Button onClick={handleBackButton}>
+        <Button onClick={handleBack}>
           <LeftArrowIcon />
         </Button>
         <Title as="h2" css={{ color: theme.color.black89 }}>
