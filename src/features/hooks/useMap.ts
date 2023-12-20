@@ -6,19 +6,17 @@ import markerIcon from "@/assets/images/svg/marker.svg";
 import { useAppDispatch } from "./useAppDispatch";
 
 export const useMap = () => {
-  const dispatch = useAppDispatch();
+  const { kakao } = window;
   const [map, setMap] = useState<Map>(null);
-
   const mapRef = useRef<HTMLElement>(null);
+
+  const dispatch = useAppDispatch();
 
   const displayMarker = async (markerPosition) => {
     try {
-      const markerSize = new window.kakao.maps.Size(51, 68.83);
-      const markerImage = new window.kakao.maps.MarkerImage(
-        markerIcon,
-        markerSize
-      );
-      return new window.kakao.maps.Marker({
+      const markerSize = new kakao.maps.Size(51, 68.83);
+      const markerImage = new kakao.maps.MarkerImage(markerIcon, markerSize);
+      return new kakao.maps.Marker({
         position: markerPosition,
         image: markerImage,
       });
@@ -30,7 +28,7 @@ export const useMap = () => {
   const getCurrentLocation = async (isClickPos, latitude, longitude) => {
     try {
       if (!isClickPos) {
-        return new window.kakao.maps.LatLng(latitude, longitude);
+        return new kakao.maps.LatLng(latitude, longitude);
       }
       if (isClickPos && navigator.geolocation) {
         return new Promise((resolve, reject) => {
@@ -43,7 +41,7 @@ export const useMap = () => {
                   longitude: longitude,
                 })
               );
-              resolve(new window.kakao.maps.LatLng(latitude, longitude));
+              resolve(new kakao.maps.LatLng(latitude, longitude));
             },
             (error) => {
               reject(error);
@@ -56,11 +54,26 @@ export const useMap = () => {
     }
   };
 
+  const searchDetailAddFromCoords = async (latitude, longitude) => {
+    const geocoder = new kakao.maps.services.Geocoder();
+    console.log(geocoder);
+    geocoder.addressSearch(longitude, latitude, (result, status) => {
+      console.log(status);
+      // TODO: geocoder
+      if (status === kakao.maps.services.Status.OK) {
+        if (result[0].road_address) {
+          console.log(result[0].road_address.address_name as string);
+        }
+      }
+    });
+  };
+
   return {
     map,
     setMap,
     mapRef,
     displayMarker,
     getCurrentLocation,
+    searchDetailAddFromCoords,
   };
 };
