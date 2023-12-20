@@ -17,7 +17,9 @@ const STATIC = {
   MY_WITHDRAWAL: "/my/withdrawal",
 };
 
-const DYNAMIC = {};
+const DYNAMIC = {
+  SEARCH_LIST: `${STATIC.SEARCH}/:searchID`,
+};
 
 export const PATH = {
   ...STATIC,
