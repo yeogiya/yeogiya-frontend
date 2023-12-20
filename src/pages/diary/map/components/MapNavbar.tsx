@@ -7,13 +7,15 @@ import { PATH } from "@/utils/routes";
 import Title from "../../../../components/@common/Title";
 import { createDiary } from "@/store/diarySlice";
 import styled from "@emotion/styled";
-import theme from "@/styles/theme";
 import { useAppDispatch } from "@/features/hooks/useAppDispatch";
+import usePageNavigation from "@/features/hooks/usePageNavigation";
 
 const MapNavbar = () => {
   const dispatch = useAppDispatch();
 
-  const handleClick = () => {
+  const { handleBack } = usePageNavigation();
+
+  const handleLocationClick = () => {
     dispatch(
       createDiary({
         isClickPos: true,
@@ -23,13 +25,15 @@ const MapNavbar = () => {
 
   return (
     <Header css={{ justifyContent: "space-between" }}>
-      <CloseIcon />
-      <Title as="h2">지도</Title>
+      <StyledIconBtn type="button" icon={<CloseIcon />} onClick={handleBack} />
+      <Title as="h2" css={{ marginRight: "-44px" }}>
+        지도
+      </Title>
       <BtnLayout>
         <StyledIconBtn
           type="button"
           icon={<LocationIcon />}
-          onClick={handleClick}
+          onClick={handleLocationClick}
         />
         <Link to={PATH.DIARY_MAP_SEARCH}>
           <StyledIconBtn type="button" icon={<MapSearchIcon />} />
@@ -43,12 +47,13 @@ export default MapNavbar;
 
 const BtnLayout = styled.div`
   display: flex;
-  column-gap: 1.56rem;
 `;
 
 const StyledIconBtn = styled(IconButton)`
-  width: 1.25rem;
-  height: 1.25rem;
+  width: 2.75rem;
+  height: 2.75rem;
   margin-top: 0;
   padding: 0;
+  display: flex;
+  justify-content: center;
 `;
