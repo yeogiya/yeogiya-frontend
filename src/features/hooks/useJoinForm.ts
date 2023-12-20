@@ -1,6 +1,5 @@
 import { Control, useController } from "react-hook-form";
 import { checkEmailAPI, checkIdAPI, checkNicknameAPI } from "@/apis/user";
-
 import { JoinProps } from "@/pages/join/JoinPage";
 
 const useJoinForm = (control: Control<JoinProps>) => {

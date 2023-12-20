@@ -7,10 +7,12 @@ import InputPassword from "../../components/InputPassword";
 import Layout from "@/components/@common/Layout";
 import SubmitButton from "@/components/SubmitButton";
 import Title from "@/components/@common/Title";
-import { joinAPI } from "@/apis/user";
+import { useJoin } from "@/apis/user";
 import styled from "@emotion/styled";
 import useJoinForm from "@/features/hooks/useJoinForm";
 import InputEmail from "@/components/InputEmail";
+import { useNavigate } from "react-router-dom";
+import { PATH } from "@/utils/routes";
 
 export interface JoinProps {
   email: string;
@@ -19,6 +21,7 @@ export interface JoinProps {
   password: string;
   passwordType: string;
   confirmPassword: string;
+  loginType: string;
   setPasswordType: Dispatch<SetStateAction<string>>;
   setConfirmPassword: Dispatch<SetStateAction<string>>;
 }
@@ -29,7 +32,7 @@ const JoinPage = () => {
     formState: { isDirty, isValid },
     control,
   } = useForm<JoinProps>({
-    mode: "onBlur",
+    mode: "onSubmit",
     defaultValues: {
       email: "",
       id: "",
@@ -39,12 +42,16 @@ const JoinPage = () => {
     },
   });
 
-  const onSubmit: SubmitHandler<
-    Pick<JoinProps, "email" | "id" | "nickname" | "password"> & {
-      loginType: string;
-    }
-  > = async (data) => {
-    await joinAPI({
+  const navigate = useNavigate();
+
+  const joinMutation = useJoin({
+    onSuccess: () => {
+      navigate(PATH.HOME);
+    },
+  });
+
+  const onSubmit: SubmitHandler<JoinProps> = (data) => {
+    joinMutation.mutate({
       email: data.email,
       id: data.id,
       nickname: data.nickname,

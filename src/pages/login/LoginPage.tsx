@@ -9,14 +9,12 @@ import Layout from "@/components/@common/Layout";
 import LinkText from "@/components/@common/LinkText";
 import { PATH } from "@/utils/routes";
 import Title from "@/components/@common/Title";
-import { loginAPI } from "@/apis/user";
+import { useLogin } from "@/apis/user";
 import styled from "@emotion/styled";
 import theme from "@/styles/theme";
 import useLoginForm from "@/features/hooks/useLoginForm";
-import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
-  const navigate = useNavigate();
   const { handleSubmit, control } = useForm<Partial<JoinProps>>({
     mode: "onBlur",
     defaultValues: {
@@ -27,12 +25,15 @@ const LoginPage = () => {
 
   const { id, idState, password, passwordState } = useLoginForm(control);
 
-  const onSubmit: SubmitHandler<Partial<JoinProps>> = async (data) => {
+  const loginMutation = useLogin();
+
+  const onSubmit: SubmitHandler<Partial<JoinProps>> = (data) => {
     const { id, password } = { ...data };
 
-    try {
-      await loginAPI({ id, password });
-    } catch (e) {}
+    loginMutation.mutate({
+      id,
+      password,
+    });
   };
 
   const handleLoginWithKakao = () => {
