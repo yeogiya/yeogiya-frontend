@@ -32,7 +32,7 @@ const JoinPage = () => {
     formState: { isDirty, isValid },
     control,
   } = useForm<JoinProps>({
-    mode: "onBlur",
+    mode: "onSubmit",
     defaultValues: {
       email: "",
       id: "",
@@ -50,7 +50,7 @@ const JoinPage = () => {
     },
   });
 
-  const onSubmit: SubmitHandler<JoinProps> = async (data) => {
+  const onSubmit: SubmitHandler<JoinProps> = (data) => {
     joinMutation.mutate({
       email: data.email,
       id: data.id,
