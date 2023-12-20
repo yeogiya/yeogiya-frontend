@@ -2,13 +2,11 @@ name: deploy
 
 on:
   pull_request:
-    types: [closed]
     branches:
       - develop
 
 jobs:
   build:
-    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     container: pandoc/latex
     steps:
@@ -29,5 +27,4 @@ jobs:
           source-directory: "output"
           destination-github-username: parkgadan
           destination-repository-name: yeogiya-frontend
-          commit-message: "chore: 👷‍♂️ 자동 배포"
           target-branch: develop

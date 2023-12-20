@@ -81,23 +81,23 @@ export const router = createBrowserRouter([
     ],
   },
   {
-    path: PATH.HOME,
+    path: PATH.DIARY_MAP,
     element: <App layout="diaryMap" />,
     errorElement: <ErrorPage />,
     children: [
       {
-        path: PATH.DIARY_MAP,
+        index: true,
         element: <MapPage />,
       },
     ],
   },
   {
-    path: PATH.HOME,
+    path: PATH.DIARY_MAP_SEARCH,
     element: <App layout="locationSearch" />,
     errorElement: <ErrorPage />,
     children: [
       {
-        path: PATH.DIARY_MAP_SEARCH,
+        index: true,
         element: <MapSearchPage />,
       },
     ],
