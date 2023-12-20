@@ -14,7 +14,10 @@ const URLS = {
   FIND_ID: `${PUBLIC_URL}${CATEGORY.MEMBERS}/find-id`, // 아이디 찾기
   LOGIN: `${PUBLIC_URL}${CATEGORY.MEMBERS}/login`, // 로그인
   FIND_PW: `${PUBLIC_URL}${CATEGORY.MEMBERS}/send-password-reset-email`, // 비밀번호 재설정 이메일 발송
-  DIARY_LIST: `${AUTH_URL}/diaries`,
+
+  // AUth
+  DIARY_LIST: `${AUTH_URL}/diaries`, // 일기 목록
+  USER_INFO: `${AUTH_URL}${CATEGORY.MEMBERS}`, // 회원정보
 };
 
 export const URL = {
