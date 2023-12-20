@@ -1,7 +1,7 @@
-import { LoginProps } from "@/pages/login/LoginPage";
 import { rest } from "msw";
 import { MOCK } from "./mocksUrl";
 import { SearchBarProps } from "@/components/SearchBar";
+import { JoinProps } from "@/pages/join/JoinPage";
 
 interface JoinReqBody {
   id: string;
@@ -125,7 +125,7 @@ export const handlers = [
   }),
 ];
 
-rest.post<LoginProps>(`${MOCK.LOGIN}`, async (req, res, ctx) => {
+rest.post<Partial<JoinProps>>(`${MOCK.LOGIN}`, async (req, res, ctx) => {
   const { id, password } = await req.json();
 
   return res(

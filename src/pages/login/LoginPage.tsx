@@ -9,7 +9,7 @@ import Layout from "@/components/@common/Layout";
 import LinkText from "@/components/@common/LinkText";
 import { PATH } from "@/utils/routes";
 import Title from "@/components/@common/Title";
-import { loginAPI } from "@/apis/user";
+import { loginAPI, useLogin } from "@/apis/user";
 import styled from "@emotion/styled";
 import theme from "@/styles/theme";
 import useLoginForm from "@/features/hooks/useLoginForm";
@@ -27,12 +27,19 @@ const LoginPage = () => {
 
   const { id, idState, password, passwordState } = useLoginForm(control);
 
-  const onSubmit: SubmitHandler<Partial<JoinProps>> = async (data) => {
+  const loginMutation = useLogin({
+    onSuccess: () => {
+      navigate(PATH.HOME);
+    },
+  });
+
+  const onSubmit: SubmitHandler<Partial<JoinProps>> = (data) => {
     const { id, password } = { ...data };
 
-    try {
-      await loginAPI({ id, password });
-    } catch (e) {}
+    loginMutation.mutate({
+      id,
+      password,
+    });
   };
 
   const handleLoginWithKakao = () => {

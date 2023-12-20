@@ -1,7 +1,6 @@
 import { URL } from "@/apis/apiUrl";
 import axios from "axios";
 import {
-  UseMutateFunction,
   UseMutationOptions,
   UseQueryOptions,
   useMutation,
@@ -9,32 +8,24 @@ import {
 } from "@tanstack/react-query";
 import { JoinProps } from "@/pages/join/JoinPage";
 
-export const joinAPI = async (
-  params: Partial<JoinProps> & { loginType: string }
-) => {
-  try {
-    const response = await fetch(URL.SIGN_UP, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(params),
-    });
-
-    if (!response.ok) console.log("회원가입 실패", response);
-
-    return await response.json();
-  } catch (e) {
-    console.log(e);
-  }
-};
-
 export const useJoin = (
-  options?: UseMutationOptions<unknown, unknown, JoinProps, unknown>
+  options?: UseMutationOptions<
+    unknown,
+    unknown,
+    Partial<JoinProps> & { loginType: string },
+    unknown
+  >
 ) => {
   return useMutation({
-    mutationFn: (data: Partial<JoinProps> & { loginType: string }) =>
-      joinAPI(data),
+    mutationFn: async (data: Partial<JoinProps> & { loginType: string }) => {
+      await axios(URL.SIGN_UP, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        data: { ...data },
+      });
+    },
     ...options,
   });
 };
@@ -108,12 +99,7 @@ export const findPwAPI = async ({ email, id }: Partial<JoinProps>) => {
   } catch (e) {}
 };
 
-interface UserInfoProps {}
-
-export const userInfoAPI = (
-  params: UserInfoProps,
-  options: UseQueryOptions
-) => {
+export const userInfoAPI = (params, options: UseQueryOptions) => {
   return useQuery({
     queryKey: ["user"],
     queryFn: () =>
@@ -125,12 +111,12 @@ export const userInfoAPI = (
   });
 };
 
-export const loginAPI = (
-  option?: UseMutationOptions<unknown, unknown, Partial<JoinProps>, unknown>
+export const useLogin = (
+  options?: UseMutationOptions<unknown, unknown, Partial<JoinProps>, unknown>
 ) => {
   return useMutation({
     mutationFn: async ({ id, password }: Partial<JoinProps>) => {
-      await axios({
+      const res = await axios({
         method: "POST",
         headers: { "Content-Type": "application/json" },
         withCredentials: true,
@@ -140,34 +126,63 @@ export const loginAPI = (
           password,
         },
       });
+
+      const ACCESS_TOKEN = res.headers["authorization"];
+      localStorage.setItem("ACCESS_TOKEN", ACCESS_TOKEN);
     },
+    onSuccess: async () => {
+      if (!user) return null;
+      await axios({
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${ACCESS_TOKEN}`,
+        },
+      });
+    },
+    ...options,
   });
-  // const navigate = useNavigate();
-  // try {
-  //   const res = await axios({
-  //     method: "POST",
-  //     headers: { "Content-Type": "application/json" },
-  //     withCredentials: true,
-  //     url: URL.LOGIN,
-  //     data: {
-  //       id,
-  //       password,
-  //     },
-  //   });
-
-  //   const ACCESS_TOKEN = res.headers["authorization"];
-  //   let REFRESH_TOKEN = res.headers["refresh"];
-
-  //   if (res.status === 200) {
-  //     axios.defaults.headers.common["Authorization"] = `Bearer ${ACCESS_TOKEN}`;
-  //     localStorage.setItem("ACCESS_TOKEN", ACCESS_TOKEN);
-  //     localStorage.setItem("REFRESH_TOKEN", REFRESH_TOKEN);
-  //     navigate("/");
-  //   }
-  // } catch (e) {
-  //   console.log(e);
-  // }
 };
+
+export const useUserInfo = () => {
+  const ACCESS_TOKEN = localStorage.getItem("ACCESS_TOKEN");
+
+  try {
+    const { data } = await axios.get(URL.USER_INFO, {
+      headers: {
+        Authorization: `Bearer ${ACCESS_TOKEN}`,
+      },
+    });
+    return data.body;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+// const navigate = useNavigate();
+// try {
+//   const res = await axios({
+//     method: "POST",
+//     headers: { "Content-Type": "application/json" },
+//     withCredentials: true,
+//     url: URL.LOGIN,
+//     data: {
+//       id,
+//       password,
+//     },
+//   });
+
+//   const ACCESS_TOKEN = res.headers["authorization"];
+//   let REFRESH_TOKEN = res.headers["refresh"];
+
+//   if (res.status === 200) {
+//     axios.defaults.headers.common["Authorization"] = `Bearer ${ACCESS_TOKEN}`;
+//     localStorage.setItem("ACCESS_TOKEN", ACCESS_TOKEN);
+//     localStorage.setItem("REFRESH_TOKEN", REFRESH_TOKEN);
+//     navigate("/");
+//   }
+// } catch (e) {
+//   console.log(e);
+// }
 
 export const dairyListAPI = async () => {
   try {
@@ -182,18 +197,3 @@ export const dairyListAPI = async () => {
     console.log(e);
   }
 };
-
-// export const userInfoAPI = async () => {
-//   const ACCESS_TOKEN = localStorage.getItem("ACCESS_TOKEN");
-
-//   try {
-//     const { data } = await axios.get(URL.USER_INFO, {
-//       headers: {
-//         Authorization: `Bearer ${ACCESS_TOKEN}`,
-//       },
-//     });
-//     return data.body;
-//   } catch (e) {
-//     console.log(e);
-//   }
-// };
