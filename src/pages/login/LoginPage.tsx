@@ -9,7 +9,7 @@ import Layout from "@/components/@common/Layout";
 import LinkText from "@/components/@common/LinkText";
 import { PATH } from "@/utils/routes";
 import Title from "@/components/@common/Title";
-import { loginAPI, useLogin } from "@/apis/user";
+import { useLogin } from "@/apis/user";
 import styled from "@emotion/styled";
 import theme from "@/styles/theme";
 import useLoginForm from "@/features/hooks/useLoginForm";
@@ -27,11 +27,7 @@ const LoginPage = () => {
 
   const { id, idState, password, passwordState } = useLoginForm(control);
 
-  const loginMutation = useLogin({
-    onSuccess: () => {
-      navigate(PATH.HOME);
-    },
-  });
+  const loginMutation = useLogin();
 
   const onSubmit: SubmitHandler<Partial<JoinProps>> = (data) => {
     const { id, password } = { ...data };

@@ -7,6 +7,8 @@ import {
   useQuery,
 } from "@tanstack/react-query";
 import { JoinProps } from "@/pages/join/JoinPage";
+import { useNavigate } from "react-router-dom";
+import { PATH } from "@/utils/routes";
 
 export const useJoin = (
   options?: UseMutationOptions<
@@ -131,21 +133,18 @@ export const useLogin = (
       localStorage.setItem("ACCESS_TOKEN", ACCESS_TOKEN);
     },
     onSuccess: async () => {
-      if (!user) return null;
-      await axios({
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${ACCESS_TOKEN}`,
-        },
-      });
+      const ACCESS_TOKEN = localStorage.getItem("ACCESS_TOKEN");
+      if (!ACCESS_TOKEN) return null;
+      const { email, id, nickname, profileImageUrl } =
+        await useUserInfo(ACCESS_TOKEN);
+
+      return { email, id, nickname, profileImageUrl };
     },
     ...options,
   });
 };
 
-export const useUserInfo = () => {
-  const ACCESS_TOKEN = localStorage.getItem("ACCESS_TOKEN");
-
+export const useUserInfo = async (ACCESS_TOKEN: string) => {
   try {
     const { data } = await axios.get(URL.USER_INFO, {
       headers: {
