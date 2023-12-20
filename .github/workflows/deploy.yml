@@ -27,4 +27,4 @@ jobs:
           source-directory: "output"
           destination-github-username: parkgadan
           destination-repository-name: yeogiya-frontend
-          target-branch: develop
+          target-branch: deploy
