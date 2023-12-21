@@ -1,4 +1,5 @@
 import { SearchIcon, YeogiyaLogo } from "@/assets";
+
 import Header from "./Header";
 import { Link } from "react-router-dom";
 import Menu from "@/components/@common/Menu";
@@ -22,7 +23,7 @@ const Navbar = () => {
           </StyledSearch>
         </Link>
       </Wrapper>
-      <Menu />
+      <Menu userInfo={userInfo} />
     </Header>
   );
 };
