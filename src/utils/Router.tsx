@@ -48,6 +48,10 @@ export const router = createBrowserRouter([
         element: <JoinPage />,
       },
       {
+        path: PATH.FIND_ID,
+        element: <FindIdPage />,
+      },
+      {
         path: PATH.FIND_PW,
         element: <FindPwPage />,
       },
