@@ -1,10 +1,20 @@
+import { MENU_ITEM, USER_MENU_ITEM } from "@/utils/menus";
+
 import LinkText from "./LinkText";
-import { MENU_ITEM } from "@/utils/menus";
 import { PATH } from "@/utils/routes";
 import styled from "@emotion/styled";
 import theme from "@/styles/theme";
 
-const Menu = () => {
+interface MenuProps {
+  userInfo: object | unknown;
+}
+
+const Menu = ({ userInfo }: MenuProps) => {
+  const getMenuItems = (userInfo) => {
+    if (!userInfo) return MENU_ITEM;
+    if (userInfo) return USER_MENU_ITEM(userInfo.nickname);
+  };
+
   const getLinkStyles = (type: string) => {
     const matchPath = type === "member";
     return {
@@ -15,7 +25,7 @@ const Menu = () => {
 
   return (
     <MenuItem>
-      {MENU_ITEM.map((menu) => (
+      {getMenuItems(userInfo).map((menu) => (
         <li key={`${menu.type}_${menu.title}`} css={getLinkStyles(menu.type)}>
           <LinkText
             color={theme.color.black90}
@@ -25,6 +35,14 @@ const Menu = () => {
           {menu.path === PATH.JOIN && <span>/</span>}
         </li>
       ))}
+      {userInfo && (
+        <img
+          src={
+            (userInfo as { profileImage: string }).profileImage ??
+            "/images/profile.svg"
+          }
+        />
+      )}
     </MenuItem>
   );
 };
@@ -52,5 +70,11 @@ const MenuItem = styled.ul`
     font-style: normal;
     line-height: normal;
   }
+
+  img {
+    width: 32px;
+    height: 32px;
+  }
 `;
+
 export default Menu;
