@@ -36,9 +36,9 @@ const UploadImage = () => {
     <>
       <UploadImageLayout>
         {showImages?.map((image, idx) => (
-          <ImageStyle>
+          <ImageStyle key={`${image}-${idx}`}>
             <Image>
-              <img key={idx} src={image} alt={`${image}-${idx}`} />
+              <img src={image} alt={`${image}-${idx}`} />
               <div
                 className="hover_image"
                 onClick={() => handleDeleteImage(image)}
@@ -98,7 +98,7 @@ const Text = styled.div`
 const ImageStyle = styled.ul`
   width: 100%;
   max-width: 89px;
-  height: calc(100% - 78px);
+  max-height: 89px;
   position: relative;
   border-radius: 8px;
 
