@@ -7,8 +7,6 @@ import {
   useQuery,
 } from "@tanstack/react-query";
 import { JoinProps } from "@/pages/join/JoinPage";
-import usePageNavigation from "@/features/hooks/usePageNavigation";
-import { PATH } from "@/utils/routes";
 import { users } from "./queryKey";
 
 export const useJoin = (
@@ -36,8 +34,6 @@ export const useJoin = (
 export const useLogin = (
   options?: UseMutationOptions<unknown, unknown, Partial<JoinProps>, unknown>
 ) => {
-  const { navigate } = usePageNavigation();
-
   return useMutation({
     mutationFn: async ({ id, password }: Partial<JoinProps>) => {
       const res = await axios({
@@ -54,30 +50,27 @@ export const useLogin = (
       const ACCESS_TOKEN = res.headers["authorization"];
       localStorage.setItem("ACCESS_TOKEN", ACCESS_TOKEN);
     },
-    onSuccess: () => {
-      navigate(PATH.HOME);
-    },
     ...options,
   });
 };
 
 export const useUserInfo = (options?: UseQueryOptions) => {
-  return useQuery({
-    queryKey: users.info,
-    queryFn: async () => {
-      const ACCESS_TOKEN = localStorage.getItem("ACCESS_TOKEN");
-      if (!ACCESS_TOKEN) return;
+  const ACCESS_TOKEN = localStorage.getItem("ACCESS_TOKEN");
 
-      const { data } = await axios({
+  const { isLoading, data } = useQuery({
+    queryKey: users.info,
+    queryFn: async () =>
+      ACCESS_TOKEN &&
+      (await axios({
         url: URL.USER_INFO,
         headers: {
           Authorization: `Bearer ${ACCESS_TOKEN}`,
         },
-      });
-      return data.body;
-    },
+      }).then(({ data }) => data.body)),
+
     ...options,
   });
+  return { isLoading, data };
 };
 
 export const checkEmailAPI = async (email: string) => {
@@ -147,18 +140,6 @@ export const findPwAPI = async ({ email, id }: Partial<JoinProps>) => {
     });
     return res.data;
   } catch (e) {}
-};
-
-export const userInfoAPI = (params, options: UseQueryOptions) => {
-  return useQuery({
-    queryKey: ["user"],
-    queryFn: () =>
-      axios({
-        url: URL.USER_INFO,
-        params,
-      }),
-    ...options,
-  });
 };
 
 export const dairyListAPI = async () => {

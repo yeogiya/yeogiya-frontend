@@ -7,7 +7,17 @@ import { createRoot } from "react-dom/client";
 import { store } from "./store/store.ts";
 import { worker } from "./mocks/browser.ts";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+      refetchOnReconnect: false,
+      retry: 1,
+      staleTime: 5 * 1000,
+    },
+  },
+});
 
 if (process.env.NODE_ENV === "development") {
   worker.start({
