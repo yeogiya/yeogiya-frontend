@@ -7,7 +7,7 @@ const ContentPlace = () => {
     <ContentLayout
       textIcon={<KoFirstIcon />}
       content={{
-        img: <PlaceImage />,
+        img: <img src={PlaceImage} />,
         firstLine: "어제 다녀온 장소,",
         secondLine: "어떻게 기억하시나요?",
       }}

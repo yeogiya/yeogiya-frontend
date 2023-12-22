@@ -1,4 +1,4 @@
-import { SearchIcon, YeogiyaLogo } from "@/assets";
+import { PlaceSearchIcon, SearchIcon, YeogiyaLogo } from "@/assets";
 
 import Header from "./Header";
 import { Link } from "react-router-dom";
@@ -8,8 +8,32 @@ import styled from "@emotion/styled";
 import theme from "@/styles/theme";
 import { useUserInfo } from "@/apis/user";
 
-const Navbar = () => {
+interface NavbarProps {
+  type: "default" | "placeSearch";
+}
+
+const Navbar = ({ type }: NavbarProps) => {
   const { data: userInfo } = useUserInfo();
+
+  const getNavType = (type: string) => {
+    switch (type) {
+      case "placeSearch":
+        return (
+          <SearchInputWrapper>
+            <PlaceSearchIcon />
+            <StyledSearchInput type="text" placeholder="장소 검색" />
+          </SearchInputWrapper>
+        );
+      default:
+        return (
+          <Link to={PATH.SEARCH}>
+            <StyledSearch>
+              <SearchIcon />
+            </StyledSearch>
+          </Link>
+        );
+    }
+  };
 
   return (
     <Header css={{ justifyContent: "space-between" }}>
@@ -17,11 +41,7 @@ const Navbar = () => {
         <Link to={PATH.HOME}>
           <YeogiyaLogo />
         </Link>
-        <Link to={PATH.SEARCH}>
-          <StyledSearch>
-            <SearchIcon />
-          </StyledSearch>
-        </Link>
+        {getNavType(type)}
       </Wrapper>
       <Menu userInfo={userInfo} />
     </Header>
@@ -46,6 +66,37 @@ const StyledSearch = styled.div`
   background-color: ${theme.color.purple};
   padding: 0.25rem;
   border-radius: 0.875rem;
+`;
+
+const SearchInputWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 13.75rem;
+  height: 100%;
+  max-height: 2.5rem;
+  border-radius: 0.25rem;
+  border: 1px solid ${theme.color.black35};
+  padding: 0.8125rem;
+  column-gap: 0.5rem;
+
+  svg {
+    width: 1.5rem;
+    height: 1.5rem;
+
+    path {
+      stroke: ${theme.color.black35};
+    }
+  }
+`;
+
+const StyledSearchInput = styled.input`
+  border: none;
+
+  &&::placeholder {
+    color: ${theme.color.black50};
+    font-size: 0.875rem;
+  }
 `;
 
 export default Navbar;

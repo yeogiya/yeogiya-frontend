@@ -1,8 +1,8 @@
 import { useRef, useState } from "react";
 
 import { Map } from "@/types/map";
+import { MarkIcon } from "@/assets";
 import { createDiary } from "@/store/diarySlice";
-import markerIcon from "@/assets/images/svg/marker.svg";
 import { useAppDispatch } from "./useAppDispatch";
 
 export const useMap = () => {
@@ -15,7 +15,7 @@ export const useMap = () => {
   const displayMarker = async (markerPosition) => {
     try {
       const markerSize = new kakao.maps.Size(51, 68.83);
-      const markerImage = new kakao.maps.MarkerImage(markerIcon, markerSize);
+      const markerImage = new kakao.maps.MarkerImage(MarkIcon, markerSize);
       return new kakao.maps.Marker({
         position: markerPosition,
         image: markerImage,
