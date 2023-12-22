@@ -12,6 +12,7 @@ import { useState } from "react";
 import whitePlusIcon from "@/assets/images/svg/whitePlusIcon.svg";
 import { PATH } from "@/utils/routes";
 import { Link, useNavigate } from "react-router-dom";
+import { getDiaryList } from "@/apis/diary";
 
 interface DairyListProps {
   date: Date;
@@ -20,6 +21,7 @@ interface DairyListProps {
 const DiaryListPage = () => {
   const navigate = useNavigate();
   const [date, setDate] = useState(new Date());
+  const res = getDiaryList(date.getFullYear(), date.getMonth() + 1);
 
   const dayData = [
     {
