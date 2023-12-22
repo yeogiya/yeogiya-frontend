@@ -9,10 +9,10 @@ import Layout from "@/components/@common/Layout";
 import LinkText from "@/components/@common/LinkText";
 import { PATH } from "@/utils/routes";
 import Title from "@/components/@common/Title";
-import { useLogin } from "@/apis/user";
 import styled from "@emotion/styled";
 import theme from "@/styles/theme";
 import useLoginForm from "@/features/hooks/useLoginForm";
+import { useLogin } from "@/features/hooks/queries/useLogin";
 
 const LoginPage = () => {
   const { handleSubmit, control } = useForm<Partial<JoinProps>>({
