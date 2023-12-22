@@ -1,6 +1,7 @@
 const STATIC = {
   HOME: "/",
   SEARCH: "/search",
+  SEARCH_RESULT: "/result",
   LOGIN: "/login",
   KAKAO_LOGIN: "/login/kakao",
   JOIN: "/join",
@@ -18,7 +19,8 @@ const STATIC = {
 };
 
 const DYNAMIC = {
-  SEARCH_LIST: `${STATIC.SEARCH}/:searchID`,
+  RESULT_LIST: `${STATIC.SEARCH_RESULT}/list/:searchID`,
+  RESULT_DETAIL: `${STATIC.SEARCH_RESULT}/:restDetail`,
 };
 
 export const PATH = {

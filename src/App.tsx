@@ -28,14 +28,14 @@ const App = ({ layout = "default" }: AppProps) => {
     case "placeSearch":
       return (
         <Fragment>
-          <PlaceSearchNavbar />
+          <Navbar type="placeSearch" />
           <Outlet />
         </Fragment>
       );
     default:
       return (
         <Fragment>
-          <Navbar />
+          <Navbar type="default" />
           <Outlet />
         </Fragment>
       );
