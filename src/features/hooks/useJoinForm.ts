@@ -1,7 +1,12 @@
 import { Control, useController } from "react-hook-form";
-import { checkEmailAPI, checkIdAPI, checkNicknameAPI } from "@/apis/user";
+import { getCheckEmail, getCheckId, getCheckNickname } from "@/apis/user";
 import { JoinProps } from "@/pages/join/JoinPage";
 
+export interface getCheckEmailProps {
+  body: {
+    duplicated: boolean;
+  };
+}
 const useJoinForm = (control: Control<JoinProps>) => {
   const { field: email, fieldState: emailState } = useController({
     name: "email",
@@ -13,7 +18,9 @@ const useJoinForm = (control: Control<JoinProps>) => {
         message: "이메일 형식이 잘못 되었습니다.",
       },
       validate: async (value) => {
-        const { duplicated } = await checkEmailAPI(value);
+        const { duplicated } = await getCheckEmail(value).then(
+          ({ data }) => data.body
+        );
         if (duplicated) return "이미 가입된 이메일입니다.";
       },
     },
@@ -37,7 +44,9 @@ const useJoinForm = (control: Control<JoinProps>) => {
         message: "영어 소문자, 숫자, 특수문자(_,-)만 사용 가능합니다.",
       },
       validate: async (value) => {
-        const { duplicated } = await checkIdAPI(value);
+        const { duplicated } = await getCheckId(value).then(
+          ({ data }) => data.body
+        );
         if (duplicated) return "이미 사용 중인 아이디입니다.";
       },
     },
@@ -49,7 +58,9 @@ const useJoinForm = (control: Control<JoinProps>) => {
     rules: {
       required: "닉네임을 입력해주세요.",
       validate: async (value) => {
-        const { duplicated } = await checkNicknameAPI(value);
+        const { duplicated } = await getCheckNickname(value).then(
+          ({ data }) => data.body
+        );
         if (duplicated) return "이미 사용 중인 닉네임입니다.";
       },
     },
