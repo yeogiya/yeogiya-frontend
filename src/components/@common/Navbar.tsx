@@ -6,11 +6,8 @@ import Menu from "@/components/@common/Menu";
 import { PATH } from "@/utils/routes";
 import styled from "@emotion/styled";
 import theme from "@/styles/theme";
-import { useUserInfo } from "@/apis/user";
 
 const Navbar = () => {
-  const { data: userInfo } = useUserInfo();
-
   return (
     <Header css={{ justifyContent: "space-between" }}>
       <Wrapper>
@@ -23,7 +20,7 @@ const Navbar = () => {
           </StyledSearch>
         </Link>
       </Wrapper>
-      <Menu userInfo={userInfo} />
+      <Menu />
     </Header>
   );
 };
