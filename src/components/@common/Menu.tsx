@@ -1,18 +1,31 @@
-import { MENU_ITEM, USER_MENU_ITEM } from "@/utils/menus";
-
+import { MENU_ITEM, MenuItemProps, USER_MENU_ITEM } from "@/constants/menus";
 import LinkText from "./LinkText";
 import { PATH } from "@/utils/routes";
 import styled from "@emotion/styled";
 import theme from "@/styles/theme";
+import { useToken } from "@/features/hooks/useToken";
+import { useUserInfo } from "@/features/hooks/queries/useUserInfo";
+import { useEffect } from "react";
 
-interface MenuProps {
-  userInfo: object | unknown;
-}
+const Menu = () => {
+  const { accessToken } = useToken();
+  const { data: userInfo } = useUserInfo();
 
-const Menu = ({ userInfo }: MenuProps) => {
-  const getMenuItems = (userInfo) => {
-    if (!userInfo) return MENU_ITEM;
-    if (userInfo) return USER_MENU_ITEM(userInfo.nickname);
+  useEffect(() => {
+    if (accessToken) return;
+  }, [accessToken]);
+
+  const handleNavMenu = (mapItem: MenuItemProps[]) => {
+    return mapItem.map((menu) => (
+      <li key={`${menu.type}_${menu.title}`} css={getLinkStyles(menu.type)}>
+        <LinkText
+          color={theme.color.black90}
+          to={`${menu.path}`}
+          text={menu.title}
+        />
+        {menu.path === PATH.JOIN && <span>/</span>}
+      </li>
+    ));
   };
 
   const getLinkStyles = (type: string) => {
@@ -25,23 +38,13 @@ const Menu = ({ userInfo }: MenuProps) => {
 
   return (
     <MenuItem>
-      {getMenuItems(userInfo).map((menu) => (
-        <li key={`${menu.type}_${menu.title}`} css={getLinkStyles(menu.type)}>
-          <LinkText
-            color={theme.color.black90}
-            to={`${menu.path}`}
-            text={menu.title}
-          />
-          {menu.path === PATH.JOIN && <span>/</span>}
-        </li>
-      ))}
+      {accessToken
+        ? userInfo?.body?.nickname &&
+          handleNavMenu(USER_MENU_ITEM(userInfo.body.nickname))
+        : handleNavMenu(MENU_ITEM)}
+
       {userInfo && (
-        <img
-          src={
-            (userInfo as { profileImage: string }).profileImage ??
-            "/images/profile.svg"
-          }
-        />
+        <img src={userInfo.body.profileImageUrl ?? "/images/profile.svg"} />
       )}
     </MenuItem>
   );
