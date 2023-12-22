@@ -1,5 +1,5 @@
 import axios from "axios";
-import { checkIdAPI } from "@/apis/user";
+import { getCheckId } from "@/apis/user";
 import { useEffect } from "react";
 
 const KakaoLogin = () => {
@@ -50,7 +50,9 @@ const KakaoLogin = () => {
         .then(async (res) => {
           const { access_token } = res.data;
           const { data } = await getKakaoUserInfo(access_token);
-          const { duplicated } = await checkIdAPI(data.id);
+          const { duplicated } = await getCheckId(data.id).then(
+            ({ data }) => data.body
+          );
           /**
            * 회원가입 api 작업중
            */
