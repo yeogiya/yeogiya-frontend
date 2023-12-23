@@ -16,6 +16,7 @@ const STATIC = {
   MY_PASSWORD: "/my/pw",
   MY_PASSWORD_UPDATE: "/my/pw/update",
   MY_WITHDRAWAL: "/my/withdrawal",
+  CONFIRM_MY_WITHDRAWAL: "/my/withdrawal/confirm",
 };
 
 const DYNAMIC = {

@@ -137,7 +137,7 @@ const DatePickerDate = styled.div`
   cursor: pointer;
 `;
 
-const CancelButton = styled(Button)`
+export const CancelButton = styled(Button)`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -147,7 +147,7 @@ const CancelButton = styled(Button)`
   max-height: 50px;
 `;
 
-const SuccessButton = styled(SubmitButton)`
+export const SuccessButton = styled(SubmitButton)`
   display: flex;
   justify-content: center;
   align-items: center;

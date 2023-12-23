@@ -33,7 +33,7 @@ const ContentLayout = ({
       {content.img}
       <InfoWrapper>
         {textIcon}
-        <ContentHeading as="h1">
+        <ContentHeading as="h2">
           {content.firstLine}
           <br />
           {content.secondLine}

@@ -6,6 +6,7 @@ import theme from "@/styles/theme";
 import { useToken } from "@/features/hooks/useToken";
 import { useUserInfo } from "@/features/hooks/queries/useUserInfo";
 import { useEffect } from "react";
+import { profileIconPath } from "@/assets";
 
 const Menu = () => {
   const { accessToken } = useToken();
@@ -44,7 +45,7 @@ const Menu = () => {
         : handleNavMenu(MENU_ITEM)}
 
       {userInfo && (
-        <img src={userInfo.body.profileImageUrl ?? "/images/profile.svg"} />
+        <img src={userInfo.body.profileImageUrl ?? profileIconPath} />
       )}
     </MenuItem>
   );

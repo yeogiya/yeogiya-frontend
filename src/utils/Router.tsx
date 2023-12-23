@@ -24,6 +24,7 @@ import { ThemeProvider } from "@emotion/react";
 import UpdateMyPwPage from "@/pages/my/password/UpdateMyPwPage";
 import WithdrawalPage from "@/pages/my/withdrawal/WithdrawalPage";
 import theme from "@/styles/theme";
+import ConfirmWithdrawalPage from "@/pages/my/withdrawal/ConfirmWithdrawalPage";
 
 export const router = createBrowserRouter([
   {
@@ -83,6 +84,10 @@ export const router = createBrowserRouter([
       {
         path: PATH.MY_WITHDRAWAL,
         element: <WithdrawalPage />,
+      },
+      {
+        path: PATH.CONFIRM_MY_WITHDRAWAL,
+        element: <ConfirmWithdrawalPage />,
       },
     ],
   },

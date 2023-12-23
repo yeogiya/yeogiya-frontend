@@ -57,7 +57,7 @@ const MyPage = () => {
         css={{ marginTop: "24px" }}
       />
       <LinkText
-        to={PATH.MY_PASSWORD}
+        to={PATH.MY_WITHDRAWAL}
         text="회원탈퇴"
         fontSize={1}
         css={{ marginTop: "24px" }}

@@ -35,7 +35,7 @@ const ResetPwPage = () => {
   return (
     <Layout maxWidth="328px">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Title as="h1" css={{ marginBottom: "30px" }}>
+        <Title as="h2" css={{ marginBottom: "30px" }}>
           비밀번호 재설정하기
         </Title>
         <Controller
