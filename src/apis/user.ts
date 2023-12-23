@@ -1,103 +1,35 @@
+import { URL } from "@/constants/url";
 import { JoinProps } from "@/pages/join/JoinPage";
-import { LoginProps } from "@/pages/login/LoginPage";
-import { URL } from "@/apis/apiUrl";
-import axios from "axios";
+import { httpClient } from "./httpClient";
 
-export const joinApi = async (
-  params: Partial<JoinProps> & { loginType: string }
-) => {
-  try {
-    const { data } = await axios.post(URL.SIGN_UP, params);
-    return data;
-  } catch (e) {
-    console.log(e);
-  }
+export const postJoin = (data: Partial<JoinProps> & { loginType: string }) => {
+  return httpClient.post(URL.SIGN_UP, data);
 };
 
-export const checkEmailApi = async (email: string) => {
-  try {
-    const { data } = await axios.get(URL.CHECK_EMAIL, {
-      params: {
-        email,
-      },
-    });
-    return data.body;
-  } catch (e) {
-    console.log(e);
-  }
+export const postLogin = ({ id, password }: Partial<JoinProps>) => {
+  return httpClient.post(URL.LOGIN, { id, password });
 };
 
-export const checkIdApi = async (id: string) => {
-  try {
-    const { data } = await axios.get(URL.CHECK_ID, {
-      params: {
-        id,
-      },
-    });
-    return data.body;
-  } catch (e) {
-    console.log(e);
-  }
+export const getUserInfo = () => {
+  return httpClient.get(URL.USER_INFO);
 };
 
-export const checkNicknameApi = async (nickname: string) => {
-  try {
-    const { data } = await axios.get(URL.CHECK_NICKNAME, {
-      params: {
-        nickname,
-      },
-    });
-    return data.body;
-  } catch (e) {
-    console.log(e);
-  }
+export const getCheckEmail = (email: string) => {
+  return httpClient.get(`${URL.CHECK_EMAIL}?email=${email}`);
 };
 
-export const findIdApi = async (email: string) => {
-  try {
-    const { data } = await axios.get(URL.FIND_ID, {
-      params: {
-        email,
-      },
-    });
-    return data.body;
-  } catch (e) {
-    console.log(e);
-  }
+export const getCheckId = (id: string) => {
+  return httpClient.get(`${URL.CHECK_ID}?id=${id}`);
 };
 
-export const loginApi = async ({ id, password }: LoginProps) => {
-  try {
-    const res = await axios({
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      withCredentials: true,
-      url: URL.LOGIN,
-      data: {
-        id,
-        password,
-      },
-    });
-
-    const ACCESS_TOKEN = res.headers["authorization"];
-    let REFRESH_TOKEN = res.headers["refresh"];
-
-    if (res.status === 200) {
-      localStorage.setItem("token", ACCESS_TOKEN);
-    }
-  } catch {}
+export const getCheckNickname = (nickname: string) => {
+  return httpClient.get(`${URL.CHECK_NICKNAME}?nickname=${nickname}`);
 };
 
-export const dairyListApi = async () => {
-  try {
-    const { data } = await axios.get(URL.DIARY_LIST, {
-      params: {
-        year: 2023,
-        month: 10,
-      },
-    });
-    return data.body;
-  } catch (e) {
-    console.log(e);
-  }
+export const getFindId = (email: string) => {
+  return httpClient.get(`${URL.FIND_ID}?email=${email}`);
+};
+
+export const postFindPwd = ({ id, email }: Partial<JoinProps>) => {
+  return httpClient.post(URL.FIND_PW, { email, id });
 };

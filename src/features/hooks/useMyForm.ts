@@ -1,6 +1,7 @@
-import { checkNicknameApi } from "@/apis/user";
-import { MyProps } from "@/pages/my/MyPage";
 import { Control, useController } from "react-hook-form";
+
+import { MyProps } from "@/pages/my/MyPage";
+import { getCheckNickname } from "@/apis/user";
 
 const useMyForm = (control: Control<MyProps>) => {
   const { field: nickname, fieldState: nicknameState } = useController({
@@ -9,7 +10,9 @@ const useMyForm = (control: Control<MyProps>) => {
     rules: {
       required: "닉네임을 입력해주세요.",
       validate: async (value) => {
-        const { duplicated } = await checkNicknameApi(value);
+        const { duplicated } = await getCheckNickname(value).then(
+          ({ data }) => data.body
+        );
         if (duplicated) return "이미 사용 중인 닉네임입니다.";
       },
     },

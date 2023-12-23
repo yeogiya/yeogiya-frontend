@@ -1,23 +1,20 @@
 import Button, { ButtonProps } from "@/components/@common/Button";
-import { SubmitHandler, useForm } from "react-hook-form";
 import { GoogleLogo, KakaoLogo } from "@/assets";
+import { SubmitHandler, useForm } from "react-hook-form";
 import IconButton from "@/components/IconButton";
+import InputId from "../../components/InputId";
+import InputPassword from "../../components/InputPassword";
+import { JoinProps } from "../join/JoinPage";
 import Layout from "@/components/@common/Layout";
 import LinkText from "@/components/@common/LinkText";
 import { PATH } from "@/utils/routes";
 import Title from "@/components/@common/Title";
 import styled from "@emotion/styled";
 import theme from "@/styles/theme";
-import { DevTool } from "@hookform/devtools";
-import InputId from "../join/components/InputId";
-import InputPassword from "../join/components/InputPassword";
 import useLoginForm from "@/features/hooks/useLoginForm";
-import { loginApi } from "@/apis/user";
-import { useNavigate } from "react-router-dom";
-import { JoinProps } from "../join/JoinPage";
+import { useLogin } from "@/features/hooks/queries/useLogin";
 
 const LoginPage = () => {
-  const navigate = useNavigate();
   const { handleSubmit, control } = useForm<Partial<JoinProps>>({
     mode: "onBlur",
     defaultValues: {
@@ -28,12 +25,23 @@ const LoginPage = () => {
 
   const { id, idState, password, passwordState } = useLoginForm(control);
 
-  const onSubmit: SubmitHandler<Partial<JoinProps>> = async (data) => {
+  const loginMutation = useLogin();
+
+  const onSubmit: SubmitHandler<Partial<JoinProps>> = (data) => {
     const { id, password } = { ...data };
 
-    await loginApi({ id, password });
+    loginMutation.mutate({
+      id,
+      password,
+    });
+  };
 
-    navigate("/");
+  const handleLoginWithKakao = () => {
+    const { Kakao } = window;
+    Kakao.Auth.authorize({
+      redirectUri: `${import.meta.env.VITE_KAKAO_REDIRECT_URI}`,
+      scope: "profile_nickname",
+    });
   };
 
   return (
@@ -56,21 +64,21 @@ const LoginPage = () => {
             <LinkText to={PATH.FIND_PW} text="비밀번호 찾기" top={0} />
           </ButtonWrapper>
         </ButtonContainer>
-        <IconButton
-          type="submit"
-          text="Google로 로그인"
-          background={theme.color.white}
-          border={`1px solid ${theme.color.black35}`}
-          icon={<GoogleLogo />}
-        />
-        <IconButton
-          type="submit"
-          text="카카오로 로그인"
-          background={theme.color.yellow}
-          icon={<KakaoLogo />}
-        />
       </form>
-      <DevTool control={control} />
+      <IconButton
+        type="submit"
+        text="Google로 로그인"
+        background={theme.color.white}
+        border={`1px solid ${theme.color.black35}`}
+        icon={<GoogleLogo />}
+      />
+      <IconButton
+        type="submit"
+        text="카카오로 로그인"
+        background={theme.color.yellow}
+        icon={<KakaoLogo />}
+        onClick={handleLoginWithKakao}
+      />
     </Layout>
   );
 };

@@ -1,22 +1,28 @@
 import "react-calendar/dist/Calendar.css";
-import dayjs from "dayjs";
-import { CheckIcon, PlusIcon } from "@/assets";
+
+import { CheckIcon, PlusIcon, WhitePlusIcon } from "@/assets";
 import {
   DiaryLayout,
   DiaryStyle,
   IconLayout,
   TodayIconLayout,
 } from "@/styles/DiaryListPage.styles";
+import { Link, useNavigate } from "react-router-dom";
+import { getDiaryList } from "@/apis/diary";
+
 import Calendar from "react-calendar";
+import { PATH } from "@/utils/routes";
+import dayjs from "dayjs";
 import { useState } from "react";
-import WhitePlusIcon from "@/assets/images/WhitePlusIcon.svg";
 
 interface DairyListProps {
   date: Date;
 }
 
 const DiaryListPage = () => {
+  const navigate = useNavigate();
   const [date, setDate] = useState(new Date());
+  const res = getDiaryList(date.getFullYear(), date.getMonth() + 1);
 
   const dayData = [
     {
@@ -24,23 +30,28 @@ const DiaryListPage = () => {
       url: "https://source.unsplash.com/random/10×10/?tree",
     },
     {
-      date: "2023-11-27",
+      date: "2023-11-30",
     },
     {
-      date: "2023-11-28",
+      date: "2023-12-07",
+    },
+    {
+      date: "2023-12-18",
       url: "https://source.unsplash.com/random/100×100/?snow",
     },
     {
-      date: "2023-11-29",
+      date: "2023-12-19",
       url: "https://source.unsplash.com/random/100×100/?sky",
-    },
-    {
-      date: "2023-11-30",
     },
     {
       date: "2024-01-01",
     },
   ];
+
+  const handleClickTodayBtn = () => {
+    navigate(PATH.DIARY_MAP);
+  };
+
   return (
     <DiaryStyle>
       <Calendar
@@ -59,9 +70,12 @@ const DiaryListPage = () => {
           const dateStr = dayjs(date).format("YYYY-MM-DD");
           const today = dayjs(new Date()).format("YYYY-MM-DD") === dateStr;
           const dayDataItem = dayData.find((day) => day.date === dateStr);
-
           return (
-            <DiaryLayout key={dateStr} svg={WhitePlusIcon}>
+            <DiaryLayout
+              key={dateStr}
+              svg={WhitePlusIcon}
+              onClick={handleClickTodayBtn}
+            >
               {dayDataItem && dayDataItem.url ? (
                 <img src={dayDataItem.url} alt="diary image" />
               ) : dayDataItem ? (

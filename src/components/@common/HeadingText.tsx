@@ -20,6 +20,13 @@ const HeadingText = styled.h1<HeadingTextProps>`
       font-weight: 500;
     `}
 
+    ${(props) =>
+    props.as === "h3" &&
+    css`
+      font-size: 0.875rem;
+      font-weight: 500;
+    `}
+
   line-height: 1.4;
 `;
 

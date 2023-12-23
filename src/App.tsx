@@ -3,9 +3,10 @@ import LocationSearchNavbar from "./pages/diary/map/search/components/LocationSe
 import MapNavbar from "./pages/diary/map/components/MapNavbar";
 import Navbar from "@/components/@common/Navbar";
 import { Outlet } from "react-router-dom";
+import PlaceSearchNavbar from "./pages/search/components/PlaceSearchNavbar";
 
 interface AppProps {
-  layout?: "default" | "diaryMap" | "locationSearch";
+  layout?: "default" | "diaryMap" | "locationSearch" | "placeSearch";
 }
 
 const App = ({ layout = "default" }: AppProps) => {
@@ -24,10 +25,17 @@ const App = ({ layout = "default" }: AppProps) => {
           <Outlet />
         </Fragment>
       );
+    case "placeSearch":
+      return (
+        <Fragment>
+          <Navbar type="placeSearch" />
+          <Outlet />
+        </Fragment>
+      );
     default:
       return (
         <Fragment>
-          <Navbar />
+          <Navbar type="default" />
           <Outlet />
         </Fragment>
       );

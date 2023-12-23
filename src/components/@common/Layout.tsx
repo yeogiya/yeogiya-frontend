@@ -40,7 +40,7 @@ const LayoutWrapper = styled.div<LayoutProps>`
   padding-bottom: ${({ paddingBottom }) =>
     (paddingBottom && paddingBottom) || "165px"};
 
-  ${({ css }) => css};
+  ${({ css }) => css && css};
 `;
 
 export default Layout;

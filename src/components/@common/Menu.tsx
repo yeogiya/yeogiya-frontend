@@ -1,10 +1,33 @@
+import { MENU_ITEM, MenuItemProps, USER_MENU_ITEM } from "@/constants/menus";
 import LinkText from "./LinkText";
-import { MENU_ITEM } from "@/utils/menus";
 import { PATH } from "@/utils/routes";
 import styled from "@emotion/styled";
 import theme from "@/styles/theme";
+import { useToken } from "@/features/hooks/useToken";
+import { useUserInfo } from "@/features/hooks/queries/useUserInfo";
+import { useEffect } from "react";
 
 const Menu = () => {
+  const { accessToken } = useToken();
+  const { data: userInfo } = useUserInfo();
+
+  useEffect(() => {
+    if (accessToken) return;
+  }, [accessToken]);
+
+  const handleNavMenu = (mapItem: MenuItemProps[]) => {
+    return mapItem.map((menu) => (
+      <li key={`${menu.type}_${menu.title}`} css={getLinkStyles(menu.type)}>
+        <LinkText
+          color={theme.color.black90}
+          to={`${menu.path}`}
+          text={menu.title}
+        />
+        {menu.path === PATH.JOIN && <span>/</span>}
+      </li>
+    ));
+  };
+
   const getLinkStyles = (type: string) => {
     const matchPath = type === "member";
     return {
@@ -15,16 +38,14 @@ const Menu = () => {
 
   return (
     <MenuItem>
-      {MENU_ITEM.map((menu) => (
-        <li key={`${menu.type}_${menu.title}`} css={getLinkStyles(menu.type)}>
-          <LinkText
-            color={theme.color.black90}
-            to={`${menu.path}`}
-            text={menu.title}
-          />
-          {menu.path === PATH.JOIN && <span>/</span>}
-        </li>
-      ))}
+      {accessToken
+        ? userInfo?.body?.nickname &&
+          handleNavMenu(USER_MENU_ITEM(userInfo.body.nickname))
+        : handleNavMenu(MENU_ITEM)}
+
+      {userInfo && (
+        <img src={userInfo.body.profileImageUrl ?? "/images/profile.svg"} />
+      )}
     </MenuItem>
   );
 };
@@ -52,5 +73,11 @@ const MenuItem = styled.ul`
     font-style: normal;
     line-height: normal;
   }
+
+  img {
+    width: 32px;
+    height: 32px;
+  }
 `;
+
 export default Menu;

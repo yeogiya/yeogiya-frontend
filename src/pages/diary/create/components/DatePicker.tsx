@@ -5,14 +5,15 @@ import styled from "@emotion/styled";
 import theme from "@/styles/theme";
 import Button from "@/components/@common/Button";
 
-const DatePicker = ({ handleDatePicker }) => {
-  const [selectedDate, setSelectedDate] = useState(new Date());
-
+const DatePicker = ({ handleDatePicker, handleClickedDate, selectedDate }) => {
   return (
     <DatePickerStyle>
       <Calendar
         calendarType="gregory"
-        onChange={() => setSelectedDate}
+        onChange={(value: Date) => {
+          const clikedDate = dayjs(value).format("YYYY-MM-DD");
+          handleClickedDate(clikedDate);
+        }}
         value={selectedDate}
         formatMonthYear={(locale, date) => dayjs(date).format("YYYY년, MM월")}
         formatDay={(_, date: Date) => dayjs(date).format("D")}
@@ -90,9 +91,14 @@ const DatePickerStyle = styled.div`
     margin: 32px 0 25px 0;
   }
 
-  .react-calendar__tile--now,
   .react-calendar__tile--active {
-    background: none;
+    background-color: ${theme.color.black89}!important;
+    color: ${theme.color.white};
+    border-radius: 100%;
+  }
+
+  .react-calendar__tile--now {
+    background-color: ${theme.color.white};
   }
 
   .react-calendar__tile:enabled:hover,
@@ -104,6 +110,11 @@ const DatePickerStyle = styled.div`
 
   .react-calendar__navigation__arrow {
     font-size: 22px;
+  }
+
+  .react-calendar__navigation button:enabled:hover,
+  .react-calendar__navigation button:enabled:focus {
+    background: none;
   }
 
   .react-calendar__navigation__label {

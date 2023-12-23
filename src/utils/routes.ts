@@ -1,7 +1,9 @@
 const STATIC = {
   HOME: "/",
   SEARCH: "/search",
+  SEARCH_RESULT: "/result",
   LOGIN: "/login",
+  KAKAO_LOGIN: "/login/kakao",
   JOIN: "/join",
   DIARY_CREATE: "/diary/create",
   DIARY_LIST: "/diary/list",
@@ -13,10 +15,13 @@ const STATIC = {
   MY: "/my",
   MY_PASSWORD: "/my/pw",
   MY_PASSWORD_UPDATE: "/my/pw/update",
-  MY_WITHDRAW: "/my/withdraw",
+  MY_WITHDRAWAL: "/my/withdrawal",
 };
 
-const DYNAMIC = {};
+const DYNAMIC = {
+  RESULT_LIST: `${STATIC.SEARCH_RESULT}/list/:searchID`,
+  RESULT_DETAIL: `${STATIC.SEARCH_RESULT}/:restDetail`,
+};
 
 export const PATH = {
   ...STATIC,

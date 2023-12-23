@@ -3,11 +3,6 @@ import { Global, css } from "@emotion/react";
 import theme from "./theme";
 
 const global = () => css`
-  button {
-    border: none;
-    background-color: #888;
-  }
-
   *,
   *::before,
   *::after {
@@ -26,6 +21,14 @@ const global = () => css`
     -moz-appearance: none;
     appearance: none;
     outline: none;
+  }
+
+  button {
+    border: none;
+  }
+
+  a {
+    text-decoration: none;
   }
 
   :root {

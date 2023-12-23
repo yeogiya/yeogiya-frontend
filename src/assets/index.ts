@@ -8,7 +8,6 @@ export { default as YeogiyaLogo } from "@/assets/images/YeogiyaLogo";
 
 // home
 export { default as KoYeogiyaLogo } from "@/assets/images/KoYeogiyaLogo";
-export { default as PlaceImage } from "@/assets/images/PlaceImage";
 export { default as KoFirstIcon } from "@/assets/images/KoFirstIcon";
 export { default as DiaryImage } from "@/assets/images/DiaryImage";
 export { default as KoSecondIcon } from "@/assets/images/KoSecondIcon";
@@ -21,3 +20,9 @@ export { default as MapSearchIcon } from "@/assets/images/MapSearchIcon";
 export { default as BgCloseIcon } from "@/assets/images/BgCloseIcon";
 export { default as LeftArrowIcon } from "@/assets/images/LeftArrowIcon";
 export { default as PlaceSearchIcon } from "@/assets/images/PlaceSearchIcon";
+
+// imageUrl
+
+export { default as MarkIcon } from "@/assets/images/svg/marker.svg";
+export { default as WhitePlusIcon } from "@/assets/images/svg/whitePlusIcon.svg";
+export { default as PlaceImage } from "@/assets/images/png/placeImage.png";

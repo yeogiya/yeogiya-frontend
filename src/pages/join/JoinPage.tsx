@@ -1,17 +1,18 @@
-import { SubmitHandler, useForm } from "react-hook-form";
 import { Dispatch, SetStateAction } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
+import InputConfirmPassword from "./components/InputConfirmPassword";
+import InputId from "../../components/InputId";
+import InputNickname from "./components/InputNickname";
+import InputPassword from "../../components/InputPassword";
 import Layout from "@/components/@common/Layout";
 import SubmitButton from "@/components/SubmitButton";
 import Title from "@/components/@common/Title";
 import styled from "@emotion/styled";
-import { joinApi } from "@/apis/user";
-import { DevTool } from "@hookform/devtools";
-import InputEmail from "./components/InputEmail";
-import InputId from "./components/InputId";
-import InputPassword from "./components/InputPassword";
-import InputNickname from "./components/InputNickname";
-import InputConfirmPassword from "./components/InputConfirmPassword";
 import useJoinForm from "@/features/hooks/useJoinForm";
+import InputEmail from "@/components/InputEmail";
+import { useNavigate } from "react-router-dom";
+import { PATH } from "@/utils/routes";
+import { useJoin } from "@/features/hooks/queries/useJoin";
 
 export interface JoinProps {
   email: string;
@@ -20,6 +21,7 @@ export interface JoinProps {
   password: string;
   passwordType: string;
   confirmPassword: string;
+  loginType: string;
   setPasswordType: Dispatch<SetStateAction<string>>;
   setConfirmPassword: Dispatch<SetStateAction<string>>;
 }
@@ -40,12 +42,16 @@ const JoinPage = () => {
     },
   });
 
-  const onSubmit: SubmitHandler<
-    Pick<JoinProps, "email" | "id" | "nickname" | "password"> & {
-      loginType: string;
-    }
-  > = async (data) => {
-    await joinApi({
+  const navigate = useNavigate();
+
+  const joinMutation = useJoin({
+    onSuccess: () => {
+      navigate(PATH.HOME);
+    },
+  });
+
+  const onSubmit: SubmitHandler<JoinProps> = (data) => {
+    joinMutation.mutate({
       email: data.email,
       id: data.id,
       nickname: data.nickname,
@@ -88,7 +94,6 @@ const JoinPage = () => {
           css={{ maxWidth: "328px", marginTop: "0" }}
         />
       </Form>
-      <DevTool control={control} />
     </Layout>
   );
 };

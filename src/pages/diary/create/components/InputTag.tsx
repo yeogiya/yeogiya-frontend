@@ -73,7 +73,7 @@ const InputTag = () => {
         </ul>
         <InputTagStyle
           type="text"
-          placeholder={!tagValue.length && "# 해시태그를 입력해주세요"}
+          placeholder={!tagValue.length ? "# 해시태그를 입력해주세요" : ""}
           value={inputTagValue || ""}
           onChange={changeTag}
           onKeyUp={handleTagInput}
@@ -93,11 +93,12 @@ const InputTagLayout = styled.div`
   flex-wrap: wrap;
   width: 100%;
   height: 100%;
-  max-height: 50px;
+  min-height: 45px;
   border: 1px solid ${theme.color.black35};
   border-radius: 14px;
   padding: 9px 20px;
   margin-bottom: 10px;
+  align-items: center;
 
   > ul {
     display: flex;
@@ -113,7 +114,7 @@ const InputTagStyle = styled.input`
   height: 100%;
   flex: 1;
   border: none;
-  margin-bottom: 10px;
+
   ::before {
     content: "#";
   }
@@ -128,9 +129,10 @@ const Tag = styled.li`
   width: auto;
   align-items: center;
   justify-content: center;
+  font-size: 14px;
   color: ${theme.color.purple};
   list-style: none;
-  padding: 0 10px;
+  padding: 3px 10px;
   margin-right: 10px;
   cursor: pointer;
   background: ${theme.color.white10};

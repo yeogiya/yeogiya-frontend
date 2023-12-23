@@ -33,9 +33,11 @@ const ResetPwPage = () => {
   const { isOpen, openModal, closeModal } = useModal();
 
   return (
-    <Layout>
+    <Layout maxWidth="328px">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Title as="h1">비밀번호 재설정하기</Title>
+        <Title as="h1" css={{ marginBottom: "30px" }}>
+          비밀번호 재설정하기
+        </Title>
         <Controller
           control={control}
           name="password"

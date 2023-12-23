@@ -1,13 +1,25 @@
+import { createDiary, diary } from "@/store/diarySlice";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "@/features/hooks/useAppDispatch";
+import { useNavigate, useNavigation } from "react-router-dom";
+
 import DefaultButton from "@/components/@common/DefaultButton";
 import Layout from "@/components/@common/Layout";
 import Map from "@/pages/diary/map/components/Map";
-import { createDiary } from "@/store/diarySlice";
+import { PATH } from "@/utils/routes";
 import styled from "@emotion/styled";
 import theme from "@/styles/theme";
-import { useAppDispatch } from "@/features/hooks/useAppDispatch";
+import { useMap } from "@/features/hooks/useMap";
+import usePageNavigation from "@/features/hooks/usePageNavigation";
 
 const MapPage = () => {
   const dispatch = useAppDispatch();
+  const diaryState = useAppSelector(diary);
+
+  const { searchDetailAddFromCoords } = useMap();
+  const { navigate } = usePageNavigation();
 
   const handleSubmit = () => {
     dispatch(
@@ -15,7 +27,14 @@ const MapPage = () => {
         isSubmitPos: true,
       })
     );
+
     // TODO: diaryState.latitude, diaryState.longitude
+    const address = searchDetailAddFromCoords(
+      diaryState.latitude,
+      diaryState.longitude
+    );
+
+    navigate(PATH.DIARY_CREATE);
   };
 
   return (

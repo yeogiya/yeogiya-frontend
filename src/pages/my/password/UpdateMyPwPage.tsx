@@ -2,7 +2,7 @@ import Layout from "@/components/@common/Layout";
 import Title from "@/components/@common/Title";
 import SubmitButton from "@/components/SubmitButton";
 import useUpdateMyPw from "@/features/hooks/useUpdateMyPw";
-import InputPassword from "@/pages/join/components/InputPassword";
+import InputPassword from "@/components/InputPassword";
 import { useForm } from "react-hook-form";
 
 export interface updateMyPwProps {

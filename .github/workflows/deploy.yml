@@ -1,0 +1,30 @@
+name: deploy
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: pandoc/latex
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
+      - name: Install Dependencies
+        run: apk add ruby && gem install mustache
+
+      - name: Build
+        run: sh ./build.sh
+
+      - name: Push Output to Another Repo
+        uses: cpina/github-action-push-to-another-repository@main
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.AUTO_DEPLOY_KEY }}
+        with:
+          source-directory: "output"
+          destination-github-username: parkgadan
+          destination-repository-name: yeogiya-frontend
+          target-branch: deploy
