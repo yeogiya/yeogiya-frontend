@@ -1,56 +1,90 @@
 import HeadingText from "@/components/@common/HeadingText";
 import Layout from "@/components/@common/Layout";
 import Title from "@/components/@common/Title";
+import {
+  WITHDRAWAL_FEEDBACKS,
+  WITHDRAWAL_GUIDES,
+} from "@/constants/withdrawal";
+import {
+  CancelButton,
+  SuccessButton,
+} from "@/pages/diary/create/DiaryCreatePage";
 import theme from "@/styles/theme";
 import styled from "@emotion/styled";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+interface WithdrawalProps {
+  privacy: boolean;
+  inconvenience: boolean;
+  noNeed: boolean;
+}
 
 const WithdrawalPage = () => {
-  const [feedbacks, setFeedbacks] = useState([null]);
+  const [feedbacks, setFeedbacks] = useState<WithdrawalProps>({
+    privacy: false,
+    inconvenience: false,
+    noNeed: false,
+  });
+
+  const [isValid, setIsValid] = useState<boolean>(false);
+
+  const onChangeChecked = (key: string, value: boolean) => {
+    setFeedbacks((prev) => ({
+      ...prev,
+      [key]: value,
+    }));
+
+    setIsValid(true);
+  };
+
+  useEffect(() => {
+    if (!feedbacks.inconvenience && !feedbacks.noNeed && !feedbacks.privacy)
+      setIsValid(() => false);
+  }, [onChangeChecked]);
+
+  const handleSubmit = () => {};
 
   return (
-    <Layout maxWidth="640px" paddingTop="80px">
-      <Title as="h1" css={{ marginBottom: "32px" }}>
-        회원탈퇴 안내
-      </Title>
-      <Border />
-      <ContentsLayout>
-        <ContentsWrapper>
-          <Subtitle as="h3">회원탈퇴</Subtitle>
-          <Contents>
-            계약 또는 청약 철회 등에 관한 기록: 5년
-            <br />
-            계약 또는 청약 철회 등에 관한 기록: 5년
-            <br />
-            계약 또는 청약 철회 등에 관한 기록: 5년
-            <br />
-            계약 또는 청약 철회 등에 관한 기록: 5년
-            <br />
-            계약 또는 청약 철회 등에 관한 기록: 5년
-            <br />
-            계약 또는 청약 철회 등에 관한 기록: 5년
-            <br />
-          </Contents>
-        </ContentsWrapper>
-        <ContentsWrapper>
-          <Subtitle as="h3">불편했던 점</Subtitle>
-          <Contents>
-            {/* <CheckboxGroup values={feedbacks} onChange={setFeedbacks}> */}
-            <Checkbox>
-              <input
-                type="checkbox"
-                id="termsAgree"
-                onChange={() => {
-                  //   onChangeChecked("terms");
-                }}
-                // checked={agree["terms"]}
-              />
-              <label htmlFor="reason-1">정보유출에 대한 불안함</label>
-            </Checkbox>
-            {/* </CheckboxGroup> */}
-          </Contents>
-        </ContentsWrapper>
-      </ContentsLayout>
+    <Layout maxWidth="640px" paddingTop="80px" paddingBottom="80px">
+      <form onSubmit={handleSubmit}>
+        <Title as="h1" css={{ marginBottom: "32px" }}>
+          회원탈퇴 안내
+        </Title>
+        <Border />
+        <ContentsLayout>
+          <ContentsWrapper>
+            <Subtitle as="h3">회원탈퇴</Subtitle>
+            <Contents>
+              {WITHDRAWAL_GUIDES.map((guide) => (
+                <p key={guide.id}>{guide.text}</p>
+              ))}
+            </Contents>
+          </ContentsWrapper>
+          <ContentsWrapper>
+            <Subtitle as="h3">불편했던 점</Subtitle>
+            <Contents>
+              {WITHDRAWAL_FEEDBACKS.map((feedback) => (
+                <Checkbox key={feedback.id}>
+                  <input
+                    type="checkbox"
+                    id={feedback.id}
+                    onChange={() => {
+                      onChangeChecked(feedback.id, !feedbacks[feedback.id]);
+                    }}
+                    checked={feedbacks[feedback.id]}
+                  />
+                  <label htmlFor={feedback.id}>{feedback.text}</label>
+                </Checkbox>
+              ))}
+              <TextAreaStyle placeholder="구체적인 문제점을 적어주세요." />
+            </Contents>
+          </ContentsWrapper>
+        </ContentsLayout>
+        <ButtonLayout>
+          <CancelButton text="취소" />
+          <SuccessButton type="submit" text="완료" isValid={isValid} />
+        </ButtonLayout>
+      </form>
     </Layout>
   );
 };
@@ -73,25 +107,36 @@ const ContentsWrapper = styled.div`
 const ContentsLayout = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  padding: 20px 0;
   width: 100%;
+  height: 100%;
 `;
 
 const Contents = styled.div`
+  width: 100%;
+  height: 100%;
   font-size: 0.875rem;
 `;
 
 const Checkbox = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
   input {
     cursor: pointer;
     appearance: none;
     width: 24px;
     height: 24px;
-    background-image: url("../public/images/uncheckbox.svg");
+    margin-right: 8px;
+    background-image: url("../images/uncheckbox.svg");
+
+    &:checked {
+      background-image: url("../images/checkbox.svg");
+    }
   }
 
-  input:checked {
-    background-image: url("../public/images/checkbox.svg");
+  label {
+    cursor: pointer;
   }
 `;
 
@@ -101,4 +146,22 @@ export const CheckBoxWrapper = styled(Checkbox)`
   margin-left: 30px;
   margin-bottom: 77px;
   gap: 7px;
+`;
+
+const TextAreaStyle = styled.textarea`
+  resize: none;
+  display: flex;
+  width: 100%;
+  min-height: 160px;
+  height: 100%;
+  border: 1px solid ${theme.color.black35};
+  outline: none;
+  padding: 16px 20px;
+  border-radius: 10px;
+`;
+
+const ButtonLayout = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
 `;

@@ -80,6 +80,10 @@ export const router = createBrowserRouter([
         path: PATH.MY_PASSWORD_UPDATE,
         element: <UpdateMyPwPage />,
       },
+      {
+        path: PATH.MY_WITHDRAWAL,
+        element: <WithdrawalPage />,
+      },
     ],
   },
   {
