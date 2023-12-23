@@ -1,4 +1,4 @@
-import { checkEmailAPI, checkIdAPI } from "@/apis/user";
+import { getCheckEmail, getCheckId } from "@/apis/user";
 import { FindPwProps } from "@/pages/find/pw/FindPwPage";
 import { Control, useController } from "react-hook-form";
 
@@ -13,8 +13,9 @@ const useFindPwForm = (control: Control<FindPwProps>) => {
         message: "이메일 형식이 잘못 되었습니다.",
       },
       validate: async (value) => {
-        const { duplicated } = await checkEmailAPI(value);
-        if (!duplicated) return "해당 이메일로 가입된 계정이 없습니다.";
+        const res = await getCheckEmail(value);
+        if (!res.body.duplicated)
+          return "해당 이메일로 가입된 계정이 없습니다.";
       },
     },
   });
@@ -25,8 +26,9 @@ const useFindPwForm = (control: Control<FindPwProps>) => {
     rules: {
       required: "아이디를 입력해주세요.",
       validate: async (value) => {
-        const { duplicated } = await checkIdAPI(value);
-        if (!duplicated) return "해당 아이디로 가입된 계정이 없습니다.";
+        const res = await getCheckId(value);
+        if (!res.body.duplicated)
+          return "해당 아이디로 가입된 계정이 없습니다.";
       },
     },
   });

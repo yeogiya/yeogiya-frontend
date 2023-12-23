@@ -6,15 +6,12 @@ import Menu from "@/components/@common/Menu";
 import { PATH } from "@/utils/routes";
 import styled from "@emotion/styled";
 import theme from "@/styles/theme";
-import { useUserInfo } from "@/apis/user";
 
 interface NavbarProps {
   type: "default" | "placeSearch";
 }
 
 const Navbar = ({ type }: NavbarProps) => {
-  const { data: userInfo } = useUserInfo();
-
   const getNavType = (type: string) => {
     switch (type) {
       case "placeSearch":
@@ -43,7 +40,7 @@ const Navbar = ({ type }: NavbarProps) => {
         </Link>
         {getNavType(type)}
       </Wrapper>
-      <Menu userInfo={userInfo} />
+      <Menu />
     </Header>
   );
 };

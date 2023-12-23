@@ -5,7 +5,7 @@ import LinkText from "@/components/@common/LinkText";
 import { PATH } from "@/utils/routes";
 import SubmitButton from "@/components/SubmitButton";
 import Title from "@/components/@common/Title";
-import { findIdAPI } from "@/apis/user";
+import { getFindId } from "@/apis/user";
 import styled from "@emotion/styled";
 import theme from "@/styles/theme";
 import { useState } from "react";
@@ -28,11 +28,11 @@ const FindIdPage = () => {
     },
   });
 
-  const onSubmit: SubmitHandler<FindIdProps> = async (data) => {
-    const { id } = await findIdAPI(data.email);
-    setFindId(id);
+  const onSubmit: SubmitHandler<FindIdProps> = (data) => {
+    const res = getFindId(data.email);
+    setFindId(res.body.id);
 
-    if (!id)
+    if (!findId)
       return setError("email", {
         message: "이메일이 일치하는 계정이 없습니다.",
       });

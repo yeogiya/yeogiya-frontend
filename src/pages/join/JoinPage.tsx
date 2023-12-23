@@ -7,12 +7,12 @@ import InputPassword from "../../components/InputPassword";
 import Layout from "@/components/@common/Layout";
 import SubmitButton from "@/components/SubmitButton";
 import Title from "@/components/@common/Title";
-import { useJoin } from "@/apis/user";
 import styled from "@emotion/styled";
 import useJoinForm from "@/features/hooks/useJoinForm";
 import InputEmail from "@/components/InputEmail";
 import { useNavigate } from "react-router-dom";
 import { PATH } from "@/utils/routes";
+import { useJoin } from "@/features/hooks/queries/useJoin";
 
 export interface JoinProps {
   email: string;
@@ -32,7 +32,7 @@ const JoinPage = () => {
     formState: { isDirty, isValid },
     control,
   } = useForm<JoinProps>({
-    mode: "onSubmit",
+    mode: "onBlur",
     defaultValues: {
       email: "",
       id: "",

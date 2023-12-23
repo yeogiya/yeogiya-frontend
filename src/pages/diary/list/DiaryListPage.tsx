@@ -8,6 +8,7 @@ import {
   TodayIconLayout,
 } from "@/styles/DiaryListPage.styles";
 import { Link, useNavigate } from "react-router-dom";
+import { getDiaryList } from "@/apis/diary";
 
 import Calendar from "react-calendar";
 import { PATH } from "@/utils/routes";
@@ -21,6 +22,7 @@ interface DairyListProps {
 const DiaryListPage = () => {
   const navigate = useNavigate();
   const [date, setDate] = useState(new Date());
+  const res = getDiaryList(date.getFullYear(), date.getMonth() + 1);
 
   const dayData = [
     {

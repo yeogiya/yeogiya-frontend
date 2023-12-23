@@ -8,7 +8,7 @@ import Title from "@/components/@common/Title";
 import styled from "@emotion/styled";
 import theme from "@/styles/theme";
 import { useModal } from "@/features/hooks/useModal";
-import { findPwAPI } from "@/apis/user";
+import { postFindPwd } from "@/apis/user";
 import InputId from "@/components/InputId";
 import useFindPwForm from "@/features/hooks/useFindPwForm";
 import InputEmail from "@/components/InputEmail";
@@ -27,18 +27,18 @@ const FindPwPage = () => {
     mode: "onBlur",
   });
 
+  const { isOpen, openModal, closeModal } = useModal();
   const { email, emailState, id, idState } = useFindPwForm(control);
 
   const submitHandler: SubmitHandler<FindPwProps> = async ({ email, id }) => {
     try {
-      const res = await findPwAPI({ email, id });
-      if (res.status === "OK") openModal();
+      const res = await postFindPwd({ email, id });
+
+      if (res.status === 200) openModal();
     } catch (e) {
       console.log(e);
     }
   };
-
-  const { isOpen, openModal, closeModal } = useModal();
 
   return (
     <Layout css={{ rowGap: "14px" }} maxWidth="328px">
