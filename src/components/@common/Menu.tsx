@@ -2,7 +2,6 @@ import { MENU_ITEM, MenuItemProps, USER_MENU_ITEM } from "@/constants/menus";
 
 import LinkText from "./LinkText";
 import { PATH } from "@/utils/routes";
-import { profileIconPath } from "@/assets/index";
 import styled from "@emotion/styled";
 import theme from "@/styles/theme";
 import { useEffect } from "react";
@@ -45,7 +44,7 @@ const Menu = () => {
           handleNavMenu(USER_MENU_ITEM(userInfo.body.nickname))
         : handleNavMenu(MENU_ITEM)}
       {userInfo && (
-        <img src={userInfo.body.profileImageUrl ?? profileIconPath} />
+        <img src={userInfo.body.profileImageUrl ?? "/images/profile.svg"} />
       )}
     </MenuItem>
   );
