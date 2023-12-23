@@ -36,6 +36,7 @@ const LayoutWrapper = styled.div<LayoutProps>`
   min-height: 100%;
   display: flex;
   flex-direction: column;
+  align-items: center;
   padding-top: ${({ paddingTop }) => (paddingTop && paddingTop) || "120px"};
   padding-bottom: ${({ paddingBottom }) =>
     (paddingBottom && paddingBottom) || "165px"};
