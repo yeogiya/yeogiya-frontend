@@ -20,9 +20,10 @@ export { default as MapSearchIcon } from "@/assets/images/MapSearchIcon";
 export { default as BgCloseIcon } from "@/assets/images/BgCloseIcon";
 export { default as LeftArrowIcon } from "@/assets/images/LeftArrowIcon";
 export { default as PlaceSearchIcon } from "@/assets/images/PlaceSearchIcon";
+// result
+export { default as ArrowLeftIcon } from "@/assets/images/ArrowLeftIcon";
 
 // imageUrl
-
 export { default as MarkIcon } from "@/assets/images/svg/marker.svg";
 export { default as WhitePlusIcon } from "@/assets/images/svg/whitePlusIcon.svg";
 export { default as PlaceImage } from "@/assets/images/png/placeImage.png";
