@@ -5,11 +5,13 @@ import {
   WITHDRAWAL_FEEDBACKS,
   WITHDRAWAL_GUIDES,
 } from "@/constants/withdrawal";
+import usePageNavigation from "@/features/hooks/usePageNavigation";
 import {
   CancelButton,
   SuccessButton,
 } from "@/pages/diary/create/DiaryCreatePage";
 import theme from "@/styles/theme";
+import { PATH } from "@/utils/routes";
 import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 
@@ -20,6 +22,7 @@ interface WithdrawalProps {
 }
 
 const WithdrawalPage = () => {
+  const { navigate } = usePageNavigation();
   const [feedbacks, setFeedbacks] = useState<WithdrawalProps>({
     privacy: false,
     inconvenience: false,
@@ -42,12 +45,14 @@ const WithdrawalPage = () => {
       setIsValid(() => false);
   }, [onChangeChecked]);
 
-  const handleSubmit = () => {};
+  const handleSubmit = () => {
+    navigate(PATH.CONFIRM_MY_WITHDRAWAL);
+  };
 
   return (
     <Layout maxWidth="640px" paddingTop="80px" paddingBottom="80px">
       <form onSubmit={handleSubmit}>
-        <Title as="h1" css={{ marginBottom: "32px" }}>
+        <Title as="h2" css={{ marginBottom: "32px" }}>
           회원탈퇴 안내
         </Title>
         <Border />
