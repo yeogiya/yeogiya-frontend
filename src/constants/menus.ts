@@ -16,5 +16,6 @@ export const MENU_ITEM: MenuItemProps[] = [
 
 export const USER_MENU_ITEM = (nickname: string): MenuItemProps[] => [
   { type: "diary", title: "공간일기 쓰기", path: PATH.DIARY_LIST },
+  { type: "login", title: "로그아웃", path: PATH.HOME },
   { type: "login", title: `${nickname} 님`, path: PATH.MY },
 ];
