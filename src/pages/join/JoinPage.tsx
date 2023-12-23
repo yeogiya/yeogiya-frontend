@@ -75,7 +75,7 @@ const JoinPage = () => {
 
   return (
     <Layout css={{ rowGap: "14px" }} maxWidth="328px" paddingBottom="120px">
-      <Title as="h1">회원가입</Title>
+      <Title as="h2">회원가입</Title>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <InputContainer>
           <InputEmail email={email} emailState={emailState} />

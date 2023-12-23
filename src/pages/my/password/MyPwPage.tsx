@@ -26,7 +26,7 @@ const MyPwPage = () => {
 
   return (
     <Layout maxWidth="328px">
-      <Title as="h1" css={{ marginBottom: "14px" }}>
+      <Title as="h2" css={{ marginBottom: "14px" }}>
         비밀번호 변경
       </Title>
       <InputPassword

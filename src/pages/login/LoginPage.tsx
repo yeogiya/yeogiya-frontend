@@ -46,7 +46,7 @@ const LoginPage = () => {
 
   return (
     <Layout maxWidth="328px">
-      <Title as="h1">로그인</Title>
+      <Title as="h2">로그인</Title>
       <form onSubmit={handleSubmit(onSubmit)}>
         <InputId id={id} idState={idState} />
         <InputPassword password={password} passwordState={passwordState} />
