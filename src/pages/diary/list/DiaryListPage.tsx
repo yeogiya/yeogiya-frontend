@@ -1,18 +1,19 @@
 import "react-calendar/dist/Calendar.css";
-import dayjs from "dayjs";
-import { CheckIcon, PlusIcon } from "@/assets";
+
+import { CheckIcon, PlusIcon, WhitePlusIcon } from "@/assets";
 import {
   DiaryLayout,
   DiaryStyle,
   IconLayout,
   TodayIconLayout,
 } from "@/styles/DiaryListPage.styles";
-import Calendar from "react-calendar";
-import { useState } from "react";
-import whitePlusIcon from "@/assets/images/svg/whitePlusIcon.svg";
-import { PATH } from "@/utils/routes";
 import { Link, useNavigate } from "react-router-dom";
 import { getDiaryList } from "@/apis/diary";
+
+import Calendar from "react-calendar";
+import { PATH } from "@/utils/routes";
+import dayjs from "dayjs";
+import { useState } from "react";
 
 interface DairyListProps {
   date: Date;
@@ -72,7 +73,7 @@ const DiaryListPage = () => {
           return (
             <DiaryLayout
               key={dateStr}
-              svg={whitePlusIcon}
+              svg={WhitePlusIcon}
               onClick={handleClickTodayBtn}
             >
               {dayDataItem && dayDataItem.url ? (

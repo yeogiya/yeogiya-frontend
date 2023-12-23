@@ -17,7 +17,8 @@ import MyPage from "@/pages/my/MyPage";
 import MyPassword from "@/pages/my/password/MyPwPage";
 import { PATH } from "./routes";
 import ResetPwPage from "@/pages/reset/ResetPwPage";
-import SearchListPage from "@/pages/search/list/SearchListPage";
+import RestaurantDetailPage from "@/pages/result/detail/RestaurantDetailPage";
+import ResultListPage from "@/pages/result/list/ResultListPage";
 import SearchPage from "@/pages/search/SearchPage";
 import { ThemeProvider } from "@emotion/react";
 import UpdateMyPwPage from "@/pages/my/password/UpdateMyPwPage";
@@ -108,13 +109,17 @@ export const router = createBrowserRouter([
     ],
   },
   {
-    path: PATH.SEARCH_LIST,
+    path: PATH.SEARCH_RESULT,
     element: <App layout="placeSearch" />,
     errorElement: <ErrorPage />,
     children: [
       {
-        index: true,
-        element: <SearchListPage />,
+        path: PATH.RESULT_LIST,
+        element: <ResultListPage />,
+      },
+      {
+        path: PATH.RESULT_DETAIL,
+        element: <RestaurantDetailPage />,
       },
     ],
   },
