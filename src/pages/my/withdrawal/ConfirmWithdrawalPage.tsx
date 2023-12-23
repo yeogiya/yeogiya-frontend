@@ -34,6 +34,7 @@ export default ConfirmWithdrawalPage;
 const LayoutWrapper = styled(Layout)`
   gap: 24px;
   padding-top: 160px;
+  align-items: center;
 `;
 
 const CheckImageLogo = styled.img`
