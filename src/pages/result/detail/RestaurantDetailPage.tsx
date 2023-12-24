@@ -4,6 +4,12 @@ import RestaurantTitle from "./components/RestaurantTitle";
 import styled from "@emotion/styled";
 import theme from "@/styles/theme";
 import { useState } from "react";
+import ResultDetailNav from "./components/ResultDetailNav";
+import { RESTAURANT_DETAIL_NAV } from "@/constants/menus";
+import ResultDetailContent from "./components/ResultDetailContent";
+
+export type RestaurantDetailNavType =
+  (typeof RESTAURANT_DETAIL_NAV)[keyof typeof RESTAURANT_DETAIL_NAV];
 
 const RestaurantDetailPage = () => {
   const [data, setDate] = useState({
@@ -11,6 +17,13 @@ const RestaurantDetailPage = () => {
     rating: 0,
     restaurantType: "RestaurantType",
   });
+  const [activeNav, setActiveNav] = useState<RestaurantDetailNavType>(
+    RESTAURANT_DETAIL_NAV.NAVER
+  );
+
+  const handleActiveNav = (nav: RestaurantDetailNavType) => {
+    setActiveNav(nav);
+  };
 
   return (
     <Layout maxWidth="100%" paddingTop="0">
@@ -22,6 +35,11 @@ const RestaurantDetailPage = () => {
           restaurantType={data.restaurantType}
         />
         <StyledBorder />
+        <ResultDetailNav
+          activeNav={activeNav}
+          activeNavHandler={handleActiveNav}
+        />
+        <ResultDetailContent />
       </Layout>
     </Layout>
   );
