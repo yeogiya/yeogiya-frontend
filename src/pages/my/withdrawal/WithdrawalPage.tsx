@@ -34,7 +34,9 @@ const WithdrawalPage = () => {
   const onChangeChecked = (key: string, value: boolean) => {
     setFeedbacks((prev) => ({
       ...prev,
-      [key]: value,
+      privacy: key === "privacy" ? value : false,
+      inconvenience: key === "inconvenience" ? value : false,
+      noNeed: key === "noNeed" ? value : false,
     }));
 
     setIsValid(true);

@@ -1,5 +1,7 @@
 import { CATEGORY } from "./category";
 
+const PUBLIC_BASE_URL = `${import.meta.env.VITE_PUBLIC_URL_KEY}`;
+
 const URLS = {
   // Public
   SIGN_UP: `${import.meta.env.VITE_PUBLIC_URL_KEY}${CATEGORY.MEMBERS}/sign-up`, // 회원가입
@@ -24,5 +26,6 @@ const URLS = {
 };
 
 export const URL = {
+  PUBLIC_BASE_URL,
   ...URLS,
 } as const;
