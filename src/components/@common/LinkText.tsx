@@ -1,5 +1,4 @@
 import styled, { CSSObject } from "@emotion/styled";
-
 import { Link } from "react-router-dom";
 import { PATH } from "@/utils/routes";
 import theme from "@/styles/theme";
@@ -11,11 +10,12 @@ interface LinkTextProps {
   color?: (typeof theme.color)[keyof typeof theme.color];
   fontSize?: number;
   top?: number;
+  onClick?: () => void;
 }
 
-const LinkText = ({ to, text, css, ...props }: LinkTextProps) => {
+const LinkText = ({ to, text, css, onClick, ...props }: LinkTextProps) => {
   return (
-    <StyledLinkButton to={to} {...props}>
+    <StyledLinkButton to={to} onClick={onClick} {...props}>
       {text}
     </StyledLinkButton>
   );
