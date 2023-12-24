@@ -12,6 +12,7 @@ export interface InputUserProps extends InputHTMLAttributes<HTMLElement> {
   isActive?: boolean;
   maxWidth?: number;
   css?: CSSObject;
+  disabled?: boolean;
 }
 const InputUser = React.forwardRef(
   (
@@ -23,6 +24,8 @@ const InputUser = React.forwardRef(
       icon,
       isActive,
       type,
+      disabled,
+      value,
       ...props
     }: InputUserProps,
     ref: React.Ref<any>
@@ -40,6 +43,8 @@ const InputUser = React.forwardRef(
             type={type}
             name={name}
             ref={ref}
+            disabled={disabled}
+            value={value || ""}
           />
           {icon && <button type="button">{icon}</button>}
         </InputContainer>

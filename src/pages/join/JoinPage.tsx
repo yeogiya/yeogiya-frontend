@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import InputConfirmPassword from "./components/InputConfirmPassword";
 import InputId from "../../components/InputId";
-import InputNickname from "./components/InputNickname";
+import InputNickname from "../../components/InputNickname";
 import InputPassword from "../../components/InputPassword";
 import Layout from "@/components/@common/Layout";
 import SubmitButton from "@/components/SubmitButton";
@@ -10,9 +10,9 @@ import Title from "@/components/@common/Title";
 import styled from "@emotion/styled";
 import useJoinForm from "@/features/hooks/useJoinForm";
 import InputEmail from "@/components/InputEmail";
-import { useNavigate } from "react-router-dom";
 import { PATH } from "@/utils/routes";
 import { useJoin } from "@/features/hooks/queries/useJoin";
+import usePageNavigation from "@/features/hooks/usePageNavigation";
 
 export interface JoinProps {
   email: string;
@@ -27,6 +27,7 @@ export interface JoinProps {
 }
 
 const JoinPage = () => {
+  const { navigate } = usePageNavigation();
   const {
     handleSubmit,
     formState: { isDirty, isValid },
@@ -41,8 +42,6 @@ const JoinPage = () => {
       confirmPassword: "",
     },
   });
-
-  const navigate = useNavigate();
 
   const joinMutation = useJoin({
     onSuccess: () => {

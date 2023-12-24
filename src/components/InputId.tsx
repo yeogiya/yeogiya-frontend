@@ -6,9 +6,10 @@ import { ControllerFieldState } from "react-hook-form";
 export interface InputIdProps {
   id: InputHTMLAttributes<HTMLInputElement>;
   idState: ControllerFieldState;
+  disabled?: boolean;
 }
 
-const InputId = ({ id, idState }: InputIdProps) => {
+const InputId = ({ id, idState, ...props }: InputIdProps) => {
   const [idActive, setIdActive] = useState<boolean>(false);
 
   return (
@@ -22,6 +23,7 @@ const InputId = ({ id, idState }: InputIdProps) => {
         }}
         onFocus={() => setIdActive(true)}
         isActive={idActive}
+        {...props}
       />
       <ValidateMessage color="error">{idState?.error?.message}</ValidateMessage>
     </>
