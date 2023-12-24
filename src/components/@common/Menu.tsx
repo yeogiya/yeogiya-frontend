@@ -1,5 +1,4 @@
 import { MENU_ITEM, MenuItemProps, USER_MENU_ITEM } from "@/constants/menus";
-
 import LinkText from "./LinkText";
 import { PATH } from "@/utils/routes";
 import styled from "@emotion/styled";
@@ -7,14 +6,29 @@ import theme from "@/styles/theme";
 import { useEffect } from "react";
 import { useToken } from "@/features/hooks/useToken";
 import { useUserInfo } from "@/features/hooks/queries/useUserInfo";
+import usePageNavigation from "@/features/hooks/usePageNavigation";
+import { useReissueToken } from "@/features/hooks/queries/useReissueToken";
 
 const Menu = () => {
-  const { accessToken } = useToken();
+  const { accessToken, refreshToken, updateToken, resetToken } = useToken();
   const { data: userInfo } = useUserInfo();
+  const { navigate } = usePageNavigation();
+  const { mutateSendTokenReissue } = useReissueToken();
 
   useEffect(() => {
-    if (accessToken) return;
-  }, [accessToken]);
+    if (!accessToken) {
+      resetToken();
+      return;
+    }
+    updateToken(accessToken || "", refreshToken || "");
+    mutateSendTokenReissue();
+  }, [accessToken, refreshToken]);
+
+  const handleClickLogout = () => {
+    resetToken();
+
+    navigate(PATH.HOME);
+  };
 
   const handleNavMenu = (mapItem: MenuItemProps[]) => {
     return mapItem.map((menu) => (
@@ -23,6 +37,7 @@ const Menu = () => {
           color={theme.color.black90}
           to={`${menu.path}`}
           text={menu.title}
+          onClick={menu.title === "로그아웃" && handleClickLogout}
         />
         {menu.path === PATH.JOIN && <span>/</span>}
       </li>
@@ -43,7 +58,7 @@ const Menu = () => {
         ? userInfo?.body?.nickname &&
           handleNavMenu(USER_MENU_ITEM(userInfo.body.nickname))
         : handleNavMenu(MENU_ITEM)}
-      {userInfo && (
+      {accessToken && userInfo && (
         <img src={userInfo.body.profileImageUrl ?? "/images/profile.svg"} />
       )}
     </MenuItem>

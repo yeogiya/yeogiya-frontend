@@ -1,5 +1,7 @@
 import { CATEGORY } from "./category";
 
+const PUBLIC_BASE_URL = `${import.meta.env.VITE_PUBLIC_URL_KEY}`;
+
 const URLS = {
   // Public
   SIGN_UP: `${import.meta.env.VITE_PUBLIC_URL_KEY}${CATEGORY.MEMBERS}/sign-up`, // 회원가입
@@ -21,8 +23,12 @@ const URLS = {
   // Auth
   DIARY_LIST: `${import.meta.env.VITE_AUTH_URL_KEY}/diaries`, // 일기 목록
   USER_INFO: `${import.meta.env.VITE_AUTH_URL_KEY}${CATEGORY.MEMBERS}`, // 회원정보
+  CHANGE_NICKNAME: `${import.meta.env.VITE_AUTH_URL_KEY}${
+    CATEGORY.MEMBERS
+  }/change-nickname`, // 닉네임 변경
 };
 
 export const URL = {
+  PUBLIC_BASE_URL,
   ...URLS,
 } as const;
