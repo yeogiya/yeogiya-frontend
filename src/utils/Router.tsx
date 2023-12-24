@@ -1,5 +1,4 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-
 import App from "@/App";
 import DiaryCreatePage from "@/pages/diary/create/DiaryCreatePage";
 import DiaryListPage from "@/pages/diary/list/DiaryListPage";
@@ -50,6 +49,15 @@ export const router = createBrowserRouter([
         element: <JoinPage />,
       },
       {
+        path: PATH.DIARY_LIST,
+        element: <DiaryListPage />,
+      },
+    ],
+  },
+  {
+    element: <App layout="login" />,
+    children: [
+      {
         path: PATH.FIND_ID,
         element: <FindIdPage />,
       },
@@ -60,10 +68,6 @@ export const router = createBrowserRouter([
       {
         path: PATH.RESET_PASSWORD,
         element: <ResetPwPage />,
-      },
-      {
-        path: PATH.DIARY_LIST,
-        element: <DiaryListPage />,
       },
       {
         path: PATH.DIARY_CREATE,
