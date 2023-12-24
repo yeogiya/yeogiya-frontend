@@ -11,13 +11,8 @@ const ImageSection = () => {
   useEffect(() => {
     // TODO getImageAPI
     const getImage = [
-      "https://dummyimage.com/288x288/614ad3/ffffff",
-      "https://dummyimage.com/288x288/fffff/000000",
-      "https://dummyimage.com/288x288/614ad3/ffffff",
-      "https://dummyimage.com/288x288/fffff/000000",
-      "https://dummyimage.com/288x288/614ad3/ffffff",
-      "https://dummyimage.com/288x288/00000/fffff",
-      "https://dummyimage.com/288x288/614ad3/ffffff",
+      "https://dummyimage.com/288x288/614ad3/614ad3",
+      "https://dummyimage.com/288x288/000000/000000",
     ];
     setImages(getImage);
   }, []);
