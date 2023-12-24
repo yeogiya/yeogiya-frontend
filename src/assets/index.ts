@@ -22,10 +22,11 @@ export { default as LeftArrowIcon } from "@/assets/images/LeftArrowIcon";
 export { default as PlaceSearchIcon } from "@/assets/images/PlaceSearchIcon";
 // result
 export { default as ArrowLeftIcon } from "@/assets/images/ArrowLeftIcon";
+export { default as ShareIcon } from "@/assets/images/ShareIcon";
+export { default as WhiteImage } from "@/assets/images/png/white.png";
 // withdrawal
 export { default as CheckImage } from "@/assets/images/png/checkImage.png";
 // imageUrl
 export { default as MarkIcon } from "@/assets/images/svg/marker.svg";
 export { default as WhitePlusIcon } from "@/assets/images/svg/whitePlusIcon.svg";
 export { default as PlaceImage } from "@/assets/images/png/placeImage.png";
-export { default as WhiteImage } from "@/assets/images/png/white.png";
