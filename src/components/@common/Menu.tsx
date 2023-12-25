@@ -8,6 +8,7 @@ import { useToken } from "@/features/hooks/useToken";
 import { useUserInfo } from "@/features/hooks/queries/useUserInfo";
 import usePageNavigation from "@/features/hooks/usePageNavigation";
 import { useReissueToken } from "@/features/hooks/queries/useReissueToken";
+import { profileIconPath } from "@/assets/index";
 
 const Menu = () => {
   const { accessToken, refreshToken, updateToken, resetToken } = useToken();
@@ -59,7 +60,7 @@ const Menu = () => {
           handleNavMenu(USER_MENU_ITEM(userInfo.body.nickname))
         : handleNavMenu(MENU_ITEM)}
       {accessToken && userInfo && (
-        <img src={userInfo.body.profileImageUrl ?? "/images/profile.svg"} />
+        <img src={userInfo.body.profileImageUrl ?? profileIconPath} />
       )}
     </MenuItem>
   );

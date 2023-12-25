@@ -78,6 +78,11 @@ const StyledCarousel = styled.div`
 
 const ImageWrapper = styled.div`
   display: flex;
+
+  img {
+    width: 18rem;
+    height: 18rem;
+  }
 `;
 
 const ButtonWrapper = styled.div`

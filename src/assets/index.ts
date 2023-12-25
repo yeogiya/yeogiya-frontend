@@ -30,3 +30,4 @@ export { default as CheckImage } from "@/assets/images/png/checkImage.png";
 export { default as MarkIcon } from "@/assets/images/svg/marker.svg";
 export { default as WhitePlusIcon } from "@/assets/images/svg/whitePlusIcon.svg";
 export { default as PlaceImage } from "@/assets/images/png/placeImage.png";
+export const profileIconPath = "/images/profile.svg";
