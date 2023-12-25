@@ -37,3 +37,7 @@ export const postFindPwd = ({ id, email }: Partial<JoinProps>) => {
 export const patchNickname = (nickname: Pick<JoinProps, "nickname">) => {
   return httpClient.patch(URL.CHANGE_NICKNAME, nickname);
 };
+
+export const patchProfile = (profile: string) => {
+  return httpClient.patch(URL.CHANGE_PROFILE, profile);
+};
