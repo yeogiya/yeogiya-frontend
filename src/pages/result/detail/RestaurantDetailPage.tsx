@@ -18,7 +18,7 @@ const RestaurantDetailPage = () => {
     placeName: "PlaceName",
     rating: 0,
     restaurantType: "RestaurantType",
-    DiaryReview: [...DAIRY_REVIEW],
+    DiaryReview: [...DIARY_REVIEW],
   });
   const [activeNav, setActiveNav] = useState<RestaurantDetailNavType>(
     RESTAURANT_DETAIL_NAV.NAVER
