@@ -118,7 +118,7 @@ export const router = createBrowserRouter([
     ],
   },
   {
-    path: PATH.SEARCH_RESULT,
+    path: PATH.SEARCH_RESULT_DETAIL,
     element: <App layout="placeSearch" />,
     errorElement: <ErrorPage />,
     children: [
