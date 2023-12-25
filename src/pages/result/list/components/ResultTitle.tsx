@@ -2,7 +2,11 @@ import HeadingText from "@/components/@common/HeadingText";
 import theme from "@/styles/theme";
 import styled from "@emotion/styled";
 
-const ResultTitle = ({ searchText = "역삼동 김치찌개" }) => {
+interface ResultTitleProps {
+  searchText: string;
+}
+
+const ResultTitle = ({ searchText }: ResultTitleProps) => {
   const nowDate = new Intl.DateTimeFormat("ko-KR", {
     year: "numeric",
     month: "2-digit",
