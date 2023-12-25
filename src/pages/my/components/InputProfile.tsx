@@ -29,7 +29,8 @@ const InputProfile = ({ profileImg, profileImgState, ...props }) => {
           type="file"
           accept="image/*"
           onChange={(e) => {
-            profileImg.onChange(e.target.files[0]);
+            profileImg.onChange(e.target.files.item(0));
+            // profileImg.onChange(e);
             handleProfileImg(e);
           }}
         />

@@ -53,7 +53,7 @@ export const httpClient = {
     const response = await fetch(url, {
       method: "PATCH",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${localStorage.getItem(TOKEN.ACCESS_TOKEN)}`,
       },
       body: JSON.stringify(data),

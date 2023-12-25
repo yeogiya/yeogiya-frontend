@@ -1,4 +1,4 @@
-import { patchNickname } from "@/apis/user";
+import { patchUserInfo } from "@/apis/user";
 import { users } from "@/constants/queryKey";
 import {
   UseMutationOptions,
@@ -8,17 +8,17 @@ import {
 import usePageNavigation from "../usePageNavigation";
 import { PATH } from "@/utils/routes";
 
-export const useChangeNickname = (
+export const useChangeUserInfo = (
   options?: UseMutationOptions<unknown, unknown, unknown>
 ) => {
   const queryClient = useQueryClient();
   const { navigate } = usePageNavigation();
 
   return useMutation({
-    mutationKey: users.infoNickname,
-    mutationFn: patchNickname,
+    mutationKey: users.info,
+    mutationFn: patchUserInfo,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: users.infoNickname });
+      queryClient.invalidateQueries({ queryKey: users.info });
       navigate(PATH.HOME);
     },
     ...options,

@@ -13,14 +13,13 @@ import InputNickname from "@/components/InputNickname";
 import InputEmail from "@/components/InputEmail";
 import InputId from "@/components/InputId";
 import { Form } from "react-router-dom";
-import { useChangeNickname } from "@/features/hooks/queries/useChangeNickname";
-import { useChangeProfileImg } from "@/features/hooks/queries/useChangeProfileImg";
+import { useChangeUserInfo } from "@/features/hooks/queries/useChangeUserInfo";
 
 export interface MyPageProps {
   nickname: string;
   id: string;
   email: string;
-  profileImg: string;
+  profileImg: File;
 }
 
 const MyPage = () => {
@@ -46,19 +45,16 @@ const MyPage = () => {
     profileImgState,
   } = useMyForm(control);
 
-  const nicknameMutation = useChangeNickname();
-  const profileMutation = useChangeProfileImg();
+  const userInfoMutation = useChangeUserInfo();
 
-  const onSubmit: SubmitHandler<MyPageProps> = ({
-    nickname,
-    profileImg,
-  }: MyPageProps) => {
-    nicknameMutation.mutate({
+  const onSubmit = ({ nickname, profileImg }) => {
+    console.log(profileImg, ">>>");
+
+    const data = userInfoMutation.mutate({
       nickname,
+      profileImg: profileImg,
     });
-
-    console.log(profileImg, ">>>>>>>>>>>");
-    profileMutation.mutate({ profileImgUrl: profileImg });
+    console.log(data, "data");
   };
 
   useEffect(() => {

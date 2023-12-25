@@ -1,6 +1,5 @@
 export const users = {
-  infoNickname: ["users", "nickname"],
-  infoProfile: ["users", "profile"],
+  info: ["users"],
   checkEmail: (email: string) => ["email", email],
 };
 

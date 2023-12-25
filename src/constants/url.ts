@@ -23,12 +23,6 @@ const URLS = {
   // Auth
   DIARY_LIST: `${import.meta.env.VITE_AUTH_URL_KEY}/diaries`, // 일기 목록
   USER_INFO: `${import.meta.env.VITE_AUTH_URL_KEY}${CATEGORY.MEMBERS}`, // 회원정보
-  CHANGE_NICKNAME: `${import.meta.env.VITE_AUTH_URL_KEY}${
-    CATEGORY.MEMBERS
-  }/change-nickname`, // 닉네임 변경
-  CHANGE_PROFILE: `${import.meta.env.VITE_AUTH_URL_KEY}${
-    CATEGORY.MEMBERS
-  }/change-profile-img`, // 프로필 이미지 변경
 };
 
 export const URL = {
