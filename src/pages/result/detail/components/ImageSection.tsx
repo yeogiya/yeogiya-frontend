@@ -1,24 +1,16 @@
 import { useEffect, useState } from "react";
 
 import Carousel from "./Carousel";
-import Image from "@/components/@common/Image";
 import styled from "@emotion/styled";
 import theme from "@/styles/theme";
+import { DAIRY_REVIEW } from "@/constants/diary";
 
 const ImageSection = () => {
   const [images, setImages] = useState<string[]>([]);
 
   useEffect(() => {
     // TODO getImageAPI
-    const getImage = [
-      "https://dummyimage.com/288x288/614ad3/ffffff",
-      "https://dummyimage.com/288x288/fffff/000000",
-      "https://dummyimage.com/288x288/614ad3/ffffff",
-      "https://dummyimage.com/288x288/fffff/000000",
-      "https://dummyimage.com/288x288/614ad3/ffffff",
-      "https://dummyimage.com/288x288/00000/fffff",
-      "https://dummyimage.com/288x288/614ad3/ffffff",
-    ];
+    const getImage = [...DAIRY_REVIEW[0].images];
     setImages(getImage);
   }, []);
 

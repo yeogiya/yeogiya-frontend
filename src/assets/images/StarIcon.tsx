@@ -1,8 +1,8 @@
 import { SVGProps } from "@/types/assets";
 
 interface StarIconProps extends SVGProps {
-  onClick: () => void;
-  className: string;
+  onClick?: () => void;
+  className?: string;
 }
 
 const StarIcon = ({ css, onClick, className }: StarIconProps) => {
