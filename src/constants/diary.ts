@@ -1,4 +1,4 @@
-export const DAIRY_REVIEW = [
+export const DIARY_REVIEW = [
   {
     profileUrl: null,
     nickname: "ABCDEF",

@@ -2,7 +2,7 @@ import HeadingText from "@/components/@common/HeadingText";
 import Layout from "@/components/@common/Layout";
 import styled from "@emotion/styled";
 import DiaryReview from "./DiaryReview";
-import { DAIRY_REVIEW } from "@/constants/diary";
+import { DIARY_REVIEW } from "@/constants/diary";
 
 interface ResultDetailReviewProps {
   review?: object[];

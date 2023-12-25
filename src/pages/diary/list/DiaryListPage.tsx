@@ -1,5 +1,4 @@
 import "react-calendar/dist/Calendar.css";
-
 import { CheckIcon, PlusIcon, WhitePlusIcon } from "@/assets";
 import {
   DiaryLayout,
@@ -7,49 +6,48 @@ import {
   IconLayout,
   TodayIconLayout,
 } from "@/styles/DiaryListPage.styles";
-import { Link, useNavigate } from "react-router-dom";
-import { getDiaryList } from "@/apis/diary";
-
+import { useNavigate } from "react-router-dom";
 import Calendar from "react-calendar";
 import { PATH } from "@/utils/routes";
 import dayjs from "dayjs";
 import { useState } from "react";
+import { useDiaryList } from "@/features/hooks/queries/useDiaryList";
+import { useToken } from "@/features/hooks/useToken";
 
-interface DairyListProps {
-  date: Date;
+export interface DiaryListProps {
+  body: {
+    totalCnt: number;
+    diaries: DiaryItemProps[];
+  };
+  status: string;
+}
+
+export interface DiaryItemProps {
+  date: string;
+  diaryId: number;
+  diaryImage: string;
+  memberId: number;
+  openYn: string;
+  placeName: string;
+  star: number;
 }
 
 const DiaryListPage = () => {
   const navigate = useNavigate();
+  const { accessToken } = useToken();
   const [date, setDate] = useState(new Date());
-  const res = getDiaryList(date.getFullYear(), date.getMonth() + 1);
 
-  const dayData = [
-    {
-      date: "2023-11-26",
-      url: "https://source.unsplash.com/random/10×10/?tree",
-    },
-    {
-      date: "2023-11-30",
-    },
-    {
-      date: "2023-12-07",
-    },
-    {
-      date: "2023-12-18",
-      url: "https://source.unsplash.com/random/100×100/?snow",
-    },
-    {
-      date: "2023-12-19",
-      url: "https://source.unsplash.com/random/100×100/?sky",
-    },
-    {
-      date: "2024-01-01",
-    },
-  ];
+  const { data: diaryList } =
+    accessToken && useDiaryList(date.getFullYear(), date.getMonth() + 1);
 
-  const handleClickTodayBtn = () => {
-    navigate(PATH.DIARY_MAP);
+  const handleClickTodayBtn = (date: string) => {
+    if (!accessToken) {
+      navigate(PATH.LOGIN);
+      return;
+    } else {
+      navigate(`${PATH.DIARY_MAP}/${date}`);
+      return;
+    }
   };
 
   return (
@@ -66,18 +64,20 @@ const DiaryListPage = () => {
         minDetail="month"
         maxDetail="month"
         navigationLabel={null}
-        tileContent={({ date }: DairyListProps) => {
+        onClickDay={(value) => {
+          const clickedDate = dayjs(value).format("YYYY-MM-DD");
+          handleClickTodayBtn(clickedDate);
+        }}
+        tileContent={({ date }) => {
           const dateStr = dayjs(date).format("YYYY-MM-DD");
           const today = dayjs(new Date()).format("YYYY-MM-DD") === dateStr;
-          const dayDataItem = dayData.find((day) => day.date === dateStr);
+          const dayDataItem = diaryList?.body?.diaries.find(
+            (day: DiaryItemProps) => day.date === dateStr
+          );
           return (
-            <DiaryLayout
-              key={dateStr}
-              svg={WhitePlusIcon}
-              onClick={handleClickTodayBtn}
-            >
-              {dayDataItem && dayDataItem.url ? (
-                <img src={dayDataItem.url} alt="diary image" />
+            <DiaryLayout key={dateStr} svg={WhitePlusIcon}>
+              {dayDataItem && dayDataItem.diaryImage ? (
+                <img src={dayDataItem.diaryImage} alt="diary image" />
               ) : dayDataItem ? (
                 <IconLayout>
                   <CheckIcon />
