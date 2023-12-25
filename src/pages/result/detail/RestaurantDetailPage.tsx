@@ -8,7 +8,7 @@ import ResultDetailNav from "./components/ResultDetailNav";
 import { RESTAURANT_DETAIL_NAV } from "@/constants/menus";
 import ResultDetailContent from "./components/ResultDetailContent";
 import DiaryReview from "./components/ResultDetailReview";
-import { DAIRY_REVIEW } from "@/constants/diary";
+import { DIARY_REVIEW } from "@/constants/diary";
 
 export type RestaurantDetailNavType =
   (typeof RESTAURANT_DETAIL_NAV)[keyof typeof RESTAURANT_DETAIL_NAV];

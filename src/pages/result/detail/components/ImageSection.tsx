@@ -3,14 +3,14 @@ import { useEffect, useState } from "react";
 import Carousel from "./Carousel";
 import styled from "@emotion/styled";
 import theme from "@/styles/theme";
-import { DAIRY_REVIEW } from "@/constants/diary";
+import { DIARY_REVIEW } from "@/constants/diary";
 
 const ImageSection = () => {
   const [images, setImages] = useState<string[]>([]);
 
   useEffect(() => {
     // TODO getImageAPI
-    const getImage = [...DAIRY_REVIEW[0].images];
+    const getImage = [...DIARY_REVIEW[0].images];
     setImages(getImage);
   }, []);
 
