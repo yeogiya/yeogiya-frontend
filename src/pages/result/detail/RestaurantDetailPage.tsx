@@ -7,6 +7,8 @@ import { useState } from "react";
 import ResultDetailNav from "./components/ResultDetailNav";
 import { RESTAURANT_DETAIL_NAV } from "@/constants/menus";
 import ResultDetailContent from "./components/ResultDetailContent";
+import DiaryReview from "./components/ResultDetailReview";
+import { DAIRY_REVIEW } from "@/constants/diary";
 
 export type RestaurantDetailNavType =
   (typeof RESTAURANT_DETAIL_NAV)[keyof typeof RESTAURANT_DETAIL_NAV];
@@ -16,6 +18,7 @@ const RestaurantDetailPage = () => {
     placeName: "PlaceName",
     rating: 0,
     restaurantType: "RestaurantType",
+    DiaryReview: [...DAIRY_REVIEW],
   });
   const [activeNav, setActiveNav] = useState<RestaurantDetailNavType>(
     RESTAURANT_DETAIL_NAV.NAVER
@@ -23,10 +26,12 @@ const RestaurantDetailPage = () => {
 
   const handleActiveNav = (nav: RestaurantDetailNavType) => {
     setActiveNav(nav);
+
+    // TODO activeNav에 따라 api
   };
 
   return (
-    <Layout maxWidth="100%" paddingTop="0">
+    <Layout paddingTop="0">
       <ImageSection />
       <Layout maxWidth="60rem" paddingTop="3.5rem">
         <RestaurantTitle
@@ -40,6 +45,7 @@ const RestaurantDetailPage = () => {
           activeNavHandler={handleActiveNav}
         />
         <ResultDetailContent />
+        <DiaryReview review={data.DiaryReview} />
       </Layout>
     </Layout>
   );

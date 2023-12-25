@@ -21,6 +21,8 @@ const ResultDetailContent = ({
   parking = "주차, 발렛",
   menu = ["돼지 김치찌개", "참치 김치찌개"],
 }: ResultDetailContentProps) => {
+  const handleMapButton = () => {};
+
   return (
     <Container>
       <PlaceInfo>
@@ -57,7 +59,9 @@ const ResultDetailContent = ({
       </PlaceInfo>
       <MapWrapper>
         <Map width="26.125rem" height="27rem" />
-        <MapButton>길 찾기</MapButton>
+        <MapButton type="button" onClick={handleMapButton}>
+          길 찾기
+        </MapButton>
       </MapWrapper>
     </Container>
   );
@@ -129,6 +133,7 @@ const MapButton = styled.button`
   color: ${theme.color.white};
   font-size: 0.875rem;
   font-weight: 500;
+  cursor: pointer;
 `;
 
 export default ResultDetailContent;
