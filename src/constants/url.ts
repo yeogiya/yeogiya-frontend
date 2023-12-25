@@ -26,6 +26,9 @@ const URLS = {
   CHANGE_NICKNAME: `${import.meta.env.VITE_AUTH_URL_KEY}${
     CATEGORY.MEMBERS
   }/change-nickname`, // 닉네임 변경
+  CHANGE_PROFILE: `${import.meta.env.VITE_AUTH_URL_KEY}${
+    CATEGORY.MEMBERS
+  }/change-profile-img`, // 프로필 이미지 변경
 };
 
 export const URL = {
