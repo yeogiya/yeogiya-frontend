@@ -11,14 +11,16 @@ import dayjs from "dayjs";
 import styled from "@emotion/styled";
 import theme from "@/styles/theme";
 import { useState } from "react";
+import { Form, useLocation } from "react-router-dom";
 
 const DiaryCreatePage = () => {
+  const { pathname } = useLocation();
   const [textCount, setTextCount] = useState<number>();
   const [isValid, setIsValid] = useState<boolean>(false);
   const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
-  const [selectedDate, setSelectedDate] = useState<string>(
-    dayjs(new Date()).format("YYYY-MM-DD")
-  );
+
+  const createDate = pathname.split("/").at(-1);
+  const [selectedDate, setSelectedDate] = useState<string>(createDate);
 
   const onTextCount = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const count = e.target.value?.length;
@@ -29,7 +31,7 @@ const DiaryCreatePage = () => {
   const handleSubmit = () => {};
 
   return (
-    <form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit}>
       <Layout maxWidth="800px" paddingTop="30px" paddingBottom="30px">
         <TextGuide>
           <Location>{"마일드스톤커피"}</Location>에 대한 솔직한 일기 혹은 리뷰를
@@ -64,10 +66,10 @@ const DiaryCreatePage = () => {
         </ShareStyle>
         <ButtonLayout>
           <CancelButton text="취소" />
-          <SuccessButton isValid={isValid} text="완료" />
+          <SuccessButton type="submit" isValid={isValid} text="완료" />
         </ButtonLayout>
       </Layout>
-    </form>
+    </Form>
   );
 };
 
