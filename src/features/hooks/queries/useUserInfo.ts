@@ -17,7 +17,7 @@ export const useUserInfo = (
   options?: UseQueryOptions<userInfoProps, AxiosError>
 ) => {
   const { data } = useQuery({
-    queryKey: users.info,
+    queryKey: users.infoNickname,
     queryFn: getUserInfo,
     ...options,
   });

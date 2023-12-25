@@ -15,10 +15,10 @@ export const useChangeNickname = (
   const { navigate } = usePageNavigation();
 
   return useMutation({
-    mutationKey: users.info,
+    mutationKey: users.infoNickname,
     mutationFn: patchNickname,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: users.info });
+      queryClient.invalidateQueries({ queryKey: users.infoNickname });
       navigate(PATH.HOME);
     },
     ...options,
