@@ -70,7 +70,7 @@ export const router = createBrowserRouter([
         element: <ResetPwPage />,
       },
       {
-        path: PATH.DIARY_CREATE,
+        path: PATH.DIARY_CREATE_DATE,
         element: <DiaryCreatePage />,
       },
       {
@@ -96,7 +96,7 @@ export const router = createBrowserRouter([
     ],
   },
   {
-    path: PATH.DIARY_MAP,
+    path: PATH.DIARY_CREATE_MAP,
     element: <App layout="diaryMap" />,
     errorElement: <ErrorPage />,
     children: [

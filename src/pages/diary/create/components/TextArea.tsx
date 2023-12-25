@@ -35,7 +35,7 @@ const TextAreaStyle = styled.textarea`
   max-width: 800px;
   width: 100%;
   max-height: 300px;
-  height: 100%;
+  height: 100vh;
   border: none;
   outline: none;
 `;
