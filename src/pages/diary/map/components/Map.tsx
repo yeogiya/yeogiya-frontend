@@ -1,15 +1,16 @@
 import { diary } from "@/store/diarySlice";
-import styled from "@emotion/styled";
+import styled, { CSSObject } from "@emotion/styled";
 import { useAppSelector } from "@/features/hooks/useAppDispatch";
 import { useEffect } from "react";
 import { useMap } from "@/features/hooks/useMap";
 
 interface MapProps {
-  width: string;
-  height: string;
+  width?: string;
+  height?: string;
+  css?: CSSObject;
 }
 
-const Map = ({ width = "960px", height = "830px" }: MapProps) => {
+const Map = ({ width = "960px", height = "830px", css }: MapProps) => {
   const diaryState = useAppSelector(diary);
   const { map, setMap, mapRef, displayMarker, getCurrentLocation } = useMap();
 
@@ -49,7 +50,7 @@ const Map = ({ width = "960px", height = "830px" }: MapProps) => {
   }, [diaryState.isClickPos]);
 
   return (
-    <StyledMap>
+    <StyledMap css={css}>
       <section
         ref={mapRef}
         id="map"

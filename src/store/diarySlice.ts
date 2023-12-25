@@ -18,8 +18,8 @@ export const initialState = {
   address: "",
 } as DiaryState;
 
-export const dairySlice = createSlice({
-  name: "dairy",
+export const diarySlice = createSlice({
+  name: "diary",
   initialState,
   reducers: {
     createDiary: (state, action: PayloadAction<DiaryState>) => {
@@ -32,8 +32,8 @@ export const dairySlice = createSlice({
   },
 });
 
-export const { createDiary } = dairySlice.actions;
+export const { createDiary } = diarySlice.actions;
 
 export const diary = (state: RootState) => state.diary;
 
-export default dairySlice.reducer;
+export default diarySlice.reducer;

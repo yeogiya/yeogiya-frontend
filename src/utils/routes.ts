@@ -20,6 +20,8 @@ const STATIC = {
 };
 
 const DYNAMIC = {
+  DIARY_CREATE_MAP: `${STATIC.DIARY_MAP}/:date`,
+  DIARY_CREATE_DATE: `${STATIC.DIARY_CREATE}/:date`,
   RESULT_LIST: `${STATIC.SEARCH_RESULT}/list/:searchID`,
   RESULT_DETAIL: `${STATIC.SEARCH_RESULT}/:restDetail`,
 };

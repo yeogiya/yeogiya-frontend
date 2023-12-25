@@ -3,7 +3,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from "@/features/hooks/useAppDispatch";
-import { useNavigate, useNavigation } from "react-router-dom";
+import { useLocation, useNavigate, useNavigation } from "react-router-dom";
 
 import DefaultButton from "@/components/@common/DefaultButton";
 import Layout from "@/components/@common/Layout";
@@ -17,7 +17,7 @@ import usePageNavigation from "@/features/hooks/usePageNavigation";
 const MapPage = () => {
   const dispatch = useAppDispatch();
   const diaryState = useAppSelector(diary);
-
+  const { pathname } = useLocation();
   const { searchDetailAddFromCoords } = useMap();
   const { navigate } = usePageNavigation();
 
@@ -34,7 +34,8 @@ const MapPage = () => {
       diaryState.longitude
     );
 
-    navigate(PATH.DIARY_CREATE);
+    const date = pathname.split("/").at(-1);
+    navigate(`${PATH.DIARY_CREATE}/${date}`);
   };
 
   return (

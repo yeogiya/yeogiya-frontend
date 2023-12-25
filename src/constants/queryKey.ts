@@ -3,3 +3,7 @@ export const users = {
   infoProfile: ["users", "profile"],
   checkEmail: (email: string) => ["email", email],
 };
+
+export const diary = {
+  list: ["diary", "list"],
+};

@@ -1,7 +1,6 @@
 import { MENU_ITEM, MenuItemProps, USER_MENU_ITEM } from "@/constants/menus";
 import LinkText from "./LinkText";
 import { PATH } from "@/utils/routes";
-import { profileIconPath } from "@/assets/index";
 import styled from "@emotion/styled";
 import theme from "@/styles/theme";
 import { useEffect } from "react";
@@ -9,6 +8,7 @@ import { useToken } from "@/features/hooks/useToken";
 import { useUserInfo } from "@/features/hooks/queries/useUserInfo";
 import usePageNavigation from "@/features/hooks/usePageNavigation";
 import { useReissueToken } from "@/features/hooks/queries/useReissueToken";
+import { profileIconPath } from "@/assets/index";
 
 const Menu = () => {
   const { accessToken, refreshToken, updateToken, resetToken } = useToken();
