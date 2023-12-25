@@ -2,7 +2,7 @@ import ProfileIcon from "@/assets/images/ProfileIcon";
 import styled from "@emotion/styled";
 import React, { useRef, useState } from "react";
 
-const InputProfile = ({ ...props }) => {
+const InputProfile = ({ profileImg, profileImgState, ...props }) => {
   const profileInput = useRef(null);
   const [showProfileImg, setShowProfileImg] = useState<string>("");
 
@@ -10,9 +10,8 @@ const InputProfile = ({ ...props }) => {
     profileInput.current.click();
   };
 
-  const saveProfileImg = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleProfileImg = (e: React.ChangeEvent<HTMLInputElement>) => {
     const profileImg = e.target.files[0];
-
     const currentProfileImg = URL.createObjectURL(profileImg);
     setShowProfileImg(currentProfileImg);
   };
@@ -29,7 +28,10 @@ const InputProfile = ({ ...props }) => {
           ref={profileInput}
           type="file"
           accept="image/*"
-          onChange={saveProfileImg}
+          onChange={(e) => {
+            profileImg.onChange(e.target.files[0]);
+            handleProfileImg(e);
+          }}
         />
       </ImgStyle>
       <label onClick={handleButtonClick}>사진 변경</label>

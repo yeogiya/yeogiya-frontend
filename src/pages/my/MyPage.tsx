@@ -14,6 +14,14 @@ import InputEmail from "@/components/InputEmail";
 import InputId from "@/components/InputId";
 import { Form } from "react-router-dom";
 import { useChangeNickname } from "@/features/hooks/queries/useChangeNickname";
+import { useChangeProfileImg } from "@/features/hooks/queries/useChangeProfileImg";
+
+export interface MyPageProps {
+  nickname: string;
+  id: string;
+  email: string;
+  profileImg: string;
+}
 
 const MyPage = () => {
   const { data: userInfo } = useUserInfo();
@@ -23,21 +31,34 @@ const MyPage = () => {
     control,
     setValue,
     handleSubmit,
-  } = useForm<Pick<JoinProps, "nickname" | "email" | "id">>({
+  } = useForm<MyPageProps>({
     mode: "onBlur",
   });
 
-  const { nickname, nicknameState, id, idState, email, emailState } =
-    useMyForm(control);
+  const {
+    nickname,
+    nicknameState,
+    id,
+    idState,
+    email,
+    emailState,
+    profileImg,
+    profileImgState,
+  } = useMyForm(control);
 
   const nicknameMutation = useChangeNickname();
+  const profileMutation = useChangeProfileImg();
 
-  const onSubmit: SubmitHandler<
-    Pick<JoinProps, "nickname" | "email" | "id">
-  > = ({ nickname }) => {
+  const onSubmit: SubmitHandler<MyPageProps> = ({
+    nickname,
+    profileImg,
+  }: MyPageProps) => {
     nicknameMutation.mutate({
       nickname,
     });
+
+    console.log(profileImg, ">>>>>>>>>>>");
+    profileMutation.mutate({ profileImgUrl: profileImg });
   };
 
   useEffect(() => {
@@ -45,6 +66,8 @@ const MyPage = () => {
       setValue("nickname", userInfo.body.nickname);
       setValue("id", userInfo.body.id);
       setValue("email", userInfo.body.email);
+      // userInfo.body.profileImageUrl &&
+      //   setValue("profileImg", userInfo.body.profileImageUrl);
     }
   }, [userInfo?.body]);
 
@@ -56,7 +79,11 @@ const MyPage = () => {
         paddingTop="80px"
         backgroundColor={`${theme.color.white15}`}
       >
-        <InputProfile css={{ marginBottom: "8px" }} />
+        <InputProfile
+          profileImg={profileImg}
+          profileImgState={profileImgState}
+          css={{ marginBottom: "8px" }}
+        />
         <InputNickname nickname={nickname} nicknameState={nicknameState} />
         <InputEmail email={email} emailState={emailState} disabled />
         <InputId
