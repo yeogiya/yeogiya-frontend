@@ -1,44 +1,50 @@
 import ProfileIcon from "@/assets/images/ProfileIcon";
 import styled from "@emotion/styled";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
-const InputProfile = ({ profileImg, profileImgState, ...props }) => {
-  const profileInput = useRef(null);
-  const [showProfileImg, setShowProfileImg] = useState<string>("");
+const InputProfile = ({ updateImage, profile }) =>
+  // { profileImg, profileImgState, ...props }
+  {
+    const profileInput = useRef(null);
 
-  const handleButtonClick = () => {
-    profileInput.current.click();
-  };
+    const handleButtonClick = () => {
+      profileInput.current.click();
+    };
 
-  const handleProfileImg = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const profileImg = e.target.files[0];
-    const currentProfileImg = URL.createObjectURL(profileImg);
-    setShowProfileImg(currentProfileImg);
-  };
+    // const handleProfileImg = (e: React.ChangeEvent<HTMLInputElement>) => {
+    //   const profileImg = e.target.files[0];
+    //   const currentProfileImg = URL.createObjectURL(profileImg);
+    //   setShowProfileImg(currentProfileImg);
+    // };
 
-  return (
-    <ProfileWrapper {...props}>
-      <ImgStyle>
-        {showProfileImg ? (
-          <img src={showProfileImg} alt={showProfileImg} />
-        ) : (
-          <ProfileIcon />
-        )}
-        <Profile
-          ref={profileInput}
-          type="file"
-          accept="image/*"
-          onChange={(e) => {
+    return (
+      <ProfileWrapper
+      // {...props}
+      >
+        <ImgStyle>
+          {/* {showProfileImg ? (
+            <img src={showProfileImg} alt={showProfileImg} />
+          ) : (
+            <ProfileIcon />
+          )} */}
+
+          {profile ? <img src={profile} alt={profile} /> : <ProfileIcon />}
+          <Profile
+            ref={profileInput}
+            type="file"
+            accept="image/*"
+            onChange={updateImage}
+            // onChange={
             // profileImg.onChange(e.target.files.item(0));
             // profileImg.onChange(e);
-            handleProfileImg(e);
-          }}
-        />
-      </ImgStyle>
-      <label onClick={handleButtonClick}>사진 변경</label>
-    </ProfileWrapper>
-  );
-};
+            // handleProfileImg
+            // }
+          />
+        </ImgStyle>
+        <label onClick={handleButtonClick}>사진 변경</label>
+      </ProfileWrapper>
+    );
+  };
 
 export default InputProfile;
 

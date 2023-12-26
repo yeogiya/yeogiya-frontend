@@ -1,12 +1,13 @@
 import { TOKEN } from "@/constants/token";
 
-const postHeaders = (data: unknown) => {
-  if (data instanceof FormData)
+const postHeaders = (body: unknown) => {
+  if (body instanceof FormData)
     return {
       headers: {
+        "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${localStorage.getItem(TOKEN.ACCESS_TOKEN)}`,
       },
-      body: data,
+      body: body,
       withCredentials: true,
     };
 
@@ -15,7 +16,7 @@ const postHeaders = (data: unknown) => {
       "Content-Type": "application/json",
       Authorization: `Bearer ${localStorage.getItem(TOKEN.ACCESS_TOKEN)}`,
     },
-    body: JSON.stringify(data),
+    body: JSON.stringify(body),
   };
 };
 
@@ -52,13 +53,8 @@ export const httpClient = {
   patch: async (url: RequestInfo | URL, data: unknown) => {
     const response = await fetch(url, {
       method: "PATCH",
-      headers: {
-        "Content-Type": "multipart/form-data",
-        Authorization: `Bearer ${localStorage.getItem(TOKEN.ACCESS_TOKEN)}`,
-      },
-      body: JSON.stringify(data),
-    });
-
+      ...postHeaders(data),
+    } as unknown as RequestInit);
     if (!response.ok) {
       throw response;
     }

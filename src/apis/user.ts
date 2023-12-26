@@ -1,6 +1,8 @@
 import { URL } from "@/constants/url";
 import { JoinProps } from "@/pages/join/JoinPage";
 import { httpClient } from "./httpClient";
+import axios from "axios";
+import { TOKEN } from "@/constants/token";
 
 export const postJoin = (data: Partial<JoinProps> & { loginType: string }) => {
   return httpClient.post(URL.SIGN_UP, data);
@@ -35,5 +37,14 @@ export const postFindPwd = ({ id, email }: Partial<JoinProps>) => {
 };
 
 export const patchUserInfo = (data) => {
-  return httpClient.patch(URL.USER_INFO, data);
+  return axios({
+    url: URL.USER_INFO,
+    data,
+    method: "PATCH",
+    headers: {
+      "Content-Type": "multipart/form-data",
+      Authorization: `Bearer ${localStorage.getItem(TOKEN.ACCESS_TOKEN)}`,
+    },
+  });
+  // return httpClient.patch(URL.USER_INFO, data);
 };

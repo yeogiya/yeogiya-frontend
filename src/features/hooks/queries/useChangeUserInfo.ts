@@ -5,22 +5,42 @@ import {
   useMutation,
   useQueryClient,
 } from "@tanstack/react-query";
-import usePageNavigation from "../usePageNavigation";
+import { MyPageProps } from "@/pages/my/MyPage";
 import { PATH } from "@/utils/routes";
+import { useNavigate } from "react-router-dom";
 
-export const useChangeUserInfo = (
-  options?: UseMutationOptions<unknown, unknown, unknown>
-) => {
-  const queryClient = useQueryClient();
-  const { navigate } = usePageNavigation();
+export interface userInfoProps {
+  nickname: string;
+  profileImg: File | string;
+}
 
-  return useMutation({
+export type userInfoDataProps = Pick<MyPageProps, "nickname"> & {
+  profileImg: File;
+};
+
+export const useChangeUserInfo = () => {
+  const { mutate } = useMutation({
     mutationKey: users.info,
-    mutationFn: patchUserInfo,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: users.info });
-      navigate(PATH.HOME);
+    mutationFn: async (userInfo: userInfoProps) => {
+      const { nickname, profileImg } = userInfo;
+
+      // let formData = new FormData();
+      // formData.append("nickname", nickname);
+      // formData.append("profileImgUrl", profileImgUrl);
+
+      await patchUserInfo(userInfo);
     },
-    ...options,
   });
+
+  return { mutate };
+
+  // return useMutation({
+  //   mutationKey: users.info,
+  //   mutationFn: (body) => patchUserInfo(body),
+  //   onSuccess: () => {
+  //     queryClient.invalidateQueries({ queryKey: users.info });
+  //     navigate(PATH.HOME);
+  //   },
+  //   ...options,
+  // });
 };

@@ -8,22 +8,33 @@ import InputProfile from "./components/InputProfile";
 import { PATH } from "@/utils/routes";
 import LinkText from "@/components/@common/LinkText";
 import { useUserInfo } from "@/features/hooks/queries/useUserInfo";
-import { useEffect } from "react";
+import { FormEventHandler, useEffect, useState } from "react";
 import InputNickname from "@/components/InputNickname";
 import InputEmail from "@/components/InputEmail";
 import InputId from "@/components/InputId";
 import { Form } from "react-router-dom";
-import { useChangeUserInfo } from "@/features/hooks/queries/useChangeUserInfo";
+import {
+  useChangeUserInfo,
+  userInfoProps,
+} from "@/features/hooks/queries/useChangeUserInfo";
 
 export interface MyPageProps {
-  nickname: string;
   id: string;
   email: string;
-  profileImg: File;
+  nickname: string;
+  profileImg: File | ArrayBuffer | string | null;
 }
 
 const MyPage = () => {
   const { data: userInfo } = useUserInfo();
+  const [showProfileImg, setShowProfileImg] = useState<string>("");
+  const [profile, setProfile] = useState<File | string>(null);
+  const [infoData, setInfoData] = useState<
+    userInfoProps & { profileImg: File | string | null }
+  >({
+    nickname: "",
+    profileImg: null,
+  });
 
   const {
     formState: { isDirty, isValid },
@@ -41,20 +52,39 @@ const MyPage = () => {
     idState,
     email,
     emailState,
-    profileImg,
-    profileImgState,
+    // profileImg,
+    // profileImgState,
   } = useMyForm(control);
 
   const userInfoMutation = useChangeUserInfo();
 
-  const onSubmit = ({ nickname, profileImg }) => {
-    console.log(profileImg, ">>>");
-
-    const data = userInfoMutation.mutate({
-      nickname,
-      profileImg: profileImg,
+  const onSubmit: SubmitHandler<MyPageProps> = () => {
+    setInfoData({
+      nickname: nickname.value,
+      profileImg: profile,
     });
-    console.log(data, "data");
+
+    userInfoMutation.mutate(infoData);
+  };
+
+  const updateImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.item(0);
+    if (!file) return;
+    const currentProfileImg = URL.createObjectURL(file);
+
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      if (reader.result) {
+        setInfoData((prev) => {
+          return { ...prev, profileImg: file };
+        });
+        setProfile(reader.result as string);
+      }
+      setShowProfileImg(currentProfileImg);
+    };
+
+    // setIsValid(true);
   };
 
   useEffect(() => {
@@ -62,13 +92,16 @@ const MyPage = () => {
       setValue("nickname", userInfo.body.nickname);
       setValue("id", userInfo.body.id);
       setValue("email", userInfo.body.email);
-      // userInfo.body.profileImageUrl &&
-      //   setValue("profileImg", userInfo.body.profileImageUrl);
+      userInfo.body.profileImageUrl &&
+        setShowProfileImg(userInfo.body.profileImageUrl);
     }
   }, [userInfo?.body]);
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <Form
+      // onSubmit={onSubmit}
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <Layout
         maxWidth="328px"
         css={{ height: "100%", width: "100%" }}
@@ -76,8 +109,11 @@ const MyPage = () => {
         backgroundColor={`${theme.color.white15}`}
       >
         <InputProfile
-          profileImg={profileImg}
-          profileImgState={profileImgState}
+          updateImage={updateImage}
+          profile={showProfileImg}
+          // setProfile={setProfile}
+          // profileImg={profileImg}
+          // profileImgState={profileImgState}
           css={{ marginBottom: "8px" }}
         />
         <InputNickname nickname={nickname} nicknameState={nicknameState} />
