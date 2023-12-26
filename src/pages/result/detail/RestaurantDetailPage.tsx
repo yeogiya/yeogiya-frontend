@@ -9,6 +9,7 @@ import { RESTAURANT_DETAIL_NAV } from "@/constants/menus";
 import ResultDetailContent from "./components/ResultDetailContent";
 import DiaryReview from "./components/ResultDetailReview";
 import { DIARY_REVIEW } from "@/constants/diary";
+import { useParams } from "react-router-dom";
 
 export type RestaurantDetailNavType =
   (typeof RESTAURANT_DETAIL_NAV)[keyof typeof RESTAURANT_DETAIL_NAV];
@@ -23,6 +24,10 @@ const RestaurantDetailPage = () => {
   const [activeNav, setActiveNav] = useState<RestaurantDetailNavType>(
     RESTAURANT_DETAIL_NAV.NAVER
   );
+
+  const { searchDetail } = useParams();
+
+  console.log(searchDetail);
 
   const handleActiveNav = (nav: RestaurantDetailNavType) => {
     setActiveNav(nav);

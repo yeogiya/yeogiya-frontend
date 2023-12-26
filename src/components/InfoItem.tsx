@@ -1,12 +1,23 @@
 import theme from "@/styles/theme";
 import { Container, TextLayout, Text } from "./InfoItem.style";
 import { GoogleRatingIcon, RightArrowIcon, StarIcon } from "@/assets";
+import { useNavigate } from "react-router-dom";
+import { MouseEvent } from "react";
+import { PATH } from "@/utils/routes";
 
 const InfoItem = ({ data, diaryRating = 4 }) => {
   const { address, googleRating, placeName } = data;
 
+  const navigate = useNavigate();
+
+  const handleClick = (e: MouseEvent<HTMLElement>) => {
+    if (e.currentTarget.onclick) {
+      navigate(PATH.SEARCH_RESULT_DETAIL + `/${placeName}`);
+    }
+  };
+
   return (
-    <Container>
+    <Container onClick={handleClick}>
       <img
         src="https://dummyimage.com/238x238/000/fff"
         alt="SearchResultImage"

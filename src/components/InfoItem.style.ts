@@ -22,6 +22,7 @@ export const Container = styled.div`
   justify-content: flex-start;
   align-items: center;
   column-gap: 1.25rem;
+  cursor: pointer;
 
   img {
     width: 14.875rem;
