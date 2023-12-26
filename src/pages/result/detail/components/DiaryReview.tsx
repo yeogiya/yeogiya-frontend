@@ -43,9 +43,9 @@ const DiaryReview = ({ review }: DiaryReviewProps) => {
         <StyledText>{content}</StyledText>
         {images.length !== 0 && (
           <StyledLayout columnGap="0.5rem">
-            {images.map((img, _) => {
-              return <StyledReviewImg key={_} src={img} />;
-            })}
+            {images.map((img, _) => (
+              <StyledReviewImg key={_} src={img} />
+            ))}
           </StyledLayout>
         )}
         <StyledText color={theme.color.black50}>{date}</StyledText>

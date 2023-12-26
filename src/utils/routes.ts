@@ -1,7 +1,8 @@
 const STATIC = {
   HOME: "/",
   SEARCH: "/search",
-  SEARCH_RESULT: "/result",
+  SEARCH_RESULT_LIST: "/location/list",
+  SEARCH_RESULT_DETAIL: "/location",
   LOGIN: "/login",
   KAKAO_LOGIN: "/login/kakao",
   JOIN: "/join",
@@ -22,8 +23,8 @@ const STATIC = {
 const DYNAMIC = {
   DIARY_CREATE_MAP: `${STATIC.DIARY_MAP}/:date`,
   DIARY_CREATE_DATE: `${STATIC.DIARY_CREATE}/:date`,
-  RESULT_LIST: `${STATIC.SEARCH_RESULT}/list/:searchID`,
-  RESULT_DETAIL: `${STATIC.SEARCH_RESULT}/:restDetail`,
+  RESULT_LIST: `${STATIC.SEARCH_RESULT_LIST}/:searchID`,
+  RESULT_DETAIL: `${STATIC.SEARCH_RESULT_DETAIL}/:searchDetail`,
 };
 
 export const PATH = {

@@ -18,15 +18,13 @@ const Rating = () => {
 
   return (
     <Stars>
-      {STARS.map((star, idx) => {
-        return (
-          <StarIcon
-            key={idx}
-            onClick={() => handleClickStar(star)}
-            className={clicked[star] && "fillStar"}
-          />
-        );
-      })}
+      {STARS.map((star, idx) => (
+        <StarIcon
+          key={idx}
+          onClick={() => handleClickStar(star)}
+          className={clicked[star] && "fillStar"}
+        />
+      ))}
     </Stars>
   );
 };
