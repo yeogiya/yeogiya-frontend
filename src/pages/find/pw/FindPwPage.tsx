@@ -35,9 +35,7 @@ const FindPwPage = () => {
       const res = await postFindPwd({ email, id });
 
       if (res.status === 200) openModal();
-    } catch (e) {
-      console.log(e);
-    }
+    } catch (e) {}
   };
 
   return (
