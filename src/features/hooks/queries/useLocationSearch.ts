@@ -1,6 +1,5 @@
 import { getLocationSearchList } from "@/apis/search";
-import { getUserInfo } from "@/apis/user";
-import { search, users } from "@/constants/queryKey";
+import { search } from "@/constants/queryKey";
 import { UseQueryOptions, useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 
@@ -22,7 +21,7 @@ export const useLocationSearch = (
   options?: UseQueryOptions<useLocationSearchProps, AxiosError>
 ) => {
   const { data } = useQuery({
-    queryKey: (keyword: string) => search.search(keyword),
+    queryKey: search.result(keyword),
     queryFn: () => getLocationSearchList(keyword),
     ...options,
   });
