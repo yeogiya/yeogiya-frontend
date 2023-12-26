@@ -60,16 +60,14 @@ const InputTag = () => {
     <>
       <InputTagLayout>
         <ul>
-          {tagValue.map((tag, idx) => {
-            return (
-              <Tag key={idx}>
-                {tag}
-                <div onClick={() => handleDeleteTag(idx)}>
-                  <DeleteIcon size="12" stroke={`${theme.color.black40}`} />
-                </div>
-              </Tag>
-            );
-          })}
+          {tagValue.map((tag, idx) => (
+            <Tag key={idx}>
+              {tag}
+              <div onClick={() => handleDeleteTag(idx)}>
+                <DeleteIcon size="12" stroke={`${theme.color.black40}`} />
+              </div>
+            </Tag>
+          ))}
         </ul>
         <InputTagStyle
           type="text"
