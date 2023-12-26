@@ -24,6 +24,7 @@ import UpdateMyPwPage from "@/pages/my/password/UpdateMyPwPage";
 import WithdrawalPage from "@/pages/my/withdrawal/WithdrawalPage";
 import theme from "@/styles/theme";
 import ConfirmWithdrawalPage from "@/pages/my/withdrawal/ConfirmWithdrawalPage";
+import ScrollToTop from "@/components/@common/ScrollToTop";
 
 export const router = createBrowserRouter([
   {
@@ -46,7 +47,12 @@ export const router = createBrowserRouter([
       },
       {
         path: PATH.JOIN,
-        element: <JoinPage />,
+        element: (
+          <>
+            <ScrollToTop />
+            <JoinPage />
+          </>
+        ),
       },
       {
         path: PATH.DIARY_LIST,
