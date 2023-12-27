@@ -6,19 +6,28 @@ import Menu from "@/components/@common/Menu";
 import { PATH } from "@/utils/routes";
 import styled from "@emotion/styled";
 import theme from "@/styles/theme";
+import usePlaceSearch from "@/features/hooks/usePlaceSearch";
 
 interface NavbarProps {
   type: "default" | "placeSearch";
 }
 
 const Navbar = ({ type }: NavbarProps) => {
+  const { value, onChange, onSearch } = usePlaceSearch();
+
   const getNavType = (type: string) => {
     switch (type) {
       case "placeSearch":
         return (
           <SearchInputWrapper>
             <PlaceSearchIcon />
-            <StyledSearchInput type="text" placeholder="장소 검색" />
+            <StyledSearchInput
+              type="text"
+              placeholder="장소 검색"
+              value={value}
+              onChange={onChange}
+              onKeyDown={onSearch}
+            />
           </SearchInputWrapper>
         );
       default:
