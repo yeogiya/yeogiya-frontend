@@ -11,3 +11,8 @@ export interface FindIdResProps {
     id: string;
   };
 }
+
+export interface WithdrawalReasonsProps {
+  reason: string;
+  detailedReason?: string;
+}
