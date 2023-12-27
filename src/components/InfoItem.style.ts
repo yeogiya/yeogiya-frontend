@@ -42,6 +42,7 @@ export const TextLayout = styled.div<Partial<StyledProps>>`
   margin-top: ${({ marginTop }) => marginTop && `${marginTop}`};
   justify-content: ${({ justifyContent }) =>
     justifyContent && `${justifyContent}`};
+  width: 100%;
 `;
 
 export const Text = styled.p<Partial<StyledProps>>`
