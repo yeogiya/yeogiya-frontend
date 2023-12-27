@@ -19,6 +19,9 @@ const URLS = {
   FIND_PW: `${import.meta.env.VITE_PUBLIC_URL_KEY}${
     CATEGORY.MEMBERS
   }/send-password-reset-email`, // 비밀번호 재설정 이메일 발송
+  RESET_PW: `${import.meta.env.VITE_PUBLIC_URL_KEY}${
+    CATEGORY.MEMBERS
+  }/reset-password`, // 비밀번호 재설정
 
   // Auth
   DIARY_LIST: `${import.meta.env.VITE_AUTH_URL_KEY}/diaries`, // 일기 목록

@@ -1,6 +1,7 @@
 import { URL } from "@/constants/url";
 import { JoinProps } from "@/pages/join/JoinPage";
 import { httpClient } from "./httpClient";
+import { postRestPw } from "@/pages/my/password/UpdateMyPwPage";
 
 export const postJoin = (data: Partial<JoinProps> & { loginType: string }) => {
   return httpClient.post(URL.SIGN_UP, data);
@@ -36,4 +37,8 @@ export const postFindPwd = ({ id, email }: Partial<JoinProps>) => {
 
 export const patchNickname = (nickname: Pick<JoinProps, "nickname">) => {
   return httpClient.patch(URL.CHANGE_NICKNAME, nickname);
+};
+
+export const postResetPwd = ({ password, token }: postRestPw) => {
+  return httpClient.post(URL.RESET_PW, { password, token });
 };
