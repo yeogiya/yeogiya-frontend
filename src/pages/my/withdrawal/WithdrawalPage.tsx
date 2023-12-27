@@ -1,11 +1,10 @@
 import HeadingText from "@/components/@common/HeadingText";
 import Layout from "@/components/@common/Layout";
 import Title from "@/components/@common/Title";
-import {
-  WITHDRAWAL_FEEDBACKS,
-  WITHDRAWAL_GUIDES,
-} from "@/constants/withdrawal";
+import { WITHDRAWAL_GUIDES, WITHDRAWAL_REASONS } from "@/constants/withdrawal";
+import { useWithdraw } from "@/features/hooks/queries/useWithdraw";
 import usePageNavigation from "@/features/hooks/usePageNavigation";
+import { useToken } from "@/features/hooks/useToken";
 import {
   CancelButton,
   SuccessButton,
@@ -13,7 +12,7 @@ import {
 import theme from "@/styles/theme";
 import { PATH } from "@/utils/routes";
 import styled from "@emotion/styled";
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 
 interface WithdrawalProps {
   privacy: boolean;
@@ -23,16 +22,18 @@ interface WithdrawalProps {
 
 const WithdrawalPage = () => {
   const { navigate } = usePageNavigation();
-  const [feedbacks, setFeedbacks] = useState<WithdrawalProps>({
+  const [reasons, setReasons] = useState<WithdrawalProps>({
     privacy: false,
     inconvenience: false,
     noNeed: false,
   });
-
+  const [detailedReason, setDetailedReason] = useState<string>("");
   const [isValid, setIsValid] = useState<boolean>(false);
+  const withdrawalMutation = useWithdraw();
+  const { resetToken } = useToken();
 
   const onChangeChecked = (key: string, value: boolean) => {
-    setFeedbacks((prev) => ({
+    setReasons((prev) => ({
       ...prev,
       privacy: key === "privacy" ? value : false,
       inconvenience: key === "inconvenience" ? value : false,
@@ -43,12 +44,32 @@ const WithdrawalPage = () => {
   };
 
   useEffect(() => {
-    if (!feedbacks.inconvenience && !feedbacks.noNeed && !feedbacks.privacy)
+    if (!reasons.inconvenience && !reasons.noNeed && !reasons.privacy)
       setIsValid(() => false);
   }, [onChangeChecked]);
 
-  const handleSubmit = () => {
-    navigate(PATH.CONFIRM_MY_WITHDRAWAL);
+  const selectedReason: string[] = Object.keys(reasons).filter(
+    (key) => reasons[key]
+  );
+
+  const reasonText: string = WITHDRAWAL_REASONS.filter((reason) =>
+    selectedReason.includes(reason.id)
+  )
+    .map((reason) => reason.text)
+    .join("");
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    withdrawalMutation.mutate(
+      { reason: reasonText, detailedReason },
+      {
+        onSuccess: () => {
+          resetToken();
+          navigate(PATH.CONFIRM_MY_WITHDRAWAL);
+        },
+      }
+    );
   };
 
   return (
@@ -70,20 +91,23 @@ const WithdrawalPage = () => {
           <ContentsWrapper>
             <Subtitle as="h3">불편했던 점</Subtitle>
             <Contents>
-              {WITHDRAWAL_FEEDBACKS.map((feedback) => (
-                <Checkbox key={feedback.id}>
+              {WITHDRAWAL_REASONS.map((reason) => (
+                <Checkbox key={reason.id}>
                   <input
                     type="checkbox"
-                    id={feedback.id}
+                    id={reason.id}
                     onChange={() => {
-                      onChangeChecked(feedback.id, !feedbacks[feedback.id]);
+                      onChangeChecked(reason.id, !reasons[reason.id]);
                     }}
-                    checked={feedbacks[feedback.id]}
+                    checked={reasons[reason.id]}
                   />
-                  <label htmlFor={feedback.id}>{feedback.text}</label>
+                  <label htmlFor={reason.id}>{reason.text}</label>
                 </Checkbox>
               ))}
-              <TextAreaStyle placeholder="구체적인 문제점을 적어주세요." />
+              <TextAreaStyle
+                placeholder="구체적인 문제점을 적어주세요."
+                onChange={(e) => setDetailedReason(e.target.value)}
+              />
             </Contents>
           </ContentsWrapper>
         </ContentsLayout>

@@ -4,7 +4,7 @@ export const WITHDRAWAL_GUIDES = [
   { id: 2, text: "3. 회원탈퇴 후 3개월 동안 재가입이 불가능합니다." },
 ];
 
-export const WITHDRAWAL_FEEDBACKS = [
+export const WITHDRAWAL_REASONS = [
   { id: "privacy", text: "정보유출에 대한 불안함" },
   { id: "inconvenience", text: "사이트 디자인이 너무 불편함" },
   { id: "noNeed", text: "일기의 필요성을 느끼지 못해서" },
