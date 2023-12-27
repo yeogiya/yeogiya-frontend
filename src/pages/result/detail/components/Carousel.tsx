@@ -22,7 +22,10 @@ const Carousel = ({ images }: CarouselProps) => {
       ];
       return adjustedImages;
     }
-    return carouselImages;
+    return Array.from({ length: 5 }, (_, i) => {
+      const index = (imageIdx + i) % images.length;
+      return images[index] || "";
+    });
   };
 
   const handlePrev = (): void => {
@@ -78,6 +81,9 @@ const StyledCarousel = styled.div`
 
 const ImageWrapper = styled.div`
   display: flex;
+  width: 100%;
+  max-width: 1440px;
+  overflow: hidden;
 
   img {
     width: 18rem;
@@ -93,6 +99,7 @@ const ButtonWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   column-gap: 58.0625rem;
+  z-index: 2;
 
   button {
     height: 3.75rem;
