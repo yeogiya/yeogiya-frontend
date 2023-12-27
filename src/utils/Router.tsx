@@ -55,6 +55,14 @@ export const router = createBrowserRouter([
         ),
       },
       {
+        path: PATH.FIND_ID,
+        element: <FindIdPage />,
+      },
+      {
+        path: PATH.FIND_PW,
+        element: <FindPwPage />,
+      },
+      {
         path: PATH.DIARY_LIST,
         element: <DiaryListPage />,
       },
@@ -63,14 +71,6 @@ export const router = createBrowserRouter([
   {
     element: <App layout="login" />,
     children: [
-      {
-        path: PATH.FIND_ID,
-        element: <FindIdPage />,
-      },
-      {
-        path: PATH.FIND_PW,
-        element: <FindPwPage />,
-      },
       {
         path: PATH.RESET_PASSWORD,
         element: <ResetPwPage />,

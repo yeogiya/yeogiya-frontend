@@ -1,6 +1,7 @@
 import axios from "axios";
 import { getCheckId } from "@/apis/user";
 import { useEffect } from "react";
+import { CheckDuplicationProps } from "@/types/users";
 
 const KakaoLogin = () => {
   const CLIENT_ID = import.meta.env.VITE_KAKAO_CLIENT_ID as string;
@@ -50,9 +51,8 @@ const KakaoLogin = () => {
         .then(async (res) => {
           const { access_token } = res.data;
           const { data } = await getKakaoUserInfo(access_token);
-          const { duplicated } = await getCheckId(data.id).then(
-            ({ data }) => data.body
-          );
+          const response = await getCheckId(data.id);
+          const { body } = response as CheckDuplicationProps;
           /**
            * 회원가입 api 작업중
            */
