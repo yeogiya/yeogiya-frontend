@@ -9,6 +9,7 @@ import { getFindId } from "@/apis/user";
 import styled from "@emotion/styled";
 import theme from "@/styles/theme";
 import { useState } from "react";
+import { FindIdResProps } from "@/types/users";
 
 export interface FindIdProps {
   email: string;
@@ -28,9 +29,11 @@ const FindIdPage = () => {
     },
   });
 
-  const onSubmit: SubmitHandler<FindIdProps> = (data) => {
-    const res = getFindId(data.email);
-    setFindId(res.body.id);
+  const onSubmit: SubmitHandler<FindIdProps> = async (data) => {
+    const response = await getFindId(data.email);
+    const { body } = response as FindIdResProps;
+
+    setFindId(body.id);
 
     if (!findId)
       return setError("email", {
