@@ -2,14 +2,14 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "./store";
 import { createSlice } from "@reduxjs/toolkit";
 
-interface UserState {
+export interface UserState {
   nickname: string;
   id: string;
   email: string;
   profileImg: string;
 }
 
-const initialState = {
+export const initialState = {
   nickname: "",
   id: "",
   email: "",
