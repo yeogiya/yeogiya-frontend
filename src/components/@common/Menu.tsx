@@ -3,31 +3,62 @@ import LinkText from "./LinkText";
 import { PATH } from "@/utils/routes";
 import styled from "@emotion/styled";
 import theme from "@/styles/theme";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useToken } from "@/features/hooks/useToken";
 import { useUserInfo } from "@/features/hooks/queries/useUserInfo";
 import usePageNavigation from "@/features/hooks/usePageNavigation";
 import { useReissueToken } from "@/features/hooks/queries/useReissueToken";
 import { profileIconPath } from "@/assets/index";
+import { fetchGoogleUserInfo } from "@/apis/auth";
+
+interface GoogleUserProps {
+  name: string;
+  picture: string;
+}
 
 const Menu = () => {
   const { accessToken, refreshToken, updateToken, resetToken } = useToken();
   const { data: userInfo } = useUserInfo();
   const { navigate } = usePageNavigation();
   const { mutateSendTokenReissue } = useReissueToken();
+  const googleToken = localStorage.getItem("access_token");
+  const [googleUserInfo, setGoogleUserInfo] = useState<GoogleUserProps>({
+    name: "",
+    picture: "",
+  });
+
+  const getGoogleUserInfo = async (googleToken: string) => {
+    const { name, picture } = (await fetchGoogleUserInfo(
+      googleToken
+    )) as GoogleUserProps;
+
+    setGoogleUserInfo(() => {
+      return {
+        name,
+        picture,
+      };
+    });
+    console.log(name, "res>>>", picture);
+  };
+
+  useEffect(() => {
+    if (!googleToken) return;
+
+    getGoogleUserInfo(googleToken);
+  }, [googleToken]);
 
   useEffect(() => {
     if (!accessToken) {
       resetToken();
       return;
     }
+
     updateToken(accessToken || "", refreshToken || "");
     mutateSendTokenReissue();
   }, [accessToken, refreshToken]);
 
   const handleClickLogout = () => {
     resetToken();
-
     navigate(PATH.HOME);
   };
 
@@ -55,12 +86,20 @@ const Menu = () => {
 
   return (
     <MenuItem>
-      {accessToken
-        ? userInfo?.body?.nickname &&
-          handleNavMenu(USER_MENU_ITEM(userInfo.body.nickname))
+      {accessToken || googleToken
+        ? (userInfo?.body?.nickname &&
+            handleNavMenu(USER_MENU_ITEM(userInfo.body.nickname))) ??
+          (googleUserInfo.name &&
+            handleNavMenu(USER_MENU_ITEM(googleUserInfo.name)))
         : handleNavMenu(MENU_ITEM)}
-      {accessToken && userInfo && (
-        <img src={userInfo.body.profileImageUrl ?? profileIconPath} />
+      {accessToken && userInfo && googleToken && (
+        <img
+          src={
+            userInfo.body.profileImageUrl ??
+            googleUserInfo.picture ??
+            profileIconPath
+          }
+        />
       )}
     </MenuItem>
   );
