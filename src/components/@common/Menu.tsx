@@ -9,7 +9,11 @@ import { useUserInfo } from "@/features/hooks/queries/useUserInfo";
 import usePageNavigation from "@/features/hooks/usePageNavigation";
 import { useReissueToken } from "@/features/hooks/queries/useReissueToken";
 import { profileIconPath } from "@/assets/index";
-import { fetchGoogleUserInfo } from "@/apis/auth";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "@/features/hooks/useAppDispatch";
+import { createUser, initialState, user } from "@/store/userSlice";
 
 interface GoogleUserProps {
   name: string;
@@ -18,34 +22,11 @@ interface GoogleUserProps {
 
 const Menu = () => {
   const { accessToken, refreshToken, updateToken, resetToken } = useToken();
-  const { data: userInfo } = useUserInfo();
   const { navigate } = usePageNavigation();
   const { mutateSendTokenReissue } = useReissueToken();
-  const googleToken = localStorage.getItem("access_token");
-  const [googleUserInfo, setGoogleUserInfo] = useState<GoogleUserProps>({
-    name: "",
-    picture: "",
-  });
+  const dispatch = useAppDispatch();
 
-  const getGoogleUserInfo = async (googleToken: string) => {
-    const { name, picture } = (await fetchGoogleUserInfo(
-      googleToken
-    )) as GoogleUserProps;
-
-    setGoogleUserInfo(() => {
-      return {
-        name,
-        picture,
-      };
-    });
-    console.log(name, "res>>>", picture);
-  };
-
-  useEffect(() => {
-    if (!googleToken) return;
-
-    getGoogleUserInfo(googleToken);
-  }, [googleToken]);
+  const userState = useAppSelector(user);
 
   useEffect(() => {
     if (!accessToken) {
@@ -59,6 +40,7 @@ const Menu = () => {
 
   const handleClickLogout = () => {
     resetToken();
+    dispatch(createUser(initialState));
     navigate(PATH.HOME);
   };
 
@@ -86,21 +68,11 @@ const Menu = () => {
 
   return (
     <MenuItem>
-      {accessToken || googleToken
-        ? (userInfo?.body?.nickname &&
-            handleNavMenu(USER_MENU_ITEM(userInfo.body.nickname))) ??
-          (googleUserInfo.name &&
-            handleNavMenu(USER_MENU_ITEM(googleUserInfo.name)))
+      {userState.id
+        ? handleNavMenu(USER_MENU_ITEM(userState.nickname))
         : handleNavMenu(MENU_ITEM)}
-      {accessToken && userInfo && googleToken && (
-        <img
-          src={
-            userInfo.body.profileImageUrl ??
-            googleUserInfo.picture ??
-            profileIconPath
-          }
-        />
-      )}
+
+      {userState.id && <img src={userState.profileImg || profileIconPath} />}
     </MenuItem>
   );
 };
@@ -132,6 +104,7 @@ const MenuItem = styled.ul`
   img {
     width: 32px;
     height: 32px;
+    border-radius: 50%;
   }
 `;
 
