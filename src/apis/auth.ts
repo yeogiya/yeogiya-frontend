@@ -1,5 +1,7 @@
 import { TOKEN } from "@/constants/token";
 import { URL } from "@/constants/url";
+import { GoogleLoginResProps } from "@/types/users";
+import { httpClient } from "./httpClient";
 
 let reissuePromise: Promise<Response> | null = null;
 
@@ -26,4 +28,10 @@ export const reissueToken = async () => {
   }
 
   return response;
+};
+
+export const fetchGoogleLogin = () => {
+  return httpClient.get<GoogleLoginResProps>(
+    URL.BASE_URL + `/oauth2/authorization/google`
+  );
 };
