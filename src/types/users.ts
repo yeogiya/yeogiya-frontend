@@ -11,7 +11,3 @@ export interface FindIdResProps {
     id: string;
   };
 }
-
-export interface GoogleLoginResProps {
-  googleLoginUrl: string;
-}
