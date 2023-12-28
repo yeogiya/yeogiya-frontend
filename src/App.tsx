@@ -4,7 +4,6 @@ import MapNavbar from "./pages/diary/map/components/MapNavbar";
 import Navbar from "@/components/@common/Navbar";
 import { Outlet } from "react-router-dom";
 import ProtectRoute from "./utils/ProtectRouter";
-import PlaceSearchNavbar from "./pages/search/components/PlaceSearchNavbar";
 
 interface AppProps {
   layout?: "default" | "diaryMap" | "locationSearch" | "placeSearch" | "login";
