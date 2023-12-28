@@ -1,6 +1,7 @@
 import { CATEGORY } from "./category";
 
 const PUBLIC_BASE_URL = `${import.meta.env.VITE_PUBLIC_URL_KEY}`;
+const BASE_URL = `${import.meta.env.VITE_BASE_URL_KEY}`;
 
 const URLS = {
   // Public
@@ -34,7 +35,17 @@ const URLS = {
   LOCATION_SEARCH: `${import.meta.env.VITE_PUBLIC_URL_KEY}/search/places`,
 };
 
+const LOGIN = {
+  GOOGLE_LOGIN: `https://accounts.google.com/o/oauth2/auth?client_id=${
+    import.meta.env.VITE_GOOGLE_CLIENT_ID
+  }&redirect_uri=${
+    import.meta.env.VITE_GOOGLE_REDIRECT_URI
+  }&response_type=code&scope=openid email profile`,
+};
+
 export const URL = {
   PUBLIC_BASE_URL,
+  BASE_URL,
+  ...LOGIN,
   ...URLS,
 } as const;

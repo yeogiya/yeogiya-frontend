@@ -3,31 +3,44 @@ import LinkText from "./LinkText";
 import { PATH } from "@/utils/routes";
 import styled from "@emotion/styled";
 import theme from "@/styles/theme";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useToken } from "@/features/hooks/useToken";
 import { useUserInfo } from "@/features/hooks/queries/useUserInfo";
 import usePageNavigation from "@/features/hooks/usePageNavigation";
 import { useReissueToken } from "@/features/hooks/queries/useReissueToken";
 import { profileIconPath } from "@/assets/index";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "@/features/hooks/useAppDispatch";
+import { createUser, initialState, user } from "@/store/userSlice";
+
+interface GoogleUserProps {
+  name: string;
+  picture: string;
+}
 
 const Menu = () => {
   const { accessToken, refreshToken, updateToken, resetToken } = useToken();
-  const { data: userInfo } = useUserInfo();
   const { navigate } = usePageNavigation();
   const { mutateSendTokenReissue } = useReissueToken();
+  const dispatch = useAppDispatch();
+
+  const userState = useAppSelector(user);
 
   useEffect(() => {
     if (!accessToken) {
       resetToken();
       return;
     }
+
     updateToken(accessToken || "", refreshToken || "");
     mutateSendTokenReissue();
   }, [accessToken, refreshToken]);
 
   const handleClickLogout = () => {
     resetToken();
-
+    dispatch(createUser(initialState));
     navigate(PATH.HOME);
   };
 
@@ -55,13 +68,11 @@ const Menu = () => {
 
   return (
     <MenuItem>
-      {accessToken
-        ? userInfo?.body?.nickname &&
-          handleNavMenu(USER_MENU_ITEM(userInfo.body.nickname))
+      {userState.id
+        ? handleNavMenu(USER_MENU_ITEM(userState.nickname))
         : handleNavMenu(MENU_ITEM)}
-      {accessToken && userInfo && (
-        <img src={userInfo.body.profileImageUrl ?? profileIconPath} />
-      )}
+
+      {userState.id && <img src={userState.profileImg || profileIconPath} />}
     </MenuItem>
   );
 };
@@ -93,6 +104,7 @@ const MenuItem = styled.ul`
   img {
     width: 32px;
     height: 32px;
+    border-radius: 50%;
   }
 `;
 
