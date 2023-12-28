@@ -36,7 +36,7 @@ export const httpClient = {
     return response.json();
   },
 
-  post: async (url: RequestInfo | URL, data: unknown) => {
+  post: async (url: RequestInfo | URL, data?: unknown) => {
     const response = await fetch(url, {
       method: "POST",
       ...postHeaders(data),
