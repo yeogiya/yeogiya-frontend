@@ -1,10 +1,9 @@
 import { useAppDispatch } from "@/features/hooks/useAppDispatch";
 import usePageNavigation from "@/features/hooks/usePageNavigation";
-import { useToken } from "@/features/hooks/useToken";
 import { createUser } from "@/store/userSlice";
+import { PATH } from "@/utils/routes";
 import axios from "axios";
 import { useEffect } from "react";
-import { CheckDuplicationProps } from "@/types/users";
 
 const KakaoLogin = () => {
   const CLIENT_ID = import.meta.env.VITE_KAKAO_CLIENT_ID as string;
@@ -14,8 +13,6 @@ const KakaoLogin = () => {
   const { navigate } = usePageNavigation();
 
   const dispatch = useAppDispatch();
-
-  const { updateToken } = useToken();
 
   const searchParams = () => {
     const params = new URLSearchParams(window.location.search);
@@ -72,12 +69,11 @@ const KakaoLogin = () => {
             createUser({
               email: user.email,
               id: data.id,
-              nickname: user.nickname,
-              profileImg: user.profile_image_url,
+              nickname: user.profile.nickname,
+              profileImg: user.profile.profile_image_url,
             })
           );
-
-          // TODO: token, navigate
+          navigate(PATH.HOME);
         })
         .catch((error) => console.error(error));
     } else {
