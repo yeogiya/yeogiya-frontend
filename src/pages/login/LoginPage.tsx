@@ -44,7 +44,6 @@ const LoginPage = () => {
     const { Kakao } = window;
     Kakao.Auth.authorize({
       redirectUri: `${import.meta.env.VITE_KAKAO_REDIRECT_URI}`,
-      scope: "profile_nickname",
     });
   };
 

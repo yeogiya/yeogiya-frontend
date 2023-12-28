@@ -20,6 +20,7 @@ const ResultDetailNav = ({
     const copyUrl = window.location.origin + location.pathname;
     try {
       await navigator.clipboard.writeText(copyUrl);
+      // ! deploy test
       console.log("URL COPY TEST ::", copyUrl);
     } catch (error) {
       console.error(error);

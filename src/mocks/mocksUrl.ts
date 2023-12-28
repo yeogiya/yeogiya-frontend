@@ -6,6 +6,7 @@ const MOCKS_URL = {
   FIND_ID: `mock/find-id`,
   LOGIN: `mock/members/login`,
   SEARCH: `mock/search`,
+  RESTAURANT: `/mock/restaurant`,
 };
 
 export const MOCK = {
