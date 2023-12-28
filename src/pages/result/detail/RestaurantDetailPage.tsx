@@ -3,24 +3,28 @@ import Layout from "@/components/@common/Layout";
 import RestaurantTitle from "./components/RestaurantTitle";
 import styled from "@emotion/styled";
 import theme from "@/styles/theme";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import ResultDetailNav from "./components/ResultDetailNav";
 import { RESTAURANT_DETAIL_NAV } from "@/constants/menus";
 import ResultDetailContent from "./components/ResultDetailContent";
 import DiaryReview from "./components/ResultDetailReview";
 import { DIARY_REVIEW } from "@/constants/diary";
 import { useParams } from "react-router-dom";
+import { getRestaurant } from "@/apis/search";
+import { useRestaurant } from "@/features/hooks/queries/useRestaurant";
 
 export type RestaurantDetailNavType =
   (typeof RESTAURANT_DETAIL_NAV)[keyof typeof RESTAURANT_DETAIL_NAV];
 
 const RestaurantDetailPage = () => {
-  const [data, setDate] = useState({
-    placeName: "PlaceName",
-    rating: 0,
-    restaurantType: "RestaurantType",
-    DiaryReview: [...DIARY_REVIEW],
-  });
+  const { data: mockData } = useRestaurant();
+
+  const [data, setData] = useState<{
+    placeName?: string;
+    rating?: number;
+    restaurantType?: string;
+    diaryReview?: object[];
+  }>(mockData);
   const [activeNav, setActiveNav] = useState<RestaurantDetailNavType>(
     RESTAURANT_DETAIL_NAV.NAVER
   );
@@ -35,14 +39,18 @@ const RestaurantDetailPage = () => {
     // TODO activeNav에 따라 api
   };
 
+  useEffect(() => {
+    setData(mockData);
+  }, [mockData]);
+
   return (
     <Layout paddingTop="0">
       <ImageSection />
       <Layout maxWidth="60rem" paddingTop="3.5rem">
         <RestaurantTitle
-          placeName={data.placeName}
-          rating={data.rating}
-          restaurantType={data.restaurantType}
+          placeName={searchDetail}
+          rating={data ? data.rating : undefined}
+          restaurantType={data?.restaurantType}
         />
         <StyledBorder />
         <ResultDetailNav
@@ -50,7 +58,7 @@ const RestaurantDetailPage = () => {
           activeNavHandler={handleActiveNav}
         />
         <ResultDetailContent />
-        <DiaryReview review={data.DiaryReview} />
+        <DiaryReview review={data?.diaryReview} />
       </Layout>
     </Layout>
   );

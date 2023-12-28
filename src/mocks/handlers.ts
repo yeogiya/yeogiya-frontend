@@ -2,6 +2,7 @@ import { rest } from "msw";
 import { MOCK } from "./mocksUrl";
 import { SearchBarProps } from "@/components/SearchBar";
 import { JoinProps } from "@/pages/join/JoinPage";
+import { DIARY_REVIEW } from "@/constants/diary";
 
 interface JoinReqBody {
   id: string;
@@ -117,25 +118,36 @@ export const handlers = [
     );
   }),
 
+  rest.post<Partial<JoinProps>>(`${MOCK.LOGIN}`, async (req, res, ctx) => {
+    const { id, password } = await req.json();
+
+    return res(
+      ctx.status(200),
+      ctx.json({
+        loginRequest: {
+          id: id,
+          password: password,
+        },
+        jwt: "example_token",
+      })
+    );
+  }),
+
   rest.get<SearchBarProps>(`${MOCK.SEARCH}`, async (req, res, ctx) => {
     const query = req.url.searchParams.get("query");
 
     const results = { data: [`Result for ${query}`] };
     return res(ctx.status(200), ctx.json(results));
   }),
+
+  rest.get(`${MOCK.RESTAURANT}`, async (req, res, ctx) => {
+    return res(
+      ctx.json({
+        placeName: "mockAPI - PlaceName",
+        rating: 0,
+        restaurantType: "mockAPI - restaurantType",
+        diaryReview: DIARY_REVIEW,
+      })
+    );
+  }),
 ];
-
-rest.post<Partial<JoinProps>>(`${MOCK.LOGIN}`, async (req, res, ctx) => {
-  const { id, password } = await req.json();
-
-  return res(
-    ctx.status(200),
-    ctx.json({
-      loginRequest: {
-        id: id,
-        password: password,
-      },
-      jwt: "example_token",
-    })
-  );
-});
