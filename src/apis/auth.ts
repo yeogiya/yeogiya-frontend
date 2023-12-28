@@ -37,6 +37,16 @@ export const getGoogleToken = async (code: string) => {
       import.meta.env.VITE_GOOGLE_KEY
     }&code=${code}`
   );
+
+  // return await httpClient.post(
+  //   `https://accounts.google.com/o/oauth2/v2/auth?
+  // 	client_id=${import.meta.env.VITE_GOOGLE_CLIENT_ID}
+  // 	&redirect_uri=${import.meta.env.VITE_GOOGLE_REDIRECT_URI}&client_secret=${
+  //     import.meta.env.VITE_GOOGLE_KEY
+  //   }
+  // 	&response_type=code
+  // 	&scope=email profile`
+  // );
 };
 
 export const fetchGoogleUserInfo = async (accessToken: string) => {
