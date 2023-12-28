@@ -1,6 +1,5 @@
 import { TOKEN } from "@/constants/token";
 import { URL } from "@/constants/url";
-import { GoogleLoginResProps } from "@/types/users";
 import { httpClient } from "./httpClient";
 
 let reissuePromise: Promise<Response> | null = null;
@@ -30,8 +29,18 @@ export const reissueToken = async () => {
   return response;
 };
 
-export const fetchGoogleLogin = () => {
-  return httpClient.get<GoogleLoginResProps>(
-    URL.BASE_URL + `/oauth2/authorization/google`
+export const getGoogleToken = async (code: string) => {
+  return await httpClient.post(
+    `https://oauth2.googleapis.com/token?grant_type=authorization_code&client_id=${
+      import.meta.env.VITE_GOOGLE_CLIENT_ID
+    }&redirect_uri=${import.meta.env.VITE_GOOGLE_REDIRECT_URI}&client_secret=${
+      import.meta.env.VITE_GOOGLE_KEY
+    }&code=${code}`
+  );
+};
+
+export const fetchGoogleUserInfo = async (accessToken: string) => {
+  return await httpClient.get(
+    `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${accessToken}`
   );
 };

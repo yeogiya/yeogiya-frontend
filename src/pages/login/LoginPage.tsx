@@ -13,6 +13,9 @@ import styled from "@emotion/styled";
 import theme from "@/styles/theme";
 import useLoginForm from "@/features/hooks/useLoginForm";
 import { useLogin } from "@/features/hooks/queries/useLogin";
+import { URL as URLS } from "@/constants/url";
+import { useEffect, useState } from "react";
+import { getGoogleToken } from "@/apis/auth";
 
 const LoginPage = () => {
   const { handleSubmit, control } = useForm<Partial<JoinProps>>({
@@ -24,6 +27,7 @@ const LoginPage = () => {
   });
 
   const { id, idState, password, passwordState } = useLoginForm(control);
+  const [googleToken, setGoogleToken] = useState("");
 
   const loginMutation = useLogin();
 
@@ -43,6 +47,27 @@ const LoginPage = () => {
       scope: "profile_nickname",
     });
   };
+
+  const handleGoogleLogin = () => {
+    window.location.href = URLS.GOOGLE_LOGIN;
+    const code = new URL(window.location.href).searchParams.get("code");
+    localStorage.setItem("code", code);
+  };
+
+  const getToken = async (code: string) => {
+    const response = await getGoogleToken(code);
+    return response.json();
+  };
+
+  useEffect(() => {
+    const code = localStorage.getItem("code");
+    if (code) {
+      getToken(code).then((res) => {
+        console.log(res.access_token, "res.access_token>>>>>>>");
+        localStorage.setItem("access_token", res.access_token);
+      });
+    }
+  }, []);
 
   return (
     <Layout maxWidth="328px">
@@ -71,6 +96,7 @@ const LoginPage = () => {
         background={theme.color.white}
         border={`1px solid ${theme.color.black35}`}
         icon={<GoogleLogo />}
+        onClick={handleGoogleLogin}
       />
       <IconButton
         type="submit"
