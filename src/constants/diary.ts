@@ -8,6 +8,10 @@ export const DIARY_REVIEW = [
     images: [
       "https://dummyimage.com/500x500/614ad3/ffffff",
       "https://dummyimage.com/500x500/ffe836/000000",
+      "https://dummyimage.com/500x500/614ad3/ffffff",
+      "https://dummyimage.com/500x500/ffe836/000000",
+      "https://dummyimage.com/500x500/ffe836/000000",
+      "https://dummyimage.com/500x500/ffe836/000000",
     ],
     date: "2023. 10. 11",
   },

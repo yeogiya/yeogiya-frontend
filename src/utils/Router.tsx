@@ -7,7 +7,6 @@ import FindIdPage from "@/pages/find/id/FindIdPage";
 import FindPwPage from "@/pages/find/pw/FindPwPage";
 import GlobalStyle from "@/styles/GlobalStyle";
 import JoinPage from "@/pages/join/JoinPage";
-import KakaoLogin from "@/pages/login/components/KakaoLogin";
 import LandingPage from "@/pages/home/LandingPage";
 import LoginPage from "@/pages/login/LoginPage";
 import MapPage from "@/pages/diary/map/MapPage";
@@ -24,6 +23,8 @@ import UpdateMyPwPage from "@/pages/my/password/UpdateMyPwPage";
 import WithdrawalPage from "@/pages/my/withdrawal/WithdrawalPage";
 import theme from "@/styles/theme";
 import ConfirmWithdrawalPage from "@/pages/my/withdrawal/ConfirmWithdrawalPage";
+import ScrollToTop from "@/components/@common/ScrollToTop";
+import SNSLogin from "@/pages/login/components/SNSLogin";
 
 export const router = createBrowserRouter([
   {
@@ -41,12 +42,25 @@ export const router = createBrowserRouter([
         element: <LoginPage />,
       },
       {
-        path: PATH.KAKAO_LOGIN,
-        element: <KakaoLogin />,
+        path: PATH.LOGIN_SNS,
+        element: <SNSLogin />,
       },
       {
         path: PATH.JOIN,
-        element: <JoinPage />,
+        element: (
+          <>
+            <ScrollToTop />
+            <JoinPage />
+          </>
+        ),
+      },
+      {
+        path: PATH.FIND_ID,
+        element: <FindIdPage />,
+      },
+      {
+        path: PATH.FIND_PW,
+        element: <FindPwPage />,
       },
       {
         path: PATH.DIARY_LIST,
@@ -57,14 +71,6 @@ export const router = createBrowserRouter([
   {
     element: <App layout="login" />,
     children: [
-      {
-        path: PATH.FIND_ID,
-        element: <FindIdPage />,
-      },
-      {
-        path: PATH.FIND_PW,
-        element: <FindPwPage />,
-      },
       {
         path: PATH.RESET_PASSWORD,
         element: <ResetPwPage />,
@@ -118,7 +124,7 @@ export const router = createBrowserRouter([
     ],
   },
   {
-    path: PATH.SEARCH_RESULT,
+    path: PATH.SEARCH_RESULT_DETAIL,
     element: <App layout="placeSearch" />,
     errorElement: <ErrorPage />,
     children: [

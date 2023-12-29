@@ -1,13 +1,13 @@
 import { TOKEN } from "@/constants/token";
 
-const postHeaders = (body: unknown) => {
-  if (body instanceof FormData)
+const postHeaders = (data: unknown) => {
+  if (data instanceof FormData)
     return {
       headers: {
         "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${localStorage.getItem(TOKEN.ACCESS_TOKEN)}`,
       },
-      body: body,
+      body: data,
       withCredentials: true,
     };
 
@@ -16,7 +16,7 @@ const postHeaders = (body: unknown) => {
       "Content-Type": "application/json",
       Authorization: `Bearer ${localStorage.getItem(TOKEN.ACCESS_TOKEN)}`,
     },
-    body: JSON.stringify(body),
+    body: JSON.stringify(data),
   };
 };
 
@@ -37,7 +37,7 @@ export const httpClient = {
     return response.json();
   },
 
-  post: async (url: RequestInfo | URL, data: unknown) => {
+  post: async (url: RequestInfo | URL, data?: unknown) => {
     const response = await fetch(url, {
       method: "POST",
       ...postHeaders(data),
@@ -51,15 +51,14 @@ export const httpClient = {
   },
 
   patch: async (url: RequestInfo | URL, data: unknown) => {
-    const response = await fetch(url, {
+    return await fetch(url, {
       method: "PATCH",
-      ...postHeaders(data),
-    } as unknown as RequestInit);
-    if (!response.ok) {
-      throw response;
-    }
-
-    return response;
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem(TOKEN.ACCESS_TOKEN)}`,
+      },
+      body: JSON.stringify(data),
+    });
   },
 
   delete: async (url: RequestInfo | URL) => {

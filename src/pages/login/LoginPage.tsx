@@ -13,6 +13,8 @@ import styled from "@emotion/styled";
 import theme from "@/styles/theme";
 import useLoginForm from "@/features/hooks/useLoginForm";
 import { useLogin } from "@/features/hooks/queries/useLogin";
+import { URL, URL as URLS } from "@/constants/url";
+import { useAppDispatch } from "@/features/hooks/useAppDispatch";
 
 const LoginPage = () => {
   const { handleSubmit, control } = useForm<Partial<JoinProps>>({
@@ -26,6 +28,7 @@ const LoginPage = () => {
   const { id, idState, password, passwordState } = useLoginForm(control);
 
   const loginMutation = useLogin();
+  const dispatch = useAppDispatch();
 
   const onSubmit: SubmitHandler<Partial<JoinProps>> = (data) => {
     const { id, password } = { ...data };
@@ -36,12 +39,12 @@ const LoginPage = () => {
     });
   };
 
-  const handleLoginWithKakao = () => {
-    const { Kakao } = window;
-    Kakao.Auth.authorize({
-      redirectUri: `${import.meta.env.VITE_KAKAO_REDIRECT_URI}`,
-      scope: "profile_nickname",
-    });
+  const handleKakaoLogin = () => {
+    window.location.href = `${URL.KAKAO_LOGIN}`;
+  };
+
+  const handleGoogleLogin = () => {
+    window.location.href = `${URL.GOOGLE_LOGIN}`;
   };
 
   return (
@@ -71,13 +74,14 @@ const LoginPage = () => {
         background={theme.color.white}
         border={`1px solid ${theme.color.black35}`}
         icon={<GoogleLogo />}
+        onClick={handleGoogleLogin}
       />
       <IconButton
         type="submit"
         text="카카오로 로그인"
         background={theme.color.yellow}
         icon={<KakaoLogo />}
-        onClick={handleLoginWithKakao}
+        onClick={handleKakaoLogin}
       />
     </Layout>
   );

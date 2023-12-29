@@ -51,9 +51,9 @@ const ResultDetailContent = ({
         <TextLayout>
           <SubTitle>메뉴</SubTitle>
           <TextLayout column>
-            {menu.map((text) => {
-              return <Text key={text}>{text}</Text>;
-            })}
+            {menu.map((text) => (
+              <Text key={text}>{text}</Text>
+            ))}
           </TextLayout>
         </TextLayout>
       </PlaceInfo>

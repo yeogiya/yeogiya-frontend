@@ -1,8 +1,7 @@
 import { URL } from "@/constants/url";
 import { JoinProps } from "@/pages/join/JoinPage";
 import { httpClient } from "./httpClient";
-import axios from "axios";
-import { TOKEN } from "@/constants/token";
+import { WithdrawalReasonsProps } from "@/types/users";
 
 export const postJoin = (data: Partial<JoinProps> & { loginType: string }) => {
   return httpClient.post(URL.SIGN_UP, data);
@@ -36,15 +35,9 @@ export const postFindPwd = ({ id, email }: Partial<JoinProps>) => {
   return httpClient.post(URL.FIND_PW, { email, id });
 };
 
-export const patchUserInfo = (data) => {
-  return axios({
-    url: URL.USER_INFO,
-    data,
-    method: "PATCH",
-    headers: {
-      "Content-Type": "multipart/form-data",
-      Authorization: `Bearer ${localStorage.getItem(TOKEN.ACCESS_TOKEN)}`,
-    },
-  });
-  // return httpClient.patch(URL.USER_INFO, data);
+export const postWithdraw = ({
+  reason,
+  detailedReason,
+}: WithdrawalReasonsProps) => {
+  return httpClient.post(URL.USER_WITHDRAW, { reason, detailedReason });
 };

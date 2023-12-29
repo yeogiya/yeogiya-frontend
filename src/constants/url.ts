@@ -1,6 +1,7 @@
 import { CATEGORY } from "./category";
 
 const PUBLIC_BASE_URL = `${import.meta.env.VITE_PUBLIC_URL_KEY}`;
+const BASE_URL = `${import.meta.env.VITE_BASE_URL_KEY}`;
 
 const URLS = {
   // Public
@@ -23,9 +24,31 @@ const URLS = {
   // Auth
   DIARY_LIST: `${import.meta.env.VITE_AUTH_URL_KEY}/diaries`, // 일기 목록
   USER_INFO: `${import.meta.env.VITE_AUTH_URL_KEY}${CATEGORY.MEMBERS}`, // 회원정보
+  CHANGE_NICKNAME: `${import.meta.env.VITE_AUTH_URL_KEY}${
+    CATEGORY.MEMBERS
+  }/change-nickname`, // 닉네임 변경
+  USER_WITHDRAW: `${import.meta.env.VITE_AUTH_URL_KEY}${
+    CATEGORY.MEMBERS
+  }/withdraw`, // 회원탈퇴
+  CHECK_PW: `${import.meta.env.VITE_AUTH_URL_KEY}${
+    CATEGORY.MEMBERS
+  }/check-password`, // 현재 비밀번호 확인
+  AUTH_RESET_PW: `${import.meta.env.VITE_AUTH_URL_KEY}${
+    CATEGORY.MEMBERS
+  }/reset-password`, // 로그인한 유저 비밀번호 변경
+
+  // search
+  LOCATION_SEARCH: `${import.meta.env.VITE_PUBLIC_URL_KEY}/search/places`,
+};
+
+const LOGIN = {
+  GOOGLE_LOGIN: `${BASE_URL}/oauth2/authorization/google`,
+  KAKAO_LOGIN: `${BASE_URL}/oauth2/authorization/kakao`,
 };
 
 export const URL = {
   PUBLIC_BASE_URL,
+  BASE_URL,
+  ...LOGIN,
   ...URLS,
 } as const;

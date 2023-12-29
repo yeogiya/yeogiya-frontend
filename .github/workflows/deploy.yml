@@ -1,8 +1,7 @@
 name: deploy
 
 on:
-  pull_request:
-    types: [closed]
+  push:
     branches:
       - develop
 
@@ -28,4 +27,4 @@ jobs:
           source-directory: "output"
           destination-github-username: parkgadan
           destination-repository-name: yeogiya-frontend
-          target-branch: develop
+          target-branch: main

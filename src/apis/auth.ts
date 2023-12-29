@@ -1,5 +1,6 @@
 import { TOKEN } from "@/constants/token";
 import { URL } from "@/constants/url";
+import { httpClient } from "./httpClient";
 
 let reissuePromise: Promise<Response> | null = null;
 

@@ -17,9 +17,9 @@ const ResultDetailReview = ({ review }: ResultDetailReviewProps) => {
       >
         일기 리뷰
       </HeadingText>
-      {review.map((review, _) => {
-        return <DiaryReview key={_} review={review} />;
-      })}
+      {review.map((review, _) => (
+        <DiaryReview key={_} review={review} />
+      ))}
     </Container>
   );
 };

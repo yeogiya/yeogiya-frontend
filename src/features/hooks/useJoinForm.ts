@@ -1,13 +1,8 @@
 import { Control, useController } from "react-hook-form";
 import { getCheckEmail, getCheckId, getCheckNickname } from "@/apis/user";
 import { JoinProps } from "@/pages/join/JoinPage";
+import { CheckDuplicationProps } from "@/types/users";
 
-export interface duplicatedProps {
-  body: {
-    duplicated: boolean;
-  };
-  status: string;
-}
 const useJoinForm = (control: Control<JoinProps>) => {
   const { field: email, fieldState: emailState } = useController({
     name: "email",
@@ -20,8 +15,7 @@ const useJoinForm = (control: Control<JoinProps>) => {
       },
       validate: async (value) => {
         const response = await getCheckEmail(value);
-        const { body } = response as duplicatedProps;
-
+        const { body } = response as CheckDuplicationProps;
         if (body.duplicated) return "이미 가입된 이메일입니다.";
       },
     },
@@ -46,7 +40,7 @@ const useJoinForm = (control: Control<JoinProps>) => {
       },
       validate: async (value) => {
         const response = await getCheckId(value);
-        const { body } = response as duplicatedProps;
+        const { body } = response as CheckDuplicationProps;
 
         if (body.duplicated) return "이미 사용 중인 아이디입니다.";
       },
@@ -60,8 +54,7 @@ const useJoinForm = (control: Control<JoinProps>) => {
       required: "닉네임을 입력해주세요.",
       validate: async (value) => {
         const response = await getCheckNickname(value);
-        const { body } = response as duplicatedProps;
-
+        const { body } = response as CheckDuplicationProps;
         if (body.duplicated) return "이미 사용 중인 닉네임입니다.";
       },
     },

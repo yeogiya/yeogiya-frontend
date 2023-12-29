@@ -5,7 +5,7 @@ export { default as GoogleLogo } from "@/assets/images/GoogleLogo";
 export { default as KakaoLogo } from "@/assets/images/KakaoLogo";
 export { default as PlusIcon } from "@/assets/images/PlusIcon";
 export { default as YeogiyaLogo } from "@/assets/images/YeogiyaLogo";
-
+export { default as StarIcon } from "@/assets/images/StarIcon";
 // home
 export { default as KoYeogiyaLogo } from "@/assets/images/KoYeogiyaLogo";
 export { default as KoFirstIcon } from "@/assets/images/KoFirstIcon";
@@ -24,6 +24,8 @@ export { default as PlaceSearchIcon } from "@/assets/images/PlaceSearchIcon";
 export { default as ArrowLeftIcon } from "@/assets/images/ArrowLeftIcon";
 export { default as ShareIcon } from "@/assets/images/ShareIcon";
 export { default as WhiteImage } from "@/assets/images/png/white.png";
+export { default as GoogleRatingIcon } from "@/assets/images/GoogleRatingIcon";
+export { default as RightArrowIcon } from "@/assets/images/RightArrowIcon";
 // withdrawal
 export { default as CheckImage } from "@/assets/images/png/checkImage.png";
 // imageUrl

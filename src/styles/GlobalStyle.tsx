@@ -16,6 +16,10 @@ const global = () => css`
     font-size: 16px;
   }
 
+  body {
+    overflow-y: scroll;
+  }
+
   input {
     -webkit-appearance: none;
     -moz-appearance: none;
