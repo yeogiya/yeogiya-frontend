@@ -3,12 +3,12 @@ import Title from "@/components/@common/Title";
 import SubmitButton from "@/components/SubmitButton";
 import useUpdateMyPw from "@/features/hooks/useUpdateMyPw";
 import InputPassword from "@/components/InputPassword";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { useResetPw } from "@/features/hooks/queries/useResetPw";
-import { TOKEN } from "@/constants/token";
+import { useForm } from "react-hook-form";
+import { useAuthResetPw } from "@/features/hooks/queries/useAuthResetPw";
+import usePageNavigation from "@/features/hooks/usePageNavigation";
+import { PATH } from "@/utils/routes";
 
 export interface updateMyPwProps {
-  password: string;
   newPassword: string;
   confirmNewPassword: string;
 }
@@ -19,6 +19,7 @@ export interface postRestPw {
 }
 
 const UpdateMyPwPage = () => {
+  const { navigate } = usePageNavigation();
   const {
     formState: { isDirty, isValid },
     control,
@@ -26,28 +27,29 @@ const UpdateMyPwPage = () => {
   } = useForm<updateMyPwProps>({
     mode: "onBlur",
     defaultValues: {
-      password: "",
       newPassword: "",
       confirmNewPassword: "",
     },
   });
 
   const {
-    password,
-    passwordState,
     newPassword,
     newPasswordState,
     confirmNewPassword,
     confirmNewPasswordState,
   } = useUpdateMyPw(control);
 
-  const resetPwMutation = useResetPw();
+  const resetPwMutation = useAuthResetPw();
 
-  const onSubmit: SubmitHandler<postRestPw> = (data) => {
-    resetPwMutation.mutate({
-      password: data.password,
-      token: localStorage.getItem(TOKEN.ACCESS_TOKEN),
-    });
+  const onSubmit = (data) => {
+    console.log(data);
+
+    resetPwMutation.mutate(
+      { password: data.newPassword },
+      {
+        onSuccess: () => navigate(PATH.HOME),
+      }
+    );
   };
 
   return (
@@ -56,11 +58,6 @@ const UpdateMyPwPage = () => {
         비밀번호 변경
       </Title>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <InputPassword
-          password={password}
-          passwordState={passwordState}
-          labelText="현재 비밀번호"
-        />
         <InputPassword
           password={newPassword}
           passwordState={newPasswordState}
