@@ -46,3 +46,12 @@ export const fetchGoogleUserInfo = async () => {
     `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${accessToken}`
   );
 };
+
+export const getKakaoToken = async (code: string) => {
+  const response = await httpClient.post(
+    "https://kauth.kakao.com/oauth/token",
+    "kakaoLogin",
+    code
+  );
+  return response.json();
+};
