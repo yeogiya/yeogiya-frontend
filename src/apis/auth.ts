@@ -31,25 +31,17 @@ export const reissueToken = async () => {
 
 export const getGoogleToken = async (code: string) => {
   return await httpClient.post(
-    `https://oauth2.googleapis.com/token?grant_type=authorization_code&client_id=${
-      import.meta.env.VITE_GOOGLE_CLIENT_ID
-    }&redirect_uri=${import.meta.env.VITE_GOOGLE_REDIRECT_URI}&client_secret=${
-      import.meta.env.VITE_GOOGLE_KEY
-    }&code=${code}`
+    `https://accounts.google.com/o/oauth2/v2/auth?
+  	client_id=${import.meta.env.VITE_GOOGLE_CLIENT_ID}
+  	&redirect_uri=${import.meta.env.VITE_GOOGLE_REDIRECT_URI}
+  	&response_type=code
+  	&scope=email profile`
   );
-
-  // return await httpClient.post(
-  //   `https://accounts.google.com/o/oauth2/v2/auth?
-  // 	client_id=${import.meta.env.VITE_GOOGLE_CLIENT_ID}
-  // 	&redirect_uri=${import.meta.env.VITE_GOOGLE_REDIRECT_URI}&client_secret=${
-  //     import.meta.env.VITE_GOOGLE_KEY
-  //   }
-  // 	&response_type=code
-  // 	&scope=email profile`
-  // );
 };
 
-export const fetchGoogleUserInfo = async (accessToken: string) => {
+export const fetchGoogleUserInfo = async () => {
+  const accessToken = localStorage.getItem("access_token");
+
   return await httpClient.get(
     `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${accessToken}`
   );
