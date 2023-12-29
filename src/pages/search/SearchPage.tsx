@@ -2,29 +2,11 @@ import Layout from "@/components/@common/Layout";
 import { PlaceSearchIcon } from "@/assets";
 import styled from "@emotion/styled";
 import theme from "@/styles/theme";
-import { MouseEvent, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { PATH } from "@/utils/routes";
+import usePlaceSearch from "@/features/hooks/usePlaceSearch";
+import { useState } from "react";
 
 const SearchPage = () => {
-  const [keyword, setKeyword] = useState<string>("");
-
-  const navigate = useNavigate();
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setKeyword(e.currentTarget.value);
-  };
-
-  const handleSearch = (
-    e: MouseEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLInputElement>
-  ) => {
-    if (
-      (e as React.MouseEvent<HTMLButtonElement>).currentTarget.onclick ||
-      (e as React.KeyboardEvent<HTMLInputElement>).key === "Enter"
-    ) {
-      navigate(PATH.SEARCH_RESULT_LIST + `/${keyword}`);
-    }
-  };
+  const { value, onChange, onSearch } = usePlaceSearch();
 
   return (
     <Layout maxWidth="738px" paddingTop="0">
@@ -32,11 +14,11 @@ const SearchPage = () => {
         <Input
           type="text"
           placeholder="장소 검색"
-          value={keyword}
-          onChange={handleInputChange}
-          onKeyDown={handleSearch}
+          value={value}
+          onChange={onChange}
+          onKeyDown={onSearch}
         />
-        <button onClick={handleSearch}>
+        <button onClick={onSearch}>
           <PlaceSearchIcon />
         </button>
       </InputWrapper>

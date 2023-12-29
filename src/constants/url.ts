@@ -1,6 +1,7 @@
 import { CATEGORY } from "./category";
 
 const PUBLIC_BASE_URL = `${import.meta.env.VITE_PUBLIC_URL_KEY}`;
+const BASE_URL = `${import.meta.env.VITE_BASE_URL_KEY}`;
 
 const URLS = {
   // Public
@@ -29,12 +30,22 @@ const URLS = {
   CHANGE_NICKNAME: `${import.meta.env.VITE_AUTH_URL_KEY}${
     CATEGORY.MEMBERS
   }/change-nickname`, // 닉네임 변경
+  USER_WITHDRAW: `${import.meta.env.VITE_AUTH_URL_KEY}${
+    CATEGORY.MEMBERS
+  }/withdraw`, // 회원탈퇴
 
   // search
   LOCATION_SEARCH: `${import.meta.env.VITE_PUBLIC_URL_KEY}/search/places`,
 };
 
+const LOGIN = {
+  GOOGLE_LOGIN: `${BASE_URL}/oauth2/authorization/google`,
+  KAKAO_LOGIN: `${BASE_URL}/oauth2/authorization/kakao`,
+};
+
 export const URL = {
   PUBLIC_BASE_URL,
+  BASE_URL,
+  ...LOGIN,
   ...URLS,
 } as const;

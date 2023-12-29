@@ -4,9 +4,9 @@ import styled from "@emotion/styled";
 import theme from "@/styles/theme";
 
 interface RestaurantTitleProps {
-  placeName: string;
-  rating: number;
-  restaurantType: string;
+  placeName?: string;
+  rating?: number;
+  restaurantType?: string;
 }
 
 const RestaurantTitle = ({

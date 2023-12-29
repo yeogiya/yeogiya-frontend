@@ -17,7 +17,6 @@ interface DiaryReviewProps {
 const DiaryReview = ({ review }: DiaryReviewProps) => {
   const { profileUrl, nickname, rating, content, images, date } = review;
 
-  console.log(review);
   const displayRating = Array.from(
     { length: Number(rating) },
     (_, index) => index + 1

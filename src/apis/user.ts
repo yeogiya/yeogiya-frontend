@@ -2,6 +2,7 @@ import { URL } from "@/constants/url";
 import { JoinProps } from "@/pages/join/JoinPage";
 import { httpClient } from "./httpClient";
 import { postRestPw } from "@/pages/my/password/UpdateMyPwPage";
+import { WithdrawalReasonsProps } from "@/types/users";
 
 export const postJoin = (data: Partial<JoinProps> & { loginType: string }) => {
   return httpClient.post(URL.SIGN_UP, data);
@@ -41,4 +42,11 @@ export const patchNickname = (nickname: Pick<JoinProps, "nickname">) => {
 
 export const postResetPwd = ({ password, token }: postRestPw) => {
   return httpClient.post(URL.RESET_PW, { password, token });
+};
+
+export const postWithdraw = ({
+  reason,
+  detailedReason,
+}: WithdrawalReasonsProps) => {
+  return httpClient.post(URL.USER_WITHDRAW, { reason, detailedReason });
 };
