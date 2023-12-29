@@ -7,7 +7,6 @@ import FindIdPage from "@/pages/find/id/FindIdPage";
 import FindPwPage from "@/pages/find/pw/FindPwPage";
 import GlobalStyle from "@/styles/GlobalStyle";
 import JoinPage from "@/pages/join/JoinPage";
-import KakaoLogin from "@/pages/login/components/KakaoLogin";
 import LandingPage from "@/pages/home/LandingPage";
 import LoginPage from "@/pages/login/LoginPage";
 import MapPage from "@/pages/diary/map/MapPage";
@@ -41,10 +40,6 @@ export const router = createBrowserRouter([
       {
         path: PATH.LOGIN,
         element: <LoginPage />,
-      },
-      {
-        path: PATH.KAKAO_LOGIN,
-        element: <KakaoLogin />,
       },
       {
         path: PATH.LOGIN_SNS,
