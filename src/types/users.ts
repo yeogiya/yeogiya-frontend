@@ -16,10 +16,3 @@ export interface WithdrawalReasonsProps {
   reason: string;
   detailedReason?: string;
 }
-
-export interface GoogleRes {
-  name: string;
-  id: string;
-  email: string;
-  picture: string;
-}

@@ -5,7 +5,6 @@ import styled from "@emotion/styled";
 import theme from "@/styles/theme";
 import { useEffect, useState } from "react";
 import { useToken } from "@/features/hooks/useToken";
-import { useUserInfo } from "@/features/hooks/queries/useUserInfo";
 import usePageNavigation from "@/features/hooks/usePageNavigation";
 import { useReissueToken } from "@/features/hooks/queries/useReissueToken";
 import { profileIconPath } from "@/assets/index";
@@ -14,11 +13,6 @@ import {
   useAppSelector,
 } from "@/features/hooks/useAppDispatch";
 import { createUser, initialState, user } from "@/store/userSlice";
-
-interface GoogleUserProps {
-  name: string;
-  picture: string;
-}
 
 const Menu = () => {
   const { accessToken, refreshToken, updateToken, resetToken } = useToken();

@@ -13,11 +13,8 @@ import styled from "@emotion/styled";
 import theme from "@/styles/theme";
 import useLoginForm from "@/features/hooks/useLoginForm";
 import { useLogin } from "@/features/hooks/queries/useLogin";
-import { URL as URLS } from "@/constants/url";
-import { fetchGoogleUserInfo, getGoogleToken } from "@/apis/auth";
+import { URL, URL as URLS } from "@/constants/url";
 import { useAppDispatch } from "@/features/hooks/useAppDispatch";
-import { createUser } from "@/store/userSlice";
-import { GoogleRes } from "@/types/users";
 
 const LoginPage = () => {
   const { handleSubmit, control } = useForm<Partial<JoinProps>>({
@@ -42,33 +39,12 @@ const LoginPage = () => {
     });
   };
 
-  const getToken = async (code: string) => {
-    const response = await getGoogleToken(code);
-    if (response.status === 200) return response.json();
+  const handleKakaoLogin = () => {
+    window.location.href = `${URL.KAKAO_LOGIN}`;
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = URLS.GOOGLE_LOGIN;
-
-    const code = new URL(window.location.href).searchParams.get("code");
-
-    getToken(code).then(async () => {
-      const data = (await fetchGoogleUserInfo()) as GoogleRes;
-      dispatch(
-        createUser({
-          email: data.email,
-          id: data.id,
-          nickname: data.name,
-          profileImg: data.picture,
-        })
-      );
-    });
-  };
-
-  const handleKakaoLogin = () => {
-    window.Kakao.Auth.authorize({
-      redirectUri: import.meta.env.VITE_KAKAO_REDIRECT_URI,
-    });
+    window.location.href = `${URL.GOOGLE_LOGIN}`;
   };
 
   return (
