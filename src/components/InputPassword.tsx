@@ -1,19 +1,21 @@
 import { ConcealIcon } from "@/assets";
 import InputUser from "@/components/@common/InputUser";
 import ValidateMessage from "@/components/ValidateMessage";
-import { InputHTMLAttributes, useState } from "react";
+import { Dispatch, InputHTMLAttributes, SetStateAction, useState } from "react";
 import { ControllerFieldState } from "react-hook-form";
 
 export interface InputPasswordProps {
   password: InputHTMLAttributes<HTMLInputElement>;
   passwordState: ControllerFieldState;
   labelText?: string;
+  setValidateText?: Dispatch<SetStateAction<string>>;
 }
 
 const InputPassword = ({
   password,
   passwordState,
   labelText,
+  setValidateText,
 }: InputPasswordProps) => {
   const [passwordType, setPasswordType] = useState<string>("password");
   const [isPassword, setIsPassword] = useState<boolean>(false);
@@ -26,6 +28,7 @@ const InputPassword = ({
         labelText={labelText || "비밀번호"}
         onChange={(e) => {
           password.onChange(e);
+          setValidateText(() => "");
         }}
         icon={
           <ConcealIcon
