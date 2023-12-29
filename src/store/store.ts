@@ -1,5 +1,6 @@
 import diaryReducer from "./diarySlice";
 import userReducer from "./userSlice";
+import tokenReducer from "./tokenSlice";
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import {
   persistReducer,
@@ -15,12 +16,13 @@ import storage from "redux-persist/lib/storage";
 const rootReducer = combineReducers({
   diary: diaryReducer,
   user: userReducer,
+  token: tokenReducer,
 });
 
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["diary", "user"],
+  whitelist: ["diary", "user", "token"],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
