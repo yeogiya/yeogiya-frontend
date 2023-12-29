@@ -4,6 +4,7 @@ const STATIC = {
   SEARCH_RESULT_LIST: "/location/list",
   SEARCH_RESULT_DETAIL: "/location",
   LOGIN: "/login",
+  LOGIN_SNS: "/login/sns",
   KAKAO_LOGIN: "/login/kakao",
   JOIN: "/join",
   DIARY_CREATE: "/diary/create",

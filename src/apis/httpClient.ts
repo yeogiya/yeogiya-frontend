@@ -1,6 +1,21 @@
 import { TOKEN } from "@/constants/token";
 
-const postHeaders = (data: unknown) => {
+const postHeaders = (data: unknown, code?: string) => {
+  if (data === "kakaoLogin") {
+    return {
+      body: new URLSearchParams({
+        grant_type: "authorization_code",
+        client_id: import.meta.env.VITE_KAKAO_CLIENT_ID as string,
+        code: code,
+        redirect_uri: import.meta.env.VITE_KAKAO_REDIRECT_URI as string,
+        client_secret: import.meta.env.VITE_KAKAO_CLIENT_SECRET as string,
+      }),
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
+      },
+    };
+  }
+
   if (data instanceof FormData)
     return {
       headers: {
@@ -36,10 +51,10 @@ export const httpClient = {
     return response.json();
   },
 
-  post: async (url: RequestInfo | URL, data?: unknown) => {
+  post: async (url: RequestInfo | URL, data?: unknown, code?: string) => {
     const response = await fetch(url, {
       method: "POST",
-      ...postHeaders(data),
+      ...postHeaders(data, code),
     } as unknown as RequestInit);
 
     if (!response.ok) {
@@ -50,7 +65,7 @@ export const httpClient = {
   },
 
   patch: async (url: RequestInfo | URL, data: unknown) => {
-    const response = await fetch(url, {
+    return await fetch(url, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -58,12 +73,6 @@ export const httpClient = {
       },
       body: JSON.stringify(data),
     });
-
-    if (!response.ok) {
-      throw response;
-    }
-
-    return response;
   },
 
   delete: async (url: RequestInfo | URL) => {
