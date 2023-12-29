@@ -20,6 +20,9 @@ const URLS = {
   FIND_PW: `${import.meta.env.VITE_PUBLIC_URL_KEY}${
     CATEGORY.MEMBERS
   }/send-password-reset-email`, // 비밀번호 재설정 이메일 발송
+  RESET_PW: `${import.meta.env.VITE_PUBLIC_URL_KEY}${
+    CATEGORY.MEMBERS
+  }/reset-password`, // 비밀번호 재설정
 
   // Auth
   DIARY_LIST: `${import.meta.env.VITE_AUTH_URL_KEY}/diaries`, // 일기 목록
@@ -30,6 +33,12 @@ const URLS = {
   USER_WITHDRAW: `${import.meta.env.VITE_AUTH_URL_KEY}${
     CATEGORY.MEMBERS
   }/withdraw`, // 회원탈퇴
+  CHECK_PW: `${import.meta.env.VITE_AUTH_URL_KEY}${
+    CATEGORY.MEMBERS
+  }/check-password`, // 현재 비밀번호 확인
+  AUTH_RESET_PW: `${import.meta.env.VITE_AUTH_URL_KEY}${
+    CATEGORY.MEMBERS
+  }/reset-password`, // 로그인한 유저 비밀번호 변경
 
   // search
   LOCATION_SEARCH: `${import.meta.env.VITE_PUBLIC_URL_KEY}/search/places`,
