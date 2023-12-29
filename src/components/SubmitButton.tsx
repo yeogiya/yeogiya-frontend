@@ -22,7 +22,7 @@ const SubmitButton = ({ isValid, text, ...props }: SubmitButtonProps) => {
 
 const SubmitButtonStyle = styled.button<Partial<SubmitButtonProps>>`
   min-width: 328px;
-  margin-top: 20px;
+  margin-top: 16px;
   padding: 13px 80px;
   font-size: 16px;
   border-radius: 7px;
