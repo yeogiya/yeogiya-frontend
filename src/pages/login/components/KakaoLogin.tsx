@@ -1,7 +1,8 @@
 import { getKakaoToken } from "@/apis/auth";
+import { useAppDispatch } from "@/features/hooks/useAppDispatch";
 
 import usePageNavigation from "@/features/hooks/usePageNavigation";
-import { PATH } from "@/utils/routes";
+import { createToken } from "@/store/tokenSlice";
 
 import { useEffect } from "react";
 
@@ -10,11 +11,14 @@ const KakaoLogin = () => {
 
   const { navigate } = usePageNavigation();
 
+  const dispatch = useAppDispatch();
+
   const fetchKakaoToken = async (code: string) => {
     if (!code) return;
     try {
       const { access_token: accessToken, refresh_token: refreshToken } =
         await getKakaoToken(code);
+      dispatch(createToken({ accessToken }));
     } catch (error) {
       throw error(error);
     }
