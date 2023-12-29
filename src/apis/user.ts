@@ -50,3 +50,11 @@ export const postWithdraw = ({
 }: WithdrawalReasonsProps) => {
   return httpClient.post(URL.USER_WITHDRAW, { reason, detailedReason });
 };
+
+export const postCheckPw = (password: string) => {
+  return httpClient.post(URL.CHECK_PW, { password });
+};
+
+export const postAuthResetPw = (password: string) => {
+  return httpClient.post(URL.AUTH_RESET_PW, { password });
+};
