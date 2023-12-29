@@ -51,15 +51,16 @@ const LoginPage = () => {
 
   const getToken = async (code: string) => {
     const response = await getGoogleToken(code);
-    return response.json();
+    if (response.status === 200) return response.json();
   };
 
   const handleGoogleLogin = () => {
     window.location.href = URLS.GOOGLE_LOGIN;
+
     const code = new URL(window.location.href).searchParams.get("code");
 
-    getToken(code).then(async (res) => {
-      const data = (await fetchGoogleUserInfo(res.access_token)) as GoogleRes;
+    getToken(code).then(async () => {
+      const data = (await fetchGoogleUserInfo()) as GoogleRes;
       dispatch(
         createUser({
           email: data.email,
