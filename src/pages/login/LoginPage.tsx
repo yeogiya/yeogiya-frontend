@@ -42,13 +42,6 @@ const LoginPage = () => {
     });
   };
 
-  const handleLoginWithKakao = () => {
-    const { Kakao } = window;
-    Kakao.Auth.authorize({
-      redirectUri: `${import.meta.env.VITE_KAKAO_REDIRECT_URI}`,
-    });
-  };
-
   const getToken = async (code: string) => {
     const response = await getGoogleToken(code);
     return response.json();
@@ -68,6 +61,12 @@ const LoginPage = () => {
           profileImg: data.picture,
         })
       );
+    });
+  };
+
+  const handleKakaoLogin = () => {
+    window.Kakao.Auth.authorize({
+      redirectUri: import.meta.env.VITE_KAKAO_REDIRECT_URI,
     });
   };
 
@@ -105,7 +104,7 @@ const LoginPage = () => {
         text="카카오로 로그인"
         background={theme.color.yellow}
         icon={<KakaoLogo />}
-        onClick={handleLoginWithKakao}
+        onClick={handleKakaoLogin}
       />
     </Layout>
   );
