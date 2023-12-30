@@ -11,7 +11,7 @@
     "esModuleInterop": true,
     "allowImportingTsExtensions": true,
     "noEmit": true,
-    "baseUrl": "./",
+    "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]
     },

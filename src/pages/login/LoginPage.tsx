@@ -13,8 +13,12 @@ import styled from "@emotion/styled";
 import theme from "@/styles/theme";
 import useLoginForm from "@/features/hooks/useLoginForm";
 import { useLogin } from "@/features/hooks/queries/useLogin";
-import { URL, URL as URLS } from "@/constants/url";
-import { useAppDispatch } from "@/features/hooks/useAppDispatch";
+import { URL as URLS } from "@/constants/url";
+import usePageNavigation from "@/features/hooks/usePageNavigation";
+import { httpClient } from "@/apis/httpClient";
+import { MouseEvent, useEffect } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
 
 const LoginPage = () => {
   const { handleSubmit, control } = useForm<Partial<JoinProps>>({
@@ -28,7 +32,8 @@ const LoginPage = () => {
   const { id, idState, password, passwordState } = useLoginForm(control);
 
   const loginMutation = useLogin();
-  const dispatch = useAppDispatch();
+
+  const { navigate } = usePageNavigation();
 
   const onSubmit: SubmitHandler<Partial<JoinProps>> = (data) => {
     const { id, password } = { ...data };
@@ -39,12 +44,14 @@ const LoginPage = () => {
     });
   };
 
-  const handleKakaoLogin = () => {
-    window.location.href = `${URL.KAKAO_LOGIN}`;
+  const handleKakaoLogin = async (e: MouseEvent<HTMLElement>) => {
+    if (e.currentTarget.onclick) {
+      window.location.href = `${URLS.KAKAO_LOGIN}`;
+    }
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = `${URL.GOOGLE_LOGIN}`;
+    window.location.href = `${URLS.GOOGLE_LOGIN}`;
   };
 
   return (
