@@ -1,35 +1,23 @@
 import ProfileIcon from "@/assets/images/ProfileIcon";
 import styled from "@emotion/styled";
-import React, { useRef, useState } from "react";
+import { useRef } from "react";
 
-const InputProfile = ({ ...props }) => {
+const InputProfile = ({ updateImage, profile }) => {
   const profileInput = useRef(null);
-  const [showProfileImg, setShowProfileImg] = useState<string>("");
 
   const handleButtonClick = () => {
     profileInput.current.click();
   };
 
-  const saveProfileImg = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const profileImg = e.target.files[0];
-
-    const currentProfileImg = URL.createObjectURL(profileImg);
-    setShowProfileImg(currentProfileImg);
-  };
-
   return (
-    <ProfileWrapper {...props}>
+    <ProfileWrapper>
       <ImgStyle>
-        {showProfileImg ? (
-          <img src={showProfileImg} alt={showProfileImg} />
-        ) : (
-          <ProfileIcon />
-        )}
+        {profile ? <img src={profile} alt={profile} /> : <ProfileIcon />}
         <Profile
           ref={profileInput}
           type="file"
           accept="image/*"
-          onChange={saveProfileImg}
+          onChange={updateImage}
         />
       </ImgStyle>
       <label onClick={handleButtonClick}>사진 변경</label>

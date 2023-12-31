@@ -12,6 +12,7 @@ const useMyForm = (
     rules: {
       required: "닉네임을 입력해주세요.",
       validate: async (value) => {
+        if (!nicknameState.isDirty) return true;
         const response = await getCheckNickname(value);
         const { body } = response as CheckDuplicationProps;
         if (body.duplicated) return "이미 사용 중인 닉네임입니다.";

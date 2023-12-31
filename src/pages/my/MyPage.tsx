@@ -3,41 +3,79 @@ import theme from "@/styles/theme";
 import useMyForm from "@/features/hooks/useMyForm";
 import { SubmitHandler, useForm } from "react-hook-form";
 import SubmitButton from "@/components/SubmitButton";
-import { JoinProps } from "../join/JoinPage";
 import InputProfile from "./components/InputProfile";
 import { PATH } from "@/utils/routes";
 import LinkText from "@/components/@common/LinkText";
 import { useUserInfo } from "@/features/hooks/queries/useUserInfo";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import InputNickname from "@/components/InputNickname";
 import InputEmail from "@/components/InputEmail";
 import InputId from "@/components/InputId";
 import { Form } from "react-router-dom";
-import { useChangeNickname } from "@/features/hooks/queries/useChangeNickname";
+import { useChangeUserInfo } from "@/features/hooks/queries/useChangeUserInfo";
+import { useAppDispatch } from "@/features/hooks/useAppDispatch";
+import { createUser } from "@/store/userSlice";
+import usePageNavigation from "@/features/hooks/usePageNavigation";
+
+export interface MyPageProps {
+  id: string;
+  email: string;
+  nickname: string;
+}
 
 const MyPage = () => {
+  const { navigate } = usePageNavigation();
   const { data: userInfo } = useUserInfo();
+  const [profile, setProfile] = useState<string>("");
+  const [profileImg, setProfileImg] = useState<File>(null);
+  const [isChanged, setIsChanged] = useState<boolean>(false);
 
-  const {
-    formState: { isDirty, isValid },
-    control,
-    setValue,
-    handleSubmit,
-  } = useForm<Pick<JoinProps, "nickname" | "email" | "id">>({
+  const { control, setValue, handleSubmit } = useForm<MyPageProps>({
     mode: "onBlur",
   });
 
   const { nickname, nicknameState, id, idState, email, emailState } =
     useMyForm(control);
 
-  const nicknameMutation = useChangeNickname();
+  const userInfoMutation = useChangeUserInfo();
+  const dispatch = useAppDispatch();
 
-  const onSubmit: SubmitHandler<
-    Pick<JoinProps, "nickname" | "email" | "id">
-  > = ({ nickname }) => {
-    nicknameMutation.mutate({
-      nickname,
-    });
+  const onSubmit: SubmitHandler<MyPageProps> = (submitData) => {
+    userInfoMutation.mutate(
+      {
+        nickname: submitData.nickname,
+        profileImg: profileImg,
+      },
+      {
+        onSuccess: () => {
+          dispatch(
+            createUser({
+              email: userInfo.body.email,
+              id: userInfo.body.id,
+              nickname: submitData.nickname,
+              profileImg: profile,
+            })
+          );
+          navigate(PATH.HOME);
+        },
+      }
+    );
+  };
+
+  const updateImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.item(0);
+    if (!file) return;
+    const currentProfileImg = URL.createObjectURL(file);
+
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      if (reader.result) {
+        setProfileImg(file);
+      }
+      setProfile(currentProfileImg);
+      setIsChanged(true);
+    };
   };
 
   useEffect(() => {
@@ -45,6 +83,8 @@ const MyPage = () => {
       setValue("nickname", userInfo.body.nickname);
       setValue("id", userInfo.body.id);
       setValue("email", userInfo.body.email);
+      userInfo.body.profileImageUrl &&
+        setProfile(userInfo.body.profileImageUrl);
     }
   }, [userInfo?.body]);
 
@@ -56,8 +96,16 @@ const MyPage = () => {
         paddingTop="80px"
         backgroundColor={`${theme.color.white15}`}
       >
-        <InputProfile css={{ marginBottom: "8px" }} />
-        <InputNickname nickname={nickname} nicknameState={nicknameState} />
+        <InputProfile
+          updateImage={updateImage}
+          profile={profile}
+          css={{ marginBottom: "8px" }}
+        />
+        <InputNickname
+          nickname={nickname}
+          nicknameState={nicknameState}
+          setIsChanged={setIsChanged}
+        />
         <InputEmail email={email} emailState={emailState} disabled />
         <InputId
           id={id}
@@ -68,7 +116,7 @@ const MyPage = () => {
         <SubmitButton
           type="submit"
           text="완료"
-          isValid={isDirty && isValid}
+          isValid={isChanged}
           css={{ marginTop: "24px" }}
         />
         <LinkText

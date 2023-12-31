@@ -1,6 +1,6 @@
 export const users = {
   info: ["users"],
-  checkEmail: ["email"],
+  checkEmail: (email: string) => ["email", email],
 };
 
 export const search = {

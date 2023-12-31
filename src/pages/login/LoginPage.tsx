@@ -14,11 +14,7 @@ import theme from "@/styles/theme";
 import useLoginForm from "@/features/hooks/useLoginForm";
 import { useLogin } from "@/features/hooks/queries/useLogin";
 import { URL as URLS } from "@/constants/url";
-import usePageNavigation from "@/features/hooks/usePageNavigation";
-import { httpClient } from "@/apis/httpClient";
-import { MouseEvent, useEffect } from "react";
-import { Link } from "react-router-dom";
-import axios from "axios";
+import { MouseEvent } from "react";
 
 const LoginPage = () => {
   const { handleSubmit, control } = useForm<Partial<JoinProps>>({
@@ -32,8 +28,6 @@ const LoginPage = () => {
   const { id, idState, password, passwordState } = useLoginForm(control);
 
   const loginMutation = useLogin();
-
-  const { navigate } = usePageNavigation();
 
   const onSubmit: SubmitHandler<Partial<JoinProps>> = (data) => {
     const { id, password } = { ...data };

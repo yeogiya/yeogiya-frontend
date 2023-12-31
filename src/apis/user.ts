@@ -16,6 +16,10 @@ export const getUserInfo = () => {
   return httpClient.get(URL.USER_INFO);
 };
 
+export const patchUserInfo = async (data: FormData) => {
+  return httpClient.patch(URL.USER_INFO, data);
+};
+
 export const getCheckEmail = (email: string) => {
   return httpClient.get(`${URL.CHECK_EMAIL}?email=${email}`);
 };
@@ -34,10 +38,6 @@ export const getFindId = (email: string) => {
 
 export const postFindPwd = ({ id, email }: Partial<JoinProps>) => {
   return httpClient.post(URL.FIND_PW, { email, id });
-};
-
-export const patchNickname = (nickname: Pick<JoinProps, "nickname">) => {
-  return httpClient.patch(URL.CHANGE_NICKNAME, nickname);
 };
 
 export const postResetPwd = ({ password, token }: postRestPw) => {
