@@ -38,14 +38,16 @@ const LoginPage = () => {
     });
   };
 
-  const handleKakaoLogin = async (e: MouseEvent<HTMLElement>) => {
+  const handleKakaoLogin = (e: MouseEvent<HTMLElement>) => {
     if (e.currentTarget.onclick) {
       window.location.href = `${URLS.KAKAO_LOGIN}`;
     }
   };
 
-  const handleGoogleLogin = () => {
-    window.location.href = `${URLS.GOOGLE_LOGIN}`;
+  const handleGoogleLogin = (e: MouseEvent<HTMLElement>) => {
+    if (e.currentTarget.onclick) {
+      window.location.href = `${URLS.GOOGLE_LOGIN}`;
+    }
   };
 
   return (
