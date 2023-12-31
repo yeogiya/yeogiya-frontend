@@ -12,7 +12,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from "@/features/hooks/useAppDispatch";
-import { createUser, initialState, user } from "@/store/userSlice";
+import { createUser, initialUserState, user } from "@/store/userSlice";
 
 const Menu = () => {
   const { accessToken, refreshToken, updateToken, resetToken } = useToken();
@@ -34,7 +34,7 @@ const Menu = () => {
 
   const handleClickLogout = () => {
     resetToken();
-    dispatch(createUser(initialState));
+    dispatch(createUser(initialUserState));
     navigate(PATH.HOME);
   };
 
@@ -63,8 +63,8 @@ const Menu = () => {
   return (
     <MenuItem>
       {userState.id
-        ? handleNavMenu(USER_MENU_ITEM(userState.nickname))
-        : handleNavMenu(MENU_ITEM)}
+        ? handleNavMenu(USER_MENU_ITEM(userState.nickname) as MenuItemProps[])
+        : handleNavMenu(MENU_ITEM as MenuItemProps[])}
 
       {userState.id && <img src={userState.profileImg || profileIconPath} />}
     </MenuItem>
