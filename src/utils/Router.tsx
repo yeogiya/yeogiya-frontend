@@ -2,7 +2,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import App from "@/App";
 import DiaryCreatePage from "@/pages/diary/create/DiaryCreatePage";
 import DiaryListPage from "@/pages/diary/list/DiaryListPage";
-import ErrorPage from "@/pages/ErrorPage";
+import ErrorPage from "@/pages/404/NotFoundPage";
 import FindIdPage from "@/pages/find/id/FindIdPage";
 import FindPwPage from "@/pages/find/pw/FindPwPage";
 import GlobalStyle from "@/styles/GlobalStyle";
