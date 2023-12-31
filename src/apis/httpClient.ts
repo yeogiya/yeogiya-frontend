@@ -4,7 +4,6 @@ const postHeaders = (data: unknown) => {
   if (data instanceof FormData)
     return {
       headers: {
-        "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${localStorage.getItem(TOKEN.ACCESS_TOKEN)}`,
       },
       body: data,
@@ -50,14 +49,13 @@ export const httpClient = {
     return response;
   },
 
-  patch: async (url: RequestInfo | URL, data: unknown) => {
+  patch: async (url: RequestInfo | URL, data: BodyInit) => {
     return await fetch(url, {
       method: "PATCH",
       headers: {
-        "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem(TOKEN.ACCESS_TOKEN)}`,
       },
-      body: JSON.stringify(data),
+      body: data,
     });
   },
 
