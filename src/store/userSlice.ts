@@ -9,7 +9,7 @@ export interface UserState {
   profileImg: string;
 }
 
-export const initialState = {
+export const initialUserState = {
   nickname: "",
   id: "",
   email: "",
@@ -18,7 +18,7 @@ export const initialState = {
 
 export const userSlice = createSlice({
   name: "user",
-  initialState,
+  initialState: initialUserState,
   reducers: {
     createUser: (state, action: PayloadAction<UserState>) => {
       state.nickname = action.payload.nickname;

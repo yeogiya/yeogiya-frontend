@@ -10,7 +10,7 @@ export interface DiaryState {
   address?: string;
 }
 
-export const initialState = {
+export const initialDiaryState = {
   latitude: 37.5759,
   longitude: 126.9768,
   isClickPos: false,
@@ -20,7 +20,7 @@ export const initialState = {
 
 export const diarySlice = createSlice({
   name: "diary",
-  initialState,
+  initialState: initialDiaryState,
   reducers: {
     createDiary: (state, action: PayloadAction<DiaryState>) => {
       state.latitude = action.payload.latitude;

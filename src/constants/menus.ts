@@ -7,13 +7,13 @@ export interface MenuItemProps {
   path: string;
 }
 
-export const MENU_ITEM: MenuItemProps[] = [
+export const MENU_ITEM: readonly MenuItemProps[] = [
   { type: "diary", title: "공간일기 쓰기", path: PATH.DIARY_LIST },
   { type: "member", title: "회원가입", path: PATH.JOIN },
   { type: "member", title: "로그인", path: PATH.LOGIN },
 ] as const;
 
-export const USER_MENU_ITEM = (nickname: string): MenuItemProps[] =>
+export const USER_MENU_ITEM = (nickname: string): readonly MenuItemProps[] =>
   [
     { type: "diary", title: "공간일기 쓰기", path: PATH.DIARY_LIST },
     { type: "login", title: "로그아웃", path: PATH.HOME },
