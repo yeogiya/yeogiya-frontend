@@ -28,7 +28,6 @@ const LoginPage = () => {
   const { id, idState, password, passwordState } = useLoginForm(control);
 
   const loginMutation = useLogin();
-  const dispatch = useAppDispatch();
 
   const onSubmit: SubmitHandler<Partial<JoinProps>> = (data) => {
     const { id, password } = { ...data };

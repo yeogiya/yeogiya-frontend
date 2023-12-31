@@ -3,68 +3,63 @@ import theme from "@/styles/theme";
 import useMyForm from "@/features/hooks/useMyForm";
 import { SubmitHandler, useForm } from "react-hook-form";
 import SubmitButton from "@/components/SubmitButton";
-import { JoinProps } from "../join/JoinPage";
 import InputProfile from "./components/InputProfile";
 import { PATH } from "@/utils/routes";
 import LinkText from "@/components/@common/LinkText";
 import { useUserInfo } from "@/features/hooks/queries/useUserInfo";
-import { FormEventHandler, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import InputNickname from "@/components/InputNickname";
 import InputEmail from "@/components/InputEmail";
 import InputId from "@/components/InputId";
 import { Form } from "react-router-dom";
-import {
-  useChangeUserInfo,
-  userInfoProps,
-} from "@/features/hooks/queries/useChangeUserInfo";
+import { useChangeUserInfo } from "@/features/hooks/queries/useChangeUserInfo";
+import { useAppDispatch } from "@/features/hooks/useAppDispatch";
+import { createUser } from "@/store/userSlice";
+import usePageNavigation from "@/features/hooks/usePageNavigation";
 
 export interface MyPageProps {
   id: string;
   email: string;
   nickname: string;
-  profileImg: File | ArrayBuffer | string | null;
 }
 
 const MyPage = () => {
+  const { navigate } = usePageNavigation();
   const { data: userInfo } = useUserInfo();
-  const [showProfileImg, setShowProfileImg] = useState<string>("");
-  const [profile, setProfile] = useState<File | string>(null);
-  const [infoData, setInfoData] = useState<
-    userInfoProps & { profileImg: File | string | null }
-  >({
-    nickname: "",
-    profileImg: null,
-  });
+  const [profile, setProfile] = useState<string>("");
+  const [profileImg, setProfileImg] = useState<File>(null);
+  const [isChanged, setIsChanged] = useState<boolean>(false);
 
-  const {
-    formState: { isDirty, isValid },
-    control,
-    setValue,
-    handleSubmit,
-  } = useForm<MyPageProps>({
+  const { control, setValue, handleSubmit } = useForm<MyPageProps>({
     mode: "onBlur",
   });
 
-  const {
-    nickname,
-    nicknameState,
-    id,
-    idState,
-    email,
-    emailState,
-    // profileImg,
-    // profileImgState,
-  } = useMyForm(control);
+  const { nickname, nicknameState, id, idState, email, emailState } =
+    useMyForm(control);
 
   const userInfoMutation = useChangeUserInfo();
+  const dispatch = useAppDispatch();
 
-  const onSubmit: SubmitHandler<MyPageProps> = () => {
-    setInfoData({
-      nickname: nickname.value,
-      profileImg: profile,
-    });
-
-    userInfoMutation.mutate(infoData);
+  const onSubmit: SubmitHandler<MyPageProps> = (submitData) => {
+    userInfoMutation.mutate(
+      {
+        nickname: submitData.nickname,
+        profileImg: profileImg,
+      },
+      {
+        onSuccess: () => {
+          dispatch(
+            createUser({
+              email: userInfo.body.email,
+              id: userInfo.body.id,
+              nickname: submitData.nickname,
+              profileImg: profile,
+            })
+          );
+          navigate(PATH.HOME);
+        },
+      }
+    );
   };
 
   const updateImage = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -76,15 +71,11 @@ const MyPage = () => {
     reader.readAsDataURL(file);
     reader.onloadend = () => {
       if (reader.result) {
-        setInfoData((prev) => {
-          return { ...prev, profileImg: file };
-        });
-        setProfile(reader.result as string);
+        setProfileImg(file);
       }
-      setShowProfileImg(currentProfileImg);
+      setProfile(currentProfileImg);
+      setIsChanged(true);
     };
-
-    // setIsValid(true);
   };
 
   useEffect(() => {
@@ -93,15 +84,12 @@ const MyPage = () => {
       setValue("id", userInfo.body.id);
       setValue("email", userInfo.body.email);
       userInfo.body.profileImageUrl &&
-        setShowProfileImg(userInfo.body.profileImageUrl);
+        setProfile(userInfo.body.profileImageUrl);
     }
   }, [userInfo?.body]);
 
   return (
-    <Form
-      // onSubmit={onSubmit}
-      onSubmit={handleSubmit(onSubmit)}
-    >
+    <Form onSubmit={handleSubmit(onSubmit)}>
       <Layout
         maxWidth="328px"
         css={{ height: "100%", width: "100%" }}
@@ -110,13 +98,14 @@ const MyPage = () => {
       >
         <InputProfile
           updateImage={updateImage}
-          profile={showProfileImg}
-          // setProfile={setProfile}
-          // profileImg={profileImg}
-          // profileImgState={profileImgState}
+          profile={profile}
           css={{ marginBottom: "8px" }}
         />
-        <InputNickname nickname={nickname} nicknameState={nicknameState} />
+        <InputNickname
+          nickname={nickname}
+          nicknameState={nicknameState}
+          setIsChanged={setIsChanged}
+        />
         <InputEmail email={email} emailState={emailState} disabled />
         <InputId
           id={id}
@@ -127,7 +116,7 @@ const MyPage = () => {
         <SubmitButton
           type="submit"
           text="완료"
-          isValid={isDirty && isValid}
+          isValid={isChanged}
           css={{ marginTop: "24px" }}
         />
         <LinkText

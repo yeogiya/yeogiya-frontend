@@ -1,50 +1,29 @@
 import ProfileIcon from "@/assets/images/ProfileIcon";
 import styled from "@emotion/styled";
-import React, { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 
-const InputProfile = ({ updateImage, profile }) =>
-  // { profileImg, profileImgState, ...props }
-  {
-    const profileInput = useRef(null);
+const InputProfile = ({ updateImage, profile }) => {
+  const profileInput = useRef(null);
 
-    const handleButtonClick = () => {
-      profileInput.current.click();
-    };
-
-    // const handleProfileImg = (e: React.ChangeEvent<HTMLInputElement>) => {
-    //   const profileImg = e.target.files[0];
-    //   const currentProfileImg = URL.createObjectURL(profileImg);
-    //   setShowProfileImg(currentProfileImg);
-    // };
-
-    return (
-      <ProfileWrapper
-      // {...props}
-      >
-        <ImgStyle>
-          {/* {showProfileImg ? (
-            <img src={showProfileImg} alt={showProfileImg} />
-          ) : (
-            <ProfileIcon />
-          )} */}
-
-          {profile ? <img src={profile} alt={profile} /> : <ProfileIcon />}
-          <Profile
-            ref={profileInput}
-            type="file"
-            accept="image/*"
-            onChange={updateImage}
-            // onChange={
-            // profileImg.onChange(e.target.files.item(0));
-            // profileImg.onChange(e);
-            // handleProfileImg
-            // }
-          />
-        </ImgStyle>
-        <label onClick={handleButtonClick}>사진 변경</label>
-      </ProfileWrapper>
-    );
+  const handleButtonClick = () => {
+    profileInput.current.click();
   };
+
+  return (
+    <ProfileWrapper>
+      <ImgStyle>
+        {profile ? <img src={profile} alt={profile} /> : <ProfileIcon />}
+        <Profile
+          ref={profileInput}
+          type="file"
+          accept="image/*"
+          onChange={updateImage}
+        />
+      </ImgStyle>
+      <label onClick={handleButtonClick}>사진 변경</label>
+    </ProfileWrapper>
+  );
+};
 
 export default InputProfile;
 

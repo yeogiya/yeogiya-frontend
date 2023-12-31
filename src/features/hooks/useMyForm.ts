@@ -12,8 +12,10 @@ const useMyForm = (
     rules: {
       required: "닉네임을 입력해주세요.",
       validate: async (value) => {
-        const res = await getCheckNickname(value);
-        if (res.body.duplicated) return "이미 사용 중인 닉네임입니다.";
+        if (!nicknameState.isDirty) return true;
+        const response = await getCheckNickname(value);
+        const { body } = response as CheckDuplicationProps;
+        if (body.duplicated) return "이미 사용 중인 닉네임입니다.";
       },
     },
   });
@@ -28,11 +30,6 @@ const useMyForm = (
     control,
   });
 
-  const { field: profileImg, fieldState: profileImgState } = useController({
-    name: "profileImg",
-    control,
-  });
-
   return {
     nickname,
     nicknameState,
@@ -40,8 +37,6 @@ const useMyForm = (
     idState,
     email,
     emailState,
-    profileImg,
-    profileImgState,
   };
 };
 
