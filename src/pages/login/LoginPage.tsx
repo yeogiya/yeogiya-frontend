@@ -13,8 +13,8 @@ import styled from "@emotion/styled";
 import theme from "@/styles/theme";
 import useLoginForm from "@/features/hooks/useLoginForm";
 import { useLogin } from "@/features/hooks/queries/useLogin";
-import { URL, URL as URLS } from "@/constants/url";
-import { useAppDispatch } from "@/features/hooks/useAppDispatch";
+import { URL as URLS } from "@/constants/url";
+import { MouseEvent } from "react";
 
 const LoginPage = () => {
   const { handleSubmit, control } = useForm<Partial<JoinProps>>({
@@ -38,12 +38,14 @@ const LoginPage = () => {
     });
   };
 
-  const handleKakaoLogin = () => {
-    window.location.href = `${URL.KAKAO_LOGIN}`;
+  const handleKakaoLogin = async (e: MouseEvent<HTMLElement>) => {
+    if (e.currentTarget.onclick) {
+      window.location.href = `${URLS.KAKAO_LOGIN}`;
+    }
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = `${URL.GOOGLE_LOGIN}`;
+    window.location.href = `${URLS.GOOGLE_LOGIN}`;
   };
 
   return (
