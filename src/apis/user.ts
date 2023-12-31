@@ -15,6 +15,10 @@ export const getUserInfo = () => {
   return httpClient.get(URL.USER_INFO);
 };
 
+export const patchUserInfo = async (data: FormData) => {
+  return httpClient.patch(URL.USER_INFO, data);
+};
+
 export const getCheckEmail = (email: string) => {
   return httpClient.get(`${URL.CHECK_EMAIL}?email=${email}`);
 };
