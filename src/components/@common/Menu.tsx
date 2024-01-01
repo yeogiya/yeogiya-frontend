@@ -3,39 +3,45 @@ import LinkText from "./LinkText";
 import { PATH } from "@/utils/routes";
 import styled from "@emotion/styled";
 import theme from "@/styles/theme";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useToken } from "@/features/hooks/useToken";
-import usePageNavigation from "@/features/hooks/usePageNavigation";
 import { useReissueToken } from "@/features/hooks/queries/useReissueToken";
 import { profileIconPath } from "@/assets/index";
-import {
-  useAppDispatch,
-  useAppSelector,
-} from "@/features/hooks/useAppDispatch";
-import { createUser, initialUserState, user } from "@/store/userSlice";
+import { useUserInfo } from "@/features/hooks/queries/useUserInfo";
+import { users } from "@/constants/queryKey";
+import { useNavigate } from "react-router-dom";
+import { useInfo } from "@/features/hooks/useInfo";
 
 const Menu = () => {
   const { accessToken, refreshToken, updateToken, resetToken } = useToken();
-  const { navigate } = usePageNavigation();
+  const { nickname, profile, updateUserInfo, removeUserInfo } = useInfo();
+  const navigate = useNavigate();
   const { mutateSendTokenReissue } = useReissueToken();
-  const dispatch = useAppDispatch();
-
-  const userState = useAppSelector(user);
+  const { data: userInfo } = useUserInfo({
+    queryKey: users.info,
+    enabled: !!accessToken,
+  });
 
   useEffect(() => {
     if (!accessToken) {
       resetToken();
+
+      navigate(PATH.HOME);
       return;
+    }
+
+    if (userInfo) {
+      updateUserInfo(userInfo.body.nickname, userInfo.body.profileImageUrl);
     }
 
     updateToken(accessToken || "", refreshToken || "");
     mutateSendTokenReissue();
-  }, [accessToken, refreshToken]);
+  }, [accessToken, refreshToken, userInfo]);
 
   const handleClickLogout = () => {
     resetToken();
-    dispatch(createUser(initialUserState));
-    navigate(PATH.HOME);
+    removeUserInfo();
+    navigate(PATH.LOGIN);
   };
 
   const handleNavMenu = (mapItem: MenuItemProps[]) => {
@@ -62,11 +68,11 @@ const Menu = () => {
 
   return (
     <MenuItem>
-      {userState.id
-        ? handleNavMenu(USER_MENU_ITEM(userState.nickname) as MenuItemProps[])
+      {nickname
+        ? handleNavMenu(USER_MENU_ITEM(nickname) as MenuItemProps[])
         : handleNavMenu(MENU_ITEM as MenuItemProps[])}
 
-      {userState.id && <img src={userState.profileImg || profileIconPath} />}
+      {profile && <img src={profile || profileIconPath} />}
     </MenuItem>
   );
 };
