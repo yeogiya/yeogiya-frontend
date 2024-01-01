@@ -2,7 +2,6 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import App from "@/App";
 import DiaryCreatePage from "@/pages/diary/create/DiaryCreatePage";
 import DiaryListPage from "@/pages/diary/list/DiaryListPage";
-import ErrorPage from "@/pages/404/NotFoundPage";
 import FindIdPage from "@/pages/find/id/FindIdPage";
 import FindPwPage from "@/pages/find/pw/FindPwPage";
 import GlobalStyle from "@/styles/GlobalStyle";
@@ -25,16 +24,21 @@ import theme from "@/styles/theme";
 import ConfirmWithdrawalPage from "@/pages/my/withdrawal/ConfirmWithdrawalPage";
 import ScrollToTop from "@/components/@common/ScrollToTop";
 import SNSLogin from "@/pages/login/components/SNSLogin";
+import NotFoundPage from "@/pages/404/NotFoundPage";
 
 export const router = createBrowserRouter([
   {
     path: PATH.HOME,
     element: <App layout="default" />,
-    errorElement: <ErrorPage />,
+    errorElement: <NotFoundPage />,
     children: [
       {
         index: true,
         element: <LandingPage />,
+      },
+      {
+        path: PATH.NOT_FOUND,
+        element: <NotFoundPage />,
       },
       { path: PATH.SEARCH, element: <SearchPage /> },
       {
@@ -104,7 +108,7 @@ export const router = createBrowserRouter([
   {
     path: PATH.DIARY_CREATE_MAP,
     element: <App layout="diaryMap" />,
-    errorElement: <ErrorPage />,
+    errorElement: <NotFoundPage />,
     children: [
       {
         index: true,
@@ -115,7 +119,7 @@ export const router = createBrowserRouter([
   {
     path: PATH.DIARY_MAP_SEARCH,
     element: <App layout="locationSearch" />,
-    errorElement: <ErrorPage />,
+    errorElement: <NotFoundPage />,
     children: [
       {
         index: true,
@@ -126,7 +130,7 @@ export const router = createBrowserRouter([
   {
     path: PATH.SEARCH_RESULT_DETAIL,
     element: <App layout="placeSearch" />,
-    errorElement: <ErrorPage />,
+    errorElement: <NotFoundPage />,
     children: [
       {
         path: PATH.RESULT_LIST,
