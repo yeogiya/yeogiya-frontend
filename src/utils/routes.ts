@@ -6,6 +6,7 @@ const STATIC = {
   LOGIN: "/login",
   KAKAO_LOGIN: "/login/kakao",
   JOIN: "/join",
+  DIARY: "/diary",
   DIARY_CREATE: "/diary/create",
   DIARY_LIST: "/diary/list",
   FIND_ID: "/find/id",
@@ -24,6 +25,7 @@ const STATIC = {
 const DYNAMIC = {
   DIARY_CREATE_MAP: `${STATIC.DIARY_MAP}/:date`,
   DIARY_CREATE_DATE: `${STATIC.DIARY_CREATE}/:date`,
+  DIARY_DETAIL: `${STATIC.DIARY}/:id`,
   RESULT_LIST: `${STATIC.SEARCH_RESULT_LIST}/:searchID`,
   RESULT_DETAIL: `${STATIC.SEARCH_RESULT_DETAIL}/:searchDetail`,
   SNS_LOGIN: `${STATIC.LOGIN}/:token`,

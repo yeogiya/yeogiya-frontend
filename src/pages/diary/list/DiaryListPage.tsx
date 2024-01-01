@@ -50,9 +50,6 @@ const DiaryListPage = () => {
     if (!accessToken) {
       navigate(PATH.LOGIN);
       return;
-    } else {
-      navigate(`${PATH.DIARY_MAP}/${date}`);
-      return;
     }
   };
 
@@ -88,22 +85,45 @@ const DiaryListPage = () => {
           const dayDataItem = diaryList?.body?.diaries.find(
             (day: DiaryItemProps) => day.date === dateStr
           );
+
           return (
-            <DiaryLayout key={dateStr} svg={WhitePlusIcon}>
-              {dayDataItem && dayDataItem.diaryImage ? (
-                <img src={dayDataItem.diaryImage} alt="diary image" />
-              ) : dayDataItem ? (
-                <IconLayout>
-                  <CheckIcon />
-                </IconLayout>
+            <>
+              {dayDataItem ? (
+                <DiaryLayout key={dateStr} svg={WhitePlusIcon}>
+                  {dayDataItem && dayDataItem.diaryImage ? (
+                    <img src={dayDataItem.diaryImage} alt="diary image" />
+                  ) : (
+                    dayDataItem && (
+                      <IconLayout
+                        onClick={() =>
+                          navigate(PATH.DIARY + `/${dayDataItem.diaryId}`)
+                        }
+                      >
+                        <CheckIcon />
+                      </IconLayout>
+                    )
+                  )}
+                </DiaryLayout>
               ) : (
-                today && (
-                  <TodayIconLayout>
-                    <PlusIcon />
-                  </TodayIconLayout>
-                )
+                <DiaryLayout
+                  key={dateStr}
+                  svg={WhitePlusIcon}
+                  onClick={() => {
+                    navigate(`${PATH.DIARY_MAP}/${dateStr}`);
+                  }}
+                >
+                  {today && (
+                    <TodayIconLayout
+                      onClick={() => {
+                        navigate(`${PATH.DIARY_MAP}/${dateStr}`);
+                      }}
+                    >
+                      <PlusIcon />
+                    </TodayIconLayout>
+                  )}
+                </DiaryLayout>
               )}
-            </DiaryLayout>
+            </>
           );
         }}
       />

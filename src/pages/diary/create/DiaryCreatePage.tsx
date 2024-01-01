@@ -75,7 +75,7 @@ const DiaryCreatePage = () => {
 
 export default DiaryCreatePage;
 
-const ContentsStyle = styled.div`
+export const ContentsStyle = styled.div`
   display: flex;
   width: 100%;
   height: 100%;
@@ -108,7 +108,7 @@ const ShareStyle = styled.div`
   }
 `;
 
-const Location = styled.span`
+export const Location = styled.span`
   display: flex;
   color: ${theme.color.purple};
   font-size: 1.75rem;
