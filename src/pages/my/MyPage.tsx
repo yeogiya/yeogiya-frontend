@@ -13,7 +13,6 @@ import InputEmail from "@/components/InputEmail";
 import InputId from "@/components/InputId";
 import { Form } from "react-router-dom";
 import { useChangeUserInfo } from "@/features/hooks/queries/useChangeUserInfo";
-import { useAppDispatch } from "@/features/hooks/useAppDispatch";
 import usePageNavigation from "@/features/hooks/usePageNavigation";
 
 export interface MyPageProps {
@@ -37,7 +36,6 @@ const MyPage = () => {
     useMyForm(control);
 
   const userInfoMutation = useChangeUserInfo();
-  const dispatch = useAppDispatch();
 
   const onSubmit: SubmitHandler<MyPageProps> = (submitData) => {
     userInfoMutation.mutate(
