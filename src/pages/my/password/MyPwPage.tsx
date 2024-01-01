@@ -49,7 +49,6 @@ const MyPwPage = () => {
           password={password}
           passwordState={passwordState}
           labelText="현재 비밀번호"
-          setValidateText={setValidateText}
         />
         <ValidateMessage color="error">
           {isValid && validateText}
