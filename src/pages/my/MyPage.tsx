@@ -14,6 +14,9 @@ import InputId from "@/components/InputId";
 import { Form } from "react-router-dom";
 import { useChangeUserInfo } from "@/features/hooks/queries/useChangeUserInfo";
 import usePageNavigation from "@/features/hooks/usePageNavigation";
+import { useInfo } from "@/features/hooks/useInfo";
+import { users } from "@/constants/queryKey";
+import { useQueryClient } from "@tanstack/react-query";
 
 export interface MyPageProps {
   id: string;
@@ -23,10 +26,15 @@ export interface MyPageProps {
 
 const MyPage = () => {
   const { navigate } = usePageNavigation();
-  const { data: userInfo } = useUserInfo();
+  const queryClient = useQueryClient();
+  const { updateUserInfo } = useInfo();
   const [profile, setProfile] = useState<string>("");
   const [profileImg, setProfileImg] = useState<File>(null);
   const [isChanged, setIsChanged] = useState<boolean>(false);
+  const { data: userInfo } = useUserInfo({
+    queryKey: users.info,
+    enabled: isChanged,
+  });
 
   const { control, setValue, handleSubmit } = useForm<MyPageProps>({
     mode: "onBlur",
@@ -45,6 +53,8 @@ const MyPage = () => {
       },
       {
         onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: users.info });
+          updateUserInfo(submitData.nickname, profile);
           navigate(PATH.HOME);
         },
       }
