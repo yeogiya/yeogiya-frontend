@@ -31,8 +31,6 @@ const RestaurantDetailPage = () => {
 
   const { searchDetail } = useParams();
 
-  console.log(searchDetail);
-
   const handleActiveNav = (nav: RestaurantDetailNavType) => {
     setActiveNav(nav);
 

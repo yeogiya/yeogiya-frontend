@@ -41,9 +41,7 @@ const UpdateMyPwPage = () => {
 
   const resetPwMutation = useAuthResetPw();
 
-  const onSubmit = (data) => {
-    console.log(data);
-
+  const onSubmit = (data: updateMyPwProps) => {
     resetPwMutation.mutate(
       { password: data.newPassword },
       {

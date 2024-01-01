@@ -56,13 +56,13 @@ export const useMap = () => {
 
   const searchDetailAddFromCoords = async (latitude, longitude) => {
     const geocoder = new kakao.maps.services.Geocoder();
-    console.log(geocoder);
+    // console.log(geocoder);
     geocoder.addressSearch(longitude, latitude, (result, status) => {
-      console.log(status);
+      // console.log(status);
       // TODO: geocoder
       if (status === kakao.maps.services.Status.OK) {
         if (result[0].road_address) {
-          console.log(result[0].road_address.address_name as string);
+          // console.log(result[0].road_address.address_name as string);
         }
       }
     });
