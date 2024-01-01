@@ -18,6 +18,7 @@ const STATIC = {
   MY_PASSWORD_UPDATE: "/my/pw/update",
   MY_WITHDRAWAL: "/my/withdrawal",
   CONFIRM_MY_WITHDRAWAL: "/my/withdrawal/confirm",
+  NOT_FOUND: "/notfound",
 };
 
 const DYNAMIC = {
