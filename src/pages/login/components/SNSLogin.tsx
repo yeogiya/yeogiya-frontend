@@ -4,10 +4,7 @@ import { PATH } from "@/utils/routes";
 import { useEffect } from "react";
 import { useAppDispatch } from "@/features/hooks/useAppDispatch";
 import { useUserInfo } from "@/features/hooks/queries/useUserInfo";
-import { createUser } from "@/store/userSlice";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useReissueToken } from "@/features/hooks/queries/useReissueToken";
-import { getUserInfo } from "@/apis/user";
+import { useQueryClient } from "@tanstack/react-query";
 
 const SNSLogin = () => {
   const { updateToken } = useToken();
@@ -34,15 +31,6 @@ const SNSLogin = () => {
 
   const handleUpdate = async (userInfo) => {
     if (!userInfo && !userInfo?.body) return;
-
-    await dispatch(
-      createUser({
-        email: userInfo.body.email,
-        id: userInfo.body.id,
-        nickname: userInfo.body.nickname,
-        profileImg: userInfo.body.profileImageUrl,
-      })
-    );
   };
 
   useEffect(() => {
