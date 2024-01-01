@@ -6,8 +6,6 @@ import { createRoot } from "react-dom/client";
 import { store } from "./store/store.ts";
 import { worker } from "./mocks/browser.ts";
 import { TokenProvider } from "./contexts/TokenProvider.tsx";
-import { PersistGate } from "redux-persist/integration/react";
-import { persistStore } from "redux-persist";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -28,17 +26,14 @@ if (process.env.NODE_ENV === "development") {
 }
 const domNode = document.getElementById("root");
 const root = createRoot(domNode);
-const persistor = persistStore(store);
 
 root.render(
   <TokenProvider>
     <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <QueryClientProvider client={queryClient}>
-          <Router />
-          <ReactQueryDevtools initialIsOpen={false} />
-        </QueryClientProvider>
-      </PersistGate>
+      <QueryClientProvider client={queryClient}>
+        <Router />
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
     </Provider>
   </TokenProvider>
 );

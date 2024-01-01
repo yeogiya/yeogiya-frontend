@@ -14,7 +14,6 @@ import InputId from "@/components/InputId";
 import { Form } from "react-router-dom";
 import { useChangeUserInfo } from "@/features/hooks/queries/useChangeUserInfo";
 import { useAppDispatch } from "@/features/hooks/useAppDispatch";
-import { createUser } from "@/store/userSlice";
 import usePageNavigation from "@/features/hooks/usePageNavigation";
 
 export interface MyPageProps {
@@ -48,14 +47,6 @@ const MyPage = () => {
       },
       {
         onSuccess: () => {
-          dispatch(
-            createUser({
-              email: userInfo.body.email,
-              id: userInfo.body.id,
-              nickname: submitData.nickname,
-              profileImg: profile,
-            })
-          );
           navigate(PATH.HOME);
         },
       }
