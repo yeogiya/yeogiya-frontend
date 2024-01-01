@@ -2,10 +2,13 @@ import { Control, useController } from "react-hook-form";
 import { getCheckNickname } from "@/apis/user";
 import { JoinProps } from "@/pages/join/JoinPage";
 import { CheckDuplicationProps } from "@/types/users";
+import { useInfo } from "./useInfo";
 
 const useMyForm = (
   control: Control<Pick<JoinProps, "nickname" | "email" | "id">>
 ) => {
+  const { nickname: nicknameInfo } = useInfo();
+
   const { field: nickname, fieldState: nicknameState } = useController({
     name: "nickname",
     control,
@@ -13,6 +16,7 @@ const useMyForm = (
       required: "닉네임을 입력해주세요.",
       validate: async (value) => {
         if (!nicknameState.isDirty) return true;
+        if (nicknameInfo === value) return true;
         const response = await getCheckNickname(value);
         const { body } = response as CheckDuplicationProps;
         if (body.duplicated) return "이미 사용 중인 닉네임입니다.";
