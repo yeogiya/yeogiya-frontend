@@ -25,6 +25,7 @@ import ConfirmWithdrawalPage from "@/pages/my/withdrawal/ConfirmWithdrawalPage";
 import ScrollToTop from "@/components/@common/ScrollToTop";
 import SNSLogin from "@/pages/login/components/SNSLogin";
 import NotFoundPage from "@/pages/404/NotFoundPage";
+import DiaryDetailPage from "@/pages/diary/detail/DiaryDetailPage";
 
 export const router = createBrowserRouter([
   {
@@ -82,6 +83,10 @@ export const router = createBrowserRouter([
       {
         path: PATH.DIARY_CREATE_DATE,
         element: <DiaryCreatePage />,
+      },
+      {
+        path: PATH.DIARY_DETAIL,
+        element: <DiaryDetailPage />,
       },
       {
         path: PATH.MY,
