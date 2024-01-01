@@ -36,9 +36,15 @@ const DiaryListPage = () => {
   const navigate = useNavigate();
   const { accessToken } = useToken();
   const [date, setDate] = useState(new Date());
+  const monthFormat = dayjs(date).format("YYYY-MM");
+  const [activeMonth, setActiveMonth] = useState(monthFormat);
 
   const { data: diaryList } =
-    accessToken && useDiaryList(date.getFullYear(), date.getMonth() + 1);
+    accessToken &&
+    useDiaryList(
+      dayjs(activeMonth).format("YYYY"),
+      dayjs(activeMonth).format("MM")
+    );
 
   const handleClickTodayBtn = (date: string) => {
     if (!accessToken) {
@@ -50,6 +56,11 @@ const DiaryListPage = () => {
     }
   };
 
+  const getActiveMonth = (activeStartDate: Date) => {
+    const newActiveMonth = dayjs(activeStartDate).format("YYYY-MM");
+    setActiveMonth(newActiveMonth);
+  };
+
   return (
     <DiaryStyle>
       <Calendar
@@ -58,6 +69,9 @@ const DiaryListPage = () => {
         onChange={(value: Date) => setDate(value)}
         value={date}
         // showNeighboringMonth={false}
+        onActiveStartDateChange={({ activeStartDate }) =>
+          getActiveMonth(activeStartDate)
+        }
         locale="ko"
         next2Label={null}
         prev2Label={null}

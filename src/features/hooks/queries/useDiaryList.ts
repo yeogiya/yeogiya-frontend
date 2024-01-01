@@ -5,12 +5,12 @@ import { UseQueryOptions, useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 
 export const useDiaryList = (
-  year: number,
-  month: number,
+  year: string,
+  month: string,
   options?: UseQueryOptions<DiaryListProps, AxiosError>
 ) => {
   const { data } = useQuery({
-    queryKey: diary.list,
+    queryKey: [diary.list, month],
     queryFn: () => getDiaryList(year, month),
     ...options,
   });
