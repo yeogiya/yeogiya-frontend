@@ -6,14 +6,14 @@ import Menu from "@/components/@common/Menu";
 import { PATH } from "@/utils/routes";
 import styled from "@emotion/styled";
 import theme from "@/styles/theme";
-import usePlaceSearch from "@/features/hooks/usePlaceSearch";
+import useSearch from "@/features/hooks/useSearch";
 
 interface NavbarProps {
   type: "default" | "placeSearch";
 }
 
 const Navbar = ({ type }: NavbarProps) => {
-  const { value, onChange, onSearch } = usePlaceSearch();
+  const { value, onChange, onSearch } = useSearch();
 
   const getNavType = (type: string) => {
     switch (type) {
