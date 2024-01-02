@@ -1,6 +1,7 @@
 import { PATH } from "../utils/routes";
 
 export type MenuItemType = "diary" | "member" | "login";
+
 export interface MenuItemProps {
   type: MenuItemType;
   title: string;
