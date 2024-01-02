@@ -7,22 +7,22 @@ import { useEffect, useState } from "react";
 import ResultDetailNav from "./components/ResultDetailNav";
 import { SEARCH_DETAIL_NAV } from "@/constants/menus";
 import ResultDetailContent from "./components/ResultDetailContent";
-import DiaryReview from "./components/ResultDetailReview";
 import { useParams } from "react-router-dom";
-import { useRestaurant } from "@/features/hooks/queries/useRestaurant";
+import { useSearchDetail } from "@/features/hooks/queries/useSearchDetail";
+import { useAppSelector } from "@/features/hooks/useAppDispatch";
+import { place } from "@/store/placeSlice";
 
 export type SearchDetailPageNavType =
   (typeof SEARCH_DETAIL_NAV)[keyof typeof SEARCH_DETAIL_NAV];
 
 const SearchDetailPagePage = () => {
-  const { data: mockData } = useRestaurant();
+  const placeState = useAppSelector(place);
 
-  const [data, setData] = useState<{
-    placeName?: string;
-    rating?: number;
-    restaurantType?: string;
-    diaryReview?: object[];
-  }>(mockData);
+  const { data: detailInfo } = useSearchDetail(
+    placeState.placeId,
+    placeState.keyword
+  );
+
   const [activeNav, setActiveNav] = useState<SearchDetailPageNavType>(
     SEARCH_DETAIL_NAV.NAVER
   );
@@ -35,18 +35,14 @@ const SearchDetailPagePage = () => {
     // TODO activeNav에 따라 api
   };
 
-  useEffect(() => {
-    setData(mockData);
-  }, [mockData]);
-
   return (
     <Layout paddingTop="0">
       <ImageSection />
       <Layout maxWidth="60rem" paddingTop="3.5rem">
         <RestaurantTitle
           placeName={searchDetail}
-          rating={data ? data.rating : undefined}
-          restaurantType={data?.restaurantType}
+          rating={placeState.yeogiyaRating}
+          restaurantType={detailInfo?.body?.category}
         />
         <StyledBorder />
         <ResultDetailNav
@@ -54,7 +50,7 @@ const SearchDetailPagePage = () => {
           activeNavHandler={handleActiveNav}
         />
         <ResultDetailContent />
-        <DiaryReview review={data?.diaryReview} />
+        {/* <DiaryReview review={data?.diaryReview} /> */}
       </Layout>
     </Layout>
   );

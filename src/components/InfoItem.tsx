@@ -5,14 +5,26 @@ import { useNavigate } from "react-router-dom";
 import { MouseEvent } from "react";
 import { PATH } from "@/utils/routes";
 import { SearchDefaultImage } from "@/assets/index";
+import { useAppDispatch } from "@/features/hooks/useAppDispatch";
+import { createPlace } from "@/store/placeSlice";
 
 const InfoItem = ({ data, diaryRating = 4 }) => {
   const { address, googleRating, placeName } = data;
 
   const navigate = useNavigate();
 
+  const dispatch = useAppDispatch();
+
   const handleClick = (e: MouseEvent<HTMLElement>) => {
     if (e.currentTarget.onclick) {
+      dispatch(
+        createPlace({
+          placeName: data.placeName,
+          placeId: data.googlePlaceId,
+          keyword: data.placeName,
+          yeogiyaRating: data.yeogiyaRating,
+        })
+      );
       navigate(PATH.SEARCH_RESULT_DETAIL + `/${placeName}`);
     }
   };
