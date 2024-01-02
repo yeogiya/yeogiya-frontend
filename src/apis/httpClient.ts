@@ -13,7 +13,7 @@ const postHeaders = (data: unknown) => {
   return {
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${localStorage.getItem(TOKEN.ACCESS_TOKEN)}`,
+      Authorization: `Bearer ${localStorage.getItem(TOKEN.ACCESS_TOKEN)}` || "",
     },
     body: JSON.stringify(data),
   };

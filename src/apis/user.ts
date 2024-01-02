@@ -58,3 +58,7 @@ export const postCheckPw = (password: string) => {
 export const postAuthResetPw = (password: string) => {
   return httpClient.post(URL.AUTH_RESET_PW, { password });
 };
+
+export const postEmailResetPw = ({ password, token }) => {
+  return httpClient.post(URL.AUTH_RESET_PW, { password, token });
+};
