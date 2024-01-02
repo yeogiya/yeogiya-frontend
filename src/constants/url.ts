@@ -42,6 +42,7 @@ const URLS = {
 
   // Search
   PLACE_SEARCH: `${import.meta.env.VITE_PUBLIC_URL_KEY}/search/places`, // 장소 검색
+  SEARCH_DETAIL: `${import.meta.env.VITE_PUBLIC_URL_KEY}/search/places/details`, // 장소 상세 검색
   LOCATION_SEARCH: `${import.meta.env.VITE_PUBLIC_URL_KEY}/search/places/kakao`, // 위치 검색
 };
 
