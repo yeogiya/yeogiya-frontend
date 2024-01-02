@@ -10,7 +10,7 @@ import UploadImage from "./components/UploadImage";
 import dayjs from "dayjs";
 import styled from "@emotion/styled";
 import theme from "@/styles/theme";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Form, useLocation } from "react-router-dom";
 import { useCreateDiary } from "@/features/hooks/queries/useCreateDiary";
 
@@ -37,8 +37,13 @@ const DiaryCreatePage = () => {
     setTextCount(Number(count.toString().replace(regexp, ",")));
   };
 
+  useEffect(() => {
+    textCount >= 20 ? setIsValid(true) : setIsValid(false);
+  }, [textCount]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!isValid) return;
 
     const newStar = clicked.filter((v) => v === true).length;
 
