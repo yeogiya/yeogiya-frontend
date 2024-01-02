@@ -7,6 +7,7 @@ interface PlaceState {
   placeId: string;
   keyword: string;
   yeogiyaRating: number;
+  googleImage?: string;
 }
 
 export const initialState = {
@@ -14,6 +15,7 @@ export const initialState = {
   placeId: "",
   keyword: "",
   yeogiyaRating: 0,
+  googleImage: "",
 } as PlaceState;
 
 export const placeSlice = createSlice({
@@ -25,6 +27,7 @@ export const placeSlice = createSlice({
       state.placeId = action.payload.placeId;
       state.keyword = action.payload.keyword;
       state.yeogiyaRating = action.payload.yeogiyaRating;
+      state.googleImage = action.payload.googleImage;
     },
   },
 });

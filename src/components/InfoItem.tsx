@@ -23,7 +23,7 @@ const InfoItem = ({ data }) => {
 
   const dispatch = useAppDispatch();
 
-  const placeImage = `${URLS.GOOGLE_PLACE}${photoReference}&key=${
+  const googleImage = `${URLS.GOOGLE_PLACE}${photoReference}&key=${
     import.meta.env.VITE_GOOGLE_PLACE_KEY
   }`;
 
@@ -35,11 +35,12 @@ const InfoItem = ({ data }) => {
           placeId: googlePlaceId,
           keyword: placeName,
           yeogiyaRating: yeogiyaRating,
+          googleImage: googleImage,
         })
       );
       navigate(
         PATH.SEARCH_RESULT_DETAIL +
-          `/placeId=${placeName}&keyword=&${placeName}`
+          `/placeId=${googlePlaceId}&keyword=&${placeName}`
       );
     }
   };
@@ -47,7 +48,7 @@ const InfoItem = ({ data }) => {
   return (
     <Container onClick={handleClick}>
       <img
-        src={photoReference ? placeImage : SearchDefaultImage}
+        src={photoReference ? googleImage : SearchDefaultImage}
         alt="InfoImage"
       />
       <TextLayout

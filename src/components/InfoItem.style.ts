@@ -25,9 +25,12 @@ export const Container = styled.div`
   cursor: pointer;
 
   img {
-    width: 14.875rem;
-    height: 14.875rem;
+    width: 100%;
+    height: 100%;
+    max-width: 14.875rem;
+    max-height: 14.875rem;
     border-radius: 0.875rem;
+    object-fit: cover;
   }
 `;
 
