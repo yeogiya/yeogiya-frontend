@@ -12,23 +12,47 @@ import styled from "@emotion/styled";
 import theme from "@/styles/theme";
 import { useState } from "react";
 import { Form, useLocation } from "react-router-dom";
+import { useCreateDiary } from "@/features/hooks/queries/useCreateDiary";
 
 const DiaryCreatePage = () => {
   const { pathname } = useLocation();
   const [textCount, setTextCount] = useState<number>();
   const [isValid, setIsValid] = useState<boolean>(false);
   const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
-
+  const [clicked, setClicked] = useState([false, false, false, false, false]);
+  const [tagValue, setTagValue] = useState<string[]>([]);
+  const [isActive, setIsActive] = useState(false);
   const createDate = pathname.split("/").at(-1);
   const [selectedDate, setSelectedDate] = useState<string>(createDate);
+  const [fileImages, setFileImages] = useState<File[]>([]);
+  const [contents, setContents] = useState<string>("");
+
+  const createDiary = useCreateDiary();
 
   const onTextCount = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setContents(e.target.value);
+
     const count = e.target.value?.length;
     const regexp = /\B(?=(\d{3})+(?!\d))/g;
     setTextCount(Number(count.toString().replace(regexp, ",")));
   };
 
-  const handleSubmit = () => {};
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const newStar = clicked.filter((v) => v === true).length;
+
+    createDiary.mutate({
+      diaryContent: {
+        fileImages,
+        tagValue,
+        selectedDate,
+        star: newStar,
+        isActive,
+        contents,
+      },
+    });
+  };
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -50,19 +74,19 @@ const DiaryCreatePage = () => {
           )}
         </TextDate>
         <ContentsStyle>
-          <Rating />
+          <Rating clicked={clicked} setClicked={setClicked} />
           <TextArea
-            name="contents"
+            name="content"
             placeholder="20자 이상 적어주세요."
             onChange={onTextCount}
           />
         </ContentsStyle>
         <TextCount>{textCount ?? 0} / 1,000</TextCount>
-        <InputTag />
-        <UploadImage />
+        <InputTag tagValue={tagValue} setTagValue={setTagValue} />
+        <UploadImage fileImages={fileImages} setFileImages={setFileImages} />
         <ShareStyle>
           <p>공개 여부</p>
-          <ToggleButton />
+          <ToggleButton isActive={isActive} setIsActive={setIsActive} />
         </ShareStyle>
         <ButtonLayout>
           <CancelButton text="취소" />

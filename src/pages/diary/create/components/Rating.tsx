@@ -1,11 +1,14 @@
 import StarIcon from "@/assets/images/StarIcon";
 import theme from "@/styles/theme";
 import styled from "@emotion/styled";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 
-const Rating = () => {
-  const [clicked, setClicked] = useState([false, false, false, false, false]);
+interface RatingProps {
+  clicked: boolean[];
+  setClicked: Dispatch<SetStateAction<boolean[]>>;
+}
 
+const Rating = ({ clicked, setClicked }: RatingProps) => {
   const handleClickStar = (index: number) => {
     let clickedStar = [...clicked];
     for (let i = 0; i < 5; i++) {

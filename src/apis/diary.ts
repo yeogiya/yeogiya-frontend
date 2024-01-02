@@ -8,3 +8,7 @@ export const getDiaryList = (year: string, month: string) => {
 export const getDiaryDetail = async (dairyId: number) => {
   return await httpClient.get(`${URL.DIARY_LIST}/${dairyId}`);
 };
+
+export const postDiary = (data: FormData) => {
+  return httpClient.post(URL.DIARY_LIST, data);
+};
