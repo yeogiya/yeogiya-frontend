@@ -4,65 +4,72 @@ import DefaultButton from "@/components/@common/DefaultButton";
 import theme from "@/styles/theme";
 import { ContentsStyle, Location } from "../create/DiaryCreatePage";
 import { StarIcon } from "@/assets";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDiaryDetail } from "@/features/hooks/queries/useDiaryDetail";
+import { useParams } from "react-router-dom";
+
+export interface DiaryDetailProps {
+  status: string;
+  body: {
+    content: string;
+    date: string;
+    diaryId: number;
+    diaryImages: string[];
+    hashtags: string[];
+    memberId: number;
+    openYn: string;
+    placeName: string;
+    star: number;
+  };
+}
 
 const DiaryDetailPage = () => {
+  const params = useParams();
   const StarNumber = Array.from({ length: 5 }, (_, index) => index + 1);
-  const [rating, setRating] = useState<number>(3);
+  const [rating, setRating] = useState<number>();
+
+  const diaryDetailData = useDiaryDetail(
+    Number(params.diaryId)
+  ) as DiaryDetailProps;
+
+  useEffect(() => {
+    setRating(diaryDetailData?.body.star);
+  }, [diaryDetailData]);
 
   return (
-    <>
-      <Layout maxWidth="800px" paddingTop="30px" paddingBottom="30px">
-        <TitleLayout>
-          <Location>마일스톤커피</Location>
-          <RatingLayout>
-            {StarNumber.map((number) => (
-              <StarIcon
-                key={number}
-                fill={number <= rating && theme.color.purple}
-              />
+    <Layout maxWidth="800px" paddingTop="30px" paddingBottom="30px">
+      <TitleLayout>
+        <Location>{diaryDetailData?.body.placeName}</Location>
+        <RatingLayout>
+          {StarNumber.map((number) => (
+            <StarIcon
+              key={number}
+              fill={number <= rating && theme.color.purple}
+            />
+          ))}
+        </RatingLayout>
+      </TitleLayout>
+      <ContentsStyle>
+        <DetailContents>
+          <TagContents>
+            {diaryDetailData?.body.hashtags.map((tag, idx) => (
+              <div key={`${tag}-${idx}`}>{tag}</div>
             ))}
-          </RatingLayout>
-        </TitleLayout>
-        <ContentsStyle>
-          <DetailContents>
-            <TagContents>
-              #역삼동맛집 #선릉역 맛집 #가로수길카페 #카페추천 #라떼맛집
-            </TagContents>
-            <MainContents>
-              오늘은 마일드스톤 커피에서 친구들과 맛있는 시그니처 라떼를 마셨다.
-              오늘은 마일드스톤 커피에서 친구들과 맛있는 시그니처 라떼를 마셨다.
-              오늘은 마일드스톤 커피에서 친구들과 맛있는 시그니처 라떼를 마셨다.
-              오늘은 마일드스톤 커피에서 친구들과 맛있는 시그니처 라떼를 마셨다.
-              오늘은 마일드스톤 커피에서 친구들과 맛있는 시그니처 라떼를 마셨다.
-              오늘은 마일드스톤 커피에서 친구들과 맛있는 시그니처 라떼를 마셨다.
-            </MainContents>
-          </DetailContents>
-          <Date>2023-10-24</Date>
-        </ContentsStyle>
-        <Image>
-          <img
-            src={`https://source.unsplash.com/random/300x300/?programming`}
-          />
-          <img
-            src={`https://source.unsplash.com/random/300x300/?programming`}
-          />
-          <img
-            src={`https://source.unsplash.com/random/300x300/?programming`}
-          />
-          <img
-            src={`https://source.unsplash.com/random/300x300/?programming`}
-          />
-          <img
-            src={`https://source.unsplash.com/random/300x300/?programming`}
-          />
-        </Image>
-        <ButtonLayout>
-          <DeleteButton text="삭제" color={theme.color.black89} />
-          <EditButton text="수정" />
-        </ButtonLayout>
-      </Layout>
-    </>
+          </TagContents>
+          <MainContents>{diaryDetailData?.body.content}</MainContents>
+        </DetailContents>
+        <Date>{diaryDetailData?.body.date}</Date>
+      </ContentsStyle>
+      <Image>
+        {diaryDetailData?.body.diaryImages.map((image, idx) => (
+          <img src={image} key={idx} />
+        ))}
+      </Image>
+      <ButtonLayout>
+        <DeleteButton text="삭제" color={theme.color.black89} />
+        <EditButton text="수정" />
+      </ButtonLayout>
+    </Layout>
   );
 };
 
@@ -90,8 +97,10 @@ const DetailContents = styled.div`
 `;
 
 const TagContents = styled.div`
+  display: flex;
   color: ${theme.color.purple};
   margin-bottom: 20px;
+  gap: 10px;
 `;
 
 const MainContents = styled.div`
@@ -106,14 +115,15 @@ const Date = styled.div`
 
 const Image = styled.div`
   display: flex;
-  max-width: 120px;
-  max-height: 120px;
+  width: 120px;
+  height: 120px;
   gap: 10px;
   margin-top: 12px;
 
   img {
     object-fit: cover;
     width: 100%;
+    height: 100%;
     border-radius: 8px;
   }
 `;
