@@ -12,9 +12,11 @@ interface CreateDiaryProps {
   };
 }
 
-export const useCreateDiary = () => {
-  const mutationOptions: UseMutationOptions<any, any, CreateDiaryProps> = {
-    mutationFn: ({ diaryContent }) => {
+export const useCreateDiary = (
+  option?: UseMutationOptions<any, any, CreateDiaryProps>
+) => {
+  return useMutation({
+    mutationFn: ({ diaryContent }: CreateDiaryProps) => {
       const { fileImages, tagValue, selectedDate, star, isActive, contents } =
         diaryContent;
       const DiaryFormData = new FormData();
@@ -30,10 +32,6 @@ export const useCreateDiary = () => {
         })
       );
 
-      fileImages.forEach((image: File, index: number) =>
-        DiaryFormData.append(`diaryImage`, image)
-      );
-
       DiaryFormData.append(
         "place",
         JSON.stringify({
@@ -45,11 +43,17 @@ export const useCreateDiary = () => {
         })
       );
 
+      fileImages.forEach((image: File, index: number) =>
+        DiaryFormData.append(`diaryImage`, image)
+      );
+
+      const values = DiaryFormData.values();
+      for (const pair of values) {
+        console.log("pair", pair);
+      }
+
       return postDiary(DiaryFormData);
     },
-  };
-
-  const { mutate } = useMutation(mutationOptions);
-
-  return { mutate };
+    ...option,
+  });
 };

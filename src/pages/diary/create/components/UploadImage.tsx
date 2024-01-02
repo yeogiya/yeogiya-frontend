@@ -37,8 +37,20 @@ const UploadImage = ({ fileImages, setFileImages }: UploadImageProps) => {
     setFileImages(newFileImages);
   };
 
-  const handleDeleteImage = (deleteImage: URL) => {
-    setShowImages(showImages.filter((item) => item !== deleteImage));
+  const handleDeleteImage = (deleteImage) => {
+    setFileImages((prevFileImages) => {
+      const newFileImages = prevFileImages.filter(
+        (item, index) => showImages[index] !== deleteImage
+      );
+
+      return newFileImages;
+    });
+
+    setShowImages((prevShowImages) => {
+      const newImages = prevShowImages.filter((item) => item !== deleteImage);
+
+      return newImages;
+    });
   };
 
   return (
