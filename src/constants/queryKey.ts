@@ -9,4 +9,5 @@ export const search = {
 
 export const diary = {
   list: ["diary", "list"],
+  detail: ["diary", "detail"],
 };
