@@ -1,17 +1,17 @@
 import Layout from "@/components/@common/Layout";
-import ResultTitle from "./components/ResultTitle";
+import PlaceSearchTitle from "./components/PlaceSearchTitle";
 import { useParams } from "react-router-dom";
-import { useLocationSearch } from "@/features/hooks/queries/useLocationSearch";
+import { usePlaceSearch } from "@/features/hooks/queries/usePlaceSearch";
 import InfoItem from "@/components/InfoItem";
 import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 
-const ResultListPage = () => {
+const PlaceListPage = () => {
   const [info, setInfo] = useState([]);
 
   const { searchID } = useParams();
 
-  const { data: searchInfo } = useLocationSearch(searchID);
+  const { data: searchInfo } = usePlaceSearch(searchID);
 
   useEffect(() => {
     if (searchInfo?.status === "OK") {
@@ -21,7 +21,7 @@ const ResultListPage = () => {
 
   return (
     <Layout maxWidth="60rem" paddingTop="1rem">
-      <ResultTitle searchText={searchID} />
+      <PlaceSearchTitle searchText={searchID} />
       <ItemLayout>
         {info && info.map((result, _) => <InfoItem key={_} data={result} />)}
       </ItemLayout>
@@ -37,4 +37,4 @@ const ItemLayout = styled.section`
   margin-top: 0.75rem;
 `;
 
-export default ResultListPage;
+export default PlaceListPage;

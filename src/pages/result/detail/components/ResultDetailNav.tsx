@@ -1,13 +1,13 @@
 import theme from "@/styles/theme";
 import styled from "@emotion/styled";
-import { RESTAURANT_DETAIL_NAV } from "@/constants/menus";
-import { RestaurantDetailNavType } from "@/pages/result/detail/RestaurantDetailPage";
+import { SEARCH_DETAIL_NAV } from "@/constants/menus";
+import { SearchDetailPageNavType } from "@/pages/result/detail/SearchDetailPage";
 import { ShareIcon } from "@/assets";
 import { useLocation } from "react-router-dom";
 
 interface ResultDetailNavProps {
-  activeNav: RestaurantDetailNavType;
-  activeNavHandler: (nav: RestaurantDetailNavType) => void;
+  activeNav: SearchDetailPageNavType;
+  activeNavHandler: (nav: SearchDetailPageNavType) => void;
 }
 
 const ResultDetailNav = ({
@@ -31,33 +31,33 @@ const ResultDetailNav = ({
     <Container>
       <div>
         <StyledButton
-          isActive={activeNav === RESTAURANT_DETAIL_NAV.NAVER}
+          isActive={activeNav === SEARCH_DETAIL_NAV.NAVER}
           onClick={() => {
-            activeNavHandler(RESTAURANT_DETAIL_NAV.NAVER);
+            activeNavHandler(SEARCH_DETAIL_NAV.NAVER);
           }}
         >
-          {RESTAURANT_DETAIL_NAV.NAVER}
+          {SEARCH_DETAIL_NAV.NAVER}
         </StyledButton>
         <StyledButton
-          isActive={activeNav === RESTAURANT_DETAIL_NAV.KAKAO}
+          isActive={activeNav === SEARCH_DETAIL_NAV.KAKAO}
           onClick={() => {
-            activeNavHandler(RESTAURANT_DETAIL_NAV.KAKAO);
+            activeNavHandler(SEARCH_DETAIL_NAV.KAKAO);
           }}
         >
-          {RESTAURANT_DETAIL_NAV.KAKAO}
+          {SEARCH_DETAIL_NAV.KAKAO}
         </StyledButton>
         <StyledButton
-          isActive={activeNav === RESTAURANT_DETAIL_NAV.GOOGLE}
+          isActive={activeNav === SEARCH_DETAIL_NAV.GOOGLE}
           onClick={() => {
-            activeNavHandler(RESTAURANT_DETAIL_NAV.GOOGLE);
+            activeNavHandler(SEARCH_DETAIL_NAV.GOOGLE);
           }}
         >
-          {RESTAURANT_DETAIL_NAV.GOOGLE}
+          {SEARCH_DETAIL_NAV.GOOGLE}
         </StyledButton>
       </div>
       <div>
         <StyledButton onClick={handleCopy}>
-          {RESTAURANT_DETAIL_NAV.SHARE}
+          {SEARCH_DETAIL_NAV.SHARE}
           <ShareIcon />
         </StyledButton>
       </div>

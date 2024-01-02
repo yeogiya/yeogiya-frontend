@@ -40,8 +40,9 @@ const URLS = {
     CATEGORY.MEMBERS
   }/reset-password`, // 로그인한 유저 비밀번호 변경
 
-  // search
-  LOCATION_SEARCH: `${import.meta.env.VITE_PUBLIC_URL_KEY}/search/places`,
+  // Search
+  PLACE_SEARCH: `${import.meta.env.VITE_PUBLIC_URL_KEY}/search/places`, // 장소 검색
+  LOCATION_SEARCH: `${import.meta.env.VITE_PUBLIC_URL_KEY}/search/places/kakao`, // 위치 검색
 };
 
 const LOGIN = {

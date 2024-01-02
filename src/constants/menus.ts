@@ -20,7 +20,7 @@ export const USER_MENU_ITEM = (nickname: string): readonly MenuItemProps[] =>
     { type: "login", title: `${nickname} 님`, path: PATH.MY },
   ] as const;
 
-export const RESTAURANT_DETAIL_NAV = {
+export const SEARCH_DETAIL_NAV = {
   NAVER: "네이버",
   KAKAO: "카카오",
   GOOGLE: "구글",

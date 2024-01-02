@@ -5,7 +5,7 @@ import styled from "@emotion/styled";
 import theme from "@/styles/theme";
 import { useCallback, useEffect, useState } from "react";
 import ResultDetailNav from "./components/ResultDetailNav";
-import { RESTAURANT_DETAIL_NAV } from "@/constants/menus";
+import { SEARCH_DETAIL_NAV } from "@/constants/menus";
 import ResultDetailContent from "./components/ResultDetailContent";
 import DiaryReview from "./components/ResultDetailReview";
 import { DIARY_REVIEW } from "@/constants/diary";
@@ -13,10 +13,10 @@ import { useParams } from "react-router-dom";
 import { getRestaurant } from "@/apis/search";
 import { useRestaurant } from "@/features/hooks/queries/useRestaurant";
 
-export type RestaurantDetailNavType =
-  (typeof RESTAURANT_DETAIL_NAV)[keyof typeof RESTAURANT_DETAIL_NAV];
+export type SearchDetailPageNavType =
+  (typeof SEARCH_DETAIL_NAV)[keyof typeof SEARCH_DETAIL_NAV];
 
-const RestaurantDetailPage = () => {
+const SearchDetailPagePage = () => {
   const { data: mockData } = useRestaurant();
 
   const [data, setData] = useState<{
@@ -25,13 +25,13 @@ const RestaurantDetailPage = () => {
     restaurantType?: string;
     diaryReview?: object[];
   }>(mockData);
-  const [activeNav, setActiveNav] = useState<RestaurantDetailNavType>(
-    RESTAURANT_DETAIL_NAV.NAVER
+  const [activeNav, setActiveNav] = useState<SearchDetailPageNavType>(
+    SEARCH_DETAIL_NAV.NAVER
   );
 
   const { searchDetail } = useParams();
 
-  const handleActiveNav = (nav: RestaurantDetailNavType) => {
+  const handleActiveNav = (nav: SearchDetailPageNavType) => {
     setActiveNav(nav);
 
     // TODO activeNav에 따라 api
@@ -70,4 +70,4 @@ const StyledBorder = styled.div`
   margin-top: 1.5rem;
 `;
 
-export default RestaurantDetailPage;
+export default SearchDetailPagePage;
