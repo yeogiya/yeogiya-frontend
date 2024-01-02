@@ -4,6 +4,7 @@ import { GoogleRatingIcon, RightArrowIcon, StarIcon } from "@/assets";
 import { useNavigate } from "react-router-dom";
 import { MouseEvent } from "react";
 import { PATH } from "@/utils/routes";
+import { SearchDefaultImage } from "@/assets/index";
 
 const InfoItem = ({ data, diaryRating = 4 }) => {
   const { address, googleRating, placeName } = data;
@@ -18,10 +19,7 @@ const InfoItem = ({ data, diaryRating = 4 }) => {
 
   return (
     <Container onClick={handleClick}>
-      <img
-        src="https://dummyimage.com/238x238/000/fff"
-        alt="SearchResultImage"
-      />
+      <img src={SearchDefaultImage} alt="InfoImage" />
       <TextLayout
         column
         height="14.875rem"

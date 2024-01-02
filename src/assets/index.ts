@@ -26,6 +26,7 @@ export { default as ShareIcon } from "@/assets/images/ShareIcon";
 export { default as WhiteImage } from "@/assets/images/png/white.png";
 export { default as GoogleRatingIcon } from "@/assets/images/GoogleRatingIcon";
 export { default as RightArrowIcon } from "@/assets/images/RightArrowIcon";
+export { default as SearchDefaultImage } from "@/assets/images/svg/searchDefaultImg.svg";
 // withdrawal
 export { default as CheckImage } from "@/assets/images/png/checkImage.png";
 // imageUrl

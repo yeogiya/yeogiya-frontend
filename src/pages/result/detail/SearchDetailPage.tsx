@@ -3,14 +3,12 @@ import Layout from "@/components/@common/Layout";
 import RestaurantTitle from "./components/RestaurantTitle";
 import styled from "@emotion/styled";
 import theme from "@/styles/theme";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ResultDetailNav from "./components/ResultDetailNav";
 import { SEARCH_DETAIL_NAV } from "@/constants/menus";
 import ResultDetailContent from "./components/ResultDetailContent";
 import DiaryReview from "./components/ResultDetailReview";
-import { DIARY_REVIEW } from "@/constants/diary";
 import { useParams } from "react-router-dom";
-import { getRestaurant } from "@/apis/search";
 import { useRestaurant } from "@/features/hooks/queries/useRestaurant";
 
 export type SearchDetailPageNavType =
