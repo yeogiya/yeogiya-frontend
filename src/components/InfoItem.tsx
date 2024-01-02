@@ -7,31 +7,49 @@ import { PATH } from "@/utils/routes";
 import { SearchDefaultImage } from "@/assets/index";
 import { useAppDispatch } from "@/features/hooks/useAppDispatch";
 import { createPlace } from "@/store/placeSlice";
+import { URL as URLS } from "@/constants/url";
 
-const InfoItem = ({ data, diaryRating = 4 }) => {
-  const { address, googleRating, placeName } = data;
+const InfoItem = ({ data }) => {
+  const {
+    placeName,
+    address,
+    googleRating,
+    googlePlaceId,
+    photoReference,
+    yeogiyaRating,
+  } = data;
 
   const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
 
+  const placeImage = `${URLS.GOOGLE_PLACE}${photoReference}&key=${
+    import.meta.env.VITE_GOOGLE_PLACE_KEY
+  }`;
+
   const handleClick = (e: MouseEvent<HTMLElement>) => {
     if (e.currentTarget.onclick) {
       dispatch(
         createPlace({
-          placeName: data.placeName,
-          placeId: data.googlePlaceId,
-          keyword: data.placeName,
-          yeogiyaRating: data.yeogiyaRating,
+          placeName,
+          placeId: googlePlaceId,
+          keyword: placeName,
+          yeogiyaRating: yeogiyaRating,
         })
       );
-      navigate(PATH.SEARCH_RESULT_DETAIL + `/${placeName}`);
+      navigate(
+        PATH.SEARCH_RESULT_DETAIL +
+          `/placeId=${placeName}&keyword=&${placeName}`
+      );
     }
   };
 
   return (
     <Container onClick={handleClick}>
-      <img src={SearchDefaultImage} alt="InfoImage" />
+      <img
+        src={photoReference ? placeImage : SearchDefaultImage}
+        alt="InfoImage"
+      />
       <TextLayout
         column
         height="14.875rem"
@@ -43,7 +61,7 @@ const InfoItem = ({ data, diaryRating = 4 }) => {
             {placeName}
             <span>
               <StarIcon />
-              {diaryRating}
+              {yeogiyaRating ?? 0}
             </span>
           </Text>
           <Text color={theme.color.black50} fontSize="1rem">
