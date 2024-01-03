@@ -4,46 +4,46 @@ import Modal from "@/components/@common/Modal";
 import SubmitButton from "@/components/SubmitButton";
 import Title from "@/components/@common/Title";
 import { useModal } from "@/features/hooks/useModal";
-import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import InputPassword from "@/components/InputPassword";
-import { updateMyPwProps } from "../my/password/UpdateMyPwPage";
-import useUpdateMyPw from "@/features/hooks/useUpdateMyPw";
+import { UpdateMyPwProps } from "../my/password/UpdateMyPwPage";
 import { useEmailResetPw } from "@/features/hooks/queries/useEmailResetPw";
+import useResetPwForm, { ResetPwProps } from "@/features/hooks/useResetPwForm";
+import { PATH } from "@/utils/routes";
 
 const ResetPwPage = () => {
   const {
     formState: { isDirty, isValid },
     control,
     handleSubmit,
-  } = useForm<updateMyPwProps>({
+  } = useForm<ResetPwProps>({
     mode: "onBlur",
     defaultValues: {
+      passwordToken: "",
       newPassword: "",
       confirmNewPassword: "",
     },
   });
 
   const {
+    passwordToken,
+    passwordTokenState,
     newPassword,
     newPasswordState,
     confirmNewPassword,
     confirmNewPasswordState,
-  } = useUpdateMyPw(control);
+  } = useResetPwForm(control);
 
   const emailResetPw = useEmailResetPw();
+  const navigate = useNavigate();
 
-  const { search } = useLocation();
-  const passwordToken = search.replace("?", "");
-
-  const onSubmit: SubmitHandler<updateMyPwProps> = (data) => {
+  const onSubmit: SubmitHandler<UpdateMyPwProps> = (data) => {
     emailResetPw.mutate({
       password: data.newPassword,
-      token: passwordToken,
+      token: passwordToken.value,
     }),
       {
-        onSuccess: () => {
-          openModal();
-        },
+        onSuccess: () => openModal(),
       };
   };
 
@@ -56,16 +56,19 @@ const ResetPwPage = () => {
           비밀번호 재설정하기
         </Title>
         <InputPassword
+          password={passwordToken}
+          passwordState={passwordTokenState}
+          labelText="인증번호"
+        />
+        <InputPassword
           password={newPassword}
           passwordState={newPasswordState}
-          labelText="변경할 비밀번호
-"
+          labelText="변경할 비밀번호"
         />
         <InputPassword
           password={confirmNewPassword}
           passwordState={confirmNewPasswordState}
-          labelText="비밀번호 확인
-"
+          labelText="비밀번호 확인"
         />
         <SubmitButton
           type="submit"
@@ -75,7 +78,7 @@ const ResetPwPage = () => {
         />
         <Modal
           isOpen={isOpen}
-          close={closeModal}
+          close={() => closeModal && navigate(PATH.LOGIN)}
           text="비밀번호가 변경되었습니다."
         />
       </form>
