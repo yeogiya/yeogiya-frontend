@@ -14,8 +14,8 @@ import MyPage from "@/pages/my/MyPage";
 import MyPassword from "@/pages/my/password/MyPwPage";
 import { PATH } from "./routes";
 import ResetPwPage from "@/pages/reset/ResetPwPage";
-import RestaurantDetailPage from "@/pages/result/detail/RestaurantDetailPage";
-import ResultListPage from "@/pages/result/list/ResultListPage";
+import SearchDetailPagePage from "@/pages/result/detail/SearchDetailPage";
+import PlaceListPage from "@/pages/result/place/PlaceListPage";
 import SearchPage from "@/pages/search/SearchPage";
 import { ThemeProvider } from "@emotion/react";
 import UpdateMyPwPage from "@/pages/my/password/UpdateMyPwPage";
@@ -26,6 +26,7 @@ import ScrollToTop from "@/components/@common/ScrollToTop";
 import SNSLogin from "@/pages/login/components/SNSLogin";
 import NotFoundPage from "@/pages/404/NotFoundPage";
 import DiaryDetailPage from "@/pages/diary/detail/DiaryDetailPage";
+import { Fragment } from "react";
 
 export const router = createBrowserRouter([
   {
@@ -53,10 +54,10 @@ export const router = createBrowserRouter([
       {
         path: PATH.JOIN,
         element: (
-          <>
+          <Fragment>
             <ScrollToTop />
             <JoinPage />
-          </>
+          </Fragment>
         ),
       },
       {
@@ -79,6 +80,7 @@ export const router = createBrowserRouter([
   },
   {
     element: <App layout="login" />,
+    errorElement: <NotFoundPage />,
     children: [
       {
         path: PATH.DIARY_CREATE_DATE,
@@ -139,11 +141,16 @@ export const router = createBrowserRouter([
     children: [
       {
         path: PATH.RESULT_LIST,
-        element: <ResultListPage />,
+        element: <PlaceListPage />,
       },
       {
         path: PATH.RESULT_DETAIL,
-        element: <RestaurantDetailPage />,
+        element: (
+          <Fragment>
+            <ScrollToTop />
+            <SearchDetailPagePage />
+          </Fragment>
+        ),
       },
     ],
   },

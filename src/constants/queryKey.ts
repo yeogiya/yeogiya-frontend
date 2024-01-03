@@ -11,3 +11,11 @@ export const diary = {
   list: ["diary", "list"],
   detail: ["diary", "detail"],
 };
+
+export const detail = {
+  search: (placeId: string, keyword: string) => [
+    "searchDetail",
+    placeId,
+    keyword,
+  ],
+};

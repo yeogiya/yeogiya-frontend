@@ -2,7 +2,7 @@ import { useState, MouseEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { PATH } from "@/utils/routes";
 
-const usePlaceSearch = (initialValue: string = "") => {
+const useSearch = (initialValue: string = "") => {
   const [keyword, setKeyword] = useState<string>(initialValue);
 
   const navigate = useNavigate();
@@ -29,4 +29,4 @@ const usePlaceSearch = (initialValue: string = "") => {
   };
 };
 
-export default usePlaceSearch;
+export default useSearch;

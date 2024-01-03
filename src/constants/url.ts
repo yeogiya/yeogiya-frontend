@@ -43,8 +43,11 @@ const URLS = {
     CATEGORY.MEMBERS
   }/reset-password`, // 로그인 안한 유저 비밀번호 변경
 
-  // search
-  LOCATION_SEARCH: `${import.meta.env.VITE_PUBLIC_URL_KEY}/search/places`,
+  // Search
+  PLACE_SEARCH: `${import.meta.env.VITE_PUBLIC_URL_KEY}/search/places`, // 장소 검색
+  SEARCH_DETAIL: `${import.meta.env.VITE_PUBLIC_URL_KEY}/search/places/details`, // 장소 상세 검색
+  LOCATION_SEARCH: `${import.meta.env.VITE_PUBLIC_URL_KEY}/search/places/kakao`, // 위치 검색
+  GOOGLE_PLACE: `https://maps.googleapis.com/maps/api/place/photo?maxheight=288&photo_reference=`,
 };
 
 const LOGIN = {

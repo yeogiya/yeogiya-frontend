@@ -2,11 +2,10 @@ import Layout from "@/components/@common/Layout";
 import { PlaceSearchIcon } from "@/assets";
 import styled from "@emotion/styled";
 import theme from "@/styles/theme";
-import usePlaceSearch from "@/features/hooks/usePlaceSearch";
-import { useState } from "react";
+import useSearch from "@/features/hooks/useSearch";
 
 const SearchPage = () => {
-  const { value, onChange, onSearch } = usePlaceSearch();
+  const { value, onChange, onSearch } = useSearch();
 
   return (
     <Layout maxWidth="738px" paddingTop="0">

@@ -4,20 +4,21 @@ import { useEffect, useState } from "react";
 import IconButton from "@/components/IconButton";
 import Image from "@/components/@common/Image";
 import styled from "@emotion/styled";
+import { SearchDefaultImage } from "@/assets/index";
 
 interface CarouselProps {
   images: string[];
 }
 
 const Carousel = ({ images }: CarouselProps) => {
-  const [carouselImages, setCarouselImages] = useState<string[]>([...images]);
+  const [carouselImages, setCarouselImages] = useState<string[]>(images);
   const [imageIdx, setImageIdx] = useState<number>(0);
 
-  const getDisplayedImages = (): string[] => {
-    if (carouselImages.length < 5) {
+  const getDisplayedImages = (images: string[]): string[] => {
+    if (images.length < 5) {
       const adjustedImages = [
         WhiteImage,
-        ...carouselImages,
+        ...images,
         ...Array(4 - images.length).fill(WhiteImage),
       ];
       return adjustedImages;
@@ -39,7 +40,7 @@ const Carousel = ({ images }: CarouselProps) => {
   };
 
   useEffect(() => {
-    setCarouselImages(getDisplayedImages());
+    setCarouselImages(getDisplayedImages(carouselImages));
   }, [imageIdx, images]);
 
   return (
@@ -88,6 +89,7 @@ const ImageWrapper = styled.div`
   img {
     width: 18rem;
     height: 18rem;
+    object-fit: cover;
   }
 `;
 
