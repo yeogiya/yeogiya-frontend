@@ -1,65 +1,67 @@
 import theme from "@/styles/theme";
 import styled from "@emotion/styled";
-import { SEARCH_DETAIL_NAV } from "@/constants/menus";
-import { SearchDetailPageNavType } from "@/pages/result/detail/SearchDetailPage";
+import {
+  SEARCH_LABEL,
+  SEARCH_TYPE,
+  SearchDetailNavType,
+} from "@/constants/menus";
 import { ShareIcon } from "@/assets";
 import { useLocation } from "react-router-dom";
+import { useAppSelector } from "@/features/hooks/useAppDispatch";
+import { place } from "@/store/placeSlice";
 
 interface ResultDetailNavProps {
-  activeNav: SearchDetailPageNavType;
-  activeNavHandler: (nav: SearchDetailPageNavType) => void;
+  activeNav: SearchDetailNavType;
+  activeNavHandler: (nav: SearchDetailNavType) => void;
 }
 
 const ResultDetailNav = ({
   activeNav,
   activeNavHandler,
 }: ResultDetailNavProps) => {
-  const location = useLocation();
-
-  const handleCopy = async () => {
-    const copyUrl = window.location.origin + location.pathname;
-    try {
-      await navigator.clipboard.writeText(copyUrl);
-      // ! deploy test
-      console.log("URL COPY TEST ::", copyUrl);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   return (
     <Container>
       <div>
         <StyledButton
-          isActive={activeNav === SEARCH_DETAIL_NAV.NAVER}
+          isActive={activeNav.label === SEARCH_LABEL.GOOGLE}
           onClick={() => {
-            activeNavHandler(SEARCH_DETAIL_NAV.NAVER);
+            activeNavHandler({
+              label: SEARCH_LABEL.GOOGLE,
+              type: SEARCH_TYPE.GOOGLE,
+            });
           }}
         >
-          {SEARCH_DETAIL_NAV.NAVER}
+          {SEARCH_LABEL.GOOGLE}
+        </StyledButton>
+
+        <StyledButton
+          isActive={activeNav.label === SEARCH_LABEL.KAKAO}
+          onClick={() => {
+            activeNavHandler({
+              label: SEARCH_LABEL.KAKAO,
+              type: SEARCH_TYPE.KAKAO,
+            });
+          }}
+        >
+          {SEARCH_LABEL.KAKAO}
         </StyledButton>
         <StyledButton
-          isActive={activeNav === SEARCH_DETAIL_NAV.KAKAO}
+          isActive={activeNav.label === SEARCH_LABEL.NAVER}
           onClick={() => {
-            activeNavHandler(SEARCH_DETAIL_NAV.KAKAO);
+            activeNavHandler({
+              label: SEARCH_LABEL.NAVER,
+              type: SEARCH_TYPE.NAVER,
+            });
           }}
         >
-          {SEARCH_DETAIL_NAV.KAKAO}
-        </StyledButton>
-        <StyledButton
-          isActive={activeNav === SEARCH_DETAIL_NAV.GOOGLE}
-          onClick={() => {
-            activeNavHandler(SEARCH_DETAIL_NAV.GOOGLE);
-          }}
-        >
-          {SEARCH_DETAIL_NAV.GOOGLE}
+          {SEARCH_LABEL.NAVER}
         </StyledButton>
       </div>
       <div>
-        <StyledButton onClick={handleCopy}>
-          {SEARCH_DETAIL_NAV.SHARE}
+        {/* <StyledButton onClick={handleCopy}>
+          {SEARCH_LABEL.SHARE}
           <ShareIcon />
-        </StyledButton>
+        </StyledButton> */}
       </div>
     </Container>
   );

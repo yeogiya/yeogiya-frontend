@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-
 import Carousel from "./Carousel";
 import styled from "@emotion/styled";
 import theme from "@/styles/theme";
@@ -12,7 +10,7 @@ const ImageSection = ({ images }: ImageSectionProps) => {
   return (
     <Layout>
       <ImageWrapper>
-        {images.length > 0 ? (
+        {images ? (
           <Carousel images={images} />
         ) : (
           <DefaultImage>등록한 사진이 없습니다.</DefaultImage>

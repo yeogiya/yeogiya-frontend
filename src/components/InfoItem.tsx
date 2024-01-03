@@ -35,12 +35,12 @@ const InfoItem = ({ data }) => {
           placeId: googlePlaceId,
           keyword: placeName,
           yeogiyaRating: yeogiyaRating,
-          googleImage: googleImage,
+          googleImage: photoReference && googleImage,
         })
       );
       navigate(
         PATH.SEARCH_RESULT_DETAIL +
-          `/placeId=${googlePlaceId}&keyword=&${placeName}`
+          `/placeId=${googlePlaceId}&keyword=${placeName}`
       );
     }
   };

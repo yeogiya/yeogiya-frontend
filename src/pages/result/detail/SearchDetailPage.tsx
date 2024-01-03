@@ -5,42 +5,66 @@ import styled from "@emotion/styled";
 import theme from "@/styles/theme";
 import { useEffect, useState } from "react";
 import ResultDetailNav from "./components/ResultDetailNav";
-import { SEARCH_DETAIL_NAV } from "@/constants/menus";
 import ResultDetailContent from "./components/ResultDetailContent";
-import { useParams } from "react-router-dom";
 import { useSearchDetail } from "@/features/hooks/queries/useSearchDetail";
 import { useAppSelector } from "@/features/hooks/useAppDispatch";
 import { place } from "@/store/placeSlice";
-
-export type SearchDetailPageNavType =
-  (typeof SEARCH_DETAIL_NAV)[keyof typeof SEARCH_DETAIL_NAV];
+import { detail } from "@/constants/queryKey";
+import {
+  SEARCH_LABEL,
+  SEARCH_TYPE,
+  SearchDetailNavType,
+} from "@/constants/menus";
 
 const SearchDetailPagePage = () => {
   const placeState = useAppSelector(place);
 
-  const { data: detailInfo } = useSearchDetail(
-    placeState.placeId,
-    placeState.keyword
-  );
+  const [query, getQuery] = useState<{
+    placeId: string;
+    keyword: string;
+  }>({
+    placeId: null,
+    keyword: null,
+  });
 
-  const [activeNav, setActiveNav] = useState<SearchDetailPageNavType>(
-    SEARCH_DETAIL_NAV.NAVER
-  );
+  const [activeNav, setActiveNav] = useState<SearchDetailNavType>({
+    label: SEARCH_LABEL.GOOGLE,
+    type: SEARCH_TYPE.GOOGLE,
+  });
 
-  const { searchDetail } = useParams();
-
-  const handleActiveNav = (nav: SearchDetailPageNavType) => {
+  const handleActiveNav = (nav: SearchDetailNavType) => {
     setActiveNav(nav);
-
-    // TODO activeNav에 따라 api
   };
+
+  const { data: detailInfo } = useSearchDetail(query.placeId, query.keyword, {
+    queryKey: detail.search(query.placeId, query.keyword),
+    enabled: !!query.placeId && !!query.keyword,
+  });
+
+  const findQuery = (url: string) => {
+    if (!url) return;
+    const match = url.match(/\/placeId=(.*?)&keyword=(.*)/);
+
+    if (match) {
+      const placeId = match[1];
+      const keyword = match[2];
+
+      getQuery({ placeId, keyword });
+    }
+  };
+
+  useEffect(() => {
+    findQuery(decodeURIComponent(window.location.pathname));
+  }, []);
 
   return (
     <Layout paddingTop="0">
-      <ImageSection />
+      <ImageSection
+        images={placeState.googleImage && [placeState.googleImage]}
+      />
       <Layout maxWidth="60rem" paddingTop="3.5rem">
         <RestaurantTitle
-          placeName={searchDetail}
+          placeName={placeState.keyword}
           rating={placeState.yeogiyaRating}
           restaurantType={detailInfo?.body?.category}
         />
@@ -49,8 +73,8 @@ const SearchDetailPagePage = () => {
           activeNav={activeNav}
           activeNavHandler={handleActiveNav}
         />
-        <ResultDetailContent />
-        {/* <DiaryReview review={data?.diaryReview} /> */}
+        <ResultDetailContent activeNav={activeNav} data={detailInfo?.body} />
+        {/* <DiaryReview review={data?.body?.diaryReview} /> */}
       </Layout>
     </Layout>
   );
