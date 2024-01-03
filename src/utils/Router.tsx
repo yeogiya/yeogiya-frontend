@@ -71,15 +71,15 @@ export const router = createBrowserRouter([
         path: PATH.DIARY_LIST,
         element: <DiaryListPage />,
       },
+      {
+        path: PATH.RESET_PASSWORD,
+        element: <ResetPwPage />,
+      },
     ],
   },
   {
     element: <App layout="login" />,
     children: [
-      {
-        path: PATH.RESET_PASSWORD,
-        element: <ResetPwPage />,
-      },
       {
         path: PATH.DIARY_CREATE_DATE,
         element: <DiaryCreatePage />,

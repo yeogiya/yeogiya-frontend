@@ -39,6 +39,9 @@ const URLS = {
   AUTH_RESET_PW: `${import.meta.env.VITE_AUTH_URL_KEY}${
     CATEGORY.MEMBERS
   }/reset-password`, // 로그인한 유저 비밀번호 변경
+  PUBLIC_RESET_PW: `${import.meta.env.VITE_PUBLIC_URL_KEY}${
+    CATEGORY.MEMBERS
+  }/reset-password`, // 로그인 안한 유저 비밀번호 변경
 
   // search
   LOCATION_SEARCH: `${import.meta.env.VITE_PUBLIC_URL_KEY}/search/places`,
