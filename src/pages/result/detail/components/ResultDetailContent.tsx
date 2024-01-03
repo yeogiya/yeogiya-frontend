@@ -52,11 +52,13 @@ const ResultDetailContent = ({ data, activeNav }: ResultDetailContentProps) => {
             {data?.[activeNav.type]?.roadAddress && (
               <Text>{data?.[activeNav.type]?.roadAddress}</Text>
             )}
-            <TextLayout address css={{ alignItems: "center" }}>
+            <TextLayout address>
               {data?.[activeNav.type]?.address && (
                 <Fragment>
                   <span>지번</span>
-                  <p>{data?.[activeNav.type]?.address}</p>
+                  <LoadAddressText>
+                    {data?.[activeNav.type]?.address}
+                  </LoadAddressText>
                 </Fragment>
               )}
             </TextLayout>
@@ -138,7 +140,7 @@ const TextLayout = styled.div<{ column?: boolean; address?: boolean }>`
     /* padding: 0.125rem 0.5625rem; */
     border-radius: 0.3125rem;
     border: 1px solid ${theme.color.black20};
-    margin-top: 0.2rem;
+    /* margin-top: 0.2rem; */
   }
 `;
 
@@ -153,6 +155,10 @@ const Text = styled.p`
   color: ${theme.color.black89};
   font-size: 1rem;
   font-weight: 400;
+`;
+
+const LoadAddressText = styled.p`
+  width: calc(100% - 2.375rem);
 `;
 
 const MapWrapper = styled.div`
