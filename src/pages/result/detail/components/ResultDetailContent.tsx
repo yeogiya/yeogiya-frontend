@@ -36,11 +36,11 @@ const ResultDetailContent = ({ data, activeNav }: ResultDetailContentProps) => {
             {data?.[activeNav.type]?.roadAddress && (
               <Text>{data?.[activeNav.type]?.roadAddress}</Text>
             )}
-            <TextLayout address>
+            <TextLayout address css={{ alignItems: "center" }}>
               {data?.[activeNav.type]?.address && (
                 <Fragment>
                   <span>지번</span>
-                  {data?.[activeNav.type]?.address}
+                  <p>{data?.[activeNav.type]?.address}</p>
                 </Fragment>
               )}
             </TextLayout>
@@ -72,7 +72,7 @@ const ResultDetailContent = ({ data, activeNav }: ResultDetailContentProps) => {
         </TextLayout>
       </PlaceInfo>
       <MapWrapper>
-        <Map width="26.125rem" height="27rem" lat={data?.lat} lng={data?.lng} />
+        <Map width="26.125rem" height="27rem" />
         <MapButton type="button" onClick={handleMapButton}>
           길 찾기
         </MapButton>
@@ -109,9 +109,15 @@ const TextLayout = styled.div<{ column?: boolean; address?: boolean }>`
   font-size: ${({ address }) => address && "0.875rem"};
 
   span {
-    padding: 0.125rem 0.5625rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2.5rem;
+    height: 1.25rem;
+    /* padding: 0.125rem 0.5625rem; */
     border-radius: 0.3125rem;
     border: 1px solid ${theme.color.black20};
+    margin-top: 0.2rem;
   }
 `;
 
