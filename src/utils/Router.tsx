@@ -1,8 +1,4 @@
-import {
-  RouterProvider,
-  createBrowserRouter,
-  createHashRouter,
-} from "react-router-dom";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import App from "@/App";
 import DiaryCreatePage from "@/pages/diary/create/DiaryCreatePage";
 import DiaryListPage from "@/pages/diary/list/DiaryListPage";
@@ -31,7 +27,7 @@ import SNSLogin from "@/pages/login/components/SNSLogin";
 import NotFoundPage from "@/pages/404/NotFoundPage";
 import DiaryDetailPage from "@/pages/diary/detail/DiaryDetailPage";
 
-export const router = createHashRouter([
+export const router = createBrowserRouter([
   {
     path: PATH.HOME,
     element: <App layout="default" />,
