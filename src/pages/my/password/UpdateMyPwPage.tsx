@@ -8,12 +8,12 @@ import { useAuthResetPw } from "@/features/hooks/queries/useAuthResetPw";
 import usePageNavigation from "@/features/hooks/usePageNavigation";
 import { PATH } from "@/utils/routes";
 
-export interface updateMyPwProps {
+export interface UpdateMyPwProps {
   newPassword: string;
   confirmNewPassword: string;
 }
 
-export interface postRestPw {
+export interface PostRestPwProps {
   password: string;
   token: string;
 }
@@ -24,7 +24,7 @@ const UpdateMyPwPage = () => {
     formState: { isDirty, isValid },
     control,
     handleSubmit,
-  } = useForm<updateMyPwProps>({
+  } = useForm<UpdateMyPwProps>({
     mode: "onBlur",
     defaultValues: {
       newPassword: "",
@@ -41,7 +41,7 @@ const UpdateMyPwPage = () => {
 
   const resetPwMutation = useAuthResetPw();
 
-  const onSubmit = (data: updateMyPwProps) => {
+  const onSubmit = (data: UpdateMyPwProps) => {
     resetPwMutation.mutate(
       { password: data.newPassword },
       {

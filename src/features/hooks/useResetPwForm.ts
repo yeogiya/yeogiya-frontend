@@ -1,7 +1,20 @@
-import { updateMyPwProps } from "@/pages/my/password/UpdateMyPwPage";
 import { Control, useController } from "react-hook-form";
 
-const useUpdateMyPw = (control: Control<updateMyPwProps>) => {
+export interface ResetPwProps {
+  passwordToken: string;
+  newPassword: string;
+  confirmNewPassword: string;
+}
+
+const useResetPwForm = (control: Control<ResetPwProps>) => {
+  const { field: passwordToken, fieldState: passwordTokenState } =
+    useController({
+      name: "passwordToken",
+      control,
+      rules: {
+        required: "이메일로 전송된 인증 번호를 입력해주세요.",
+      },
+    });
   const { field: newPassword, fieldState: newPasswordState } = useController({
     name: "newPassword",
     control,
@@ -32,6 +45,8 @@ const useUpdateMyPw = (control: Control<updateMyPwProps>) => {
     });
 
   return {
+    passwordToken,
+    passwordTokenState,
     newPassword,
     newPasswordState,
     confirmNewPassword,
@@ -39,4 +54,4 @@ const useUpdateMyPw = (control: Control<updateMyPwProps>) => {
   };
 };
 
-export default useUpdateMyPw;
+export default useResetPwForm;

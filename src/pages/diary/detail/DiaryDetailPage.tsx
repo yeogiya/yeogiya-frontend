@@ -7,6 +7,7 @@ import { StarIcon } from "@/assets";
 import { useEffect, useState } from "react";
 import { useDiaryDetail } from "@/features/hooks/queries/useDiaryDetail";
 import { useParams } from "react-router-dom";
+import { useDeleteDiary } from "@/features/hooks/queries/useDeleteDiary";
 
 export interface DiaryDetailProps {
   status: string;
@@ -31,6 +32,8 @@ const DiaryDetailPage = () => {
   const diaryDetailData = useDiaryDetail(
     Number(params.diaryId)
   ) as DiaryDetailProps;
+
+  const deleteDiary = useDeleteDiary(Number(params.diaryId));
 
   useEffect(() => {
     setRating(diaryDetailData?.body.star);
@@ -66,7 +69,11 @@ const DiaryDetailPage = () => {
         ))}
       </Image>
       <ButtonLayout>
-        <DeleteButton text="삭제" color={theme.color.black89} />
+        <DeleteButton
+          text="삭제"
+          color={theme.color.black89}
+          onClick={() => deleteDiary.mutate({})}
+        />
         <EditButton text="수정" />
       </ButtonLayout>
     </Layout>
