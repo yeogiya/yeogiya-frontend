@@ -1,6 +1,7 @@
 import { UseQueryOptions, useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { getSearchDetail } from "@/apis/search";
+import { detail } from "@/constants/queryKey";
 
 interface useSearchDetailProps {
   status: string;
@@ -20,7 +21,7 @@ export const useSearchDetail = (
   options?: UseQueryOptions<useSearchDetailProps, AxiosError>
 ) => {
   const { data } = useQuery({
-    queryKey: ["rest"],
+    queryKey: detail.search,
     queryFn: () => getSearchDetail(placeId, keyword),
     ...options,
   });
