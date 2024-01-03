@@ -26,6 +26,7 @@ import ScrollToTop from "@/components/@common/ScrollToTop";
 import SNSLogin from "@/pages/login/components/SNSLogin";
 import NotFoundPage from "@/pages/404/NotFoundPage";
 import DiaryDetailPage from "@/pages/diary/detail/DiaryDetailPage";
+import { Fragment } from "react";
 
 export const router = createBrowserRouter([
   {
@@ -53,10 +54,10 @@ export const router = createBrowserRouter([
       {
         path: PATH.JOIN,
         element: (
-          <>
+          <Fragment>
             <ScrollToTop />
             <JoinPage />
-          </>
+          </Fragment>
         ),
       },
       {
@@ -144,7 +145,12 @@ export const router = createBrowserRouter([
       },
       {
         path: PATH.RESULT_DETAIL,
-        element: <SearchDetailPagePage />,
+        element: (
+          <Fragment>
+            <ScrollToTop />
+            <SearchDetailPagePage />
+          </Fragment>
+        ),
       },
     ],
   },
