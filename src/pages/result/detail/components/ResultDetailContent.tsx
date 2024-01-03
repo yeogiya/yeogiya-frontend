@@ -2,10 +2,8 @@ import { useMap } from "@/features/hooks/useMap";
 import Map from "@/pages/diary/map/components/Map";
 import theme from "@/styles/theme";
 import styled from "@emotion/styled";
-import { Fragment, useEffect, useState } from "react";
-import { SEARCH_DETAIL_NAV, SearchDetailNavType } from "@/constants/menus";
-import { useAppDispatch } from "@/features/hooks/useAppDispatch";
-import { createDiary } from "@/store/diarySlice";
+import { Fragment, useEffect, useRef, useState } from "react";
+import { SearchDetailNavType } from "@/constants/menus";
 
 interface ResultDetailContentProps {
   activeNav: SearchDetailNavType;
@@ -19,16 +17,34 @@ interface ResultDetailContentProps {
 }
 
 const ResultDetailContent = ({ data, activeNav }: ResultDetailContentProps) => {
-  const dispatch = useAppDispatch();
+  const [mapHeight, setMapHeight] = useState<number>(0);
+
+  const mapHeightRef = useRef<HTMLDivElement>(null);
 
   const handleMapButton = () => {};
 
+  const updateHeight = () => {
+    if (mapHeightRef.current) {
+      setMapHeight(mapHeightRef.current.offsetHeight);
+    }
+  };
+
+  const handleHeight = async () => {
+    await updateHeight();
+
+    window.addEventListener("resize", updateHeight);
+
+    return () => {
+      window.removeEventListener("resize", updateHeight);
+    };
+  };
+
   useEffect(() => {
-    dispatch(createDiary({ latitude: data?.lat, longitude: data?.lng }));
+    handleHeight();
   }, [data]);
 
   return (
-    <Container>
+    <Container ref={mapHeightRef}>
       <PlaceInfo>
         <TextLayout>
           <SubTitle>위치</SubTitle>
@@ -72,7 +88,12 @@ const ResultDetailContent = ({ data, activeNav }: ResultDetailContentProps) => {
         </TextLayout>
       </PlaceInfo>
       <MapWrapper>
-        <Map width="26.125rem" height="27rem" />
+        <Map
+          width="26.125rem"
+          mapHeight={`${mapHeight}px`}
+          lat={data?.lat}
+          lng={data?.lng}
+        />
         <MapButton type="button" onClick={handleMapButton}>
           길 찾기
         </MapButton>
@@ -138,7 +159,7 @@ const MapWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 26.125rem;
-  height: 25.9375rem;
+  min-height: 25.9375rem;
 
   section {
     border-radius: 10px 10px 0 0;
@@ -147,7 +168,7 @@ const MapWrapper = styled.div`
 
 const MapButton = styled.button`
   width: 100%;
-  height: 100%;
+  height: 2.375rem;
   border-radius: 0px 0px 10px 10px;
   background: ${theme.color.purple};
   color: ${theme.color.white};
