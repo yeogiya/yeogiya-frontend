@@ -2,11 +2,11 @@ import HeadingText from "@/components/@common/HeadingText";
 import theme from "@/styles/theme";
 import styled from "@emotion/styled";
 
-interface ResultTitleProps {
+interface PlaceSearchTitleProps {
   searchText: string;
 }
 
-const ResultTitle = ({ searchText }: ResultTitleProps) => {
+const PlaceSearchTitle = ({ searchText }: PlaceSearchTitleProps) => {
   const nowDate = new Intl.DateTimeFormat("ko-KR", {
     year: "numeric",
     month: "2-digit",
@@ -50,4 +50,4 @@ const StyledText = styled.p<{ date?: boolean }>`
   margin-bottom: ${({ date }) => date && "0.25rem"};
 `;
 
-export default ResultTitle;
+export default PlaceSearchTitle;

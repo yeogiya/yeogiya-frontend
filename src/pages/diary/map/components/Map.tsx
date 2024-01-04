@@ -1,18 +1,34 @@
-import { diary } from "@/store/diarySlice";
+import { createDiary, diary } from "@/store/diarySlice";
 import styled, { CSSObject } from "@emotion/styled";
-import { useAppSelector } from "@/features/hooks/useAppDispatch";
+import {
+  useAppSelector,
+  useAppDispatch,
+} from "@/features/hooks/useAppDispatch";
 import { useEffect } from "react";
 import { useMap } from "@/features/hooks/useMap";
 
 interface MapProps {
   width?: string;
   height?: string;
+  mapHeight?: string;
+  lat?: number;
+  lng?: number;
   css?: CSSObject;
 }
 
-const Map = ({ width = "960px", height = "830px", css }: MapProps) => {
+const Map = ({
+  width = "960px",
+  height = "830px",
+  mapHeight,
+  lat,
+  lng,
+  css,
+}: MapProps) => {
   const diaryState = useAppSelector(diary);
+
   const { map, setMap, mapRef, displayMarker, getCurrentLocation } = useMap();
+
+  const dispatch = useAppDispatch();
 
   const initializeMap = async () => {
     try {
@@ -34,6 +50,7 @@ const Map = ({ width = "960px", height = "830px", css }: MapProps) => {
       if (diaryState.isClickPos && map) {
         map.setCenter(currentPos);
       }
+
       try {
         const newMarker = await displayMarker(currentPos);
         newMarker.setMap(newMap);
@@ -47,14 +64,19 @@ const Map = ({ width = "960px", height = "830px", css }: MapProps) => {
 
   useEffect(() => {
     window.kakao.maps.load(initializeMap);
-  }, [diaryState.isClickPos]);
+  }, [diaryState.isClickPos, diaryState.latitude, diaryState.longitude]);
 
   return (
     <StyledMap css={css}>
       <section
         ref={mapRef}
         id="map"
-        style={{ width: `${width}`, height: `calc(${height} - 3.375rem)` }}
+        style={{
+          width: `${width}`,
+          height: mapHeight
+            ? `calc(${mapHeight} - 2.375rem)`
+            : `calc(${height} - 3.375rem)`,
+        }}
       />
     </StyledMap>
   );

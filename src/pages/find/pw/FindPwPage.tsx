@@ -60,7 +60,7 @@ const FindPwPage = () => {
         isOpen={isOpen}
         close={() => {
           closeModal;
-          navigate(PATH.LOGIN);
+          navigate(PATH.RESET_PASSWORD);
         }}
         text="이메일로 비밀번호 변경 링크를 전송하였습니다."
       />

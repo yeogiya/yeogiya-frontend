@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import diaryReducer from "./diarySlice";
+import placeReducer from "./placeSlice";
 
 export const store = configureStore({
   reducer: {
     diary: diaryReducer,
+    place: placeReducer,
   },
 });
 

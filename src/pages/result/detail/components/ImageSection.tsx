@@ -1,23 +1,16 @@
-import { useEffect, useState } from "react";
-
 import Carousel from "./Carousel";
 import styled from "@emotion/styled";
 import theme from "@/styles/theme";
-import { DIARY_REVIEW } from "@/constants/diary";
 
-const ImageSection = () => {
-  const [images, setImages] = useState<string[]>([]);
+interface ImageSectionProps {
+  images: string[];
+}
 
-  useEffect(() => {
-    // TODO getImageAPI
-    const getImage = [...DIARY_REVIEW[0].images];
-    setImages(getImage);
-  }, []);
-
+const ImageSection = ({ images }: ImageSectionProps) => {
   return (
     <Layout>
       <ImageWrapper>
-        {images.length > 0 ? (
+        {images ? (
           <Carousel images={images} />
         ) : (
           <DefaultImage>등록한 사진이 없습니다.</DefaultImage>

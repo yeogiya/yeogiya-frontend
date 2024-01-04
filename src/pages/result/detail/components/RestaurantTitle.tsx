@@ -21,11 +21,11 @@ const RestaurantTitle = ({
           {placeName}
         </HeadingText>
         <Rating>
-          <StarIcon />
-          {rating}
+          <StarIcon fill={theme.color.purple} />
+          {rating ?? 0}
         </Rating>
       </Title>
-      <StyledType>음식점 &gt; {restaurantType}</StyledType>
+      <StyledType>음식점 {restaurantType && `> ${restaurantType}`}</StyledType>
     </Layout>
   );
 };

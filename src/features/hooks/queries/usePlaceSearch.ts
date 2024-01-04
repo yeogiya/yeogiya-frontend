@@ -1,9 +1,9 @@
-import { getLocationSearchList } from "@/apis/search";
+import { getPlaceSearchList } from "@/apis/search";
 import { search } from "@/constants/queryKey";
 import { UseQueryOptions, useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 
-interface useLocationSearchProps {
+interface usePlaceSearchProps {
   status: string;
   body: {
     pageToken: string;
@@ -16,13 +16,13 @@ interface useLocationSearchProps {
   };
 }
 
-export const useLocationSearch = (
+export const usePlaceSearch = (
   keyword: string,
-  options?: UseQueryOptions<useLocationSearchProps, AxiosError>
+  options?: UseQueryOptions<usePlaceSearchProps, AxiosError>
 ) => {
   const { data } = useQuery({
     queryKey: search.result(keyword),
-    queryFn: () => getLocationSearchList(keyword),
+    queryFn: () => getPlaceSearchList(keyword),
     ...options,
   });
   return { data };

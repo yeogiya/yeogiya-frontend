@@ -1,12 +1,12 @@
 import { postResetPwd } from "@/apis/user";
-import { postRestPw } from "@/pages/my/password/UpdateMyPwPage";
+import { PostRestPwProps } from "@/pages/my/password/UpdateMyPwPage";
 import { UseMutationOptions, useMutation } from "@tanstack/react-query";
 
 export const useResetPw = (
-  options?: UseMutationOptions<unknown, unknown, postRestPw, unknown>
+  options?: UseMutationOptions<unknown, unknown, PostRestPwProps, unknown>
 ) => {
   return useMutation({
-    mutationFn: ({ password, token }: postRestPw) =>
+    mutationFn: ({ password, token }: PostRestPwProps) =>
       postResetPwd({ password, token }),
     ...options,
   });

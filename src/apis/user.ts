@@ -1,8 +1,8 @@
 import { URL } from "@/constants/url";
 import { JoinProps } from "@/pages/join/JoinPage";
 import { httpClient } from "./httpClient";
-import { postRestPw } from "@/pages/my/password/UpdateMyPwPage";
 import { WithdrawalReasonsProps } from "@/types/users";
+import { PostRestPwProps } from "@/pages/my/password/UpdateMyPwPage";
 
 export const postJoin = (data: Partial<JoinProps> & { loginType: string }) => {
   return httpClient.post(URL.SIGN_UP, data);
@@ -40,7 +40,7 @@ export const postFindPwd = ({ id, email }: Partial<JoinProps>) => {
   return httpClient.post(URL.FIND_PW, { email, id });
 };
 
-export const postResetPwd = ({ password, token }: postRestPw) => {
+export const postResetPwd = ({ password, token }: PostRestPwProps) => {
   return httpClient.post(URL.RESET_PW, { password, token });
 };
 
@@ -57,4 +57,8 @@ export const postCheckPw = (password: string) => {
 
 export const postAuthResetPw = (password: string) => {
   return httpClient.post(URL.AUTH_RESET_PW, { password });
+};
+
+export const postEmailResetPw = ({ password, token }) => {
+  return httpClient.post(URL.PUBLIC_RESET_PW, { password, token });
 };

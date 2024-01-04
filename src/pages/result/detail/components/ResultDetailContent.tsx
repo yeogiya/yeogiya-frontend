@@ -2,63 +2,100 @@ import { useMap } from "@/features/hooks/useMap";
 import Map from "@/pages/diary/map/components/Map";
 import theme from "@/styles/theme";
 import styled from "@emotion/styled";
-import { useEffect } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
+import { SearchDetailNavType } from "@/constants/menus";
 
 interface ResultDetailContentProps {
-  address?: string;
-  localAddress?: string;
-  businessHours?: string;
-  phoneNumber?: string;
-  parking?: string;
-  menu?: string[];
+  activeNav: SearchDetailNavType;
+  data: {
+    lat: number;
+    lng: number;
+    google: object;
+    kakao: object;
+    naver: object;
+  };
 }
 
-const ResultDetailContent = ({
-  address = "서울특별시 강남구 역삼동 78길 2",
-  localAddress = "서울특별시 강남구 역삼동 123-12",
-  businessHours = "매일 00:00 ~ 00:00",
-  phoneNumber = "02 - 123 - 1234",
-  parking = "주차, 발렛",
-  menu = ["돼지 김치찌개", "참치 김치찌개"],
-}: ResultDetailContentProps) => {
+const ResultDetailContent = ({ data, activeNav }: ResultDetailContentProps) => {
+  const [mapHeight, setMapHeight] = useState<number>(0);
+
+  const mapHeightRef = useRef<HTMLDivElement>(null);
+
   const handleMapButton = () => {};
 
+  const updateHeight = () => {
+    if (mapHeightRef.current) {
+      setMapHeight(mapHeightRef.current.offsetHeight);
+    }
+  };
+
+  const handleHeight = async () => {
+    await updateHeight();
+
+    window.addEventListener("resize", updateHeight);
+
+    return () => {
+      window.removeEventListener("resize", updateHeight);
+    };
+  };
+
+  useEffect(() => {
+    handleHeight();
+  }, [data]);
+
   return (
-    <Container>
+    <Container ref={mapHeightRef}>
       <PlaceInfo>
         <TextLayout>
           <SubTitle>위치</SubTitle>
           <TextLayout column address>
-            <Text>{address}</Text>
+            {data?.[activeNav.type]?.roadAddress && (
+              <Text>{data?.[activeNav.type]?.roadAddress}</Text>
+            )}
             <TextLayout address>
-              <span>지번</span>
-              {localAddress}
+              {data?.[activeNav.type]?.address && (
+                <Fragment>
+                  <span>지번</span>
+                  <LoadAddressText>
+                    {data?.[activeNav.type]?.address}
+                  </LoadAddressText>
+                </Fragment>
+              )}
             </TextLayout>
           </TextLayout>
         </TextLayout>
         <TextLayout>
           <SubTitle>영업시간</SubTitle>
-          <Text>{businessHours}</Text>
-        </TextLayout>
-        <TextLayout>
-          <SubTitle>전화번호</SubTitle>
-          <Text>{phoneNumber}</Text>
-        </TextLayout>
-        <TextLayout>
-          <SubTitle>주차</SubTitle>
-          <Text>{parking}</Text>
-        </TextLayout>
-        <TextLayout>
-          <SubTitle>메뉴</SubTitle>
           <TextLayout column>
-            {menu.map((text) => (
+            {data?.[activeNav.type]?.operatingHours?.map((text) => (
               <Text key={text}>{text}</Text>
             ))}
           </TextLayout>
         </TextLayout>
+        <TextLayout>
+          <SubTitle>전화번호</SubTitle>
+          <Text>{data?.[activeNav.type]?.phone}</Text>
+        </TextLayout>
+        <TextLayout>
+          <SubTitle>주차</SubTitle>
+          {/* <Text>{parking}</Text> */}
+        </TextLayout>
+        <TextLayout>
+          <SubTitle>메뉴</SubTitle>
+          <TextLayout column>
+            {/* {menu.map((text) => (
+              <Text key={text}>{text}</Text>
+            ))} */}
+          </TextLayout>
+        </TextLayout>
       </PlaceInfo>
       <MapWrapper>
-        <Map width="26.125rem" height="27rem" />
+        <Map
+          width="26.125rem"
+          mapHeight={`${mapHeight}px`}
+          lat={data?.lat}
+          lng={data?.lng}
+        />
         <MapButton type="button" onClick={handleMapButton}>
           길 찾기
         </MapButton>
@@ -76,7 +113,7 @@ const Container = styled.div`
 
 const PlaceInfo = styled.div`
   width: 32.625rem;
-  height: 25.9375rem;
+  min-height: 25.9375rem;
   border-radius: 0.875rem;
   border: 1px solid ${theme.color.black35};
   display: flex;
@@ -95,9 +132,15 @@ const TextLayout = styled.div<{ column?: boolean; address?: boolean }>`
   font-size: ${({ address }) => address && "0.875rem"};
 
   span {
-    padding: 0.125rem 0.5625rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2.5rem;
+    height: 1.25rem;
+    /* padding: 0.125rem 0.5625rem; */
     border-radius: 0.3125rem;
     border: 1px solid ${theme.color.black20};
+    /* margin-top: 0.2rem; */
   }
 `;
 
@@ -114,11 +157,15 @@ const Text = styled.p`
   font-weight: 400;
 `;
 
+const LoadAddressText = styled.p`
+  width: calc(100% - 2.375rem);
+`;
+
 const MapWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 26.125rem;
-  height: 25.9375rem;
+  min-height: 25.9375rem;
 
   section {
     border-radius: 10px 10px 0 0;
@@ -127,7 +174,7 @@ const MapWrapper = styled.div`
 
 const MapButton = styled.button`
   width: 100%;
-  height: 100%;
+  height: 2.375rem;
   border-radius: 0px 0px 10px 10px;
   background: ${theme.color.purple};
   color: ${theme.color.white};
