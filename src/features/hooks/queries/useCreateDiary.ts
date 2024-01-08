@@ -21,36 +21,40 @@ export const useCreateDiary = (
         diaryContent;
       const DiaryFormData = new FormData();
 
-      DiaryFormData.append(
-        "diary",
-        JSON.stringify({
-          content: contents,
-          openYn: isActive ? "Y" : "N",
-          star: star,
-          date: selectedDate,
-          hashtags: tagValue,
-        })
-      );
+      let diaryData = {
+        content: contents, // required
+        openYn: isActive ? "Y" : "N", // required
+        date: selectedDate, // required
+        star: star, // optional
+        hashtags: tagValue, // TODO: optional
+      };
 
-      DiaryFormData.append(
-        "place",
-        JSON.stringify({
-          name: "장소이름",
-          address: "장소주소",
-          kakaoId: 1,
-          latitude: 2,
-          longitude: 3,
-        })
-      );
+      let placeData = {
+        kakaoId: "1", // required
+        name: "장소이름", // optional
+        address: "장소주소", // optional
+      };
 
-      fileImages.forEach((image: File, index: number) =>
-        DiaryFormData.append(`diaryImage`, image)
-      );
+      console.log(diaryData, placeData, fileImages);
 
-      const values = DiaryFormData.values();
-      for (const pair of values) {
-        console.log("pair", pair);
-      }
+      const diaryBlob = new Blob([JSON.stringify(diaryData)], {
+        type: "application/json",
+      });
+
+      const placeBlob = new Blob([JSON.stringify(placeData)], {
+        type: "application/json",
+      });
+
+      DiaryFormData.append("diary", diaryBlob);
+      DiaryFormData.append("place", placeBlob);
+
+      fileImages.forEach((image: File, index: number) => {
+        DiaryFormData.append("diaryImage", image);
+      });
+
+      // Object.entries(fileImages).forEach(([key, value]) => {
+      //   DiaryFormData.append('diaryImage', value);
+      // });
 
       return postDiary(DiaryFormData);
     },

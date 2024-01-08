@@ -13,9 +13,12 @@ import theme from "@/styles/theme";
 import { useEffect, useState } from "react";
 import { Form, useLocation } from "react-router-dom";
 import { useCreateDiary } from "@/features/hooks/queries/useCreateDiary";
+import usePageNavigation from "@/features/hooks/usePageNavigation";
+import { PATH } from "@/utils/routes";
 
 const DiaryCreatePage = () => {
   const { pathname } = useLocation();
+  const { navigate } = usePageNavigation();
   const [textCount, setTextCount] = useState<number>();
   const [isValid, setIsValid] = useState<boolean>(false);
   const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
@@ -38,8 +41,11 @@ const DiaryCreatePage = () => {
   };
 
   useEffect(() => {
-    textCount >= 20 ? setIsValid(true) : setIsValid(false);
-  }, [textCount]);
+    // TODO: 해시태그 validation 제거
+    textCount >= 20 && tagValue.length >= 1
+      ? setIsValid(true)
+      : setIsValid(false);
+  }, [textCount, tagValue]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -47,16 +53,21 @@ const DiaryCreatePage = () => {
 
     const newStar = clicked.filter((v) => v === true).length;
 
-    createDiary.mutate({
-      diaryContent: {
-        fileImages,
-        tagValue,
-        selectedDate,
-        star: newStar,
-        isActive,
-        contents,
+    createDiary.mutate(
+      {
+        diaryContent: {
+          fileImages,
+          tagValue,
+          selectedDate,
+          star: newStar,
+          isActive,
+          contents,
+        },
       },
-    });
+      {
+        onSuccess: () => navigate(PATH.DIARY_LIST),
+      }
+    );
   };
 
   return (
