@@ -1,7 +1,7 @@
 import theme from "@/styles/theme";
 import { Container, TextLayout, Text } from "./InfoItem.style";
 import { GoogleRatingIcon, RightArrowIcon, StarIcon } from "@/assets";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { MouseEvent } from "react";
 import { PATH } from "@/utils/routes";
 import { SearchDefaultImage } from "@/assets/index";
@@ -39,6 +39,10 @@ const InfoItem = ({
 
   const dispatch = useAppDispatch();
 
+  const { pathname } = useLocation();
+
+  const date = pathname.split("/").at(-1).toString();
+
   const googleImage =
     type === "place" &&
     `${URLS.GOOGLE_PLACE}${imageUrl}&key=${
@@ -73,7 +77,7 @@ const InfoItem = ({
         })
       );
 
-      // !! 글작성으로 이동
+      navigate(PATH.DIARY_CREATE + `/${date}`);
     }
   };
 
