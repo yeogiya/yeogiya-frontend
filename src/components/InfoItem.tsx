@@ -8,34 +8,52 @@ import { SearchDefaultImage } from "@/assets/index";
 import { useAppDispatch } from "@/features/hooks/useAppDispatch";
 import { createPlace } from "@/store/placeSlice";
 import { URL as URLS } from "@/constants/url";
+import { createDiary } from "@/store/diarySlice";
 
-const InfoItem = ({ data }) => {
-  const {
-    placeName,
-    address,
-    googleRating,
-    googlePlaceId,
-    photoReference,
-    yeogiyaRating,
-  } = data;
+interface InfoItemProps {
+  type: "place" | "location";
+  placeName: string;
+  address: string;
+  imageUrl: string;
+  yeogiyaRating: number;
+  googleRating?: number;
+  googlePlaceId?: string;
+  kakaoId?: number;
+  lat?: number;
+  lng?: number;
+}
 
+const InfoItem = ({
+  type,
+  placeName,
+  address,
+  imageUrl,
+  yeogiyaRating,
+  googlePlaceId,
+  googleRating,
+  kakaoId,
+  lat,
+  lng,
+}: InfoItemProps) => {
   const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
 
-  const googleImage = `${URLS.GOOGLE_PLACE}${photoReference}&key=${
-    import.meta.env.VITE_GOOGLE_PLACE_KEY
-  }`;
+  const googleImage =
+    type === "place" &&
+    `${URLS.GOOGLE_PLACE}${imageUrl}&key=${
+      import.meta.env.VITE_GOOGLE_PLACE_KEY
+    }`;
 
   const handleClick = (e: MouseEvent<HTMLElement>) => {
-    if (e.currentTarget.onclick) {
+    if (type === "place" && e.currentTarget.onclick) {
       dispatch(
         createPlace({
           placeName,
           placeId: googlePlaceId,
           keyword: placeName,
-          yeogiyaRating: yeogiyaRating,
-          googleImage: photoReference && googleImage,
+          yeogiyaRating,
+          googleImage: imageUrl && googleImage,
         })
       );
       navigate(
@@ -43,12 +61,31 @@ const InfoItem = ({ data }) => {
           `/placeId=${googlePlaceId}&keyword=${placeName}`
       );
     }
+
+    if (type === "location" && e.currentTarget.onclick) {
+      dispatch(
+        createDiary({
+          latitude: lat,
+          longitude: lng,
+          address,
+          kakaoId,
+          name: placeName,
+        })
+      );
+
+      // !! 글작성으로 이동
+    }
   };
 
   return (
     <Container onClick={handleClick}>
       <img
-        src={photoReference ? googleImage : SearchDefaultImage}
+        src={
+          imageUrl
+            ? (type === "place" && googleImage) ||
+              (type === "location" && imageUrl)
+            : SearchDefaultImage
+        }
         alt="InfoImage"
       />
       <TextLayout
