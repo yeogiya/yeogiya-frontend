@@ -8,6 +8,8 @@ export interface DiaryState {
   isClickPos?: boolean;
   isSubmitPos?: boolean;
   address?: string;
+  kakaoId?: number;
+  name?: string;
 }
 
 export const initialDiaryState = {
@@ -16,6 +18,8 @@ export const initialDiaryState = {
   isClickPos: false,
   isSubmitPos: false,
   address: "",
+  kakaoId: 0,
+  name: "",
 } as DiaryState;
 
 export const diarySlice = createSlice({
@@ -28,6 +32,8 @@ export const diarySlice = createSlice({
       state.isClickPos = action.payload.isClickPos;
       state.isSubmitPos = action.payload.isSubmitPos;
       state.address = action.payload.address;
+      state.kakaoId = action.payload.kakaoId;
+      state.name = action.payload.name;
     },
   },
 });
