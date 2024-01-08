@@ -1,9 +1,13 @@
 import theme from "@/styles/theme";
 import styled from "@emotion/styled";
-import { useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 
-const ToggleButton = () => {
-  const [isActive, setIsActive] = useState(false);
+interface ToggleButtonProps {
+  isActive: boolean;
+  setIsActive: Dispatch<SetStateAction<boolean>>;
+}
+
+const ToggleButton = ({ isActive, setIsActive }: ToggleButtonProps) => {
   return (
     <ToggleBtn>
       <CheckBox

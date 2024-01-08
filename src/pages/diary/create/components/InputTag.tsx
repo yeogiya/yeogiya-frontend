@@ -1,12 +1,16 @@
 import theme from "@/styles/theme";
 import styled from "@emotion/styled";
-import { KeyboardEventHandler, useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { TextCount } from "../DiaryCreatePage";
 import DeleteIcon from "@/assets/images/DeleteIcon";
 
-const InputTag = () => {
+interface InputTagProps {
+  tagValue: string[];
+  setTagValue: Dispatch<SetStateAction<string[]>>;
+}
+
+const InputTag = ({ tagValue, setTagValue }: InputTagProps) => {
   const [inputTagValue, setInputTagValue] = useState<string>("");
-  const [tagValue, setTagValue] = useState<string[]>([]);
 
   const checkEmptyValue = (value: string) => {
     if (!value.length) return true;

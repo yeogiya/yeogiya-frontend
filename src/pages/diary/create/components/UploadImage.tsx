@@ -2,9 +2,14 @@ import { PlusIcon } from "@/assets";
 import DeleteIcon from "@/assets/images/DeleteIcon";
 import theme from "@/styles/theme";
 import styled from "@emotion/styled";
-import { useRef, useState } from "react";
+import { Dispatch, SetStateAction, useRef, useState } from "react";
 
-const UploadImage = () => {
+interface UploadImageProps {
+  fileImages: File[];
+  setFileImages: Dispatch<SetStateAction<File[]>>;
+}
+
+const UploadImage = ({ fileImages, setFileImages }: UploadImageProps) => {
   const fileInput = useRef(null);
   const [showImages, setShowImages] = useState([]);
 
@@ -14,22 +19,38 @@ const UploadImage = () => {
 
   const saveImgFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const imageLists = e.target.files;
-    let imageUrlLists = [...showImages];
+
+    const newImages = [...showImages];
+    const newFileImages = [...fileImages];
 
     for (let i = 0; i < imageLists.length; i++) {
       const currentImageUrl = URL.createObjectURL(imageLists[i]);
-      imageUrlLists.push(currentImageUrl);
+      newImages.push(currentImageUrl);
+      newFileImages.push(e.target.files?.item(i));
     }
 
-    if (imageUrlLists.length > 10) {
-      imageUrlLists = imageUrlLists.slice(0, 10);
+    if (newImages.length > 10) {
+      newImages.splice(0, newImages.length - 10);
+      newFileImages.splice(0, newFileImages.length - 10);
     }
-
-    setShowImages(imageUrlLists);
+    setShowImages(newImages);
+    setFileImages(newFileImages);
   };
 
-  const handleDeleteImage = (deleteImage: URL) => {
-    setShowImages(showImages.filter((item) => item !== deleteImage));
+  const handleDeleteImage = (deleteImage) => {
+    setFileImages((prevFileImages) => {
+      const newFileImages = prevFileImages.filter(
+        (item, index) => showImages[index] !== deleteImage
+      );
+
+      return newFileImages;
+    });
+
+    setShowImages((prevShowImages) => {
+      const newImages = prevShowImages.filter((item) => item !== deleteImage);
+
+      return newImages;
+    });
   };
 
   return (
