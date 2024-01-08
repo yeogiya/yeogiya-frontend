@@ -23,7 +23,19 @@ const PlaceListPage = () => {
     <Layout maxWidth="60rem" paddingTop="1rem">
       <PlaceSearchTitle searchText={searchID} />
       <ItemLayout>
-        {info && info.map((result, _) => <InfoItem key={_} data={result} />)}
+        {info &&
+          info.map((result, _) => (
+            <InfoItem
+              key={_}
+              type="place"
+              placeName={result.placeName}
+              address={result.address}
+              imageUrl={result.photoReference}
+              yeogiyaRating={result.yeogiyaRating}
+              googlePlaceId={result.googlePlaceId}
+              googleRating={result.googleRating}
+            />
+          ))}
       </ItemLayout>
     </Layout>
   );

@@ -3,13 +3,43 @@ import { BgCloseIcon, MapSearchIcon } from "@/assets";
 import IconButton from "@/components/IconButton";
 import styled from "@emotion/styled";
 import theme from "@/styles/theme";
+import {
+  ChangeEvent,
+  MouseEvent,
+  KeyboardEvent,
+  MutableRefObject,
+} from "react";
 
-const LocationSearch = () => {
+interface LocationSearchProps {
+  value: string;
+  inputRef: MutableRefObject<any>;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  onReset: (e: MouseEvent<HTMLButtonElement>) => void;
+  onKeyPress: (e: KeyboardEvent<HTMLInputElement>) => void;
+}
+
+const LocationSearch = ({
+  value,
+  inputRef,
+  onChange,
+  onReset,
+  onKeyPress,
+}: LocationSearchProps) => {
   return (
     <Content>
       <MapSearchIcon />
-      <Input type="text" />
-      <StyledIconBtn type="button" icon={<BgCloseIcon />} />
+      <Input
+        type="text"
+        value={value}
+        onChange={onChange}
+        onKeyDown={onKeyPress}
+        ref={inputRef}
+      />
+      <StyledIconBtn
+        type="button"
+        icon={<BgCloseIcon />}
+        onClick={(e) => onReset(e)}
+      />
     </Content>
   );
 };

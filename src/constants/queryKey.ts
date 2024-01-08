@@ -19,3 +19,13 @@ export const detail = {
     keyword,
   ],
 };
+
+export const location = {
+  search: (
+    keyword: string,
+    lat: number,
+    lng: number,
+    page: number,
+    size: number
+  ) => ["location", keyword, lat, lng, page, size],
+};
