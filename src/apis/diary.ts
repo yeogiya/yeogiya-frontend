@@ -12,3 +12,7 @@ export const getDiaryDetail = async (diaryId: number) => {
 export const deleteDiary = async (diaryId: number) => {
   return await httpClient.delete(`${URL.DIARY_LIST}/${diaryId}`);
 };
+
+export const postDiary = (data: FormData) => {
+  return httpClient.post(URL.DIARY_LIST, data);
+};

@@ -100,11 +100,7 @@ const MyPage = () => {
           profile={profile}
           css={{ marginBottom: "8px" }}
         />
-        <InputNickname
-          nickname={nickname}
-          nicknameState={nicknameState}
-          setIsChanged={setIsChanged}
-        />
+        <InputNickname nickname={nickname} nicknameState={nicknameState} />
         <InputEmail email={email} emailState={emailState} disabled />
         <InputId
           id={id}
