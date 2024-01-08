@@ -1,11 +1,20 @@
-import { useState, MouseEvent } from "react";
+import { useState, MouseEvent, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { PATH } from "@/utils/routes";
 
 const useSearch = (initialValue: string = "") => {
   const [keyword, setKeyword] = useState<string>(initialValue);
 
+  const inputRef = useRef(null);
+
   const navigate = useNavigate();
+
+  const handleReset = (e: MouseEvent<HTMLButtonElement>): void => {
+    if ((e as React.MouseEvent<HTMLButtonElement>).currentTarget.onclick) {
+      setKeyword("");
+      inputRef.current.focus();
+    }
+  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.currentTarget.value);
@@ -24,8 +33,10 @@ const useSearch = (initialValue: string = "") => {
 
   return {
     value: keyword,
+    inputRef,
     onChange: handleInputChange,
     onSearch: handleSearch,
+    onReset: handleReset,
   };
 };
 

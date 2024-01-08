@@ -3,13 +3,22 @@ import { BgCloseIcon, MapSearchIcon } from "@/assets";
 import IconButton from "@/components/IconButton";
 import styled from "@emotion/styled";
 import theme from "@/styles/theme";
+import useSearch from "@/features/hooks/useSearch";
 
 const LocationSearch = () => {
+  const { value, inputRef, onChange, onSearch, onReset } = useSearch();
+
   return (
     <Content>
       <MapSearchIcon />
-      <Input type="text" />
-      <StyledIconBtn type="button" icon={<BgCloseIcon />} />
+      <Input
+        type="text"
+        value={value}
+        onChange={onChange}
+        onKeyDown={onSearch}
+        ref={inputRef}
+      />
+      <StyledIconBtn type="button" icon={<BgCloseIcon />} onClick={onReset} />
     </Content>
   );
 };
