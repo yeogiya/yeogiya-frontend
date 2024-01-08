@@ -2,7 +2,7 @@ import { CloseIcon, LocationIcon, MapSearchIcon } from "@/assets";
 
 import Header from "../../../../components/@common/Header";
 import IconButton from "@/components/IconButton";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { PATH } from "@/utils/routes";
 import Title from "../../../../components/@common/Title";
 import { createDiary } from "@/store/diarySlice";
@@ -14,6 +14,9 @@ const MapNavbar = () => {
   const dispatch = useAppDispatch();
 
   const { handleBack } = usePageNavigation();
+  const { pathname } = useLocation();
+
+  const date = pathname.split("/").at(-1).toString();
 
   const handleLocationClick = () => {
     dispatch(
@@ -35,7 +38,7 @@ const MapNavbar = () => {
           icon={<LocationIcon />}
           onClick={handleLocationClick}
         />
-        <Link to={PATH.DIARY_MAP_SEARCH}>
+        <Link to={`${PATH.DIARY_MAP_SEARCH}/${date}`}>
           <StyledIconBtn type="button" icon={<MapSearchIcon />} />
         </Link>
       </BtnLayout>

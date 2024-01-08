@@ -124,7 +124,7 @@ export const router = createBrowserRouter([
     ],
   },
   {
-    path: PATH.DIARY_MAP_SEARCH,
+    path: PATH.DIARY_MAP_SEARCH_DATE,
     element: <App layout="locationSearch" />,
     errorElement: <NotFoundPage />,
     children: [

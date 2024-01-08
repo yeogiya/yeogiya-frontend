@@ -15,6 +15,8 @@ import { Form, useLocation } from "react-router-dom";
 import { useCreateDiary } from "@/features/hooks/queries/useCreateDiary";
 import usePageNavigation from "@/features/hooks/usePageNavigation";
 import { PATH } from "@/utils/routes";
+import { useAppSelector } from "@/features/hooks/useAppDispatch";
+import { diary } from "@/store/diarySlice";
 
 const DiaryCreatePage = () => {
   const { pathname } = useLocation();
@@ -31,7 +33,7 @@ const DiaryCreatePage = () => {
   const [contents, setContents] = useState<string>("");
 
   const createDiary = useCreateDiary();
-
+  const diaryState = useAppSelector(diary);
   const onTextCount = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContents(e.target.value);
 
@@ -62,6 +64,9 @@ const DiaryCreatePage = () => {
           star: newStar,
           isActive,
           contents,
+          kakaoId: diaryState.kakaoId,
+          name: diaryState.name,
+          address: diaryState.address ?? "",
         },
       },
       {
@@ -74,7 +79,7 @@ const DiaryCreatePage = () => {
     <Form onSubmit={handleSubmit}>
       <Layout maxWidth="800px" paddingTop="30px" paddingBottom="30px">
         <TextGuide>
-          <Location>{"마일드스톤커피"}</Location>에 대한 솔직한 일기 혹은 리뷰를
+          <Location>{diaryState?.name}</Location>에 대한 솔직한 일기 혹은 리뷰를
           적어주세요.
         </TextGuide>
         <TextDate>
