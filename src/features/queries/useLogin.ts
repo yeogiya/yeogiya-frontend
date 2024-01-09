@@ -1,7 +1,7 @@
 import { JoinProps } from "@/pages/join/JoinPage";
 import { UseMutationOptions, useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import { useToken } from "../useToken";
+import { useToken } from "../hooks/useToken";
 import { postLogin } from "@/apis/user";
 import { AxiosResponseHeaders } from "axios";
 import { PATH } from "@/utils/routes";
