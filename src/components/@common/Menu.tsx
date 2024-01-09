@@ -5,9 +5,9 @@ import styled from "@emotion/styled";
 import theme from "@/styles/theme";
 import { useEffect } from "react";
 import { useToken } from "@/features/hooks/useToken";
-import { useReissueToken } from "@/features/hooks/queries/useReissueToken";
+import { useReissueToken } from "@/features/queries/useReissueToken";
 import { profileIconPath } from "@/assets/index";
-import { useUserInfo } from "@/features/hooks/queries/useUserInfo";
+import { useUserInfo } from "@/features/queries/useUserInfo";
 import { users } from "@/constants/queryKey";
 import { useNavigate } from "react-router-dom";
 import { useInfo } from "@/features/hooks/useInfo";
@@ -25,6 +25,7 @@ const Menu = () => {
   useEffect(() => {
     if (!accessToken) {
       resetToken();
+      removeUserInfo();
 
       navigate(PATH.HOME);
       return;

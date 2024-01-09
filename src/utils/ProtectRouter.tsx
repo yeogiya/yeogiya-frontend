@@ -4,16 +4,19 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import { PATH } from "./routes";
-import { useReissueToken } from "@/features/hooks/queries/useReissueToken";
+import { useReissueToken } from "@/features/queries/useReissueToken";
+import { useInfo } from "@/features/hooks/useInfo";
 
 const ProtectRoute = () => {
   const { navigate } = usePageNavigation();
   const queryClient = useQueryClient();
   const { accessToken, resetToken } = useToken();
   const { mutateSendTokenReissue } = useReissueToken();
+  const { removeUserInfo } = useInfo();
 
   const resetAccessToken = () => {
     resetToken();
+    removeUserInfo();
 
     window.location.href = PATH.HOME;
   };
@@ -49,6 +52,7 @@ const ProtectRoute = () => {
   useEffect(() => {
     if (!accessToken) {
       resetToken();
+      removeUserInfo();
       navigate(PATH.HOME);
     }
   }, []);
