@@ -6,13 +6,13 @@ import SubmitButton from "@/components/SubmitButton";
 import InputProfile from "./components/InputProfile";
 import { PATH } from "@/utils/routes";
 import LinkText from "@/components/@common/LinkText";
-import { useUserInfo } from "@/features/hooks/queries/useUserInfo";
+import { useUserInfo } from "@/features/queries/useUserInfo";
 import { useEffect, useState } from "react";
 import InputNickname from "@/components/InputNickname";
 import InputEmail from "@/components/InputEmail";
 import InputId from "@/components/InputId";
 import { Form } from "react-router-dom";
-import { useChangeUserInfo } from "@/features/hooks/queries/useChangeUserInfo";
+import { useChangeUserInfo } from "@/features/queries/useChangeUserInfo";
 import usePageNavigation from "@/features/hooks/usePageNavigation";
 import { useInfo } from "@/features/hooks/useInfo";
 import { users } from "@/constants/queryKey";
@@ -37,11 +37,13 @@ const MyPage = () => {
   });
 
   const { control, setValue, handleSubmit } = useForm<MyPageProps>({
-    mode: "onBlur",
+    mode: "onChange",
   });
 
-  const { nickname, nicknameState, id, idState, email, emailState } =
-    useMyForm(control);
+  const { nickname, nicknameState, id, idState, email, emailState } = useMyForm(
+    setIsChanged,
+    control
+  );
 
   const userInfoMutation = useChangeUserInfo();
 
