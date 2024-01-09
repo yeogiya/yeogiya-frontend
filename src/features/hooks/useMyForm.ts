@@ -3,8 +3,10 @@ import { getCheckNickname } from "@/apis/user";
 import { JoinProps } from "@/pages/join/JoinPage";
 import { CheckDuplicationProps } from "@/types/users";
 import { useInfo } from "./useInfo";
+import { Dispatch, SetStateAction } from "react";
 
 const useMyForm = (
+  setIsChanged: Dispatch<SetStateAction<boolean>>,
   control: Control<Pick<JoinProps, "nickname" | "email" | "id">>
 ) => {
   const { nickname: nicknameInfo } = useInfo();
@@ -16,7 +18,11 @@ const useMyForm = (
       required: "닉네임을 입력해주세요.",
       validate: async (value) => {
         if (!nicknameState.isDirty) return true;
-        if (nicknameInfo === value) return true;
+        if (nicknameInfo === value) {
+          setIsChanged(false);
+          return true;
+        }
+        nicknameInfo !== value && setIsChanged(true);
         const response = await getCheckNickname(value);
         const { body } = response as CheckDuplicationProps;
         if (body.duplicated) return "이미 사용 중인 닉네임입니다.";
