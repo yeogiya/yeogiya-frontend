@@ -2,7 +2,7 @@ import usePageNavigation from "@/features/hooks/usePageNavigation";
 import { useToken } from "@/features/hooks/useToken";
 import { PATH } from "@/utils/routes";
 import { useEffect } from "react";
-import { useUserInfo } from "@/features/hooks/queries/useUserInfo";
+import { useUserInfo } from "@/features/queries/useUserInfo";
 import { useQueryClient } from "@tanstack/react-query";
 import { TOKEN } from "@/constants/token";
 import { useInfo } from "@/features/hooks/useInfo";

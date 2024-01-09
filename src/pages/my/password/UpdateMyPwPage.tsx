@@ -4,7 +4,7 @@ import SubmitButton from "@/components/SubmitButton";
 import useUpdateMyPw from "@/features/hooks/useUpdateMyPw";
 import InputPassword from "@/components/InputPassword";
 import { useForm } from "react-hook-form";
-import { useAuthResetPw } from "@/features/hooks/queries/useAuthResetPw";
+import { useAuthResetPw } from "@/features/queries/useAuthResetPw";
 import usePageNavigation from "@/features/hooks/usePageNavigation";
 import { PATH } from "@/utils/routes";
 

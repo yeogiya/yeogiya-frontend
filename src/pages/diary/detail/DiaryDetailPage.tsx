@@ -5,9 +5,9 @@ import theme from "@/styles/theme";
 import { ContentsStyle, Location } from "../create/DiaryCreatePage";
 import { StarIcon } from "@/assets";
 import { useEffect, useState } from "react";
-import { useDiaryDetail } from "@/features/hooks/queries/useDiaryDetail";
+import { useDiaryDetail } from "@/features/queries/useDiaryDetail";
 import { useParams } from "react-router-dom";
-import { useDeleteDiary } from "@/features/hooks/queries/useDeleteDiary";
+import { useDeleteDiary } from "@/features/queries/useDeleteDiary";
 
 export interface DiaryDetailProps {
   status: string;

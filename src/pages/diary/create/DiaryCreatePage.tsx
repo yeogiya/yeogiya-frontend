@@ -12,7 +12,7 @@ import styled from "@emotion/styled";
 import theme from "@/styles/theme";
 import { useEffect, useState } from "react";
 import { Form, useLocation } from "react-router-dom";
-import { useCreateDiary } from "@/features/hooks/queries/useCreateDiary";
+import { useCreateDiary } from "@/features/queries/useCreateDiary";
 import usePageNavigation from "@/features/hooks/usePageNavigation";
 import { PATH } from "@/utils/routes";
 import { useAppSelector } from "@/features/hooks/useAppDispatch";

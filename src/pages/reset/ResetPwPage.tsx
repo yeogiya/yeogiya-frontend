@@ -7,7 +7,7 @@ import { useModal } from "@/features/hooks/useModal";
 import { useNavigate } from "react-router-dom";
 import InputPassword from "@/components/InputPassword";
 import { UpdateMyPwProps } from "../my/password/UpdateMyPwPage";
-import { useEmailResetPw } from "@/features/hooks/queries/useEmailResetPw";
+import { useEmailResetPw } from "@/features/queries/useEmailResetPw";
 import useResetPwForm, { ResetPwProps } from "@/features/hooks/useResetPwForm";
 import { PATH } from "@/utils/routes";
 

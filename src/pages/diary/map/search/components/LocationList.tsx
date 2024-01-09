@@ -1,4 +1,4 @@
-import { useLocationSearch } from "@/features/hooks/queries/useLocationSearch";
+import { useLocationSearch } from "@/features/queries/useLocationSearch";
 import { diary } from "@/store/diarySlice";
 import { useAppSelector } from "@/features/hooks/useAppDispatch";
 import { useState, useEffect } from "react";

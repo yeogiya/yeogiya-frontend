@@ -11,7 +11,7 @@ import styled from "@emotion/styled";
 import useJoinForm from "@/features/hooks/useJoinForm";
 import InputEmail from "@/components/InputEmail";
 import { PATH } from "@/utils/routes";
-import { useJoin } from "@/features/hooks/queries/useJoin";
+import { useJoin } from "@/features/queries/useJoin";
 import usePageNavigation from "@/features/hooks/usePageNavigation";
 
 export interface JoinProps {

@@ -11,7 +11,7 @@ import { useModal } from "@/features/hooks/useModal";
 import InputId from "@/components/InputId";
 import useFindPwForm from "@/features/hooks/useFindPwForm";
 import InputEmail from "@/components/InputEmail";
-import { useFindPw } from "@/features/hooks/queries/useFindPw";
+import { useFindPw } from "@/features/queries/useFindPw";
 import { useNavigate } from "react-router-dom";
 
 export interface FindPwProps {

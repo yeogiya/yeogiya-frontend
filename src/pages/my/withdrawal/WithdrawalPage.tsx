@@ -2,7 +2,7 @@ import HeadingText from "@/components/@common/HeadingText";
 import Layout from "@/components/@common/Layout";
 import Title from "@/components/@common/Title";
 import { WITHDRAWAL_GUIDES, WITHDRAWAL_REASONS } from "@/constants/withdrawal";
-import { useWithdraw } from "@/features/hooks/queries/useWithdraw";
+import { useWithdraw } from "@/features/queries/useWithdraw";
 import usePageNavigation from "@/features/hooks/usePageNavigation";
 import { useToken } from "@/features/hooks/useToken";
 import {
@@ -13,6 +13,7 @@ import theme from "@/styles/theme";
 import { PATH } from "@/utils/routes";
 import styled from "@emotion/styled";
 import { FormEvent, useEffect, useState } from "react";
+import { useInfo } from "@/features/hooks/useInfo";
 
 interface WithdrawalProps {
   privacy: boolean;
@@ -31,6 +32,7 @@ const WithdrawalPage = () => {
   const [isValid, setIsValid] = useState<boolean>(false);
   const withdrawalMutation = useWithdraw();
   const { resetToken } = useToken();
+  const { removeUserInfo } = useInfo();
 
   const onChangeChecked = (key: string, value: boolean) => {
     setReasons((prev) => ({
@@ -66,6 +68,7 @@ const WithdrawalPage = () => {
       {
         onSuccess: () => {
           resetToken();
+          removeUserInfo();
           navigate(PATH.CONFIRM_MY_WITHDRAWAL);
         },
       }
