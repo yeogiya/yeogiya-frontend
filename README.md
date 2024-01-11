@@ -1,5 +1,7 @@
 # yeogiya-frontend
 
+![IA](./public/images/readme-ia.png)
+
 ## 📌 서비스 개요
 
 > **여기야는** 작성한 일기를 통해 나의 취향을 파악하고 친구들과 추억을 공유하는 기능을 제공하는 커뮤니티 서비스입니다.
