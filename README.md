@@ -1,6 +1,7 @@
 # yeogiya-frontend
 
 ![IA](./public/images/readme-ia.png)
+![TechStacks](./public/images/readme-tech_stacks.png)
 
 ## 📌 서비스 개요
 
