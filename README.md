@@ -1,6 +1,6 @@
 # yeogiya-frontend
 
-![IA](./public/images/ia.png)
+![IA](./public/images/readme-ia.png)
 
 ## 📌 서비스 개요
 
