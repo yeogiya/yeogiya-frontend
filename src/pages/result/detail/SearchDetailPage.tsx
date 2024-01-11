@@ -6,7 +6,7 @@ import theme from "@/styles/theme";
 import { useEffect, useState } from "react";
 import ResultDetailNav from "./components/ResultDetailNav";
 import ResultDetailContent from "./components/ResultDetailContent";
-import { useSearchDetail } from "@/features/hooks/queries/useSearchDetail";
+import { useSearchDetail } from "@/features/queries/useSearchDetail";
 import { useAppSelector } from "@/features/hooks/useAppDispatch";
 import { place } from "@/store/placeSlice";
 import { detail } from "@/constants/queryKey";

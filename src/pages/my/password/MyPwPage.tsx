@@ -6,7 +6,7 @@ import { JoinProps } from "@/pages/join/JoinPage";
 import InputPassword from "@/components/InputPassword";
 import { PATH } from "@/utils/routes";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useCurrentPw } from "@/features/hooks/queries/useCurrentPw";
+import { useCurrentPw } from "@/features/queries/useCurrentPw";
 import usePageNavigation from "@/features/hooks/usePageNavigation";
 import ValidateMessage from "@/components/ValidateMessage";
 import { useState } from "react";

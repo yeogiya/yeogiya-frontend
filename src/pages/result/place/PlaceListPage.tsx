@@ -1,7 +1,7 @@
 import Layout from "@/components/@common/Layout";
 import PlaceSearchTitle from "./components/PlaceSearchTitle";
 import { useParams } from "react-router-dom";
-import { usePlaceSearch } from "@/features/hooks/queries/usePlaceSearch";
+import { usePlaceSearch } from "@/features/queries/usePlaceSearch";
 import InfoItem from "@/components/InfoItem";
 import { useEffect, useState } from "react";
 import styled from "@emotion/styled";

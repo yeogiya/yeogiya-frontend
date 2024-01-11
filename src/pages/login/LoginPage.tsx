@@ -12,7 +12,7 @@ import Title from "@/components/@common/Title";
 import styled from "@emotion/styled";
 import theme from "@/styles/theme";
 import useLoginForm from "@/features/hooks/useLoginForm";
-import { useLogin } from "@/features/hooks/queries/useLogin";
+import { useLogin } from "@/features/queries/useLogin";
 import { URL as URLS } from "@/constants/url";
 import { MouseEvent } from "react";
 

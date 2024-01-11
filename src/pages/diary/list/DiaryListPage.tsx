@@ -11,7 +11,7 @@ import Calendar from "react-calendar";
 import { PATH } from "@/utils/routes";
 import dayjs from "dayjs";
 import { useState } from "react";
-import { useDiaryList } from "@/features/hooks/queries/useDiaryList";
+import { useDiaryList } from "@/features/queries/useDiaryList";
 import { useToken } from "@/features/hooks/useToken";
 
 export interface DiaryListProps {
