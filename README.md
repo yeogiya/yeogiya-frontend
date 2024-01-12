@@ -2,7 +2,7 @@
 
 ![ServiceOutline](./public/images/readme-service_outline.png)
 ![IA](./public/images/readme-ia.svg)
-![TechStacks](./public/images/readme-tech_stacks.png)
+![TechStacks](./public/images/readme-tech_stacks.svg)
 
 - 우울하고 불안함을 호소하는 2030 세대들을 위해 불안감을 떨쳐주고 자신의 솔직한 감정을 살피고 좀 더 행복한 하루를 만들기 위해 일기 쓰기를 제공하는 서비스입니다.
 
