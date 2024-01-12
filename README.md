@@ -1,6 +1,7 @@
 # yeogiya-frontend
 
-![ServiceOutline](./public/images/readme-service_outline.png)
+![ServiceOutline](./public/images/readme-service_outline.svg)
+![ProjectGoal](./public/images/readme-project_goal.svg)
 ![IA](./public/images/readme-ia.svg)
 ![TechStacks](./public/images/readme-tech_stacks.svg)
 
