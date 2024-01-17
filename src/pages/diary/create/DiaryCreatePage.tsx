@@ -43,10 +43,7 @@ const DiaryCreatePage = () => {
   };
 
   useEffect(() => {
-    // TODO: 해시태그 validation 제거
-    textCount >= 20 && tagValue.length >= 1
-      ? setIsValid(true)
-      : setIsValid(false);
+    textCount >= 20 ? setIsValid(true) : setIsValid(false);
   }, [textCount, tagValue]);
 
   const handleSubmit = (e) => {
