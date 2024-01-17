@@ -58,6 +58,14 @@ const DiaryListPage = () => {
     setActiveMonth(newActiveMonth);
   };
 
+  const handleDiaryDetailClick = (diaryId: number) => {
+    navigate(`${PATH.DIARY}/${diaryId}`);
+  };
+
+  const handleDiaryCreateClick = (dateStr: string) => {
+    navigate(`${PATH.DIARY_MAP}/${dateStr}`);
+  };
+
   return (
     <DiaryStyle>
       <Calendar
@@ -91,12 +99,18 @@ const DiaryListPage = () => {
               {dayDataItem ? (
                 <DiaryLayout key={dateStr} svg={WhitePlusIcon}>
                   {dayDataItem && dayDataItem.diaryImage ? (
-                    <img src={dayDataItem.diaryImage} alt="diary image" />
+                    <img
+                      alt="diary image"
+                      src={dayDataItem.diaryImage}
+                      onClick={() =>
+                        handleDiaryDetailClick(dayDataItem.diaryId)
+                      }
+                    />
                   ) : (
                     dayDataItem && (
                       <IconLayout
                         onClick={() =>
-                          navigate(PATH.DIARY + `/${dayDataItem.diaryId}`)
+                          handleDiaryDetailClick(dayDataItem.diaryId)
                         }
                       >
                         <CheckIcon />
@@ -109,13 +123,13 @@ const DiaryListPage = () => {
                   key={dateStr}
                   svg={WhitePlusIcon}
                   onClick={() => {
-                    navigate(`${PATH.DIARY_MAP}/${dateStr}`);
+                    handleDiaryCreateClick(dateStr);
                   }}
                 >
                   {today && (
                     <TodayIconLayout
                       onClick={() => {
-                        navigate(`${PATH.DIARY_MAP}/${dateStr}`);
+                        handleDiaryCreateClick(dateStr);
                       }}
                     >
                       <PlusIcon />
