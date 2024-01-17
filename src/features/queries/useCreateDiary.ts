@@ -3,10 +3,10 @@ import { UseMutationOptions, useMutation } from "@tanstack/react-query";
 
 interface CreateDiaryProps {
   diaryContent: {
-    fileImages: File[];
-    tagValue: string[];
+    fileImages?: File[];
+    tagValue?: string[];
     selectedDate: string;
-    star: number;
+    star?: number;
     isActive: boolean;
     contents: string;
     kakaoId: number;
@@ -34,15 +34,15 @@ export const useCreateDiary = (
       const DiaryFormData = new FormData();
 
       let diaryData = {
-        content: contents, // required
-        openYn: isActive ? "Y" : "N", // required
-        date: selectedDate, // required
+        content: contents,
+        openYn: isActive ? "Y" : "N",
+        date: selectedDate,
         star: star, // optional
-        hashtags: tagValue, // TODO: optional
+        hashtags: tagValue, // optional
       };
 
       let placeData = {
-        kakaoId, // required
+        kakaoId,
         name, // optional
         address, // optional
       };
@@ -55,16 +55,16 @@ export const useCreateDiary = (
         type: "application/json",
       });
 
-      DiaryFormData.append("diary", diaryBlob);
-      DiaryFormData.append("place", placeBlob);
-
       fileImages.forEach((image: File, index: number) => {
         DiaryFormData.append("diaryImage", image);
       });
 
       // Object.entries(fileImages).forEach(([key, value]) => {
-      //   DiaryFormData.append('diaryImage', value);
+      //   DiaryFormData.append("diaryImage", value);
       // });
+
+      DiaryFormData.append("diary", diaryBlob);
+      DiaryFormData.append("place", placeBlob);
 
       return postDiary(DiaryFormData);
     },
