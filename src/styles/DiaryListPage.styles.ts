@@ -106,6 +106,7 @@ const TodayIconLayout = styled.div`
 
 const DiaryLayout = styled.div<{ svg: string }>`
   max-width: 100px;
+  min-width: 100px;
   max-height: 100px;
   min-height: 100px;
   border: 1px solid ${theme.color.black40};
@@ -119,8 +120,19 @@ const DiaryLayout = styled.div<{ svg: string }>`
   align-items: center;
   position: relative;
 
+  img {
+    object-fit: cover;
+    max-width: 120px;
+    min-width: 120px;
+    max-height: 120px;
+    min-height: 120px;
+    width: 100%;
+    height: 100%;
+  }
+
   :hover {
     img {
+      border: 1px solid red;
       position: absolute;
     }
     background: linear-gradient(
