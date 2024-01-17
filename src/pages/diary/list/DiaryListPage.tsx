@@ -46,13 +46,6 @@ const DiaryListPage = () => {
       dayjs(activeMonth).format("MM")
     );
 
-  const handleClickTodayBtn = (date: string) => {
-    if (!accessToken) {
-      navigate(PATH.LOGIN);
-      return;
-    }
-  };
-
   const getActiveMonth = (activeStartDate: Date) => {
     const newActiveMonth = dayjs(activeStartDate).format("YYYY-MM");
     setActiveMonth(newActiveMonth);
@@ -64,6 +57,12 @@ const DiaryListPage = () => {
 
   const handleDiaryCreateClick = (dateStr: string) => {
     navigate(`${PATH.DIARY_MAP}/${dateStr}`);
+  };
+
+  const handleClickTodayBtn = (date: string) => {
+    if (!accessToken) {
+      navigate(PATH.LOGIN);
+    }
   };
 
   return (
