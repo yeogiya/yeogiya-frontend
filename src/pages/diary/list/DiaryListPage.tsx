@@ -91,7 +91,13 @@ const DiaryListPage = () => {
               {dayDataItem ? (
                 <DiaryLayout key={dateStr} svg={WhitePlusIcon}>
                   {dayDataItem && dayDataItem.diaryImage ? (
-                    <img src={dayDataItem.diaryImage} alt="diary image" />
+                    <img
+                      alt="diary image"
+                      src={dayDataItem.diaryImage}
+                      onClick={() =>
+                        navigate(PATH.DIARY + `/${dayDataItem.diaryId}`)
+                      }
+                    />
                   ) : (
                     dayDataItem && (
                       <IconLayout
