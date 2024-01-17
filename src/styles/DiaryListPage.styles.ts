@@ -3,6 +3,8 @@ import theme from "./theme";
 
 const DiaryStyle = styled.div`
   max-width: 880px;
+  min-width: 880px;
+  width: 100%;
   margin: 40px auto;
 
   .react-calendar {
